@@ -92,7 +92,7 @@ export default async function SiteLayout({
   const data = await getSiteData(domain);
 
   if (!data) {
-    notFound();
+    return <div>Data not found</div>;
   }
 
   // Optional: Redirect to custom domain if it exists

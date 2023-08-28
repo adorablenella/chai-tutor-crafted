@@ -8,6 +8,8 @@ export async function getSiteData(domain: string) {
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
 
+  console.log("## site subdomain", subdomain);
+
   return await unstable_cache(
     async () => {
       return prisma.site.findUnique({
@@ -62,7 +64,6 @@ export async function getPostData(domain: string, slug: string) {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
-
   return await unstable_cache(
     async () => {
       const data = await prisma.post.findFirst({
