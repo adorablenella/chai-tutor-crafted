@@ -11,21 +11,14 @@ export default function LoginPage() {
         width={100}
         height={100}
         className="relative mx-auto h-12 w-auto dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
-        src="/logo.png"
+        src="https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
       />
       <h1 className="mt-6 text-center font-cal text-3xl dark:text-white">
-        Platforms Starter Kit
+        Chai Builder
       </h1>
       <p className="mt-2 text-center text-sm text-stone-600 dark:text-stone-400">
-        Build multi-tenant applications with custom domains. <br />
-        <a
-          className="font-medium text-black hover:text-stone-800 dark:text-stone-300 dark:hover:text-stone-100"
-          href="https://vercel.com/blog/platforms-starter-kit"
-          rel="noreferrer"
-          target="_blank"
-        >
-          Read the announcement.
-        </a>
+        Multipurpose Tailwind CSS Builder <br />
+        <br />
       </p>
 
       <div className="mx-auto mt-4 w-11/12 max-w-xs sm:w-full">
