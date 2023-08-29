@@ -81,7 +81,7 @@ export default function Editor({ post }: { post: any }) {
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
-        setData((prev) => ({
+        setData((prev: any) => ({
           ...prev,
           content: e.editor.storage.markdown.getMarkdown(),
         }));
@@ -190,7 +190,7 @@ export default function Editor({ post }: { post: any }) {
         <button
           onClick={() => {
             startTransitionPublishing(async () => {
-              setData((prev) => ({ ...prev, published: !prev.published }));
+              setData((prev: any) => ({ ...prev, published: !prev.published }));
             });
           }}
           className={cn(
