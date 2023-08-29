@@ -22,13 +22,7 @@ import { ReactNode, useEffect, useMemo, useState } from "react";
 import { getSiteFromPostId } from "@/lib/actions";
 import Image from "next/image";
 
-const externalLinks = [
-  {
-    name: "View demo site",
-    href: "https://demo.vercel.pub",
-    icon: <Layout width={18} />,
-  },
-];
+const externalLinks: any = [];
 
 export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
@@ -199,7 +193,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         </div>
         <div>
           <div className="grid gap-1">
-            {externalLinks.map(({ name, href, icon }) => (
+            {externalLinks.map(({ name, href, icon }: any) => (
               <a
                 key={name}
                 href={href}
