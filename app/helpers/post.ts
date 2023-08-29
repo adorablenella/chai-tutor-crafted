@@ -20,7 +20,10 @@ export const getPosts = async (siteId: string) => {
     .from("post")
     .select("*")
     .eq("siteId", siteId);
-  return posts as Post[];
+
+  const site = await getSite(siteId);
+
+  return posts?.map((post) => ({ ...post, site })) as Post[];
 };
 
 export const getPost = async (postId: string) => {
