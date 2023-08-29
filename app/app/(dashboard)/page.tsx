@@ -36,23 +36,6 @@ export default function Overview() {
           <Sites limit={4} />
         </Suspense>
       </div>
-
-      <div className="flex flex-col space-y-6">
-        <h1 className="font-cal text-3xl font-bold dark:text-white">
-          Recent Posts
-        </h1>
-        <Suspense
-          fallback={
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {Array.from({ length: 8 }).map((_, i) => (
-                <PlacholderCard key={i} />
-              ))}
-            </div>
-          }
-        >
-          <Posts limit={8} />
-        </Suspense>
-      </div>
     </div>
   );
 }
