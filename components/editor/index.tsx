@@ -13,9 +13,9 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { cn } from "@/lib/utils";
 import LoadingDots from "../icons/loading-dots";
 import { ExternalLink } from "lucide-react";
-import { Post, updatePost } from "@/app/helpers/post";
+import { updatePost } from "@/app/helpers/post";
 
-export default function Editor({ post }: { post: Post }) {
+export default function Editor({ post }: { post: any }) {
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
 
