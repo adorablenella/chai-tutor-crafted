@@ -4,6 +4,7 @@ import Link from "next/link";
 import {
   ArrowLeft,
   BarChart3,
+  Edit,
   Edit3,
   Globe,
   Layout,
@@ -68,6 +69,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/site/${id}/settings`,
           isActive: segments.includes("settings"),
           icon: <Settings width={18} />,
+        },
+        {
+          name: "Edit Site",
+          href: `/site/${id}/edit`,
+          isActive: segments.includes("edit"),
+          icon: <Edit width={18} />,
         },
       ];
     } else if (segments[0] === "post" && id) {
