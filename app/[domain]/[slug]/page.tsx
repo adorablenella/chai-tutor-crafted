@@ -1,37 +1,8 @@
 import { notFound } from "next/navigation";
-import { getPostData } from "@/lib/fetchers";
 import BlogCard from "@/components/blog-card";
 import BlurImage from "@/components/blur-image";
-import MDX from "@/components/mdx";
 import { placeholderBlurhash, toDateString } from "@/lib/utils";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { domain: string; slug: string };
-}) {
-  const { domain, slug } = params;
-  const data = await getPostData(domain, slug);
-  if (!data) {
-    return null;
-  }
-  const { title, description } = data;
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      creator: "@vercel",
-    },
-  };
-}
+import { getPostByDomain } from "@/app/helpers/post";
 
 export default async function SitePostPage({
   params,
@@ -39,7 +10,7 @@ export default async function SitePostPage({
   params: { domain: string; slug: string };
 }) {
   const { domain, slug } = params;
-  const data = await getPostData(domain, slug);
+  const data: any = await getPostByDomain(domain, slug);
 
   if (!data) {
     notFound();
@@ -62,9 +33,10 @@ export default async function SitePostPage({
         <a
           // if you are using Github OAuth, you can get rid of the Twitter option
           href={
-            data.site?.user?.username
-              ? `https://twitter.com/${data.site.user.username}`
-              : `https://github.com/${data.site?.user?.gh_username}`
+            ""
+            // data.site?.user?.username
+            //   ? `https://twitter.com/${data.site.user.username}`
+            //   : `https://github.com/${data.site?.user?.gh_username}`
           }
           rel="noreferrer"
           target="_blank"
@@ -102,7 +74,7 @@ export default async function SitePostPage({
         />
       </div>
 
-      <MDX source={data.mdxSource} />
+      {/* <MDX source={data.mdxSource} /> */}
 
       {data.adjacentPosts.length > 0 && (
         <div className="relative mb-20 mt-10 sm:mt-20">
@@ -121,8 +93,8 @@ export default async function SitePostPage({
       )}
       {data.adjacentPosts && (
         <div className="mx-5 mb-20 grid max-w-screen-xl grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:mx-auto xl:grid-cols-3">
-          {data.adjacentPosts.map((data, index) => (
-            <BlogCard key={index} data={data} />
+          {data.adjacentPosts.map((data: any, index: number) => (
+            <BlogCard key={index} data={data as any} />
           ))}
         </div>
       )}

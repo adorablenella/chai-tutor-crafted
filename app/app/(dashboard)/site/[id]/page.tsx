@@ -3,23 +3,21 @@ import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import Posts from "@/components/posts";
 import CreatePostButton from "@/components/create-post-button";
+import { getSupabaseSession } from "@/app/helpers/session";
+import { getSite } from "@/app/helpers/site";
 
 export default async function SitePosts({
   params,
 }: {
   params: { id: string };
 }) {
-  const session = await getSession();
+  const session = await getSupabaseSession();
   if (!session) {
     redirect("/login");
   }
-  const data = await prisma.site.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+  const data = await getSite(params.id);
 
-  if (!data || data.userId !== session.user.id) {
+  if (!data) {
     notFound();
   }
 

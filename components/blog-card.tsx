@@ -16,13 +16,13 @@ export default function BlogCard({ data }: BlogCardProps) {
     <Link href={`/${data.slug}`}>
       <div className="ease overflow-hidden rounded-2xl border-2 border-stone-100 bg-white shadow-md transition-all duration-200 hover:-translate-y-1 hover:shadow-xl dark:border-stone-800">
         <BlurImage
-          src={data.image!}
+          src={data.image || "/placeholder.png"}
           alt={data.title ?? "Blog Post"}
           width={500}
           height={400}
           className="h-64 w-full object-cover"
           placeholder="blur"
-          blurDataURL={data.imageBlurhash ?? placeholderBlurhash}
+          blurDataURL={placeholderBlurhash} //data.imageBlurhash ??
         />
         <div className="h-36 border-t border-stone-200 px-5 py-8 dark:border-stone-700 dark:bg-black">
           <h3 className="font-title text-xl tracking-wide dark:text-white">

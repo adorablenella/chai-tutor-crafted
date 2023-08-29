@@ -5,25 +5,19 @@ import { placeholderBlurhash, toDateString } from "@/lib/utils";
 import BlogCard from "@/components/blog-card";
 import { getPostsForSite, getSiteData } from "@/lib/fetchers";
 import Image from "next/image";
+import { getPostByDomain } from "../helpers/post";
 
 export default async function SiteHomePage({
   params,
 }: {
   params: { domain: string };
 }) {
-  const [data, posts] = await Promise.all([
-    getSiteData(params.domain),
-    getPostsForSite(params.domain),
-  ]);
-
-  if (!data) {
-    notFound();
-  }
+  const posts: any = await getPostByDomain(params.domain);
 
   return (
     <>
       <div className="mb-20 w-full">
-        {posts.length > 0 ? (
+        {posts && posts.length > 0 ? (
           <div className="mx-auto w-full max-w-screen-xl md:mb-28 lg:w-5/6">
             <Link href={`/${posts[0].slug}`}>
               <div className="group relative mx-auto h-80 w-full overflow-hidden sm:h-150 lg:rounded-xl">
@@ -46,26 +40,21 @@ export default async function SiteHomePage({
                 </p>
                 <div className="flex w-full items-center justify-start space-x-4">
                   <div className="relative h-8 w-8 flex-none overflow-hidden rounded-full">
-                    {data.user?.image ? (
-                      <BlurImage
-                        alt={data.user?.name ?? "User Avatar"}
-                        width={100}
-                        height={100}
-                        className="h-full w-full object-cover"
-                        src={data.user?.image}
-                      />
-                    ) : (
-                      <div className="absolute flex h-full w-full select-none items-center justify-center bg-stone-100 text-4xl text-stone-500">
-                        ?
-                      </div>
-                    )}
+                    <BlurImage
+                      alt={"/logo.png"}
+                      width={100}
+                      height={100}
+                      className="h-full w-full object-cover"
+                      src={"/logo.png"} //data.user?.name
+                    />
                   </div>
                   <p className="ml-3 inline-block whitespace-nowrap align-middle text-sm font-semibold dark:text-white md:text-base">
-                    {data.user?.name}
+                    {/* {data.user?.name} */}
+                    Krishna Gopal Patidar
                   </p>
                   <div className="h-6 border-l border-stone-600 dark:border-stone-400" />
                   <p className="m-auto my-5 w-10/12 text-sm font-light text-stone-500 dark:text-stone-400 md:text-base">
-                    {toDateString(posts[0].createdAt)}
+                    {toDateString(posts[0].createdAt as Date)}
                   </p>
                 </div>
               </div>
@@ -100,8 +89,8 @@ export default async function SiteHomePage({
             More stories
           </h2>
           <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
-            {posts.slice(1).map((metadata, index) => (
-              <BlogCard key={index} data={metadata} />
+            {posts.slice(1).map((post: any, index: number) => (
+              <BlogCard key={index} data={post as any} />
             ))}
           </div>
         </div>

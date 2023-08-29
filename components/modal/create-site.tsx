@@ -1,14 +1,14 @@
 "use client";
 
 import { toast } from "sonner";
-import { createSite } from "@/lib/actions";
 import { useRouter } from "next/navigation";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { cn } from "@/lib/utils";
 import LoadingDots from "@/components/icons/loading-dots";
 import { useModal } from "./provider";
-import va from "@vercel/analytics";
 import { useEffect, useState } from "react";
+import { getSupabaseSession } from "@/app/helpers/session";
+import { createSite } from "@/app/helpers/site";
 
 export default function CreateSiteModal() {
   const router = useRouter();
@@ -30,22 +30,28 @@ export default function CreateSiteModal() {
     }));
   }, [data.name]);
 
+  const addSite = async (formData: FormData) => {
+    const session = await getSupabaseSession();
+    const payload = {
+      name: formData.get("name") as string,
+      description: formData.get("description") as string,
+      subdomain: formData.get("subdomain") as string,
+      userId: session.user.id as string,
+    };
+
+    createSite(payload)
+      .then(() => {
+        toast.success("Site created successfully.");
+        modal?.hide();
+      })
+      .catch((error) => {
+        toast.error(error);
+      });
+  };
+
   return (
     <form
-      action={async (data: FormData) =>
-        createSite(data).then((res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            va.track("Created Site");
-            const { id } = res;
-            router.refresh();
-            router.push(`/site/${id}`);
-            modal?.hide();
-            toast.success(`Successfully created site!`);
-          }
-        })
-      }
+      action={addSite}
       className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700"
     >
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">

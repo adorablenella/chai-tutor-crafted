@@ -1,85 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode } from "react";
-import prisma from "@/lib/prisma";
 import CTA from "@/components/cta";
 import ReportAbuse from "@/components/report-abuse";
-import { notFound, redirect } from "next/navigation";
-import { getSiteData } from "@/lib/fetchers";
+import { redirect } from "next/navigation";
 import { fontMapper } from "@/styles/fonts";
-import { Metadata } from "next";
-
-export async function generateMetadata({
-  params,
-}: {
-  params: { domain: string };
-}): Promise<Metadata | null> {
-  const data = await getSiteData(params.domain);
-  if (!data) {
-    return null;
-  }
-  const {
-    name: title,
-    description,
-    image,
-    logo,
-  } = data as {
-    name: string;
-    description: string;
-    image: string;
-    logo: string;
-  };
-
-  return {
-    title,
-    description,
-    openGraph: {
-      title,
-      description,
-      images: [image],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [image],
-      creator: "@vercel",
-    },
-    icons: [logo],
-    metadataBase: new URL(`https://${params.domain}`),
-  };
-}
-
-export async function generateStaticParams() {
-  const [subdomains, customDomains] = await Promise.all([
-    prisma.site.findMany({
-      select: {
-        subdomain: true,
-      },
-    }),
-    prisma.site.findMany({
-      where: {
-        NOT: {
-          customDomain: null,
-        },
-      },
-      select: {
-        customDomain: true,
-      },
-    }),
-  ]);
-
-  const allPaths = [
-    ...subdomains.map(({ subdomain }) => subdomain),
-    ...customDomains.map(({ customDomain }) => customDomain),
-  ].filter((path) => path) as Array<string>;
-
-  return allPaths.map((domain) => ({
-    params: {
-      domain,
-    },
-  }));
-}
+import { getSiteByDomain } from "../helpers/site";
 
 export default async function SiteLayout({
   params,
@@ -89,7 +15,7 @@ export default async function SiteLayout({
   children: ReactNode;
 }) {
   const { domain } = params;
-  const data = await getSiteData(domain);
+  const data = await getSiteByDomain(domain);
 
   if (!data) {
     return <div>Data not found</div>;
@@ -105,7 +31,7 @@ export default async function SiteLayout({
   }
 
   return (
-    <div className={fontMapper[data.font]}>
+    <div className={fontMapper[data.font as string]}>
       <div className="ease left-0 right-0 top-0 z-30 flex h-16 bg-white transition-all duration-150 dark:bg-black dark:text-white">
         <div className="mx-auto flex h-full max-w-screen-xl items-center justify-center space-x-5 px-10 sm:px-20">
           <Link href="/" className="flex items-center justify-center">
@@ -113,7 +39,10 @@ export default async function SiteLayout({
               <Image
                 alt={data.name || ""}
                 height={40}
-                src={data.logo || ""}
+                src={
+                  data.logo ||
+                  "https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
+                }
                 width={40}
               />
             </div>

@@ -10,19 +10,16 @@ import { toast } from "sonner";
 import va from "@vercel/analytics";
 import TextareaAutosize from "react-textarea-autosize";
 import { EditorBubbleMenu } from "./bubble-menu";
-import { Post } from "@prisma/client";
-import { updatePost, updatePostMetadata } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import LoadingDots from "../icons/loading-dots";
 import { ExternalLink } from "lucide-react";
+import { Post, updatePost } from "@/app/helpers/post";
 
-type PostWithSite = Post & { site: { subdomain: string | null } | null };
-
-export default function Editor({ post }: { post: PostWithSite }) {
+export default function Editor({ post }: { post: Post }) {
   let [isPendingSaving, startTransitionSaving] = useTransition();
   let [isPendingPublishing, startTransitionPublishing] = useTransition();
 
-  const [data, setData] = useState<PostWithSite>(post);
+  const [data, setData] = useState(post);
   const [hydrated, setHydrated] = useState(false);
 
   const url = process.env.NEXT_PUBLIC_VERCEL_ENV
@@ -40,7 +37,7 @@ export default function Editor({ post }: { post: PostWithSite }) {
       return;
     }
     startTransitionSaving(async () => {
-      await updatePost(debouncedData);
+      await updatePost(post.id as string, debouncedData);
     });
   }, [debouncedData, post]);
 
@@ -50,7 +47,7 @@ export default function Editor({ post }: { post: PostWithSite }) {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
         startTransitionSaving(async () => {
-          await updatePost(data);
+          await updatePost(post.id as string, data);
         });
       }
     };
@@ -192,20 +189,8 @@ export default function Editor({ post }: { post: PostWithSite }) {
         </div>
         <button
           onClick={() => {
-            const formData = new FormData();
-            console.log(data.published, typeof data.published);
-            formData.append("published", String(!data.published));
             startTransitionPublishing(async () => {
-              await updatePostMetadata(formData, post.id, "published").then(
-                () => {
-                  toast.success(
-                    `Successfully ${
-                      data.published ? "unpublished" : "published"
-                    } your post.`,
-                  );
-                  setData((prev) => ({ ...prev, published: !prev.published }));
-                },
-              );
+              setData((prev) => ({ ...prev, published: !prev.published }));
             });
           }}
           className={cn(

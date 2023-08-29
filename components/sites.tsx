@@ -3,28 +3,19 @@ import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import SiteCard from "./site-card";
 import Image from "next/image";
+import { getSites } from "@/app/helpers/site";
 
 export default async function Sites({ limit }: { limit?: number }) {
   const session = await getSession();
   if (!session) {
     redirect("/login");
   }
-  const sites = await prisma.site.findMany({
-    where: {
-      user: {
-        id: session.user.id as string,
-      },
-    },
-    orderBy: {
-      createdAt: "asc",
-    },
-    ...(limit ? { take: limit } : {}),
-  });
+  const sites = await getSites();
 
   return sites.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {sites.map((site) => (
-        <SiteCard key={site.id} data={site} />
+        <SiteCard key={site.id} data={site as any} />
       ))}
     </div>
   ) : (

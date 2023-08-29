@@ -1,8 +1,9 @@
-import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import prisma from "@/lib/prisma";
 import PostCard from "./post-card";
 import Image from "next/image";
+import { getSupabaseSession } from "@/app/helpers/session";
+import { getPosts } from "@/app/helpers/post";
 
 export default async function Posts({
   siteId,
@@ -11,28 +12,15 @@ export default async function Posts({
   siteId?: string;
   limit?: number;
 }) {
-  const session = await getSession();
-  if (!session?.user) {
-    redirect("/login");
-  }
-  const posts = await prisma.post.findMany({
-    where: {
-      userId: session.user.id as string,
-      ...(siteId ? { siteId } : {}),
-    },
-    orderBy: {
-      updatedAt: "desc",
-    },
-    include: {
-      site: true,
-    },
-    ...(limit ? { take: limit } : {}),
-  });
+  const session = await getSupabaseSession();
+  if (!session?.user) redirect("/login");
 
-  return posts.length > 0 ? (
+  const posts = await getPosts(siteId as string);
+
+  return posts && posts.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {posts.map((post) => (
-        <PostCard key={post.id} data={post} />
+        <PostCard key={post.id} data={post as any} />
       ))}
     </div>
   ) : (

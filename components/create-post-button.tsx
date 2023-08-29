@@ -1,27 +1,32 @@
 "use client";
 
 import { useTransition } from "react";
-import { createPost } from "@/lib/actions";
 import { cn } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import LoadingDots from "@/components/icons/loading-dots";
 import va from "@vercel/analytics";
+import { getSupabaseSession } from "@/app/helpers/session";
+import { createPost } from "@/app/helpers/post";
 
 export default function CreatePostButton() {
   const router = useRouter();
   const { id } = useParams() as { id: string };
   const [isPending, startTransition] = useTransition();
 
+  const createNewPost = async () => {
+    const session = await getSupabaseSession();
+    const payload = {
+      siteId: id,
+      userId: session.user.id,
+    };
+    createPost(payload).then((post) => {
+      router.push(`/post/${post.id}`);
+    });
+  };
+
   return (
     <button
-      onClick={() =>
-        startTransition(async () => {
-          const post = await createPost(null, id, null);
-          va.track("Created Post");
-          router.refresh();
-          router.push(`/post/${post.id}`);
-        })
-      }
+      onClick={() => startTransition(createNewPost)}
       className={cn(
         "flex h-8 w-36 items-center justify-center space-x-2 rounded-lg border text-sm transition-all focus:outline-none sm:h-9",
         isPending
