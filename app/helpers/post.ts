@@ -1,4 +1,4 @@
-import { getSiteByDomain } from "./site";
+import { getSite, getSiteByDomain } from "./site";
 import supabase from "./supabase";
 
 export type Post = {
@@ -24,12 +24,13 @@ export const getPosts = async (siteId: string) => {
 };
 
 export const getPost = async (postId: string) => {
-  const { data: site = {} } = await supabase
+  const { data: post = {} } = await supabase
     .from("post")
     .select("*")
     .eq("id", postId)
     .single();
-  return site as Post;
+  const site = await getSite(post.siteId);
+  return { ...post, site } as any;
 };
 
 export const getPostByDomain = async (domain: string, slug?: string) => {
