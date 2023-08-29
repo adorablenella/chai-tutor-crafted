@@ -40,6 +40,18 @@ export default async function SettingsPage() {
           }}
           handleSubmit={editUser}
         />
+        <Form
+          title="Password"
+          description="Your password on this app."
+          helpText="Please enter a password."
+          inputAttrs={{
+            name: "password",
+            type: "password",
+            defaultValue: session.user.password!,
+            placeholder: "*********",
+          }}
+          handleSubmit={editUser}
+        />
       </div>
     </div>
   );

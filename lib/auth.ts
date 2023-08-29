@@ -71,6 +71,7 @@ export function getSession() {
       username: string;
       email: string;
       image: string;
+      password: string;
     };
   } | null>;
 }
