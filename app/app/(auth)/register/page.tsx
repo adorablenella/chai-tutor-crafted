@@ -32,7 +32,7 @@ export default function LoginPage() {
         </Suspense>
         <br />
         <br />
-        <p className="text-muted-foreground px-8 text-center text-sm">
+        <p className="px-8 text-center text-sm text-white">
           <Link className="hover:text-brand underline underline-offset-4" href="/login">
             Already have an account? Login here
           </Link>
