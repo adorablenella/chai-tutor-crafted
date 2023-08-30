@@ -9,6 +9,7 @@ export default async function Profile() {
   if (!session?.user) {
     redirect("/login");
   }
+  console.log(session);
 
   return (
     <div className="flex w-full items-center justify-between">
@@ -22,7 +23,7 @@ export default async function Profile() {
           alt={"User avatar"}
           className="h-6 w-6 rounded-full"
         />
-        <span className="truncate text-sm font-medium">User Name</span>
+        <span className="truncate text-sm font-medium">{session.user.email}</span>
       </Link>
       <LogoutButton />
     </div>

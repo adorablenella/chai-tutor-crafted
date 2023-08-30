@@ -20,7 +20,7 @@ export default async function SettingsPage() {
             name: "name",
             type: "text",
             defaultValue: "",
-            placeholder: "Brendon Urie",
+            placeholder: "John Doe",
             maxLength: 32,
           }}
           handleSubmit={editUser}
@@ -32,8 +32,8 @@ export default async function SettingsPage() {
           inputAttrs={{
             name: "email",
             type: "email",
-            defaultValue: "",
-            placeholder: "panic@thedis.co",
+            defaultValue: session.user.email,
+            placeholder: "panic@chaibuilder.com",
           }}
           handleSubmit={editUser}
         />
