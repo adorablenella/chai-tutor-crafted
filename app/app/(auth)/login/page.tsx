@@ -3,6 +3,7 @@ import LoginButton from "./login-button";
 import { Suspense } from "react";
 import { Divider } from "@tremor/react";
 import LoginWithEmail from "./login-email";
+import Link from "next/link";
 
 export default function LoginPage() {
   return (
@@ -29,6 +30,13 @@ export default function LoginPage() {
           <Divider> sd</Divider>
           <LoginButton />
         </Suspense>
+        <br />
+        <br />
+        <p className="px-8 text-center text-sm text-white">
+          <Link className="hover:text-brand underline underline-offset-4" href="/register">
+            Don&apos;t have an account? Sign Up
+          </Link>
+        </p>
       </div>
     </div>
   );
