@@ -61,48 +61,47 @@ export async function getPostData(domain: string, slug: string) {
     : null;
   return await unstable_cache(
     async () => {
-      const data = await prisma.post.findFirst({
-        where: {
-          site: subdomain ? { subdomain } : { customDomain: domain },
-          slug,
-          published: true,
-        },
-        include: {
-          site: {
-            include: {
-              user: true,
-            },
-          },
-        },
-      });
+      const data = {};
+      // const data = await prisma.post.findFirst({
+      //   where: {
+      //     site: subdomain ? { subdomain } : { customDomain: domain },
+      //     slug,
+      //     published: true,
+      //   },
+      //   include: {
+      //     site: {
+      //       include: {
+      //         user: true,
+      //       },
+      //     },
+      //   },
+      // });
 
       if (!data) return null;
 
-      const [mdxSource, adjacentPosts] = await Promise.all([
-        getMdxSource(data.content!),
-        prisma.post.findMany({
-          where: {
-            site: subdomain ? { subdomain } : { customDomain: domain },
-            published: true,
-            NOT: {
-              id: data.id,
-            },
-          },
-          select: {
-            slug: true,
-            title: true,
-            createdAt: true,
-            description: true,
-            image: true,
-            imageBlurhash: true,
-          },
-        }),
+      const [] = await Promise.all([
+        // getMdxSource(data.content!),
+        //   prisma.post.findMany({
+        //     where: {
+        //       site: subdomain ? { subdomain } : { customDomain: domain },
+        //       published: true,
+        //       NOT: {
+        //         id: data.id,
+        //       },
+        //     },
+        //     select: {
+        //       slug: true,
+        //       title: true,
+        //       createdAt: true,
+        //       description: true,
+        //       image: true,
+        //       imageBlurhash: true,
+        //     },
+        //   }),
       ]);
 
       return {
         ...data,
-        mdxSource,
-        adjacentPosts,
       };
     },
     [`${domain}-${slug}`],
@@ -120,7 +119,7 @@ async function getMdxSource(postContents: string) {
   // Serialize the content string into MDX
   const mdxSource = await serialize(content, {
     mdxOptions: {
-      remarkPlugins: [replaceTweets, () => replaceExamples(prisma)],
+      remarkPlugins: [replaceTweets],
     },
   });
 
