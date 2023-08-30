@@ -42,3 +42,23 @@ export const createSite = async (payload: Site) => {
   if (error) throw error.message;
   return true;
 };
+
+export const updateSite = async (
+  formData: FormData,
+  siteId: Site,
+  key: string,
+) => {
+  const value = formData.get(key);
+  const { error } = await supabase
+    .from("site")
+    .update({ [key]: value })
+    .eq("id", siteId);
+  if (error) throw error.message;
+  return true;
+};
+
+export const deleteSite = async (siteId: string) => {
+  const { error } = await supabase.from("site").delete().eq("id", siteId);
+  if (error) throw error.message;
+  return true;
+};

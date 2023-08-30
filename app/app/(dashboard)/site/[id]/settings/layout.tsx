@@ -3,6 +3,7 @@ import { getSession } from "@/lib/auth";
 import prisma from "@/lib/prisma";
 import { notFound, redirect } from "next/navigation";
 import SiteSettingsNav from "./nav";
+import { getSite } from "@/app/helpers/site";
 
 export default async function SiteAnalyticsLayout({
   params,
@@ -15,13 +16,9 @@ export default async function SiteAnalyticsLayout({
   if (!session) {
     redirect("/login");
   }
-  const data = await prisma.site.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+  const data = await getSite(params.id);
 
-  if (!data || data.userId !== session.user.id) {
+  if (!data) {
     notFound();
   }
 
