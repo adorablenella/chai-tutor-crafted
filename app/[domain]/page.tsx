@@ -1,17 +1,11 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import BlurImage from "@/components/blur-image";
 import { placeholderBlurhash, toDateString } from "@/lib/utils";
 import BlogCard from "@/components/blog-card";
-import { getPostsForSite, getSiteData } from "@/lib/fetchers";
 import Image from "next/image";
 import { getPostByDomain } from "../helpers/post";
 
-export default async function SiteHomePage({
-  params,
-}: {
-  params: { domain: string };
-}) {
+export default async function SiteHomePage({ params }: { params: { domain: string } }) {
   const posts: any = await getPostByDomain(params.domain);
 
   return (
@@ -32,12 +26,8 @@ export default async function SiteHomePage({
                 />
               </div>
               <div className="mx-auto mt-10 w-5/6 lg:w-full">
-                <h2 className="my-10 font-title text-4xl dark:text-white md:text-6xl">
-                  {posts[0].title}
-                </h2>
-                <p className="w-full text-base dark:text-white md:text-lg lg:w-2/3">
-                  {posts[0].description}
-                </p>
+                <h2 className="my-10 font-title text-4xl dark:text-white md:text-6xl">{posts[0].title}</h2>
+                <p className="w-full text-base dark:text-white md:text-lg lg:w-2/3">{posts[0].description}</p>
                 <div className="flex w-full items-center justify-start space-x-4">
                   <div className="relative h-8 w-8 flex-none overflow-hidden rounded-full">
                     <BlurImage
@@ -76,18 +66,14 @@ export default async function SiteHomePage({
               height={400}
               className="hidden dark:block"
             />
-            <p className="font-title text-2xl text-stone-600 dark:text-stone-400">
-              No posts yet.
-            </p>
+            <p className="font-title text-2xl text-stone-600 dark:text-stone-400">No posts yet.</p>
           </div>
         )}
       </div>
 
       {posts.length > 1 && (
         <div className="mx-5 mb-20 max-w-screen-xl lg:mx-24 2xl:mx-auto">
-          <h2 className="mb-10 font-title text-4xl dark:text-white md:text-5xl">
-            More stories
-          </h2>
+          <h2 className="mb-10 font-title text-4xl dark:text-white md:text-5xl">More stories</h2>
           <div className="grid w-full grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 xl:grid-cols-3">
             {posts.slice(1).map((post: any, index: number) => (
               <BlogCard key={index} data={post as any} />

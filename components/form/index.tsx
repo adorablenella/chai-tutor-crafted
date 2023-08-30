@@ -2,14 +2,12 @@
 
 import LoadingDots from "@/components/icons/loading-dots";
 import { cn } from "@/lib/utils";
-import { useSession } from "next-auth/react";
 import { useParams, useRouter } from "next/navigation";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { toast } from "sonner";
 import DomainStatus from "./domain-status";
 import DomainConfiguration from "./domain-configuration";
 import Uploader from "./uploader";
-import va from "@vercel/analytics";
 
 export default function Form({
   title,
@@ -33,7 +31,7 @@ export default function Form({
 }) {
   const { id } = useParams() as { id?: string };
   const router = useRouter();
-  const { update } = useSession();
+  // const { update } = useSession();
   return (
     <form
       action={async (data: FormData) => {
@@ -49,36 +47,28 @@ export default function Form({
           if (res.error) {
             toast.error(res.error);
           } else {
-            va.track(`Updated ${inputAttrs.name}`, id ? { id } : {});
             if (id) {
               router.refresh();
             } else {
-              await update();
+              // await update();
               router.refresh();
             }
             toast.success(`Successfully updated ${inputAttrs.name}!`);
           }
         });
       }}
-      className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-black"
-    >
+      className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-black">
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
         <h2 className="font-cal text-xl dark:text-white">{title}</h2>
-        <p className="text-sm text-stone-500 dark:text-stone-400">
-          {description}
-        </p>
+        <p className="text-sm text-stone-500 dark:text-stone-400">{description}</p>
         {inputAttrs.name === "image" || inputAttrs.name === "logo" ? (
-          <Uploader
-            defaultValue={inputAttrs.defaultValue}
-            name={inputAttrs.name}
-          />
+          <Uploader defaultValue={inputAttrs.defaultValue} name={inputAttrs.name} />
         ) : inputAttrs.name === "font" ? (
           <div className="flex max-w-sm items-center overflow-hidden rounded-lg border border-stone-600">
             <select
               name="font"
               defaultValue={inputAttrs.defaultValue}
-              className="w-full rounded-none border-none bg-white px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none focus:ring-black dark:bg-black dark:text-stone-200 dark:focus:ring-white"
-            >
+              className="w-full rounded-none border-none bg-white px-4 py-2 text-sm font-medium text-stone-700 focus:outline-none focus:ring-black dark:bg-black dark:text-stone-200 dark:focus:ring-white">
               <option value="font-cal">Cal Sans</option>
               <option value="font-lora">Lora</option>
               <option value="font-work">Work Sans</option>
@@ -143,8 +133,7 @@ function FormButton() {
           ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
           : "border-black bg-black text-white hover:bg-white hover:text-black dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
       )}
-      disabled={pending}
-    >
+      disabled={pending}>
       {pending ? <LoadingDots color="#808080" /> : <p>Save Changes</p>}
     </button>
   );

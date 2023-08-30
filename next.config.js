@@ -7,6 +7,7 @@ module.exports = {
   },
   images: {
     domains: [
+      "avatar.vercel.sh",
       "ik.imagekit.io",
       "public.blob.vercel-storage.com",
       "res.cloudinary.com",

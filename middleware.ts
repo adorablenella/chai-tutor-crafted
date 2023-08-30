@@ -27,10 +27,13 @@ export default async function middleware(req: NextRequest) {
   if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
     const res = NextResponse.next();
     const supabase = createMiddlewareClient({ req, res });
-    const session = null; //await supabase.auth.getSession();
+    const {
+      data: { session },
+      error,
+    } = await supabase.auth.getSession();
     if (!session && path !== "/login") {
       return NextResponse.redirect(new URL("/login", req.url));
-    } else if (session && path == "/login") {
+    } else if (session && path === "/login") {
       return NextResponse.redirect(new URL("/", req.url));
     }
     return NextResponse.rewrite(new URL(`/app${path === "/" ? "" : path}`, req.url));

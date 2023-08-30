@@ -2,10 +2,9 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoadingDots from "@/components/icons/loading-dots";
-import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { useRouter } from "next/navigation";
 
 export default function LoginWithEmail() {
   const [loading, setLoading] = useState(false);
@@ -34,7 +33,7 @@ export default function LoginWithEmail() {
 
   return (
     <>
-      <form>
+      <div>
         <input
           className={`${
             loading
@@ -64,7 +63,7 @@ export default function LoginWithEmail() {
             </>
           )}
         </button>
-      </form>
+      </div>
     </>
   );
 }
