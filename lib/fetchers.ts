@@ -1,5 +1,4 @@
 import { unstable_cache } from "next/cache";
-import prisma from "@/lib/prisma";
 import { serialize } from "next-mdx-remote/serialize";
 import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 
@@ -10,10 +9,7 @@ export async function getSiteData(domain: string) {
 
   return await unstable_cache(
     async () => {
-      return prisma.site.findUnique({
-        where: subdomain ? { subdomain } : { customDomain: domain },
-        include: { user: true },
-      });
+      return {};
     },
     [`${domain}-metadata`],
     {
@@ -30,25 +26,26 @@ export async function getPostsForSite(domain: string) {
 
   return await unstable_cache(
     async () => {
-      return prisma.post.findMany({
-        where: {
-          site: subdomain ? { subdomain } : { customDomain: domain },
-          published: true,
-        },
-        select: {
-          title: true,
-          description: true,
-          slug: true,
-          image: true,
-          imageBlurhash: true,
-          createdAt: true,
-        },
-        orderBy: [
-          {
-            createdAt: "desc",
-          },
-        ],
-      });
+      return {}
+      // return prisma.post.findMany({
+      //   where: {
+      //     site: subdomain ? { subdomain } : { customDomain: domain },
+      //     published: true,
+      //   },
+      //   select: {
+      //     title: true,
+      //     description: true,
+      //     slug: true,
+      //     image: true,
+      //     imageBlurhash: true,
+      //     createdAt: true,
+      //   },
+      //   orderBy: [
+      //     {
+      //       createdAt: "desc",
+      //     },
+      //   ],
+      // });
     },
     [`${domain}-posts`],
     {
@@ -119,8 +116,7 @@ export async function getPostData(domain: string, slug: string) {
 async function getMdxSource(postContents: string) {
   // transforms links like <link> to [link](link) as MDX doesn't support <link> syntax
   // https://mdxjs.com/docs/what-is-mdx/#markdown
-  const content =
-    postContents?.replaceAll(/<(https?:\/\/\S+)>/g, "[$1]($1)") ?? "";
+  const content = postContents?.replaceAll(/<(https?:\/\/\S+)>/g, "[$1]($1)") ?? "";
   // Serialize the content string into MDX
   const mdxSource = await serialize(content, {
     mdxOptions: {

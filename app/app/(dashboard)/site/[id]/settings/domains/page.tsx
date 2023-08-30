@@ -1,17 +1,8 @@
-import prisma from "@/lib/prisma";
 import Form from "@/components/form";
 import { updateSite } from "@/lib/actions";
 
-export default async function SiteSettingsDomains({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const data = await prisma.site.findUnique({
-    where: {
-      id: params.id,
-    },
-  });
+export default async function SiteSettingsDomains({ params }: { params: { id: string } }) {
+  const data: any = {};
 
   return (
     <div className="flex flex-col space-y-6">

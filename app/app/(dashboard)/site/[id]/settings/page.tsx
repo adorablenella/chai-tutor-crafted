@@ -4,11 +4,7 @@ import DeleteSiteForm from "@/components/form/delete-site-form";
 import { getSite } from "@/app/helpers/site";
 import UpdateSiteForm from "@/components/form/update-site-form";
 
-export default async function SiteSettingsIndex({
-  params,
-}: {
-  params: { id: string };
-}) {
+export default async function SiteSettingsIndex({ params }: { params: { id: string } }) {
   const data = await getSite(params.id);
 
   return (

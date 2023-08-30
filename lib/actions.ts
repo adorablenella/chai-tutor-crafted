@@ -1,7 +1,5 @@
 "use server";
 
-import prisma from "@/lib/prisma";
-import { Post, Site } from "@prisma/client";
 import { revalidateTag } from "next/cache";
 import { withPostAuth, withSiteAuth } from "./auth";
 import { getSession } from "@/lib/auth";
@@ -16,10 +14,7 @@ import { put } from "@vercel/blob";
 import { customAlphabet } from "nanoid";
 import { getBlurDataURL } from "@/lib/utils";
 
-const nanoid = customAlphabet(
-  "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz",
-  7,
-); // 7-character random string
+const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 7); // 7-character random string
 
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
@@ -33,21 +28,8 @@ export const createSite = async (formData: FormData) => {
   const subdomain = formData.get("subdomain") as string;
 
   try {
-    const response = await prisma.site.create({
-      data: {
-        name,
-        description,
-        subdomain,
-        user: {
-          connect: {
-            id: session.user.id,
-          },
-        },
-      },
-    });
-    await revalidateTag(
-      `${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-    );
+    const response: any = {};
+    await revalidateTag(`${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
     return response;
   } catch (error: any) {
     if (error.code === "P2002") {
@@ -62,48 +44,47 @@ export const createSite = async (formData: FormData) => {
   }
 };
 
-export const updateSite = withSiteAuth(
-  async (formData: FormData, site: Site, key: string) => {
-    const value = formData.get(key) as string;
+export const updateSite = withSiteAuth(async (formData: FormData, site: any, key: string) => {
+  const value = formData.get(key) as string;
 
-    try {
-      let response;
+  try {
+    let response;
 
-      if (key === "customDomain") {
-        if (value.includes("vercel.pub")) {
-          return {
-            error: "Cannot use vercel.pub subdomain as your custom domain",
-          };
+    if (key === "customDomain") {
+      if (value.includes("vercel.pub")) {
+        return {
+          error: "Cannot use vercel.pub subdomain as your custom domain",
+        };
 
-          // if the custom domain is valid, we need to add it to Vercel
-        } else if (validDomainRegex.test(value)) {
-          response = await prisma.site.update({
-            where: {
-              id: site.id,
-            },
-            data: {
-              customDomain: value,
-            },
-          });
-          await addDomainToVercel(value);
+        // if the custom domain is valid, we need to add it to Vercel
+      } else if (validDomainRegex.test(value)) {
+        response = await prisma.site.update({
+          where: {
+            id: site.id,
+          },
+          data: {
+            customDomain: value,
+          },
+        });
+        await addDomainToVercel(value);
 
-          // empty value means the user wants to remove the custom domain
-        } else if (value === "") {
-          response = await prisma.site.update({
-            where: {
-              id: site.id,
-            },
-            data: {
-              customDomain: null,
-            },
-          });
-        }
+        // empty value means the user wants to remove the custom domain
+      } else if (value === "") {
+        response = await prisma.site.update({
+          where: {
+            id: site.id,
+          },
+          data: {
+            customDomain: null,
+          },
+        });
+      }
 
-        // if the site had a different customDomain before, we need to remove it from Vercel
-        if (site.customDomain && site.customDomain !== value) {
-          response = await removeDomainFromVercelProject(site.customDomain);
+      // if the site had a different customDomain before, we need to remove it from Vercel
+      if (site.customDomain && site.customDomain !== value) {
+        response = await removeDomainFromVercelProject(site.customDomain);
 
-          /* Optional: remove domain from Vercel team 
+        /* Optional: remove domain from Vercel team 
 
           // first, we need to check if the apex domain is being used by other sites
           const apexDomain = getApexDomain(`https://${site.customDomain}`);
@@ -135,68 +116,64 @@ export const updateSite = withSiteAuth(
           }
           
           */
-        }
-      } else if (key === "image" || key === "logo") {
-        if (!process.env.BLOB_READ_WRITE_TOKEN) {
-          return {
-            error:
-              "Missing BLOB_READ_WRITE_TOKEN token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
-          };
-        }
-
-        const file = formData.get(key) as File;
-        const filename = `${nanoid()}.${file.type.split("/")[1]}`;
-
-        const { url } = await put(filename, file, {
-          access: "public",
-        });
-
-        const blurhash = key === "image" ? await getBlurDataURL(url) : null;
-
-        response = await prisma.site.update({
-          where: {
-            id: site.id,
-          },
-          data: {
-            [key]: url,
-            ...(blurhash && { imageBlurhash: blurhash }),
-          },
-        });
-      } else {
-        response = await prisma.site.update({
-          where: {
-            id: site.id,
-          },
-          data: {
-            [key]: value,
-          },
-        });
       }
-      console.log(
-        "Updated site data! Revalidating tags: ",
-        `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-        `${site.customDomain}-metadata`,
-      );
-      await revalidateTag(
-        `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-      );
-      site.customDomain &&
-        (await revalidateTag(`${site.customDomain}-metadata`));
-
-      return response;
-    } catch (error: any) {
-      if (error.code === "P2002") {
+    } else if (key === "image" || key === "logo") {
+      if (!process.env.BLOB_READ_WRITE_TOKEN) {
         return {
-          error: `This ${key} is already taken`,
-        };
-      } else {
-        return {
-          error: error.message,
+          error:
+            "Missing BLOB_READ_WRITE_TOKEN token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
         };
       }
+
+      const file = formData.get(key) as File;
+      const filename = `${nanoid()}.${file.type.split("/")[1]}`;
+
+      const { url } = await put(filename, file, {
+        access: "public",
+      });
+
+      const blurhash = key === "image" ? await getBlurDataURL(url) : null;
+
+      response = await prisma.site.update({
+        where: {
+          id: site.id,
+        },
+        data: {
+          [key]: url,
+          ...(blurhash && { imageBlurhash: blurhash }),
+        },
+      });
+    } else {
+      response = await prisma.site.update({
+        where: {
+          id: site.id,
+        },
+        data: {
+          [key]: value,
+        },
+      });
     }
-  },
-);
+    console.log(
+      "Updated site data! Revalidating tags: ",
+      `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
+      `${site.customDomain}-metadata`,
+    );
+    await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
+    site.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
+
+    return response;
+  } catch (error: any) {
+    if (error.code === "P2002") {
+      return {
+        error: `This ${key} is already taken`,
+      };
+    } else {
+      return {
+        error: error.message,
+      };
+    }
+  }
+});
 
 export const deleteSite = withSiteAuth(async (_: FormData, site: Site) => {
   try {
@@ -205,11 +182,8 @@ export const deleteSite = withSiteAuth(async (_: FormData, site: Site) => {
         id: site.id,
       },
     });
-    await revalidateTag(
-      `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-    );
-    response.customDomain &&
-      (await revalidateTag(`${site.customDomain}-metadata`));
+    await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
+    response.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
     return response;
   } catch (error: any) {
     return {
@@ -244,9 +218,7 @@ export const createPost = withSiteAuth(async (_: FormData, site: Site) => {
     },
   });
 
-  await revalidateTag(
-    `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
-  );
+  await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
   site.customDomain && (await revalidateTag(`${site.customDomain}-posts`));
 
   return response;
@@ -285,12 +257,8 @@ export const updatePost = async (data: Post) => {
       },
     });
 
-    await revalidateTag(
-      `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
-    );
-    await revalidateTag(
-      `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`,
-    );
+    await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
+    await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`);
 
     // if the site has a custom domain, we need to revalidate those tags too
     post.site?.customDomain &&
@@ -347,12 +315,8 @@ export const updatePostMetadata = withPostAuth(
         });
       }
 
-      await revalidateTag(
-        `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`,
-      );
-      await revalidateTag(
-        `${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`,
-      );
+      await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
+      await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`);
 
       // if the site has a custom domain, we need to revalidate those tags too
       post.site?.customDomain &&
@@ -392,11 +356,7 @@ export const deletePost = withPostAuth(async (_: FormData, post: Post) => {
   }
 });
 
-export const editUser = async (
-  formData: FormData,
-  _id: unknown,
-  key: string,
-) => {
+export const editUser = async (formData: FormData, _id: unknown, key: string) => {
   const session = await getSession();
   if (!session?.user.id) {
     return {

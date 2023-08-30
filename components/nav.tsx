@@ -1,23 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import {
-  ArrowLeft,
-  BarChart3,
-  Edit,
-  Edit3,
-  Globe,
-  Layout,
-  LayoutDashboard,
-  Menu,
-  Newspaper,
-  Settings,
-} from "lucide-react";
-import {
-  useParams,
-  usePathname,
-  useSelectedLayoutSegments,
-} from "next/navigation";
+import { ArrowLeft, BarChart3, Edit3, Globe, LayoutDashboard, Menu, Newspaper, Settings } from "lucide-react";
+import { useParams, usePathname, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import { getSiteFromPostId } from "@/lib/actions";
 import Image from "next/image";
@@ -50,7 +35,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Edit Site",
           href: `/site/${id}/edit`,
           isActive: segments.includes("edit"),
-          icon: <Edit width={18} />,
+          icon: <Globe width={18} />,
         },
         {
           name: "Blogs",
@@ -82,7 +67,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Editor",
           href: `/post/${id}`,
           isActive: segments.length === 2,
-          icon: <Edit3 width={18} />,
+          icon: <Globe width={18} />,
         },
         {
           name: "Settings",
@@ -117,14 +102,10 @@ export default function Nav({ children }: { children: ReactNode }) {
   return (
     <>
       <div
-        className={`fixed z-10 flex h-full w-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 transition-all dark:border-stone-700 dark:bg-stone-900 sm:w-60 sm:translate-x-0`}
-      >
+        className={`fixed z-10 flex h-full w-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 transition-all dark:border-stone-700 dark:bg-stone-900 sm:w-60 sm:translate-x-0`}>
         <div className="grid gap-2">
           <div className="flex items-center space-x-2 rounded-lg py-1.5">
-            <Link
-              href="/"
-              className="rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700"
-            >
+            <Link href="/" className="rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700">
               <Image
                 src="https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
                 width={24}
@@ -133,9 +114,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                 className="dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
               />
             </Link>
-            <span className="text-lg font-bold tracking-wider text-white">
-              ChaiBuilder
-            </span>
+            <span className="text-lg font-bold tracking-wider text-white">ChaiBuilder</span>
           </div>
 
           <div className="grid gap-1">
@@ -145,8 +124,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                 href={href}
                 className={`flex items-center space-x-3 ${
                   isActive ? "bg-stone-200 text-black dark:bg-stone-700" : ""
-                } rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}
-              >
+                } rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}>
                 {icon}
                 <span className="text-sm font-medium">{name}</span>
               </Link>
@@ -161,8 +139,7 @@ export default function Nav({ children }: { children: ReactNode }) {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800"
-              >
+                className="flex items-center justify-between rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800">
                 <div className="flex items-center space-x-3">
                   {icon}
                   <span className="text-sm font-medium">{name}</span>
