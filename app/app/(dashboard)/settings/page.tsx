@@ -32,7 +32,7 @@ export default async function SettingsPage() {
           inputAttrs={{
             name: "email",
             type: "email",
-            defaultValue: session.user.email,
+            defaultValue: session.user.email || "",
             placeholder: "panic@chaibuilder.com",
           }}
           handleSubmit={editUser}
