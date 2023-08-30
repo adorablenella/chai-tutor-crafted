@@ -4,9 +4,7 @@ import Image from "next/image";
 
 export default async function NotFound() {
   const headersList = headers();
-  const domain = headersList
-    .get("host")
-    ?.replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
+  const domain = headersList.get("host")?.replace(".localhost:3000", `.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`);
   const data = await getSiteData(domain as string);
 
   return (
@@ -19,9 +17,7 @@ export default async function NotFound() {
         height={400}
       />
       <p className="text-lg text-stone-500">
-        {data
-          ? data.message404
-          : "Blimey! You've found a page that doesn't exist."}
+        {data ? data.message404 : "Blimey! You've found a page that doesn't exist."}
       </p>
     </div>
   );

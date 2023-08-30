@@ -2,7 +2,7 @@ import { unstable_cache } from "next/cache";
 import { serialize } from "next-mdx-remote/serialize";
 import { replaceExamples, replaceTweets } from "@/lib/remark-plugins";
 
-export async function getSiteData(domain: string) {
+export async function getSiteData(domain: string): Promise<any> {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
@@ -19,14 +19,14 @@ export async function getSiteData(domain: string) {
   )();
 }
 
-export async function getPostsForSite(domain: string) {
+export async function getPostsForSite(domain: string): Promise<any> {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
 
   return await unstable_cache(
     async () => {
-      return {}
+      return {};
       // return prisma.post.findMany({
       //   where: {
       //     site: subdomain ? { subdomain } : { customDomain: domain },

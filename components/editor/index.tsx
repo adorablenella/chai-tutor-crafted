@@ -55,29 +55,21 @@ export default function Editor({ post }: { post: any }) {
     return () => {
       document.removeEventListener("keydown", onKeyDown);
     };
-  }, [data, startTransitionSaving]);
+  }, [data, post.id, startTransitionSaving]);
 
   const editor = useEditor({
     extensions: TiptapExtensions,
     editorProps: TiptapEditorProps,
     onUpdate: (e) => {
       const selection = e.editor.state.selection;
-      const lastTwo = e.editor.state.doc.textBetween(
-        selection.from - 2,
-        selection.from,
-        "\n",
-      );
+      const lastTwo = e.editor.state.doc.textBetween(selection.from - 2, selection.from, "\n");
       if (lastTwo === "++" && !isLoading) {
         e.editor.commands.deleteRange({
           from: selection.from - 2,
           to: selection.from,
         });
         // we're using this for now until we can figure out a way to stream markdown text with proper formatting: https://github.com/steven-tey/novel/discussions/7
-        complete(
-          `Title: ${data.title}\n Description: ${
-            data.description
-          }\n\n ${e.editor.getText()}`,
-        );
+        complete(`Title: ${data.title}\n Description: ${data.description}\n\n ${e.editor.getText()}`);
         // complete(e.editor.storage.markdown.getMarkdown());
         va.track("Autocomplete Shortcut Used");
       } else {
@@ -135,11 +127,7 @@ export default function Editor({ post }: { post: any }) {
       e.stopPropagation();
       stop();
       if (window.confirm("AI writing paused. Continue?")) {
-        complete(
-          `Title: ${data.title}\n Description: ${data.description}\n\n ${
-            editor?.getText() || " "
-          }`,
-        );
+        complete(`Title: ${data.title}\n Description: ${data.description}\n\n ${editor?.getText() || " "}`);
       }
     };
     if (isLoading) {
@@ -153,15 +141,7 @@ export default function Editor({ post }: { post: any }) {
       document.removeEventListener("keydown", onKeyDown);
       window.removeEventListener("mousedown", mousedownHandler);
     };
-  }, [
-    stop,
-    isLoading,
-    editor,
-    complete,
-    completion.length,
-    data.title,
-    data.description,
-  ]);
+  }, [stop, isLoading, editor, complete, completion.length, data.title, data.description]);
 
   // Hydrate the editor with the content
   useEffect(() => {
@@ -179,8 +159,7 @@ export default function Editor({ post }: { post: any }) {
             href={url}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center space-x-1 text-sm text-stone-400 hover:text-stone-500"
-          >
+            className="flex items-center space-x-1 text-sm text-stone-400 hover:text-stone-500">
             <ExternalLink className="h-4 w-4" />
           </a>
         )}
@@ -199,13 +178,8 @@ export default function Editor({ post }: { post: any }) {
               ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
               : "border border-black bg-black text-white hover:bg-white hover:text-black active:bg-stone-100 dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
           )}
-          disabled={isPendingPublishing}
-        >
-          {isPendingPublishing ? (
-            <LoadingDots />
-          ) : (
-            <p>{data.published ? "Unpublish" : "Publish"}</p>
-          )}
+          disabled={isPendingPublishing}>
+          {isPendingPublishing ? <LoadingDots /> : <p>{data.published ? "Unpublish" : "Publish"}</p>}
         </button>
       </div>
       <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">
