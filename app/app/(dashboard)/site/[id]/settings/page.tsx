@@ -1,11 +1,13 @@
 "use Server";
 
 import DeleteSiteForm from "@/components/form/delete-site-form";
-import { getSite } from "@/app/helpers/site";
 import UpdateSiteForm from "@/components/form/update-site-form";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function SiteSettingsIndex({ params }: { params: { id: string } }) {
-  const data = await getSite(params.id);
+  const supabase = createServerComponentClient({ cookies });
+  const { data = {} } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
 
   return (
     <div className="flex flex-col space-y-6">
@@ -16,25 +18,13 @@ export default async function SiteSettingsIndex({ params }: { params: { id: stri
         inputAttrs={{
           name: "name",
           type: "text",
-          defaultValue: data?.name!,
+          defaultValue: data?.project_name!,
           placeholder: "My Awesome Site",
           maxLength: 32,
         }}
       />
 
-      <UpdateSiteForm
-        title="Description"
-        description="The description of your site. This will be used as the meta description on Google as well."
-        helpText="Include SEO-optimized keywords that you want to rank for."
-        inputAttrs={{
-          name: "description",
-          type: "text",
-          defaultValue: data?.description!,
-          placeholder: "A blog about really interesting things.",
-        }}
-      />
-
-      <DeleteSiteForm siteName={data?.name!} />
+      <DeleteSiteForm siteName={data?.project_name!} />
     </div>
   );
 }

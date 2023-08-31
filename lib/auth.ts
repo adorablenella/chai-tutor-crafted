@@ -10,26 +10,22 @@ export function getSession(): Promise<Session | null> {
 }
 
 export function withSiteAuth(action: any) {
-  return async (formData: FormData | null, siteId: string, key: string | null) => {
+  return async (formData: FormData | null, id: string, key: string | null) => {
+    const supabase = createServerComponentClient({ cookies });
     const session = await getSession();
     if (!session) {
       return {
         error: "Not authenticated",
       };
     }
-    const site: any = {};
-    // await prisma.site.findUnique({
-    //   where: {
-    //     id: siteId,
-    //   },
-    // });
-    if (!site || site.userId !== session.user.id) {
+    const { data } = await supabase.from("projects").select("*").eq("uuid", id);
+    if (!data || data.length < 1) {
       return {
-        error: "Not authorized",
+        error: "Project not found",
       };
     }
 
-    return action(formData, site, key);
+    return action(formData, id, key);
   };
 }
 

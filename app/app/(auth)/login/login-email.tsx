@@ -45,14 +45,6 @@ export default function LoginWithEmail() {
     [email, supabase.auth],
   );
 
-  const loginWithGoogle = useCallback(async () => {
-    setLogin("google");
-    await supabase.auth.signInWithOAuth({
-      provider: "google",
-      options: { redirectTo: `${window.location.origin}/api/auth/callback` },
-    });
-  }, [supabase.auth]);
-
   return (
     <>
       {login === "success" && (

@@ -2,13 +2,7 @@ import Link from "next/link";
 import { visit } from "unist-util-visit";
 import { ReactNode } from "react";
 
-export function replaceLinks({
-  href,
-  children,
-}: {
-  href?: string;
-  children: ReactNode;
-}) {
+export function replaceLinks({ href, children }: { href?: string; children: ReactNode }) {
   // this is technically not a remark plugin but it
   // replaces internal links with <Link /> component
   // and external links with <a target="_blank" />
@@ -29,11 +23,7 @@ export function replaceTweets() {
       const nodesToChange = new Array();
 
       visit(tree, "link", (node: any) => {
-        if (
-          node.url.match(
-            /https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(?:es)?\/(\d+)([^\?])(\?.*)?/g,
-          )
-        ) {
+        if (node.url.match(/https?:\/\/twitter\.com\/(?:#!\/)?(\w+)\/status(?:es)?\/(\d+)([^\?])(\?.*)?/g)) {
           nodesToChange.push({
             node,
           });
@@ -58,7 +48,6 @@ export function replaceTweets() {
             },
           ];
         } catch (e) {
-          console.log("ERROR", e);
           return reject(e);
         }
       }

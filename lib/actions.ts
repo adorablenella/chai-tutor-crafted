@@ -13,38 +13,43 @@ import {
 import { put } from "@vercel/blob";
 import { customAlphabet } from "nanoid";
 import { getBlurDataURL } from "@/lib/utils";
+import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { randomUUID } from "crypto";
 
 const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 7); // 7-character random string
 
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
-  if (!session?.user.id) {
-    return {
-      error: "Not authenticated",
-    };
-  }
-  const name = formData.get("name") as string;
-  const description = formData.get("description") as string;
-  const subdomain = formData.get("subdomain") as string;
+  if (!session?.user.id) throw "Not authenticated";
 
-  try {
-    const response: any = {};
-    await revalidateTag(`${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
-    return response;
-  } catch (error: any) {
-    if (error.code === "P2002") {
-      return {
-        error: `This subdomain is already taken`,
-      };
-    } else {
-      return {
-        error: error.message,
-      };
-    }
-  }
+  const supabase = createServerActionClient({ cookies });
+  const name = formData.get("name") as string;
+  const subdomain = formData.get("subdomain") as string;
+  const userId = session?.user.id;
+
+  const { data: currentData } = await supabase.from("projects").select("*").eq("subdomain", subdomain);
+  if (currentData && currentData.length > 0) return { error: "Subdomain already used" };
+
+  const homePageUuid = randomUUID();
+  const payload = { project_name: name, subdomain, homepage: homePageUuid, user: userId };
+  const { data, error } = await supabase.from("projects").insert(payload).select();
+  if (error || data.length === 0) return { error: error ? error.message : "Something went wrong" };
+
+  await supabase.from("pages").insert({
+    blocks: [],
+    slug: "home",
+    page_name: "Home",
+    project: data[0].uuid,
+    uuid: homePageUuid,
+  });
+
+  await revalidateTag(`${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
+  return data[0];
 };
 
 export const updateSite = withSiteAuth(async (formData: FormData, site: any, key: string) => {
+  const supabase = createServerActionClient({ cookies });
   const value = formData.get(key) as string;
 
   try {
@@ -118,31 +123,22 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
           */
       }
     } else if (key === "image" || key === "logo") {
-      if (!process.env.BLOB_READ_WRITE_TOKEN) {
-        return {
-          error:
-            "Missing BLOB_READ_WRITE_TOKEN token. Note: Vercel Blob is currently in beta – please fill out this form for access: https://tally.so/r/nPDMNd",
-        };
-      }
-
       const file = formData.get(key) as File;
       const filename = `${nanoid()}.${file.type.split("/")[1]}`;
 
-      const { url } = await put(filename, file, {
-        access: "public",
-      });
+      const { data, error } = await supabase.storage
+        .from("chaibuilder-blob-storage")
+        .upload(`website-image/${filename}`, file, {
+          cacheControl: "3600",
+          upsert: false,
+        });
 
-      const blurhash = key === "image" ? await getBlurDataURL(url) : null;
+      const url = data?.path;
 
-      // response = await prisma.site.update({
-      //   where: {
-      //     id: site.id,
-      //   },
-      //   data: {
-      //     [key]: url,
-      //     ...(blurhash && { imageBlurhash: blurhash }),
-      //   },
-      // });
+      // const blurhash = key === "image" ? await getBlurDataURL(url) : null;
+
+      const { data: locData } = await supabase.from("projects").update({ webclip: url }).eq("uuid", site).single();
+      response = locData;
     } else {
       // response = await prisma.site.update({
       //   where: {
@@ -158,8 +154,8 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
       `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
       `${site.customDomain}-metadata`,
     );
-    await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
-    site.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
+    site?.subdomain && (await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`));
+    site?.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
 
     return response;
   } catch (error: any) {
@@ -175,17 +171,17 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
   }
 });
 
-export const deleteSite = withSiteAuth(async (_: FormData, site: any) => {
+export const deleteProject = withSiteAuth(async (_: FormData, id: any) => {
+  const supabase = createServerActionClient({ cookies });
+
   try {
-    return {};
-    // const response = await prisma.site.delete({
-    //   where: {
-    //     id: site.id,
-    //   },
-    // });
-    // await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
-    // response.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
-    // return response;
+    // * Need confirmation on delete (remove or update col)
+    const { data, error } = await supabase.from("projects").delete().eq("uuid", id).select();
+    if (error) return { error: error?.message };
+
+    await revalidateTag(`${data[0].subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
+    data[0].customDomain && (await revalidateTag(`${data[0].customDomain}-metadata`));
+    return data[0];
   } catch (error: any) {
     return {
       error: error.message,
@@ -228,36 +224,28 @@ export const createPost = withSiteAuth(async (_: FormData, site: any) => {
 // creating a separate function for this because we're not using FormData
 export const updatePost = async (data: any) => {
   const session = await getSession();
-  if (!session?.user.id) {
+  if (!session?.user.id) return { error: "Not authenticated" };
+
+  const supabase = createServerActionClient({ cookies });
+
+  const { data: post } = await supabase.from("pages").select("*").eq("uuid", data.uuid).single();
+
+  if (!post || !data) {
     return {
-      error: "Not authenticated",
+      error: "Post not found",
     };
   }
-  // const post = await prisma.post.findUnique({
-  //   where: {
-  //     id: data.id,
-  //   },
-  //   include: {
-  //     site: true,
-  //   },
-  // });
-  // if (!post || post.userId !== session.user.id) {
-  //   return {
-  //     error: "Post not found",
-  //   };
-  // }
+
   try {
-    return {};
-    // const response = await prisma.post.update({
-    //   where: {
-    //     id: data.id,
-    //   },
-    //   data: {
-    //     title: data.title,
-    //     description: data.description,
-    //     content: data.content,
-    //   },
-    // });
+    const { data: response } = await supabase
+      .from("pages")
+      .update({
+        title: data.title,
+        description: data.description,
+        content: data.content,
+      })
+      .eq("uuid", data.uuid)
+      .single();
 
     // await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
     // await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`);
@@ -267,7 +255,7 @@ export const updatePost = async (data: any) => {
     //   (await revalidateTag(`${post.site?.customDomain}-posts`),
     //   await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
 
-    // // return response;
+    return response;
   } catch (error: any) {
     return {
       error: error.message,

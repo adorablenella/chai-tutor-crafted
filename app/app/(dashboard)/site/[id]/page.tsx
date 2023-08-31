@@ -3,17 +3,17 @@ import Posts from "@/components/posts";
 import CreatePostButton from "@/components/create-post-button";
 import { getSupabaseSession } from "@/app/helpers/session";
 import { getSite } from "@/app/helpers/site";
+import { getSession } from "@/lib/auth";
+import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
 
 export default async function SitePosts({ params }: { params: { id: string } }) {
-  const session = await getSupabaseSession();
-  if (!session) {
-    redirect("/login");
-  }
-  const data = await getSite(params.id);
+  const supabase = useSupabaseClient();
+  const session = await getSession();
+  if (!session) redirect("/login");
 
-  if (!data) {
-    notFound();
-  }
+  const { data = {} } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
+
+  if (!data) notFound();
 
   const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
@@ -22,10 +22,10 @@ export default async function SitePosts({ params }: { params: { id: string } }) 
       <div className="flex flex-col items-center justify-between space-y-4 sm:flex-row sm:space-y-0">
         <div className="flex flex-col items-center space-y-2 sm:flex-row sm:space-x-4 sm:space-y-0">
           <h1 className="w-60 truncate font-cal text-xl font-bold dark:text-white sm:w-auto sm:text-3xl">
-            All Blogs for {data.name}
+            All Blogs for {data?.project_name}
           </h1>
           <a
-            href={process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${url}` : `http://${data.subdomain}.localhost:3000`}
+            href={process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${url}` : `http://${data?.subdomain}.localhost:3000`}
             target="_blank"
             rel="noreferrer"
             className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700">
@@ -34,7 +34,7 @@ export default async function SitePosts({ params }: { params: { id: string } }) 
         </div>
         <CreatePostButton />
       </div>
-      <Posts siteId={params.id} />
+      <Posts siteId={params.id} projectData={data} />
     </>
   );
 }

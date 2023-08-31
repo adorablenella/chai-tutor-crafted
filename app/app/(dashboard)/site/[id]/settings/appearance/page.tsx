@@ -1,8 +1,18 @@
 import Form from "@/components/form";
 import { updateSite } from "@/lib/actions";
+import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
 
 export default async function SiteSettingsAppearance({ params }: { params: { id: string } }) {
-  const data: any = {};
+  const supabase = useSupabaseClient();
+  const { data } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
+
+  if (data.webclip) {
+    // * CHANGES in PROGRESS
+    const { data: webclipImage } = await supabase.storage
+      .from("chaibuilder-blob-storage")
+      .createSignedUrl(data.webclip, 60);
+    data.webclip = webclipImage?.signedUrl;
+  }
 
   return (
     <div className="flex flex-col space-y-6">
@@ -13,7 +23,7 @@ export default async function SiteSettingsAppearance({ params }: { params: { id:
         inputAttrs={{
           name: "image",
           type: "file",
-          defaultValue: data?.image!,
+          defaultValue: data?.webclip!,
         }}
         handleSubmit={updateSite}
       />

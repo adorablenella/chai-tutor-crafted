@@ -13,7 +13,7 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { cn } from "@/lib/utils";
 import LoadingDots from "../icons/loading-dots";
 import { ExternalLink } from "lucide-react";
-import { updatePost } from "@/app/helpers/post";
+import { updatePost } from "@/lib/actions";
 
 export default function Editor({ post }: { post: any }) {
   let [isPendingSaving, startTransitionSaving] = useTransition();
@@ -37,7 +37,7 @@ export default function Editor({ post }: { post: any }) {
       return;
     }
     startTransitionSaving(async () => {
-      await updatePost(post.id as string, debouncedData);
+      await updatePost(debouncedData);
     });
   }, [debouncedData, post]);
 
@@ -47,7 +47,7 @@ export default function Editor({ post }: { post: any }) {
       if (e.metaKey && e.key === "s") {
         e.preventDefault();
         startTransitionSaving(async () => {
-          await updatePost(post.id as string, data);
+          await updatePost(data);
         });
       }
     };

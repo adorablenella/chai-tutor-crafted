@@ -2,19 +2,19 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SiteCard from "./site-card";
 import Image from "next/image";
-import { getSites } from "@/app/helpers/site";
+import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
 
 export default async function Sites({ limit }: { limit?: number }) {
+  const supabase = useSupabaseClient();
   const session = await getSession();
-  if (!session) {
-    redirect("/login");
-  }
-  const sites = await getSites();
+  if (!session) redirect("/login");
 
-  return sites.length > 0 ? (
+  const { data: sites = [] } = await supabase.from("projects").select("*");
+
+  return sites && sites.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {sites.map((site) => (
-        <SiteCard key={site.id} data={site as any} />
+        <SiteCard key={site.uuid} data={site as any} />
       ))}
     </div>
   ) : (

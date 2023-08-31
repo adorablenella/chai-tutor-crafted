@@ -16,10 +16,7 @@ export type Post = {
 };
 
 export const getPosts = async (siteId: string) => {
-  const { data: posts = [] } = await supabase
-    .from("post")
-    .select("*")
-    .eq("siteId", siteId);
+  const { data: posts = [] } = await supabase.from("post").select("*").eq("siteId", siteId);
 
   const site = await getSite(siteId);
 
@@ -27,11 +24,7 @@ export const getPosts = async (siteId: string) => {
 };
 
 export const getPost = async (postId: string) => {
-  const { data: post = {} } = await supabase
-    .from("post")
-    .select("*")
-    .eq("id", postId)
-    .single();
+  const { data: post = {} } = await supabase.from("post").select("*").eq("id", postId).single();
   const site = await getSite(post.siteId);
   return { ...post, site } as any;
 };
@@ -52,28 +45,6 @@ export const getPostByDomain = async (domain: string, slug?: string) => {
 
 export const createPost = async (payload: Post) => {
   const { data, error } = await supabase.from("post").insert(payload).select();
-  if (error) throw error.message;
-  return data[0] as Post;
-};
-
-export const updatePost = async (id: string, payload: Post) => {
-  const post = await getPost(id);
-  if (!post) throw "Post not found";
-
-  const body = {
-    title: payload.title,
-    description: payload.description,
-    content: payload.content,
-    published: payload.published,
-  };
-  if (payload.published === post.published) delete body.published;
-
-  const { data, error } = await supabase
-    .from("post")
-    .update(body)
-    .eq("id", id)
-    .select();
-
   if (error) throw error.message;
   return data[0] as Post;
 };

@@ -19,7 +19,7 @@ export default async function SettingsPage() {
           inputAttrs={{
             name: "name",
             type: "text",
-            defaultValue: "",
+            defaultValue: session?.user?.user_metadata?.name,
             placeholder: "John Doe",
             maxLength: 32,
           }}

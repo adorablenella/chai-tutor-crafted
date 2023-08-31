@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { getSession } from "@/lib/auth";
 import { notFound, redirect } from "next/navigation";
 import SiteSettingsNav from "./nav";
-import { getSite } from "@/app/helpers/site";
+import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
 
 export default async function SiteAnalyticsLayout({
   params,
@@ -11,17 +11,15 @@ export default async function SiteAnalyticsLayout({
   params: { id: string };
   children: ReactNode;
 }) {
+  const supabase = useSupabaseClient();
   const session = await getSession();
-  if (!session) {
-    redirect("/login");
-  }
-  const data = await getSite(params.id);
+  if (!session) redirect("/login");
 
-  if (!data) {
-    notFound();
-  }
+  const { data = {} } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
 
-  const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
+  if (!data) notFound();
+
+  const url = `${data?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
     <>

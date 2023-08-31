@@ -1,19 +1,28 @@
 import { redirect } from "next/navigation";
 import PostCard from "./post-card";
 import Image from "next/image";
-import { getSupabaseSession } from "@/app/helpers/session";
-import { getPosts } from "@/app/helpers/post";
+import { getSession } from "@/lib/auth";
+import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
 
-export default async function Posts({ siteId, limit }: { siteId?: string; limit?: number }) {
-  const session = await getSupabaseSession();
+export default async function Posts({
+  siteId,
+  projectData,
+  limit,
+}: {
+  siteId?: string;
+  projectData: any;
+  limit?: number;
+}) {
+  const supabase = useSupabaseClient();
+  const session = await getSession();
   if (!session?.user) redirect("/login");
 
-  const posts = await getPosts(siteId as string);
+  const { data: posts = [] } = await supabase.from("pages").select("*").eq("project", siteId);
 
   return posts && posts.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {posts.map((post) => (
-        <PostCard key={post.id} data={post as any} />
+        <PostCard key={post.id} data={post as any} projectData={projectData} />
       ))}
     </div>
   ) : (
