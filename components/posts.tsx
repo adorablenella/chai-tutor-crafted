@@ -18,7 +18,7 @@ export default async function Posts({
   const session = await getSession();
   if (!session?.user) redirect("/login");
 
-  const { data: posts = [] } = await supabase.from("pages").select("*").eq("project", siteId);
+  const { data: posts = [] } = await supabase.from("post").select("*").eq("project", siteId);
 
   return posts && posts.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">

@@ -3,13 +3,7 @@
 import { revalidateTag } from "next/cache";
 import { withPostAuth, withSiteAuth } from "./auth";
 import { getSession } from "@/lib/auth";
-import {
-  addDomainToVercel,
-  // getApexDomain,
-  removeDomainFromVercelProject,
-  // removeDomainFromVercelTeam,
-  validDomainRegex,
-} from "@/lib/domains";
+import { addDomainToVercel, removeDomainFromVercelProject, validDomainRegex } from "@/lib/domains";
 import { put } from "@vercel/blob";
 import { customAlphabet } from "nanoid";
 import { getBlurDataURL } from "@/lib/utils";
@@ -28,11 +22,11 @@ export const createSite = async (formData: FormData) => {
   const subdomain = formData.get("subdomain") as string;
   const userId = session?.user.id;
 
-  const { data: currentData } = await supabase.from("projects").select("*").eq("subdomain", subdomain);
+  const { data: currentData } = await supabase.from("projects").select("subdomain").eq("subdomain", subdomain);
   if (currentData && currentData.length > 0) return { error: "Subdomain already used" };
 
   const homePageUuid = randomUUID();
-  const payload = { project_name: name, subdomain, homepage: homePageUuid, user: userId };
+  const payload = { project_name: name, subdomain, user: userId };
   const { data, error } = await supabase.from("projects").insert(payload).select();
   if (error || data.length === 0) return { error: error ? error.message : "Something went wrong" };
 
@@ -44,6 +38,7 @@ export const createSite = async (formData: FormData) => {
     uuid: homePageUuid,
   });
 
+  await supabase.from("projects").update({ homepage: homePageUuid }).eq("uuid", data[0].uuid);
   await revalidateTag(`${subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
   return data[0];
 };
