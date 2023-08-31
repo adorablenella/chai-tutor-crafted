@@ -2,10 +2,11 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SiteCard from "./site-card";
 import Image from "next/image";
-import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function Sites({ limit }: { limit?: number }) {
-  const supabase = useSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
   const session = await getSession();
   if (!session) redirect("/login");
 

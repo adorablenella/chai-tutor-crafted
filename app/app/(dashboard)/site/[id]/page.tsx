@@ -4,10 +4,11 @@ import CreatePostButton from "@/components/create-post-button";
 import { getSupabaseSession } from "@/app/helpers/session";
 import { getSite } from "@/app/helpers/site";
 import { getSession } from "@/lib/auth";
-import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function SitePosts({ params }: { params: { id: string } }) {
-  const supabase = useSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
   const session = await getSession();
   if (!session) redirect("/login");
 

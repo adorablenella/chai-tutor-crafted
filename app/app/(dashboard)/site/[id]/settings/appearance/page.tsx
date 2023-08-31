@@ -1,9 +1,10 @@
 import Form from "@/components/form";
 import { updateSite } from "@/lib/actions";
-import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function SiteSettingsAppearance({ params }: { params: { id: string } }) {
-  const supabase = useSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
 
   if (data.webclip) {

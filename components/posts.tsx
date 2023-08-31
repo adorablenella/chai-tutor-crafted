@@ -2,7 +2,8 @@ import { redirect } from "next/navigation";
 import PostCard from "./post-card";
 import Image from "next/image";
 import { getSession } from "@/lib/auth";
-import { useSupabaseClient } from "@/lib/hooks/use-supabase-client";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function Posts({
   siteId,
@@ -13,7 +14,7 @@ export default async function Posts({
   projectData: any;
   limit?: number;
 }) {
-  const supabase = useSupabaseClient();
+  const supabase = createServerComponentClient({ cookies });
   const session = await getSession();
   if (!session?.user) redirect("/login");
 
