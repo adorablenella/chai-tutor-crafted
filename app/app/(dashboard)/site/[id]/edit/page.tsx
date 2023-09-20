@@ -1,9 +1,7 @@
+import ChaiBuilderNextJS from "../../../../../../next";
+
 const EditSite = () => {
-  return (
-    <div className="flex h-screen w-full items-center justify-center text-white">
-      Edit Site here
-    </div>
-  );
+  return <ChaiBuilderNextJS />;
 };
 
 export default EditSite;
