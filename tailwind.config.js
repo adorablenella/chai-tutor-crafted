@@ -7,12 +7,59 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./lib/**/*.{js,ts,jsx,tsx}",
-    "./next/**/*.{js,ts,jsx,tsx}",
-    "./package/**/*.{js,ts,jsx,tsx}",
+    "./sdk/**/*.{js,ts,jsx,tsx}",
     "./node_modules/@tremor/**/*.{js,ts,jsx,tsx}", // Tremor module
   ],
   theme: {
     extend: {
+      boxShadow: {
+        // light
+        "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+        // dark
+        "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
+        "dark-tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
+        "dark-tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
+      },
+      fontSize: {
+        "tremor-label": ["0.75rem"],
+        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
+        "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
+        "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
+      },
+      width: {
+        1536: "1536px",
+      },
+      height: {
+        150: "37.5rem",
+      },
+      margin: {
+        30: "7.5rem",
+      },
+      fontFamily: {
+        default: ["var(--font-inter)", ...fontFamily.sans],
+        cal: ["var(--font-cal)", ...fontFamily.sans],
+        title: ["var(--font-title)", ...fontFamily.sans],
+        mono: ["Consolas", ...fontFamily.mono],
+      },
+      typography: {
+        DEFAULT: {
+          css: {
+            h1: {
+              fontFamily: "Cal Sans",
+            },
+            h2: {
+              fontFamily: "Cal Sans",
+            },
+            h3: {
+              fontFamily: "Cal Sans",
+            },
+            "blockquote p:first-of-type::before": { content: "none" },
+            "blockquote p:first-of-type::after": { content: "none" },
+          },
+        },
+      },
       colors: {
         // light mode
         tremor: {
@@ -74,77 +121,6 @@ module.exports = {
             inverted: "#000000", // black
           },
         },
-      },
-      boxShadow: {
-        // light
-        "tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-        // dark
-        "dark-tremor-input": "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        "dark-tremor-card": "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
-        "dark-tremor-dropdown": "0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1)",
-      },
-      borderRadius: {
-        "tremor-small": "0.375rem",
-        "tremor-default": "0.5rem",
-        "tremor-full": "9999px",
-      },
-      fontSize: {
-        "tremor-label": ["0.75rem"],
-        "tremor-default": ["0.875rem", { lineHeight: "1.25rem" }],
-        "tremor-title": ["1.125rem", { lineHeight: "1.75rem" }],
-        "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
-      },
-      width: {
-        1536: "1536px",
-      },
-      height: {
-        150: "37.5rem",
-      },
-      margin: {
-        30: "7.5rem",
-      },
-      fontFamily: {
-        default: ["var(--font-inter)", ...fontFamily.sans],
-        cal: ["var(--font-cal)", ...fontFamily.sans],
-        title: ["var(--font-title)", ...fontFamily.sans],
-        mono: ["Consolas", ...fontFamily.mono],
-      },
-      typography: {
-        DEFAULT: {
-          css: {
-            h1: {
-              fontFamily: "Cal Sans",
-            },
-            h2: {
-              fontFamily: "Cal Sans",
-            },
-            h3: {
-              fontFamily: "Cal Sans",
-            },
-            "blockquote p:first-of-type::before": { content: "none" },
-            "blockquote p:first-of-type::after": { content: "none" },
-          },
-        },
-      },
-      keyframes: {
-        wiggle: {
-          "0%, 100%": {
-            transform: "translateX(0%)",
-            transformOrigin: "50% 50%",
-          },
-          "15%": { transform: "translateX(-6px) rotate(-6deg)" },
-          "30%": { transform: "translateX(9px) rotate(6deg)" },
-          "45%": { transform: "translateX(-9px) rotate(-3.6deg)" },
-          "60%": { transform: "translateX(3px) rotate(2.4deg)" },
-          "75%": { transform: "translateX(-2px) rotate(-1.2deg)" },
-        },
-      },
-      animation: {
-        wiggle: "wiggle 0.8s both",
-      },
-      colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -183,6 +159,9 @@ module.exports = {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+        "tremor-small": "0.375rem",
+        "tremor-default": "0.5rem",
+        "tremor-full": "9999px",
       },
       keyframes: {
         "accordion-down": {
@@ -193,8 +172,20 @@ module.exports = {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: 0 },
         },
+        wiggle: {
+          "0%, 100%": {
+            transform: "translateX(0%)",
+            transformOrigin: "50% 50%",
+          },
+          "15%": { transform: "translateX(-6px) rotate(-6deg)" },
+          "30%": { transform: "translateX(9px) rotate(6deg)" },
+          "45%": { transform: "translateX(-9px) rotate(-3.6deg)" },
+          "60%": { transform: "translateX(3px) rotate(2.4deg)" },
+          "75%": { transform: "translateX(-2px) rotate(-1.2deg)" },
+        },
       },
       animation: {
+        wiggle: "wiggle 0.8s both",
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },

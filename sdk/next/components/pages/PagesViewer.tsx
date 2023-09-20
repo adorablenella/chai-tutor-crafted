@@ -3,7 +3,7 @@ import { ChevronRightIcon, FileTextIcon, GearIcon, HomeIcon } from "@radix-ui/re
 import * as PopoverRoot from "@radix-ui/react-popover";
 import { TPageData } from "../../types";
 import { useProject } from "../../hooks/useProject";
-import { Popover, PopoverContent, PopoverTrigger } from "../../../package";
+import { Popover, PopoverContent, PopoverTrigger } from "@/sdk/package";
 import { useCurrentPage } from "../../store";
 import { useChangePage } from "../../hooks/useChangePage";
 
@@ -34,9 +34,9 @@ const SettingPopover = ({ pageData }: { pageData: TPageData }): React.ReactEleme
           <Suspense
             fallback={
               <div className="flex w-full animate-pulse flex-col gap-y-3">
-                <div className="h-6 w-1/2 bg-gray-300" />
-                <div className="h-20 w-full bg-gray-300" />
-                <div className="h-20 w-full bg-gray-300" />
+                <div className="bg-background-300 h-6 w-1/2" />
+                <div className="bg-background-300 h-20 w-full" />
+                <div className="bg-background-300 h-20 w-full" />
               </div>
             }>
             <PageDetail pageData={pageData} open={open} setOpen={setOpen} />
@@ -76,9 +76,9 @@ const PagesViewer = ({ pages, isLoading }: { isLoading: boolean; pages: TPageDat
   if (isLoading)
     return (
       <div className="flex animate-pulse flex-col gap-y-1 px-2.5 pt-2">
-        <div className="h-7 w-full bg-gray-200" />
-        <div className="h-7 w-full bg-gray-200" />
-        <div className="h-7 w-full bg-gray-200" />
+        <div className="bg-background-200 h-7 w-full" />
+        <div className="bg-background-200 h-7 w-full" />
+        <div className="bg-background-200 h-7 w-full" />
       </div>
     );
   if (pages.length === 0) return <div className="px-2.5 pb-2 pt-4">No pages</div>;

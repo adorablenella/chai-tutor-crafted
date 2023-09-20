@@ -21,18 +21,18 @@ const RootLayout: React.FC = () => {
   };
 
   return (
-    <div className="bg-background text-foreground h-screen w-screen">
+    <div className="h-screen w-screen bg-background text-foreground">
       <TooltipProvider>
         <div
           onContextMenu={preventContextMenu}
-          className="text-foreground bg-background flex h-screen flex-col overflow-hidden">
-          <div className="border-border h-14 w-screen shrink-0 border-b">
+          className="flex h-screen flex-col overflow-hidden bg-background text-foreground">
+          <div className="h-14 w-screen shrink-0 border-b border-border">
             <Suspense>
               <TopBar />
             </Suspense>
           </div>
-          <main className="flex h-[calc(100vh-3.5rem)] flex-row">
-            <div className="border-border flex h-full w-fit">
+          <main className="flex h-full flex-row">
+            <div className="flex h-full w-fit border-border">
               <Suspense>
                 <SidePanels />
               </Suspense>
@@ -42,7 +42,7 @@ const RootLayout: React.FC = () => {
                 <CanvasArea />
               </Suspense>
             </div>
-            <div className="border-border flex h-full w-[280px] min-w-[280px] border-l">
+            <div className="flex h-full w-[280px] min-w-[280px] border-l border-border">
               <Suspense>
                 <Settings />
               </Suspense>
