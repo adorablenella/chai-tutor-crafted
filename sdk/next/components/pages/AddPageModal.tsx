@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { isString, kebabCase } from "lodash";
-import { Button, Dialog, DialogContent, DialogTrigger, SelectOption, SingleLineText } from "@/sdk/package";
+import { Button, Dialog, DialogContent, DialogTrigger } from "@/sdk/package";
 import { TPageData, TPageSEOData } from "../../types";
 import { useAddPage } from "../../mutations/usePageActions";
 import { useProject } from "../../hooks/useProject";
 import Form from "../common/Form";
+import { SelectOption, SingleLineText } from "@/sdk/package/controls";
 
 /**
  *

@@ -25,7 +25,7 @@ const Pages = (): React.JSX.Element => {
       <div className="-mx-1">
         <Accordion type="multiple" className="w-full" defaultValue={["STATIC", "DYNAMIC"]}>
           <AccordionItem value="STATIC">
-            <AccordionTrigger className="bg-background-100 hover:bg-background-50 px-2.5 py-1.5 font-medium hover:no-underline">
+            <AccordionTrigger className="bg-background-100 hover:bg-background-50 px-2.5 py-1.5 font-medium hover:no-underline dark:bg-slate-800">
               Static Pages
             </AccordionTrigger>
             <AccordionContent className="-mb-2 text-sm">
@@ -34,7 +34,7 @@ const Pages = (): React.JSX.Element => {
           </AccordionItem>
 
           <AccordionItem value="DYNAMIC">
-            <AccordionTrigger className="bg-background-100 hover:bg-background-50 px-2.5 py-1.5 font-medium hover:no-underline">
+            <AccordionTrigger className="bg-background-100 hover:bg-background-50 dark:bg-slate-80 px-2.5 py-1.5 font-medium hover:no-underline dark:bg-slate-800">
               Dynamic Pages
             </AccordionTrigger>
             <AccordionContent className="-mb-2 text-sm">
