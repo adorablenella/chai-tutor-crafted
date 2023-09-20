@@ -1,4 +1,4 @@
-import { fetchRouteSnapshot, RenderBlocks } from "@/app/app/(dashboard)/editor/next";
+import { fetchRouteSnapshot, RenderBlocks } from "../../../sdk/next";
 
 export const dynamicParams = true;
 

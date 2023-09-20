@@ -11,7 +11,7 @@ import {
   registerBlock,
   SingleLineText,
   Styles,
-} from "../app/(dashboard)/editor/package";
+} from "../../sdk/package";
 
 type TStylesProps = {
   className: string;

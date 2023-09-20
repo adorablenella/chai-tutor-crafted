@@ -16,7 +16,7 @@ export default async function OverviewSitesCTA() {
       View All Sites
     </Link>
   ) : (
-    <CreateSiteButton>
+    <CreateSiteButton title={"Create Site"}>
       <CreateSiteModal />
     </CreateSiteButton>
   );

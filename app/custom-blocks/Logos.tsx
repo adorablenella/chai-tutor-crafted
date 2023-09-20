@@ -1,14 +1,9 @@
 "use client";
 
 // nolint
-import {
-  GlobalDataMapper,
-  Image,
-  List,
-  registerBlock,
-  SingleLineText,
-  Styles,
-} from "../app/(dashboard)/editor/package";
+import { GlobalDataMapper, Image as Img, List, registerBlock, SingleLineText, Styles } from "@/sdk/package";
+import BlurImage from "@/components/blur-image";
+import React from "react";
 
 type TStylesProps = {
   className: string;
@@ -33,11 +28,13 @@ export default function LogosBLock({ title, logos, titleStyles, logoStyles }: Lo
         <h3 {...titleStyles}>{title}</h3>
         <div className="mt-6">
           <ul className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 md:gap-x-16">
-            {logos.map((logo) => (
-              <li>
-                <img {...logoStyles} src={logo.url} alt={logo.alt} />
-              </li>
-            ))}
+            {React.Children.toArray(
+              logos.map((logo) => (
+                <li>
+                  <BlurImage width="100" title={logo.alt} {...logoStyles} src={logo.url} alt={logo.alt} />
+                </li>
+              )),
+            )}
           </ul>
         </div>
       </div>
@@ -56,7 +53,7 @@ registerBlock(LogosBLock, {
     logos: List({
       title: "Logos",
       itemProperties: {
-        url: Image({ title: "Image" }),
+        url: Img({ title: "Image" }),
         alt: SingleLineText({ title: "Alt" }),
       },
     }),

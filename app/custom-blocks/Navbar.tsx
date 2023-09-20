@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Image, Link, List, registerBlock, SingleLineText } from "../app/(dashboard)/editor/package";
+import { Image, Link, List, registerBlock, SingleLineText } from "../../sdk/package";
+import BlurImage from "@/components/blur-image";
 
 const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
   const [state, setState] = useState(false);
@@ -25,7 +26,7 @@ const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
       <div className="mx-auto max-w-screen-xl items-center gap-x-14 px-4 md:flex md:px-8">
         <div className="flex items-center justify-between py-5 md:block">
           <a href="#/">
-            <img className="h-6 w-auto" src={logo} alt="Float UI logo" />
+            <BlurImage width="100" height="40" className="h-6 w-auto" src={logo} alt="Float UI logo" />
           </a>
           <div className="md:hidden">
             {/* eslint-disable-next-line react/button-has-type */}
