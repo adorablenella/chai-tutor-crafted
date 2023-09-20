@@ -7,7 +7,6 @@ import { TbLoader } from "react-icons/tb";
 import { useUser, verifyUser } from "./hooks/useUser";
 import RootChaiStudio from "./RootChaiStudio";
 import Logo from "./previews/Logo";
-import Login from "@/app/app/(dashboard)/editor/next/components/auth/Login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -36,7 +35,7 @@ export default function ChaiBuilderNextJS() {
         <TbLoader className="-mt-0.5 animate-spin text-gray-700" size={20} />
       </div>
     );
-  if (!user) return <Login />;
+  // if (!user) return <Login />;
 
   return (
     <QueryClientProvider client={queryClient}>
