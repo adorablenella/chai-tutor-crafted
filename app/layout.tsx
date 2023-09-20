@@ -1,8 +1,9 @@
 import "@/styles/globals.css";
-import {cal, inter} from "@/styles/fonts";
-import {Providers} from "./providers";
-import {Metadata} from "next";
-import {cn} from "@/lib/utils";
+import { cal, inter } from "@/styles/fonts";
+import { Providers } from "./providers";
+import { Metadata } from "next";
+import { cn } from "@/lib/utils";
+import "./custom-blocks";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
