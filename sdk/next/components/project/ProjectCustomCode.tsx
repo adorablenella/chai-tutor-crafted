@@ -1,8 +1,8 @@
 import * as React from "react";
 import { first } from "lodash";
-import { MultilineText } from "@/sdk/package";
 import { TProjectData } from "../../types";
 import Form from "../common/Form";
+import { MultilineText } from "@/sdk/package/controls";
 
 const CustomCodeSettings = ({
   _projectData,

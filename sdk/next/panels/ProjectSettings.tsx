@@ -50,8 +50,8 @@ export default function ProjectSettings() {
       <hr className="-mx-1" />
       <div className="-mx-1">
         <Accordion type="single" className="w-full" defaultValue="GENERAL">
-          <AccordionItem value="GENERAL" className="border-b-2 border-slate-100">
-            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline">
+          <AccordionItem value="GENERAL" className="border-b-2 border-slate-100 dark:border-slate-800">
+            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline dark:bg-slate-900 dark:hover:bg-slate-800">
               General Settings
             </AccordionTrigger>
             <AccordionContent className="px-2 pt-4 text-sm">
@@ -60,8 +60,8 @@ export default function ProjectSettings() {
               </Suspense>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value="SEO" className="border-b-2 border-slate-100">
-            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline">
+          <AccordionItem value="SEO" className="border-b-2 border-slate-100 dark:border-slate-800">
+            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline dark:bg-slate-900 dark:hover:bg-slate-800">
               SEO Settings
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">
@@ -71,7 +71,7 @@ export default function ProjectSettings() {
             </AccordionContent>
           </AccordionItem>
           <AccordionItem value="CUSTOM">
-            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline">
+            <AccordionTrigger className="bg-slate-200 px-2.5 py-1.5 font-medium hover:bg-slate-100 hover:no-underline dark:bg-slate-900 dark:hover:bg-slate-800">
               Custom Code
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">

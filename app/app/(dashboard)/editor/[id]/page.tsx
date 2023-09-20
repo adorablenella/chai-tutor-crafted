@@ -1,6 +1,6 @@
 import ChaiBuilderNextJS from "@/sdk/next";
 
-export default function Editor({ params }: { params: { id: string } }) {
+export default function Editor() {
   return (
     <div className={"h-screen w-screen"}>
       <ChaiBuilderNextJS />

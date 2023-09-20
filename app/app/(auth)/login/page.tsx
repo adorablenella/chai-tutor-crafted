@@ -27,7 +27,9 @@ export default function LoginPage() {
             <div className="my-2 h-10 w-full rounded-md border border-stone-200 bg-stone-100 dark:border-stone-700 dark:bg-stone-800" />
           }>
           <LoginWithEmail />
-          <Divider> sd</Divider>
+          <div className="flex items-center gap-x-2 text-gray-500">
+            <Divider /> OR <Divider />
+          </div>
           <LoginButton />
         </Suspense>
         <br />

@@ -39,7 +39,7 @@ export default function RootChaiStudio() {
         },
       );
     },
-    [queryClient, currentPageUuid],
+    [queryClient, currentPageUuid, updatePage, toast],
   );
 
   // @TODO: Move supabase to /api/chaibuiilder/storage

@@ -2,6 +2,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { first } from "lodash";
 
 export const config = {
   api: {
@@ -222,8 +223,33 @@ export const chaiBuilderApiHandler = async (req: NextApiRequest, res: NextApiRes
 };
 
 //TODO:
-export const chaiBuilderGETHandler = (request: Request, { params }: { params: { path: string[] } }) => {
-  return {};
+export const chaiBuilderGETHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
+  const entity = first(params.path);
+  const supabase = createRouteHandlerClient({ cookies });
+  const { searchParams } = new URL(request.url);
+  const projectUuid = searchParams.get("project_uuid") as string;
+  const pageUuid = searchParams.get("page_uuid") as string;
+
+  if (entity === ENDPOINTS.PROJECT) {
+    // * Fetching Project
+    const { data, error } = await supabase.from("projects").select("*").eq("uuid", projectUuid).single();
+    if (error) return { response: error, status: 500 };
+    return { response: data };
+  } else if (entity === ENDPOINTS.PAGES) {
+    if (pageUuid) {
+      // * Fetching Single Page Detailas
+      const { data, error } = await supabase.from("pages").select("*").eq("uuid", pageUuid).single();
+      if (error) return { response: error, status: 500 };
+      return { response: data };
+    }
+
+    // * Fetching list of all pages
+    const fields = "uuid, page_name, project, slug, type, custom_code, seo_data";
+    const { data, error } = await supabase.from("pages").select(fields).eq("project", projectUuid).order("created_at");
+    if (error) return { response: error, status: 500 };
+    return { response: data };
+  }
+  return { status: 400, response: { messsage: "Invalid route" } };
 };
 
 export const chaiBuilderPOSTHandler = (request: Request, { params }: { params: { path: string[] } }) => {

@@ -1,8 +1,9 @@
 import * as React from "react";
-import { Image, ScrollArea, SingleLineText } from "@/sdk/package";
+import { ScrollArea } from "@/sdk/package";
 import { useProject } from "../../hooks/useProject";
 import { TProjectData } from "../../types";
 import Form from "../common/Form";
+import { Image, SingleLineText } from "@/sdk/package/controls";
 
 const WebsiteGeneralSettings = ({
   _projectData,
@@ -16,7 +17,7 @@ const WebsiteGeneralSettings = ({
 
   React.useEffect(() => {
     if (projectData) setProjectData(projectData);
-  }, [projectData]);
+  }, [projectData, setProjectData]);
 
   const updateProjectRealtime = ({ formData }: any, key?: string) => {
     setProjectData((currentData: TProjectData) => ({

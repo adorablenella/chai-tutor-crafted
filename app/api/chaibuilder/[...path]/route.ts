@@ -8,7 +8,8 @@ import {
 
 export async function GET(...args: any) {
   // @ts-ignore
-  return NextResponse.json(chaiBuilderGETHandler(...args));
+  const { response, status = 200 } = await chaiBuilderGETHandler(...args);
+  return NextResponse.json(response, { status });
 }
 
 export async function POST(...args: any[]) {

@@ -1,7 +1,7 @@
 import * as React from "react";
-import { Image, Model, SingleLineText } from "../../../package";
 import Form from "../common/Form";
 import { TProjectData } from "../../types";
+import { Image, Model, SingleLineText } from "@/sdk/package/controls";
 
 const SEOSettings = ({
   _projectData,
