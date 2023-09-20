@@ -1,8 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import Posts from "@/components/posts";
 import CreatePostButton from "@/components/create-post-button";
-import { getSupabaseSession } from "@/app/helpers/session";
-import { getSite } from "@/app/helpers/site";
 import { getSession } from "@/lib/auth";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";

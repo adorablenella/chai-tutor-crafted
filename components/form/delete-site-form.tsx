@@ -5,7 +5,6 @@ import { cn } from "@/lib/utils";
 import { useParams, useRouter } from "next/navigation";
 import { experimental_useFormStatus as useFormStatus } from "react-dom";
 import { toast } from "sonner";
-import { deleteSite } from "@/app/helpers/site";
 import { useState } from "react";
 import { deleteProject } from "@/lib/actions";
 

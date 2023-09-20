@@ -5,20 +5,14 @@ import CTA from "@/components/cta";
 import ReportAbuse from "@/components/report-abuse";
 import { redirect } from "next/navigation";
 import { fontMapper } from "@/styles/fonts";
-import { getSiteByDomain } from "../helpers/site";
+import { getSiteByDomain } from "../helpers/project";
 
-export default async function SiteLayout({
-  params,
-  children,
-}: {
-  params: { domain: string };
-  children: ReactNode;
-}) {
+export default async function SiteLayout({ params, children }: { params: { domain: string }; children: ReactNode }) {
   const { domain } = params;
   const data = await getSiteByDomain(domain);
 
   if (!data) {
-    return <div>Data not found</div>;
+    return <div className="text-white">Data not found</div>;
   }
 
   // Optional: Redirect to custom domain if it exists
@@ -32,6 +26,9 @@ export default async function SiteLayout({
 
   return (
     <div className={fontMapper[data.font as string]}>
+      <head>
+        <link rel="stylesheet" href="https://cal.com/assd.css" />
+      </head>
       <div className="ease left-0 right-0 top-0 z-30 flex h-16 bg-white transition-all duration-150 dark:bg-black dark:text-white">
         <div className="mx-auto flex h-full max-w-screen-xl items-center justify-center space-x-5 px-10 sm:px-20">
           <Link href="/" className="flex items-center justify-center">
@@ -46,17 +43,14 @@ export default async function SiteLayout({
                 width={40}
               />
             </div>
-            <span className="ml-3 inline-block truncate font-title font-medium">
-              {data.name}
-            </span>
+            <span className="ml-3 inline-block truncate font-title font-medium">{data.name}</span>
           </Link>
         </div>
       </div>
 
       <div className="mt-20">{children}</div>
 
-      {params.domain == `demo.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` ||
-      params.domain == `platformize.co` ? (
+      {params.domain == `demo.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}` || params.domain == `platformize.co` ? (
         <CTA />
       ) : (
         <ReportAbuse />

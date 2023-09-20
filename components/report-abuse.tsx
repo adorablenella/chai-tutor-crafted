@@ -18,8 +18,7 @@ export default function ReportAbuse() {
     <div className="fixed bottom-5 right-5">
       <button
         className="rounded-full bg-black p-4 text-white shadow-lg transition-all hover:-translate-y-1 hover:shadow-2xl active:translate-y-0 active:shadow-sm"
-        onClick={() => setOpen(!open)}
-      >
+        onClick={() => setOpen(!open)}>
         <AlertTriangle size={24} />
       </button>
       {open && (
@@ -30,26 +29,16 @@ export default function ReportAbuse() {
             // artificial 1s delay
             await new Promise((resolve) => setTimeout(resolve, 1000));
             setOpen(false);
-            toast.success(
-              "Successfully reported abuse – thank you for helping us keep the internet safe!",
-            );
+            toast.success("Successfully reported abuse – thank you for helping us keep the internet safe!");
           }}
-          className="absolute bottom-20 right-2 flex w-96 flex-col space-y-6 rounded-lg border border-stone-200 bg-white p-8 shadow-lg animate-in slide-in-from-bottom-5"
-        >
+          className="absolute bottom-20 right-2 flex w-96 flex-col space-y-6 rounded-lg border border-stone-200 bg-white p-8 shadow-lg animate-in slide-in-from-bottom-5">
           <div>
-            <h2 className="font-cal text-xl leading-7 text-stone-900">
-              Report Abuse
-            </h2>
-            <p className="mt-2 text-sm leading-6 text-stone-600">
-              Found a site with abusive content? Let us know!
-            </p>
+            <h2 className="font-cal text-xl leading-7 text-stone-900">Report Abuse</h2>
+            <p className="mt-2 text-sm leading-6 text-stone-600">Found a site with abusive content? Let us know!</p>
           </div>
 
           <div>
-            <label
-              htmlFor="domain"
-              className="block text-sm font-medium leading-6 text-stone-900"
-            >
+            <label htmlFor="domain" className="block text-sm font-medium leading-6 text-stone-900">
               URL to report
             </label>
             <div className="mt-2">
@@ -81,8 +70,7 @@ function SubmitButton() {
           ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400"
           : "border-black bg-black text-white hover:bg-white hover:text-black",
       )}
-      disabled={pending}
-    >
+      disabled={pending}>
       {pending ? <LoadingDots color="#808080" /> : <p>Report Abuse</p>}
     </button>
   );

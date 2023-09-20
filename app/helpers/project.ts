@@ -1,7 +1,7 @@
 import supabase from "./supabase";
 
-type Site = {
-  id?: string;
+type Project = {
+  uuid: string;
   name: string;
   subdomain: string;
   description: string;
@@ -12,22 +12,22 @@ type Site = {
 };
 
 export const getSite = async (id: string) => {
-  const { data: site = {} } = await supabase.from("site").select("*").eq("id", id).single();
-  return site as Site;
+  const { data: project = {} } = await supabase.from("projects").select("*").eq("id", id).single();
+  return project as Project;
 };
 
 export const getSiteByDomain = async (domain: string) => {
   const subdomain = domain.endsWith(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`)
     ? domain.replace(`.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`, "")
     : null;
-  const { data: site = {} } = await supabase.from("site").select("*").eq("subdomain", subdomain).single();
-  return site as Site;
+  const { data: project = {} } = await supabase.from("projects").select("*").eq("subdomain", subdomain).single();
+  return project as Project;
 };
 
-export const updateSite = async (formData: FormData, siteId: Site, key: string) => {
+export const updateSite = async (formData: FormData, siteId: Project, key: string) => {
   const value = formData.get(key);
   const { error } = await supabase
-    .from("site")
+    .from("projects")
     .update({ [key]: value })
     .eq("id", siteId);
   if (error) throw error.message;
@@ -35,7 +35,7 @@ export const updateSite = async (formData: FormData, siteId: Site, key: string) 
 };
 
 export const deleteSite = async (siteId: string) => {
-  const { error } = await supabase.from("site").delete().eq("id", siteId);
+  const { error } = await supabase.from("projects").delete().eq("id", siteId);
   if (error) throw error.message;
   return true;
 };

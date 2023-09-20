@@ -1,8 +1,8 @@
 import "@/styles/globals.css";
-import { cal, inter } from "@/styles/fonts";
-import { Providers } from "./providers";
-import { Metadata } from "next";
-import { cn } from "@/lib/utils";
+import {cal, inter} from "@/styles/fonts";
+import {Providers} from "./providers";
+import {Metadata} from "next";
+import {cn} from "@/lib/utils";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <body className={cn(cal.variable, inter.variable)}>
         <Providers>{children}</Providers>
       </body>
