@@ -31,7 +31,7 @@ const ConfirmAlert = ({
     <AlertDialogContent>
       <AlertDialogTitle>{title}</AlertDialogTitle>
       {description && <AlertDialogDescription>{description}</AlertDialogDescription>}
-      <div className="flex gap-x-3 items-center justify-end">
+      <div className="flex items-center justify-end gap-x-3">
         <AlertDialogCancel disabled={disabled} onClick={onCancel}>
           {cancelText}
         </AlertDialogCancel>

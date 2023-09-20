@@ -9,7 +9,7 @@ export const useBrandingOptions = () => {
     queryFn: async () =>
       // TODO: fetch studio data
       // await fetch('/chaibuilder/branding-options').then((res) => res.json()) as TStudioData,
-      ({ pages: [], websiteData: { branding_options: BRANDING_OPTIONS_DEFAULTS } }) as any,
+      ({ pages: [], websiteData: { branding_options: BRANDING_OPTIONS_DEFAULTS } } as any),
     enabled: !!user,
   });
 };

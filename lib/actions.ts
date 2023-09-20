@@ -26,8 +26,13 @@ export const createSite = async (formData: FormData) => {
   if (currentData && currentData.length > 0) return { error: "Subdomain already used" };
 
   const homePageUuid = randomUUID();
-  const payload = { project_name: name, subdomain, user: userId };
+  const payload: any = { project_name: name, user: userId };
+  if (formData.get("apiKey")) payload.api_key = formData.get("apiKey") as string;
+  if (formData.get("type")) payload.type = formData.get("type") as string;
+  if (formData.get("subdomain")) payload.type = formData.get("subdomain") as string;
+
   const { data, error } = await supabase.from("projects").insert(payload).select();
+  console.log(payload, error);
   if (error || data.length === 0) return { error: error ? error.message : "Something went wrong" };
 
   await supabase.from("pages").insert({

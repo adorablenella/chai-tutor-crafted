@@ -84,7 +84,7 @@ const AddPageModalContent = ({ closeModal }: { closeModal: Function }): React.Re
 
   return (
     <DialogContent>
-      <div className="font-bold px-1">Add Page</div>
+      <div className="px-1 font-bold">Add Page</div>
       <Form formData={pageData} properties={properties} onChange={updateRealtime} disabled={addPage.isLoading} />
       {pageData.type === "DYNAMIC" && !isValidDynamicSlug(pageData?.slug || "") && (
         <small className="px-1">

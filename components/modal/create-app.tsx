@@ -9,25 +9,14 @@ import { useModal } from "./provider";
 import { useEffect, useState } from "react";
 import { createSite } from "@/lib/actions";
 
-export default function CreateSiteModal() {
+export default function CreateAppModal() {
   const router = useRouter();
   const modal = useModal();
 
   const [data, setData] = useState({
     name: "",
-    subdomain: "",
-    description: "",
+    apiKey: "",
   });
-
-  useEffect(() => {
-    setData((prev) => ({
-      ...prev,
-      subdomain: prev.name
-        .toLowerCase()
-        .trim()
-        .replace(/[\W_]+/g, "-"),
-    }));
-  }, [data.name]);
 
   const addSite = async (formData: FormData) => {
     createSite(formData).then((res: any) => {
@@ -37,9 +26,9 @@ export default function CreateSiteModal() {
       }
       const { uuid } = res;
       router.refresh();
-      router.push(`/site/${uuid}`);
+      router.push(`/apps/${uuid}`);
       modal?.hide();
-      toast.success(`Successfully created site!`);
+      toast.success(`Successfully created App!`);
     });
   };
 
@@ -48,16 +37,16 @@ export default function CreateSiteModal() {
       action={addSite}
       className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700">
       <div className="relative flex flex-col space-y-4 p-5 md:p-10">
-        <h2 className="font-cal text-2xl dark:text-white">Create a new site</h2>
+        <h2 className="font-cal text-2xl dark:text-white">Create a new app</h2>
 
         <div className="flex flex-col space-y-2">
           <label htmlFor="name" className="text-sm font-medium text-stone-500 dark:text-stone-400">
-            Site Name
+            App Name
           </label>
           <input
             name="name"
             type="text"
-            placeholder="My Awesome Site"
+            placeholder="My Awesome App"
             autoFocus
             value={data.name}
             onChange={(e) => setData({ ...data, name: e.target.value })}
@@ -69,36 +58,32 @@ export default function CreateSiteModal() {
 
         <div className="flex flex-col space-y-2">
           <label htmlFor="subdomain" className="text-sm font-medium text-stone-500">
-            Subdomain
+            API Key
           </label>
           <div className="flex w-full max-w-md">
             <input
-              name="subdomain"
+              name="apiKey"
               type="text"
-              placeholder="subdomain"
-              value={data.subdomain}
-              onChange={(e) => setData({ ...data, subdomain: e.target.value })}
+              placeholder="Your Project API Key"
+              value={data.apiKey}
+              onChange={(e) => setData({ ...data, apiKey: e.target.value })}
               autoCapitalize="off"
               pattern="[a-zA-Z0-9\-]+" // only allow lowercase letters, numbers, and dashes
               maxLength={32}
               required
               className="w-full rounded-l-lg border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
             />
-            <div className="flex items-center rounded-r-lg border border-l-0 border-stone-200 bg-stone-100 px-3 text-sm dark:border-stone-600 dark:bg-stone-800 dark:text-stone-400">
-              .{process.env.NEXT_PUBLIC_ROOT_DOMAIN}
-            </div>
           </div>
         </div>
-
-        <input type="text" name="type" value="WEBSITE" hidden />
+        <input type="text" name="type" value="APP" hidden />
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 md:px-10">
-        <CreateSiteFormButton />
+        <CreateAppFormButton />
       </div>
     </form>
   );
 }
-function CreateSiteFormButton() {
+function CreateAppFormButton() {
   const { pending } = useFormStatus();
   return (
     <button
@@ -109,7 +94,7 @@ function CreateSiteFormButton() {
           : "border-black bg-black text-white hover:bg-white hover:text-black dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
       )}
       disabled={pending}>
-      {pending ? <LoadingDots color="#808080" /> : <p>Create Site</p>}
+      {pending ? <LoadingDots color="#808080" /> : <p>Create App</p>}
     </button>
   );
 }

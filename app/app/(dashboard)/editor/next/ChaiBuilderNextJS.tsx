@@ -26,11 +26,12 @@ export default function ChaiBuilderNextJS() {
       setUser(response);
       setIsLoading(false);
     })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (isLoading)
     return (
-      <div className="flex h-screen w-screen items-center justify-center gap-x-2">
+      <div className="flex h-screen w-screen items-center justify-center gap-x-2 bg-white">
         <Logo />
         <TbLoader className="-mt-0.5 animate-spin text-gray-700" size={20} />
       </div>

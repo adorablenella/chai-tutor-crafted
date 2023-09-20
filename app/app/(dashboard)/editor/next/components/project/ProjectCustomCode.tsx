@@ -27,7 +27,7 @@ const CustomCodeSettings = ({
   };
 
   return (
-    <div className="h-full flex flex-col select-none">
+    <div className="flex h-full select-none flex-col">
       <Form properties={properties} formData={_projectData} onChange={updateRealtime} />
     </div>
   );

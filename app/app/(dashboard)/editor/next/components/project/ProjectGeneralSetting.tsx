@@ -36,7 +36,7 @@ const WebsiteGeneralSettings = ({
   };
 
   return (
-    <ScrollArea className="h-full flex flex-col select-none">
+    <ScrollArea className="flex h-full select-none flex-col">
       <Form properties={properties} disabled={isLoading} formData={_projectData} onChange={updateProjectRealtime} />
     </ScrollArea>
   );

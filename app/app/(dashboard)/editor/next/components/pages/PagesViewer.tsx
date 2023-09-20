@@ -23,18 +23,18 @@ const SettingPopover = ({ pageData }: { pageData: TPageData }): React.ReactEleme
           {open === "OPEN" || open === "ALERT" || open === "PENDING" ? (
             <ChevronRightIcon />
           ) : (
-            <div className="hidden group-hover:flex hover:text-blue-600">
+            <div className="hidden hover:text-blue-600 group-hover:flex">
               <GearIcon />
             </div>
           )}
         </div>
       </PopoverTrigger>
       <PopoverRoot.Portal>
-        <PopoverContent side="right" align="start" alignOffset={-35} className="w-96 h-screen">
+        <PopoverContent side="right" align="start" alignOffset={-35} className="h-screen w-96">
           <Suspense
             fallback={
-              <div className="flex flex-col gap-y-3 w-full animate-pulse">
-                <div className="w-1/2 h-6 bg-gray-300" />
+              <div className="flex w-full animate-pulse flex-col gap-y-3">
+                <div className="h-6 w-1/2 bg-gray-300" />
                 <div className="h-20 w-full bg-gray-300" />
                 <div className="h-20 w-full bg-gray-300" />
               </div>
@@ -57,8 +57,8 @@ const SinglePage = (page: TPageData) => {
 
   return (
     <button
-      className={`w-full py-2 px-2.5 cursor-pointer flex relative items-center justify-between group ${
-        isActivePage ? "bg-blue-200 text-gray-800" : "hover:bg-slate-50 text-gray-600"
+      className={`group relative flex w-full cursor-pointer items-center justify-between px-2.5 py-2 ${
+        isActivePage ? "bg-blue-200 text-gray-800" : "text-gray-600 hover:bg-slate-50"
       }`}
       onClick={handleClick}
       type="button">
@@ -73,13 +73,13 @@ const SinglePage = (page: TPageData) => {
 const PagesViewer = ({ pages, isLoading }: { isLoading: boolean; pages: TPageData[] }) => {
   if (isLoading)
     return (
-      <div className="animate-pulse flex flex-col gap-y-1 px-2.5 pt-2">
+      <div className="flex animate-pulse flex-col gap-y-1 px-2.5 pt-2">
         <div className="h-7 w-full bg-gray-200" />
         <div className="h-7 w-full bg-gray-200" />
         <div className="h-7 w-full bg-gray-200" />
       </div>
     );
-  if (pages.length === 0) return <div className="px-2.5 pt-4 pb-2">No pages</div>;
+  if (pages.length === 0) return <div className="px-2.5 pb-2 pt-4">No pages</div>;
   return <div className="-mb-2">{React.Children.toArray(pages.map((page) => <SinglePage {...page} />))}</div>;
 };
 

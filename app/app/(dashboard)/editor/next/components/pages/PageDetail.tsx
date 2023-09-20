@@ -150,7 +150,7 @@ const PageDetail = ({
   };
 
   return (
-    <ScrollArea className="h-full flex flex-col select-none">
+    <ScrollArea className="flex h-full select-none flex-col">
       <ConfirmAlert
         open={open === "ALERT"}
         title="Do yo want to save changes?"
@@ -158,7 +158,7 @@ const PageDetail = ({
         onConfirm={handleSubmit}
         disabled={updateProject.isLoading || updatePage.isLoading}
       />
-      <div className="bg-background/30 py-1 px-2.5 rounded-md">
+      <div className="rounded-md bg-background/30 px-2.5 py-1">
         <h1 className="px-1 font-semibold">Page Details</h1>
       </div>
       <div className="px-2.5 pt-2">
@@ -170,7 +170,7 @@ const PageDetail = ({
             onChange={updatePageRealtime}
             disabled={updatePage.isLoading || updateProject.isLoading}
           />
-          <div className="w-full h-2" />
+          <div className="h-2 w-full" />
           <Form
             title="SEO Details"
             formData={_pageData}
@@ -187,7 +187,7 @@ const PageDetail = ({
             />
           ) : (
             pageData.type === "STATIC" && (
-              <div className="text-xs font-medium text-gray-500 pt-2 px-1 flex items-center gap-x-1">
+              <div className="flex items-center gap-x-1 px-1 pt-2 text-xs font-medium text-gray-500">
                 <HomeIcon /> This is homepage{" "}
               </div>
             )
@@ -197,7 +197,7 @@ const PageDetail = ({
               Add dynamic ID in page slug Eg: <i className="underline">some-url/[some-id]</i>
             </small>
           )}
-          <div className="w-full flex items-center justify-between gap-x-2 my-2 px-1">
+          <div className="my-2 flex w-full items-center justify-between gap-x-2 px-1">
             <Button
               className="w-full"
               type="submit"

@@ -48,7 +48,7 @@ const Form = ({
 
   return (
     <>
-      {title && <h1 className="px-1 text-sm underline font-semibold">{title}</h1>}
+      {title && <h1 className="px-1 text-sm font-semibold underline">{title}</h1>}
       <div className="-mx-3">
         <RjFrom
           widgets={{

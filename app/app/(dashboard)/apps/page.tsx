@@ -1,17 +1,17 @@
 import { Suspense } from "react";
-import Sites from "@/components/sites";
 import PlacholderCard from "@/components/placeholder-card";
 import CreateSiteButton from "@/components/create-site-button";
-import CreateSiteModal from "@/components/modal/create-site";
+import Apps from "@/components/apps";
+import CreateAppModal from "@/components/modal/create-app";
 
-export default function AllSites() {
+export default function AllApps() {
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
-          <h1 className="font-cal text-3xl font-bold dark:text-white">All Sites</h1>
-          <CreateSiteButton title="Create New Site">
-            <CreateSiteModal />
+          <h1 className="font-cal text-3xl font-bold dark:text-white">All Apps</h1>
+          <CreateSiteButton title="Create New App">
+            <CreateAppModal />
           </CreateSiteButton>
         </div>
         <Suspense
@@ -22,7 +22,7 @@ export default function AllSites() {
               ))}
             </div>
           }>
-          <Sites />
+          <Apps />
         </Suspense>
       </div>
     </div>

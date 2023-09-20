@@ -34,6 +34,7 @@ export default function ProjectSettings() {
         updateProject.mutate(dateRef.current, { onSuccess: () => setProjectData(dateRef.current) });
       }
     },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [dateRef],
   );
 
@@ -43,7 +44,7 @@ export default function ProjectSettings() {
 
   return (
     <>
-      <div className="bg-background/30 flex items-center justify-between rounded-md p-1">
+      <div className="flex items-center justify-between rounded-md bg-background/30 p-1">
         <h1 className="px-1 font-semibold">Website Settings</h1>
       </div>
       <hr className="-mx-1" />
