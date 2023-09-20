@@ -11,7 +11,7 @@ import {
   registerBlock,
   SingleLineText,
   Styles,
-} from "../../sdk/package";
+} from "@/sdk/package/controls";
 
 type TStylesProps = {
   className: string;

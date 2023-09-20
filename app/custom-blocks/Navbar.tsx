@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Image, Link, List, registerBlock, SingleLineText } from "../../sdk/package";
+import { Image, Link, List, registerBlock, SingleLineText } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 
 const Navbar = ({ blockProps, menuItems = [], logo }: any) => {

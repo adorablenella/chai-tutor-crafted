@@ -1,6 +1,6 @@
 import React from "react";
 import { ICustomBlockOptions } from "./types";
-import { TBlock } from "../types/TBlock";
+import { TBlock } from "@/sdk/package";
 import { builderBlocksAtom, builderStore } from "../store";
 
 /**

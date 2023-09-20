@@ -1,7 +1,7 @@
 "use client";
 
 // nolint
-import { GlobalDataMapper, Image as Img, List, registerBlock, SingleLineText, Styles } from "@/sdk/package";
+import { GlobalDataMapper, Image as Img, List, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 import React from "react";
 

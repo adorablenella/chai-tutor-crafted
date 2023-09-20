@@ -2,7 +2,7 @@
 
 // nolint
 import Link from "next/link";
-import { List, Model, MultilineText, registerBlock, SingleLineText, Slot, Styles } from "../../sdk/package";
+import { List, Model, MultilineText, registerBlock, SingleLineText, Slot, Styles } from "@/sdk/package/controls";
 
 type HeroBlockProps = {
   badgeIcon: string;
