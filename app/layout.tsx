@@ -8,7 +8,7 @@ import "./custom-blocks";
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const image = "https://vercel.pub/thumbnail.png";
-
+export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title,
   description,
