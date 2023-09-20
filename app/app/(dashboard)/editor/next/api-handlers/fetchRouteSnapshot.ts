@@ -1,10 +1,10 @@
 import { get, isEmpty, merge } from "lodash";
 import { TProjectData } from "../types";
-import { getTailwindCSS } from "../functions";
-import { BRANDING_OPTIONS_DEFAULTS } from "@/app/app/(dashboard)/editor/package/constants/MODIFIERS";
 import { TPageData } from "@/app/app/(dashboard)/editor/package/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
+import { getTailwindCSS } from "@/app/app/(dashboard)/editor/next/functions";
+import { BRANDING_OPTIONS_DEFAULTS } from "@/app/app/(dashboard)/editor/package/constants/MODIFIERS";
 
 const getSeoData = (pageData: TPageData, projectData: TProjectData) => {
   const seoData = merge(projectData.seo_data, pageData.seo_data);
@@ -15,13 +15,14 @@ const getSeoData = (pageData: TPageData, projectData: TProjectData) => {
   };
 };
 
-export const fetchRouteSnapshot = async (slug: string) => {
+export const fetchRouteSnapshot = async (slug: string, domain: string) => {
   const supabase = createServerComponentClient({ cookies });
-  const { data: project } = await supabase
-    .from("projects")
-    .select(`*`)
-    .eq("uuid", process.env.NEXT_PUBLIC_PROJECT_UUID)
-    .single();
+  const onlyName = domain.replace(".chaibuilder.xyz", "");
+  const { data: project } = await supabase.from("projects").select(`*`).eq("subdomain", onlyName).single();
+
+  if (!project) {
+    return { notFound: true };
+  }
 
   // homepage
   const key = isEmpty(slug) ? "uuid" : "slug";
@@ -30,16 +31,16 @@ export const fetchRouteSnapshot = async (slug: string) => {
     .from("pages")
     .select(`*, projects!pages_project_fkey(*)`)
     .eq(key, value)
-    .eq("project", process.env.NEXT_PUBLIC_PROJECT_UUID)
+    .eq("project", project.uuid)
     .single();
 
   if (!page) {
     return { notFound: true };
   }
-
-  // TODO:
-  // fetch global blocks here once and pass as params
-
+  //
+  // // TODO:
+  // // fetch global blocks here once and pass as params
+  //
   const blocks = page?.blocks || [];
   const projectData: TProjectData = get(page, "projects", {});
   const styles = await getTailwindCSS(BRANDING_OPTIONS_DEFAULTS, [JSON.stringify(blocks)]);
