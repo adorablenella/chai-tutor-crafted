@@ -236,8 +236,8 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
     if (error) return { response: error, status: 500 };
     return { response: data };
   } else if (entity === ENDPOINTS.PAGES) {
+    // * Fetching Single Page Detailas
     if (pageUuid) {
-      // * Fetching Single Page Detailas
       const { data, error } = await supabase.from("pages").select("*").eq("uuid", pageUuid).single();
       if (error) return { response: error, status: 500 };
       return { response: data };
@@ -252,12 +252,31 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
   return { status: 400, response: { messsage: "Invalid route" } };
 };
 
-export const chaiBuilderPOSTHandler = (request: Request, { params }: { params: { path: string[] } }) => {
-  return {};
+export const chaiBuilderPOSTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
+  return { params };
 };
 
-export const chaiBuilderPUTHandler = (request: Request, { params }: { params: { path: string[] } }) => {
-  return {};
+export const chaiBuilderPUTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
+  const entity = first(params.path);
+  const supabase = createRouteHandlerClient({ cookies });
+  const { searchParams } = new URL(request.url);
+  const projectUuid = searchParams.get("project_uuid") as string;
+  const pageUuid = searchParams.get("page_uuid") as string;
+  const body = await request.json();
+
+  if (entity === ENDPOINTS.PROJECT) {
+    // * Updating Project
+    const { data, error } = await supabase.from("projects").update(body).eq("uuid", body.uuid).select();
+    if (error || data.length === 0) return { response: error, status: 500 };
+    return { response: data[0] };
+  } else if (entity === ENDPOINTS.PAGES) {
+    // * Updating Page
+    const fields = "uuid, page_name, project, slug, type, custom_code, seo_data";
+    const { data, error } = await supabase.from("pages").update(body).eq("uuid", body.uuid).select(fields);
+    if (error) return { response: error, status: 500 };
+    return { response: data[0] };
+  }
+  return { response: { entity } };
 };
 
 export const chaiBuilderDELETEHandler = (request: Request, { params }: { params: { path: string[] } }) => {

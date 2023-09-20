@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { isEmpty, isEqual, isString, kebabCase, omit } from "lodash";
 import { useQueryClient } from "@tanstack/react-query";
 import { HomeIcon } from "@radix-ui/react-icons";
-import { Button, Checkbox, Image, Model, ScrollArea, SingleLineText } from "@/sdk/package";
+import { Button, ScrollArea } from "@/sdk/package";
 import { TPageData, TProjectData } from "../../types";
 import { useUpdatePage } from "../../mutations/usePageActions";
 import Form from "../common/Form";
 import { useProject } from "../../hooks/useProject";
 import { useUpdateProject } from "../../mutations/useProjectActions";
+import { Checkbox, Image, Model, SingleLineText } from "@/sdk/package/controls";
 
 const DeletePage = React.lazy(() => import("./DeletePage"));
 const ConfirmAlert = React.lazy(() => import("../common/ConfirmAlert"));
@@ -72,7 +73,7 @@ const PageDetail = ({
     const isPageDataChange = !isEqual(withEmptySeoData(pageData), _pageData);
     const isProjectDataChange = projectData?.homepage !== pageData.uuid && _projectData.isHomePage;
     setOpen(isPageDataChange || isProjectDataChange ? "PENDING" : "OPEN");
-  }, [projectData, pageData, _pageData, _projectData]);
+  }, [projectData, pageData, _pageData, _projectData, setOpen]);
 
   const handleSubmit = () => {
     if (isAnyChangeInPage) {
