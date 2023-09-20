@@ -1,8 +1,8 @@
 import { get, isEmpty, merge } from "lodash";
 import { TProjectData } from "../types";
 import { getTailwindCSS } from "../functions";
-import { BRANDING_OPTIONS_DEFAULTS } from "@/package/constants/MODIFIERS";
-import { TPageData } from "@/package/types";
+import { BRANDING_OPTIONS_DEFAULTS } from "@/app/app/(dashboard)/editor/package/constants/MODIFIERS";
+import { TPageData } from "@/app/app/(dashboard)/editor/package/types";
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 

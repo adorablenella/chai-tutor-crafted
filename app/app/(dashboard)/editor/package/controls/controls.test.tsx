@@ -1,5 +1,5 @@
 import { GLOBAL_DATA_KEY } from "../constants/CONTROLS";
-import { TGlobalDataMapperProps, GlobalDataMapper } from "../controls/controls";
+import { GlobalDataMapper, TGlobalDataMapperProps } from "./controls";
 
 it("should return the correct control definition", () => {
   const props: TGlobalDataMapperProps = {

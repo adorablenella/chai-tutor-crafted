@@ -1,4 +1,4 @@
-import ChaiBuilderNextJS from "../../../../../../next";
+import ChaiBuilderNextJS from "../../../editor/next";
 
 const EditSite = () => {
   return <ChaiBuilderNextJS />;

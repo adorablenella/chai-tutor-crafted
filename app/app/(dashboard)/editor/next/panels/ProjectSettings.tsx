@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef } from "react";
 import { isEmpty, isEqual } from "lodash";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/package";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/app/app/(dashboard)/editor/package";
 import { useUpdateProject } from "../mutations/useProjectActions";
 import { TProjectData } from "../types";
 import { useProject } from "../hooks/useProject";

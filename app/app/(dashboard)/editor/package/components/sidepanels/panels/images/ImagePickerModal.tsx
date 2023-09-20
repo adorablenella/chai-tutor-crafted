@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../../../..";
+import { Dialog, DialogContent, DialogTrigger } from "../../../../index";
 import ImagesPanel from "./ImagesPanel";
 
 const ImagePickerModal = ({ children, onSelect }: { children: React.JSX.Element; onSelect: (url: string) => void }) => {
@@ -13,8 +13,8 @@ const ImagePickerModal = ({ children, onSelect }: { children: React.JSX.Element;
   return (
     <Dialog open={open} onOpenChange={(_open) => setOpen(_open)}>
       <DialogTrigger asChild>{children}</DialogTrigger>
-      <DialogContent className="h-3/4 flex max-w-5xl">
-        <div className="w-full h-full">
+      <DialogContent className="flex h-3/4 max-w-5xl">
+        <div className="h-full w-full">
           <ImagesPanel isModalView onSelect={handleSelect} />
         </div>
       </DialogContent>

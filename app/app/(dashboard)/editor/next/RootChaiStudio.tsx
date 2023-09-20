@@ -1,9 +1,9 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FileTextIcon, GearIcon } from "@radix-ui/react-icons";
 import { lazy, useCallback } from "react";
-import { ChaiBuilderStudio, useToast } from "@/package";
+import { ChaiBuilderStudio, useToast } from "@/app/app/(dashboard)/editor/package";
 import { useProject } from "./hooks/useProject";
-import { BRANDING_OPTIONS_DEFAULTS } from "@/package/constants/MODIFIERS";
+import { BRANDING_OPTIONS_DEFAULTS } from "@/app/app/(dashboard)/editor/package/constants/MODIFIERS";
 import { useGlobalBLocks } from "./hooks/useGlobalBlocks";
 import { usePageData } from "./hooks/usePageData";
 import { useCurrentPage, useCurrentPageSlug, useSyncState } from "./store";

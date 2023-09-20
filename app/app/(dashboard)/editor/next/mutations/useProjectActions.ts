@@ -5,7 +5,7 @@
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TProjectData } from "../types";
-import { toast } from "@/package";
+import { toast } from "@/app/app/(dashboard)/editor/package";
 
 export const useUpdateProject = () => {
   const queryClient = useQueryClient();

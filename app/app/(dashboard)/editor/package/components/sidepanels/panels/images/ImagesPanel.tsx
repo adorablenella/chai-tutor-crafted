@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../..";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../index";
 
 const UnsplashImages = React.lazy(() => import("./UnsplashImages"));
 const UploadImages = React.lazy(() => import("./UploadImages"));
@@ -13,12 +13,12 @@ const ImagesPanel = ({
 }): React.JSX.Element => {
   const [tab, setTab] = useState("unsplash");
   return (
-    <div className="flex flex-col h-full">
-      <div className="bg-background/30 p-1 flex items-center justify-between rounded-md">
+    <div className="flex h-full flex-col">
+      <div className="bg-background/30 flex items-center justify-between rounded-md p-1">
         <h1 className="px-1 font-semibold">{isModalView ? "Select or upload images" : "Images"}</h1>
       </div>
 
-      <Tabs value={tab} onValueChange={(v) => setTab(v as any)} className="flex flex-col h-full w-full py-2">
+      <Tabs value={tab} onValueChange={(v) => setTab(v as any)} className="flex h-full w-full flex-col py-2">
         <TabsList className="w-full">
           <TabsTrigger value="unsplash" className="w-1/2">
             Unsplash
@@ -28,14 +28,14 @@ const ImagesPanel = ({
           </TabsTrigger>
         </TabsList>
         {tab === "unsplash" ? (
-          <TabsContent value="unsplash" className="flex flex-col h-full overflow-hidden">
-            <Suspense fallback={<div className="w-full h-64 bg-gray-100 animate-pulse" />}>
+          <TabsContent value="unsplash" className="flex h-full flex-col overflow-hidden">
+            <Suspense fallback={<div className="h-64 w-full animate-pulse bg-gray-100" />}>
               <UnsplashImages isModalView={isModalView} onSelect={onSelect} />
             </Suspense>
           </TabsContent>
         ) : (
-          <TabsContent value="upload" className="flex flex-col h-full overflow-hidden">
-            <Suspense fallback={<div className="w-full h-64 bg-gray-100 animate-pulse" />}>
+          <TabsContent value="upload" className="flex h-full flex-col overflow-hidden">
+            <Suspense fallback={<div className="h-64 w-full animate-pulse bg-gray-100" />}>
               <UploadImages isModalView={isModalView} onSelect={onSelect} />
             </Suspense>
           </TabsContent>

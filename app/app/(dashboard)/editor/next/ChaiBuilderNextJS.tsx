@@ -7,7 +7,7 @@ import { TbLoader } from "react-icons/tb";
 import { useUser, verifyUser } from "./hooks/useUser";
 import RootChaiStudio from "./RootChaiStudio";
 import Logo from "./previews/Logo";
-import Login from "@/next/components/auth/Login";
+import Login from "@/app/app/(dashboard)/editor/next/components/auth/Login";
 
 const queryClient = new QueryClient({
   defaultOptions: {

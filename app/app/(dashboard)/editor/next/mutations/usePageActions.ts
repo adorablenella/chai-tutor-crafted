@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TPageData } from "../types";
-import { useToast } from "@/package";
+import { useToast } from "@/app/app/(dashboard)/editor/package";
 import { useChangePage } from "../hooks/useChangePage";
 
 export const useAddPage = () => {
