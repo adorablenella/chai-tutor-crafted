@@ -19,11 +19,12 @@ const withEmptySeoData = (projectData: TProjectData): TProjectData => {
   return projectData;
 };
 
-// eslint-disable-next-line react/display-name
-export default () => {
+export default function ProjectSettings() {
   const updateProject = useUpdateProject();
   const { data: projectData } = useProject();
-  const [_projectData, setProjectData] = React.useState(projectData ? withEmptySeoData(projectData) : {});
+  const [_projectData, setProjectData] = React.useState(
+    projectData ? withEmptySeoData(projectData) : withEmptySeoData({} as TProjectData),
+  );
   const dateRef = useRef(_projectData);
 
   useEffect(
@@ -82,4 +83,4 @@ export default () => {
       </div>
     </>
   );
-};
+}

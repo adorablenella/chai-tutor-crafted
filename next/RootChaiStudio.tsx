@@ -15,8 +15,7 @@ const PublishButton = lazy(() => import("./previews/PublishButton"));
 const Pages = lazy(() => import("./panels/Pages"));
 const ProjectSettings = lazy(() => import("./panels/ProjectSettings"));
 
-// eslint-disable-next-line react/display-name
-export default () => {
+export default function RootChaiStudio() {
   const queryClient = useQueryClient();
   const { data: project } = useProject();
   const { data: globalBlocks } = useGlobalBLocks();
@@ -86,4 +85,4 @@ export default () => {
       fetchMediaCallback={fetchMediaCallback}
     />
   );
-};
+}

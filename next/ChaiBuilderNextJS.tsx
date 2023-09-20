@@ -1,4 +1,5 @@
 "use client";
+
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { useEffect, useState } from "react";
@@ -6,6 +7,7 @@ import { TbLoader } from "react-icons/tb";
 import { useUser, verifyUser } from "./hooks/useUser";
 import RootChaiStudio from "./RootChaiStudio";
 import Logo from "./previews/Logo";
+import Login from "@/next/components/auth/Login";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -15,8 +17,7 @@ const queryClient = new QueryClient({
   },
 });
 
-// eslint-disable-next-line react/display-name
-export default () => {
+export default function ChaiBuilderNextJS() {
   const [isLoading, setIsLoading] = useState(true);
   const [user, setUser] = useUser();
 
@@ -35,7 +36,7 @@ export default () => {
         <TbLoader className="-mt-0.5 animate-spin text-gray-700" size={20} />
       </div>
     );
-  // if (!user) return <Login />;
+  if (!user) return <Login />;
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -43,4 +44,4 @@ export default () => {
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
-};
+}
