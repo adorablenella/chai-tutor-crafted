@@ -3,7 +3,7 @@ import { getRouteSnapshot } from "@/sdk/next/api-handlers/functions";
 
 export const fetchRouteSnapshot = async (slug: string, domain: string) => {
   const onlyName = domain.replace(".chaibuilder.xyz", "");
-  return await unstable_cache(async () => getRouteSnapshot(slug, onlyName), [`${domain}-${slug}`], {
-    tags: [`${domain}-${slug}`],
+  return await unstable_cache(async () => getRouteSnapshot(slug, onlyName), [`${onlyName}-${slug}`], {
+    tags: [`${onlyName}-${slug}`],
   })();
 };
