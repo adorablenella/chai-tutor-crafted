@@ -34,9 +34,7 @@ export default function RootChaiStudio() {
       }));
       updatePage.mutate(
         { uuid: currentPageUuid as string, blocks: snapshot.blocks },
-        {
-          onSuccess: () => toast({ variant: "default", title: "Page updated successfully." }),
-        },
+        { onSuccess: () => toast({ variant: "default", title: "Page updated successfully." }) },
       );
     },
     [queryClient, currentPageUuid, updatePage, toast],
@@ -47,7 +45,7 @@ export default function RootChaiStudio() {
   const uploadMediaCallback = async (file: File) => {
     const filePath = `${project?.uuid}/${file.name}`;
     const BUCKET = "chaibuilder-blob-storage";
-    const { data, error } = { error: "dfdf", data: null };
+    const { data, error } = { error: "Error", data: null };
     if (error || !data) throw error;
     const publicURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/`;
     return publicURL || "";

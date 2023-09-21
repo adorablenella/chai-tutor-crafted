@@ -7,11 +7,7 @@ import { Provider } from "jotai";
 import { builderStore } from "@/sdk/package/store";
 
 const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false,
-    },
-  },
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
 });
 
 export default function ChaiBuilderNextJS() {

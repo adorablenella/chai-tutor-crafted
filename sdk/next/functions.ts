@@ -9,8 +9,8 @@ import twLineClamp from "@tailwindcss/line-clamp";
 import twHeadlessUI from "@headlessui/tailwindcss";
 
 export async function getTailwindCSS(options: any, markupString: string[]) {
-  const primary = get(options, "_primary", "#000");
-  const secondary = get(options, "_secondary", "#ccc");
+  const primary = get(options, "_primaryColor", "#000");
+  const secondary = get(options, "_secondaryColor", "#ccc");
 
   const headingFont = get(options, "_headingFont", "Inter");
   const bodyFont = get(options, "_bodyFont", "Inter");
@@ -45,7 +45,7 @@ export async function getTailwindCSS(options: any, markupString: string[]) {
     ` @tailwind base;
       @tailwind components;
       @tailwind utilities;`,
-    markupString
+    markupString,
   );
 
   return `${css} h1,h2,h3,h4,h5,h6{font-family: "${headingFont}",${defaultTheme.fontFamily.sans.join(", ")};}`;

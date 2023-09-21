@@ -7,6 +7,7 @@ module.exports = {
   },
   images: {
     domains: [
+      "images.unsplash.com",
       "lh3.googleusercontent.com",
       "fldwljgzcktqnysdkxnn.supabase.co",
       "avatar.vercel.sh",
