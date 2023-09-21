@@ -249,7 +249,7 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
     if (error) return { response: error, status: 500 };
     return { response: data };
   }
-  return { status: 400, response: { messsage: "Invalid route" } };
+  return { status: 400, response: { message: "Invalid route" } };
 };
 
 export const chaiBuilderPOSTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
@@ -265,7 +265,7 @@ export const chaiBuilderPOSTHandler = async (request: Request, { params }: { par
     return { response: data[0] };
   }
 
-  return { status: 400, response: { messsage: "Invalid route" } };
+  return { status: 400, response: { message: "Invalid route" } };
 };
 
 export const chaiBuilderPUTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
@@ -285,7 +285,7 @@ export const chaiBuilderPUTHandler = async (request: Request, { params }: { para
     if (error) return { response: error, status: 500 };
     return { response: data[0] };
   }
-  return { status: 400, response: { messsage: "Invalid route" } };
+  return { status: 400, response: { message: "Invalid route" } };
 };
 
 export const chaiBuilderDELETEHandler = (request: Request, { params }: { params: { path: string[] } }) => {
