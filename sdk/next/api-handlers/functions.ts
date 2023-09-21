@@ -6,9 +6,8 @@ import { getTailwindCSS } from "@/sdk/next/functions";
 import supabase from "@/app/helpers/supabase";
 import { revalidateTag } from "next/cache";
 
-export const publishPath = async (_slug: string, domain: string) => {
-  const slug = _slug === "_home" ? "" : _slug;
-  revalidateTag(domain);
+export const publishPath = async (slug: string, domain: string) => {
+  revalidateTag(`${domain}-${slug}`);
   return true;
 };
 
