@@ -1,8 +1,11 @@
 import Form from "@/components/form";
 import { updateSite } from "@/lib/actions";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function SiteSettingsDomains({ params }: { params: { id: string } }) {
-  const data: any = {};
+  const supabase = createServerComponentClient({ cookies });
+  const { data = {} } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
 
   return (
     <div className="flex flex-col space-y-6">

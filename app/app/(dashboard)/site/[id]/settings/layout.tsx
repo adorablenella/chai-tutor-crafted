@@ -26,7 +26,7 @@ export default async function SiteAnalyticsLayout({
   return (
     <>
       <div className="flex flex-col items-center space-x-4 space-y-2 sm:flex-row sm:space-y-0">
-        <h1 className="font-cal text-xl font-bold dark:text-white sm:text-3xl">Settings for {data.name}</h1>
+        <h1 className="font-cal text-xl font-bold dark:text-white sm:text-3xl">Settings for {data.project_name}</h1>
         <a
           href={process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${url}` : `http://${data.subdomain}.localhost:3000`}
           target="_blank"

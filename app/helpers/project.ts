@@ -29,7 +29,7 @@ export const updateSite = async (formData: FormData, siteId: Project, key: strin
   const { error } = await supabase
     .from("projects")
     .update({ [key]: value })
-    .eq("id", siteId);
+    .eq("uuid", siteId);
   if (error) throw error.message;
   return true;
 };

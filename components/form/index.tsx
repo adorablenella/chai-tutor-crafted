@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import DomainStatus from "./domain-status";
 import DomainConfiguration from "./domain-configuration";
 import Uploader from "./uploader";
+import { useState } from "react";
 
 export default function Form({
   title,
@@ -29,9 +30,10 @@ export default function Form({
   };
   handleSubmit: any;
 }) {
+  const [isLoading, setIsLoading] = useState(false);
   const { id } = useParams() as { id?: string };
   const router = useRouter();
-  // const { update } = useSession();
+
   return (
     <form
       action={async (data: FormData) => {
@@ -43,19 +45,25 @@ export default function Form({
         ) {
           return;
         }
-        handleSubmit(data, id, inputAttrs.name).then(async (res: any) => {
-          if (res.error) {
-            toast.error(res.error);
-          } else {
-            if (id) {
-              router.refresh();
+        setIsLoading(true);
+        handleSubmit(data, id, inputAttrs.name)
+          .then(async (res: any) => {
+            if (res?.error) {
+              toast.error(res.error);
             } else {
-              // await update();
-              router.refresh();
+              if (id) {
+                router.refresh();
+              } else {
+                router.refresh();
+              }
+              toast.success(`Successfully updated ${inputAttrs.name}!`);
             }
-            toast.success(`Successfully updated ${inputAttrs.name}!`);
-          }
-        });
+            setIsLoading(false);
+          })
+          .catch((err: any) => {
+            toast.error(`${err.message}`);
+            setIsLoading(false);
+          });
       }}
       className="rounded-lg border border-stone-200 bg-white dark:border-stone-700 dark:bg-black">
       <div className="relative flex flex-col space-y-4 p-5 sm:p-10">
@@ -117,24 +125,24 @@ export default function Form({
       )}
       <div className="flex flex-col items-center justify-center space-y-2 rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 sm:flex-row sm:justify-between sm:space-y-0 sm:px-10">
         <p className="text-sm text-stone-500 dark:text-stone-400">{helpText}</p>
-        <FormButton />
+        <FormButton isLoading={isLoading} />
       </div>
     </form>
   );
 }
 
-function FormButton() {
+function FormButton({ isLoading }: { isLoading: boolean }) {
   const { pending } = useFormStatus();
   return (
     <button
       className={cn(
         "flex h-8 w-32 items-center justify-center space-x-2 rounded-md border text-sm transition-all focus:outline-none sm:h-10",
-        pending
+        pending || isLoading
           ? "cursor-not-allowed border-stone-200 bg-stone-100 text-stone-400 dark:border-stone-700 dark:bg-stone-800 dark:text-stone-300"
           : "border-black bg-black text-white hover:bg-white hover:text-black dark:border-stone-700 dark:hover:border-stone-200 dark:hover:bg-black dark:hover:text-white dark:active:bg-stone-800",
       )}
       disabled={pending}>
-      {pending ? <LoadingDots color="#808080" /> : <p>Save Changes</p>}
+      {pending || isLoading ? <LoadingDots color="#808080" /> : <p>Save Changes</p>}
     </button>
   );
 }

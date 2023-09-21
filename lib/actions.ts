@@ -23,13 +23,13 @@ export const createSite = async (formData: FormData) => {
   const userId = session?.user.id;
 
   const { data: currentData } = await supabase.from("projects").select("subdomain").eq("subdomain", subdomain);
-  if (currentData && currentData.length > 0) return { error: "Subdomain already used" };
+  if (currentData && currentData.length > 0) return { error: "This subdomain is already taken" };
 
   const homePageUuid = randomUUID();
   const payload: any = { project_name: name, user: userId };
   if (formData.get("apiKey")) payload.api_key = formData.get("apiKey") as string;
   if (formData.get("type")) payload.type = formData.get("type") as string;
-  if (formData.get("subdomain")) payload.type = formData.get("subdomain") as string;
+  if (formData.get("subdomain")) payload.subdomain = formData.get("subdomain") as string;
 
   const { data, error } = await supabase.from("projects").insert(payload).select();
   console.log(payload, error);
@@ -139,23 +139,22 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
 
       const { data: locData } = await supabase.from("projects").update({ webclip: url }).eq("uuid", site).single();
       response = locData;
-    } else {
-      // response = await prisma.site.update({
-      //   where: {
-      //     id: site.id,
-      //   },
-      //   data: {
-      //     [key]: value,
-      //   },
-      // });
+    } else if (key === "subdomain") {
+      const { data } = await supabase.from("projects").select("*").eq("subdomain", value);
+      if (data?.length && data[0].uuid !== site) throw { code: "P2002" };
+      const { data: locData } = await supabase.from("projects").update({ subdomain: value }).eq("uuid", site).select();
+      response = locData?.[0];
     }
-    console.log(
-      "Updated site data! Revalidating tags: ",
-      `${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`,
-      `${site.customDomain}-metadata`,
-    );
-    site?.subdomain && (await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`));
-    site?.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
+
+    // * Updated site data! Revalidating tags
+    if (site && (site?.customDomain || site?.subdomain)) {
+      site?.subdomain && (await revalidateTag(`${site.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`));
+      site?.customDomain && (await revalidateTag(`${site.customDomain}-metadata`));
+    } else if (response && (site?.customDomain || response?.subdomain)) {
+      const resp = response;
+      resp?.subdomain && (await revalidateTag(`${resp.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`));
+      resp?.customDomain && (await revalidateTag(`${resp.customDomain}-metadata`));
+    }
 
     return response;
   } catch (error: any) {
@@ -176,12 +175,13 @@ export const deleteProject = withSiteAuth(async (_: FormData, id: any) => {
 
   try {
     // * Need confirmation on delete (remove or update col)
-    const { data, error } = await supabase.from("projects").delete().eq("uuid", id).select();
+    const { error: pageError } = await supabase.from("pages").delete().eq("project", id);
+    if (pageError) return { error: pageError?.message };
+
+    const { error } = await supabase.from("projects").delete().eq("uuid", id);
     if (error) return { error: error?.message };
 
-    await revalidateTag(`${data[0].subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-metadata`);
-    data[0].customDomain && (await revalidateTag(`${data[0].customDomain}-metadata`));
-    return data[0];
+    return { deleted: true, message: "Successfully deleted!" };
   } catch (error: any) {
     return {
       error: error.message,

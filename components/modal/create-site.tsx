@@ -16,7 +16,6 @@ export default function CreateSiteModal() {
   const [data, setData] = useState({
     name: "",
     subdomain: "",
-    description: "",
   });
 
   useEffect(() => {

@@ -12,7 +12,7 @@ export default async function SitePosts({ params }: { params: { id: string } }) 
 
   const { data = {} } = await supabase.from("projects").select("*").eq("uuid", params.id).single();
 
-  if (!data) notFound();
+  if (!data) return notFound();
 
   const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 

@@ -16,7 +16,7 @@ export default async function SiteSettingsIndex({ params }: { params: { id: stri
         description="The name of your site. This will be used as the meta title on Google as well."
         helpText="Please use 32 characters maximum."
         inputAttrs={{
-          name: "name",
+          name: "project_name",
           type: "text",
           defaultValue: data?.project_name!,
           placeholder: "My Awesome Site",
