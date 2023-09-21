@@ -253,15 +253,24 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
 };
 
 export const chaiBuilderPOSTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
-  return { params };
+  const entity = first(params.path);
+  const supabase = createRouteHandlerClient({ cookies });
+  const body = await request.json();
+
+  if (entity === ENDPOINTS.PAGES) {
+    // * Add New  Page
+    const fields = "uuid, page_name, project, slug, type, custom_code, seo_data";
+    const { data, error } = await supabase.from("pages").insert(body).select(fields);
+    if (error) return { response: error, status: 500 };
+    return { response: data[0] };
+  }
+
+  return { status: 400, response: { messsage: "Invalid route" } };
 };
 
 export const chaiBuilderPUTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
   const entity = first(params.path);
   const supabase = createRouteHandlerClient({ cookies });
-  const { searchParams } = new URL(request.url);
-  const projectUuid = searchParams.get("project_uuid") as string;
-  const pageUuid = searchParams.get("page_uuid") as string;
   const body = await request.json();
 
   if (entity === ENDPOINTS.PROJECT) {
@@ -276,7 +285,7 @@ export const chaiBuilderPUTHandler = async (request: Request, { params }: { para
     if (error) return { response: error, status: 500 };
     return { response: data[0] };
   }
-  return { response: { entity } };
+  return { status: 400, response: { messsage: "Invalid route" } };
 };
 
 export const chaiBuilderDELETEHandler = (request: Request, { params }: { params: { path: string[] } }) => {

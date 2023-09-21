@@ -14,7 +14,8 @@ export async function GET(...args: any) {
 
 export async function POST(...args: any[]) {
   // @ts-ignore
-  return NextResponse.json(chaiBuilderPOSTHandler(...args));
+  const { response, status = 200 } = await chaiBuilderPOSTHandler(...args);
+  return NextResponse.json(response, { status });
 }
 
 export async function PUT(...args: any[]) {
@@ -25,5 +26,6 @@ export async function PUT(...args: any[]) {
 
 export async function DELETE(...args: any[]) {
   // @ts-ignore
-  return NextResponse.json(chaiBuilderDELETEHandler(...args));
+  const { response, status = 200 } = await chaiBuilderDELETEHandler(...args);
+  return NextResponse.json(response, { status });
 }

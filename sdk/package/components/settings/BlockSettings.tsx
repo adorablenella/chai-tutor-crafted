@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { RJSFSchema, UiSchema } from "@rjsf/utils";
 import Form, { IChangeEvent } from "@rjsf/core";
 import validator from "@rjsf/validator-ajv8";
@@ -11,9 +10,9 @@ import IconPickerField from "../../controls/widgets/Icon";
 import ImagePickerField from "../../controls/widgets/image";
 import LinkField from "../../controls/widgets/link";
 import GlobalDataMapper from "../../controls/widgets/GlobalDataMapper";
-import { TControlDefinition } from "@/sdk/package";
 import { getBlockJSONFromSchemas, getBlockJSONFromUISchemas } from "../../functions/controls";
 import { useUpdateBlocksPropsRealtime } from "../../hooks/useUpdateBlocksProps";
+import { TControlDefinition } from "../../controls";
 
 export default function BlockSettings() {
   const selectedBlock = useSelectedBlock() as any;
