@@ -4,6 +4,13 @@ import { get, isEmpty, merge } from "lodash";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { getTailwindCSS } from "@/sdk/next/functions";
 import supabase from "@/app/helpers/supabase";
+import { revalidateTag } from "next/cache";
+
+export const publishPath = async (_slug: string, domain: string) => {
+  const slug = _slug === "_home" ? "" : _slug;
+  revalidateTag(domain);
+  return true;
+};
 
 const getSeoData = (pageData: TPageData, projectData: TProjectData) => {
   const seoData = merge(projectData.seo_data, pageData.seo_data);

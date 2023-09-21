@@ -3,7 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { first } from "lodash";
-import { getRouteSnapshot } from "@/sdk/next/api-handlers/functions";
+import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
 
 export const config = {
   api: {
@@ -253,6 +253,10 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
     const slug = searchParams.get("slug") as string;
     const domain = searchParams.get("domain") as string;
     return { response: await getRouteSnapshot(slug, domain) };
+  } else if (entity === "publish") {
+    const slug = searchParams.get("slug") as string;
+    const domain = searchParams.get("domain") as string;
+    return { response: await publishPath(slug, domain) };
   }
   return { status: 400, response: { message: "Invalid route" } };
 };

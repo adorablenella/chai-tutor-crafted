@@ -2,6 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TPageData } from "../types";
 import { useToast } from "@/sdk/package";
 import { useChangePage } from "../hooks/useChangePage";
+import { useProject } from "@/sdk/next/hooks/useProject";
 
 export const useAddPage = () => {
   const { toast } = useToast();
@@ -35,11 +36,16 @@ export const useUpdatePage = () => {
 
 export const usePublishPage = () => {
   const { toast } = useToast();
-  return useMutation(async (slug: string) => fetch(`/api/chaibuilder/pages?revalidate=${slug}`, { method: "GET" }), {
-    onSuccess: () => {
-      toast({ variant: "default", title: "Page published successfully." });
+  const { data: project } = useProject();
+  const domain = project?.subdomain;
+  return useMutation(
+    async (slug: string) => fetch(`/api/chaibuilder/publish?slug=${slug}&domain=${domain}`, { method: "GET" }),
+    {
+      onSuccess: () => {
+        toast({ variant: "default", title: "Page published successfully." });
+      },
     },
-  });
+  );
 };
 
 export const useDeletePage = () => {

@@ -46,6 +46,7 @@ export type TProjectData = {
   project_name: string;
   web_clip: string;
   seo_data: TPageSEOData;
+  subdomain: string;
 };
 
 export type TUser = {
