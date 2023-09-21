@@ -3,6 +3,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { first } from "lodash";
+import { getRouteSnapshot } from "@/sdk/next/api-handlers/functions";
 
 export const config = {
   api: {
@@ -224,7 +225,7 @@ export const chaiBuilderApiHandler = async (req: NextApiRequest, res: NextApiRes
 
 //TODO:
 export const chaiBuilderGETHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
-  const entity = first(params.path);
+  const entity = first(params.path) as string;
   const supabase = createRouteHandlerClient({ cookies });
   const { searchParams } = new URL(request.url);
   const projectUuid = searchParams.get("project_uuid") as string;
@@ -248,12 +249,16 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
     const { data, error } = await supabase.from("pages").select(fields).eq("project", projectUuid).order("created_at");
     if (error) return { response: error, status: 500 };
     return { response: data };
+  } else if (entity === "route-data") {
+    const slug = searchParams.get("slug") as string;
+    const domain = searchParams.get("domain") as string;
+    return { response: await getRouteSnapshot(slug, domain) };
   }
   return { status: 400, response: { message: "Invalid route" } };
 };
 
 export const chaiBuilderPOSTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
-  const entity = first(params.path);
+  const entity = first(params.path) as string;
   const supabase = createRouteHandlerClient({ cookies });
   const body = await request.json();
 
