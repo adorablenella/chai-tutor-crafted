@@ -61,14 +61,14 @@ export default function FeaturesBlock({
           )}
           <dl className="grid max-w-xl grid-cols-1 gap-x-8 gap-y-10 lg:max-w-none lg:grid-cols-2 lg:gap-y-16">
             {React.Children.toArray(
-              features.map((feature: any, index: number) => (
+              features.map((feature: any) => (
                 <div className="relative pl-16">
                   <dt {...featTitleStyles}>
                     <div className="absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-lg bg-indigo-600">
                       {/* eslint-disable-next-line react/no-danger */}
                       <span dangerouslySetInnerHTML={{ __html: feature.icon }} />
                     </div>
-                    {feature.name} - {index}
+                    {feature.name}
                   </dt>
                   <dd className="mt-2 text-base leading-7">{feature.description}</dd>
                 </div>
