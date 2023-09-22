@@ -7,8 +7,10 @@ import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { useGlobalBLocks } from "./hooks/useGlobalBlocks";
 import { usePageData } from "./hooks/usePageData";
 import { useCurrentPage, useCurrentPageSlug, useSyncState } from "./store";
-import { TBrandingOptions } from "./types";
+import { TBrandingOptions, TProjectData } from "./types";
 import { useUpdatePage } from "./mutations/usePageActions";
+import { useUpdateProject } from "./mutations/useProjectActions";
+import { isEqual } from "lodash";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
@@ -22,6 +24,7 @@ export default function RootChaiStudio() {
   const [currentPageUuid] = useCurrentPage();
   const { data: pageData, isLoading } = usePageData();
   const updatePage = useUpdatePage();
+  const updateProject = useUpdateProject();
   const [, setSyncStatus] = useSyncState();
   const [slug] = useCurrentPageSlug();
   const { toast } = useToast();
@@ -38,6 +41,18 @@ export default function RootChaiStudio() {
       );
     },
     [queryClient, currentPageUuid, updatePage, toast],
+  );
+
+  const saveBrandingOptions = useCallback(
+    async (brandingOptions: any) => {
+      if (!isEqual(project?.branding_options, brandingOptions)) {
+        const updatedProjectData = { ...project, branding_options: brandingOptions };
+        updateProject.mutate(updatedProjectData as TProjectData, {
+          onSuccess: () => toast({ variant: "default", title: "Branding options updated successfully." }),
+        });
+      }
+    },
+    [project, toast, updateProject],
   );
 
   // @TODO: Move supabase to /api/chaibuiilder/storage
@@ -78,7 +93,7 @@ export default function RootChaiStudio() {
         setSyncStatus(syncStatus);
       }}
       onSaveBlocks={saveBlocks}
-      onSaveBrandingOptions={async (brandingOptions: any) => console.log(brandingOptions)}
+      onSaveBrandingOptions={saveBrandingOptions}
       uploadMediaCallback={uploadMediaCallback}
       fetchMediaCallback={fetchMediaCallback}
     />

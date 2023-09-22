@@ -4,13 +4,19 @@ import validator from "@rjsf/validator-ajv8";
 import Form, { IChangeEvent } from "@rjsf/core";
 import { useBrandingOptions } from "../../../../hooks";
 import { Color, Numeric, SelectOption } from "../../../../controls/controls";
+import { useBuilderProp } from "@/sdk/package/hooks/useBuilderProp";
 
 const BrandingOptions = (): React.JSX.Element => {
+  const onSaveBrandingOptions = useBuilderProp("onSaveBrandingOptions", async () => {});
   const [brandingOptions, setBrandingOptions] = useBrandingOptions();
+  const brandingRef = React.useRef(brandingOptions);
+
+  React.useEffect(() => () => onSaveBrandingOptions(brandingRef.current), [brandingRef, onSaveBrandingOptions]);
 
   const updateRealtime = ({ formData }: IChangeEvent, id?: string) => {
     if (id) {
       setBrandingOptions(formData);
+      brandingRef.current = formData;
     }
   };
 
