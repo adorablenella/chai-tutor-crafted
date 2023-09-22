@@ -187,11 +187,11 @@ body {
 }
 
 .rjsf .form-group label {
-  @apply text-xs font-medium text-gray-500 dark:text-gray-300;
+  @apply text-xs font-medium;
 }
 
 .rjsf .form-group input {
-  @apply text-xs px-2 py-1 mt-1 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply text-xs px-2 py-1 mt-1 border-foreground/20 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
 }
 
 .ql-toolbar.ql-snow {
@@ -199,7 +199,7 @@ body {
 }
 
 .ql-container.ql-snow {
-  @apply bg-background bg-gray-200 dark:bg-gray-800 border-border rounded-b-md !important;
+  @apply bg-background rounded-b-md !important;
 }
 
 .btn.btn-info.btn-add.col-xs-12 {
@@ -211,7 +211,7 @@ body {
 }
 
 .rjsf .form-group select {
-  @apply text-xs px-1 py-1 mt-1 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-700  border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply text-xs px-1 py-1 border-foreground/20 mt-1 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
 }
 
 .rjsf > div > button[type="submit"] {
@@ -231,7 +231,7 @@ body {
 }
 
 .rjsf .form-group > textarea {
-  @apply text-xs px-2 py-1 mt-1 text-gray-700 dark:text-gray-200 bg-gray-200 dark:bg-gray-700 border-gray-600 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply text-xs px-2 py-1 mt-1 border-foreground/20 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
 }
 
 .form-group > fieldset {
@@ -239,7 +239,7 @@ body {
 }
 
 .array-item-list .array-item {
-  @apply rounded px-2 pt-2 pb-6 border border-gray-300 dark:bg-gray-800 relative;
+  @apply rounded px-2 pt-2 pb-6 border border-foreground/20 relative;
 }
 
 .array-item-list {

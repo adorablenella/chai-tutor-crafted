@@ -62,7 +62,7 @@ const DragStyleButton = ({
         setDragData(data);
       }}
       color={undefined}
-      className="relative z-50 ml-1 h-6 hidden cursor-row-resize rounded bg-background/70 px-2 group-hover:inline">
+      className="relative z-50 ml-1 hidden h-6 cursor-row-resize rounded bg-background/70 px-2 group-hover:inline">
       <RowSpacingIcon />
     </button>
   );
@@ -72,7 +72,7 @@ const UnitSelection = ({ onSelect, current, units }: { current: string; onSelect
   <div data-theme="light" className="-m-[7px] -mx-[13px] flex w-9 flex-col">
     {units.map((unit: string) => (
       <Button
-        className="rounded-none px-1 text-right text-[11px] hover:bg-blue-400 h-max py-1"
+        className="h-max rounded-none px-1 py-1 text-right text-[11px] hover:bg-blue-400"
         key={unit}
         color={current === unit ? "primary" : undefined}
         size="sm"
@@ -116,7 +116,7 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
       onChange(cls);
     },
     [onChange],
-    200
+    200,
   );
 
   const emitOnDrag = useThrottledCallback(
@@ -124,7 +124,7 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
       onChange(cls, false);
     },
     [onChange],
-    200
+    200,
   );
 
   const setStyle = useCallback(
@@ -152,7 +152,7 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
         emitOnChange(cls);
       }
     },
-    [emitOnChange, emitOnDrag, value, unit, classPrefix, units]
+    [emitOnChange, emitOnDrag, value, unit, classPrefix, units],
   );
 
   const setStyleForUnit = useCallback(
@@ -177,11 +177,11 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
       }]`;
       emitOnChange(cls);
     },
-    [emitOnChange, value, classPrefix, units]
+    [emitOnChange, value, classPrefix, units],
   );
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex w-full flex-col">
       <div className="flex items-center justify-start">
         {unit === "class" ? (
           <>
@@ -197,7 +197,7 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
           </>
         ) : (
           <div className={`group relative  flex items-center ${lift ? "z-auto" : ""}`}>
-            <div className="flex items-center border border-border rounded-md">
+            <div className="flex items-center rounded-md border border-border">
               {["none", "auto"].indexOf(unit) !== -1 ? null : (
                 <input
                   readOnly={unit === "class"}
@@ -246,9 +246,9 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
                     setShowUnits(false);
                   }}
                   value={lift ? draggedVal : value}
-                  className={"w-14 h-6 rounded text-sm rounded-r-none focus-visible:outline-0 pl-2 bg-background ".concat(
+                  className={"h-6 w-14 rounded rounded-r-none bg-background pl-2 text-sm focus-visible:outline-0 ".concat(
                     " ",
-                    error ? "border-red-500 text-red-500" : ""
+                    error ? "border-red-500 text-red-500" : "border-foreground/20",
                   )}
                 />
               )}
@@ -257,7 +257,7 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
                   <button
                     type="button"
                     onClick={() => setShowUnits(!showUnits)}
-                    className="flex cursor-pointer items-center gap-x-1 h-6 rounded rounded-l-none bg-background p-px px-1 text-[11px] uppercase">
+                    className="flex h-6 cursor-pointer items-center gap-x-1 rounded rounded-l-none bg-background p-px px-1 text-[11px] uppercase">
                     <span className={`inline-block ${units.length === 1 ? "px-2 font-semibold" : ""}`}>{unit}</span>
                     {units.length > 1 ? <TriangleDownIcon /> : null}
                   </button>

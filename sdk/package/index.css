@@ -139,7 +139,7 @@
   }
 
   .array-item-list .array-item {
-    @apply rounded p-2 bg-gray-100 dark:bg-gray-800 relative;
+    @apply rounded p-2 relative;
   }
 
   .array-item-list {

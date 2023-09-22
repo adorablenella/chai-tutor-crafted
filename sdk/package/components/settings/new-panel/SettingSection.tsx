@@ -16,7 +16,7 @@ const NestedOptions = ({ heading, items }: any) => {
             return map(item.options, "key");
           }
           return item.property;
-        })
+        }),
       );
     const properties: Array<string> = flatten(
       items.map((item: any) => {
@@ -27,19 +27,19 @@ const NestedOptions = ({ heading, items }: any) => {
           return map(item.options, "key");
         }
         return item.property;
-      })
+      }),
     );
     const setProps = map(currentClasses, "property");
     return intersection(properties, setProps).length > 0;
   }, [currentClasses, items]);
   return (
     <details>
-      <summary className="my-px cursor-default rounded-md bg-gray-200 dark:bg-gray-800 p-px px-2 text-[11px] text-foreground">
+      <summary className="my-px cursor-default rounded-md bg-background p-px px-2 text-[11px] text-foreground">
         <div className="inline">
           {heading}
           {isAnyPropertySet ? (
             <span
-              className={`mr-2 ml-1 inline-block h-[8px] w-[8px] rounded-full ${
+              className={`ml-1 mr-2 inline-block h-[8px] w-[8px] rounded-full ${
                 isAnyPropertySet ? "bg-blue-500" : "bg-gray-300"
               }`}
             />
@@ -79,7 +79,7 @@ export const SettingsSection = ({ section }: any) => {
       }
       return match;
     },
-    [currentClasses]
+    [currentClasses],
   );
 
   const isAnyPropertySet: boolean = useMemo(() => {
@@ -93,7 +93,7 @@ export const SettingsSection = ({ section }: any) => {
             return flatten(map(item.options, "key"));
           }
           return item.property;
-        })
+        }),
       );
     const properties: Array<string> = flatten(
       section.items.map((item: any) => {
@@ -104,7 +104,7 @@ export const SettingsSection = ({ section }: any) => {
           return flatten(map(item.options, "key"));
         }
         return item.property;
-      })
+      }),
     );
     const setProps = map(currentClasses, "property");
     return intersection(properties, setProps).length > 0;
@@ -115,13 +115,13 @@ export const SettingsSection = ({ section }: any) => {
   return (
     <SectionContext.Provider value={contextValue}>
       <AccordionItem value={section.heading}>
-        <AccordionTrigger className="text-xs px-3 py-2 hover:no-underline">
+        <AccordionTrigger className="px-3 py-2 text-xs hover:no-underline">
           <div className="flex items-center gap-x-2">
             <div className={`h-[8px] w-[8px] rounded-full ${isAnyPropertySet ? "bg-blue-500" : "bg-gray-300"}`} />
             {section.heading}
           </div>
         </AccordionTrigger>
-        <AccordionContent className="px-3.5 py-2 bg-gray-100">
+        <AccordionContent className="bg-gray-100 px-3.5 py-2">
           {React.Children.toArray(
             section.items.map((item: any) => {
               if (has(item, "component")) {
@@ -137,7 +137,7 @@ export const SettingsSection = ({ section }: any) => {
                 return <NestedOptions key={item.label} {...item} />;
               }
               return null;
-            })
+            }),
           )}
         </AccordionContent>
       </AccordionItem>
