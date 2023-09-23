@@ -17,6 +17,8 @@ export interface PredefinedBlock {
 }
 
 export type TPageData = {
+  uuid?: string;
+  page_name?: string;
   blocks: TBlock[];
   custom_code: string;
   seo_data: Record<string, string>;
