@@ -126,19 +126,24 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
     } else if (key === "image" || key === "logo") {
       const file = formData.get(key) as File;
       const filename = `${nanoid()}.${file.type.split("/")[1]}`;
+      const BUCKET = "chaibuilder-blob-storage";
 
-      const { data, error } = await supabase.storage
-        .from("chaibuilder-blob-storage")
-        .upload(`website-image/${filename}`, file, {
-          cacheControl: "3600",
-          upsert: false,
-        });
+      const { data, error } = await supabase.storage.from(BUCKET).upload(`website-image/${filename}`, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
 
-      const url = data?.path;
+      if (error || !data?.path) {
+        throw error || { error: "Something went wrong!" };
+      }
 
-      // const blurhash = key === "image" ? await getBlurDataURL(url) : null;
+      const publicURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${data.path}`;
 
-      const { data: locData } = await supabase.from("projects").update({ webclip: url }).eq("uuid", site).single();
+      const { data: locData } = await supabase
+        .from("projects")
+        .update({ social_media_image: publicURL })
+        .eq("uuid", site)
+        .single();
       response = locData;
     } else if (key === "subdomain") {
       const { data } = await supabase.from("projects").select("*").eq("subdomain", value);

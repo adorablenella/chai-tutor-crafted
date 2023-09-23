@@ -17,7 +17,7 @@ export default function SiteCard({ data }: { data: any }) {
           width={500}
           height={400}
           className="h-44 object-cover"
-          src={data.image ?? "/placeholder.png"}
+          src={data.social_media_image || "/placeholder.png"}
           placeholder="blur"
           blurDataURL={placeholderBlurhash}
         />

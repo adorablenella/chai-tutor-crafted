@@ -1,16 +1,11 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { cn, placeholderBlurhash } from "@/lib/utils";
 import { useRef, useState } from "react";
 import { toast } from "sonner";
+import BlurImage from "../blur-image";
 
-export default function Uploader({
-  defaultValue,
-  name,
-}: {
-  defaultValue: string | null;
-  name: "image" | "logo";
-}) {
+export default function Uploader({ defaultValue, name }: { defaultValue: string | null; name: "image" | "logo" }) {
   const aspectRatio = name === "image" ? "aspect-video" : "aspect-square";
 
   const inputRef = useRef<HTMLInputElement>(null);
@@ -24,11 +19,7 @@ export default function Uploader({
     if (file) {
       if (file.size / 1024 / 1024 > 50) {
         toast.error("File size too big (max 50MB)");
-      } else if (
-        !file.type.includes("png") &&
-        !file.type.includes("jpg") &&
-        !file.type.includes("jpeg")
-      ) {
+      } else if (!file.type.includes("png") && !file.type.includes("jpg") && !file.type.includes("jpeg")) {
         toast.error("Invalid file type (must be .png, .jpg, or .jpeg)");
       } else {
         const reader = new FileReader();
@@ -51,8 +42,7 @@ export default function Uploader({
             "max-w-screen-md": aspectRatio === "aspect-video",
             "max-w-xs": aspectRatio === "aspect-square",
           },
-        )}
-      >
+        )}>
         <div
           className="absolute z-[5] h-full w-full rounded-md"
           onDragOver={(e) => {
@@ -87,8 +77,7 @@ export default function Uploader({
             data[name]
               ? "bg-white/80 opacity-0 hover:opacity-100 hover:backdrop-blur-md"
               : "bg-white opacity-100 hover:bg-gray-50"
-          }`}
-        >
+          }`}>
           <svg
             className={`${
               dragActive ? "scale-110" : "scale-100"
@@ -101,26 +90,24 @@ export default function Uploader({
             stroke="currentColor"
             strokeWidth="2"
             strokeLinecap="round"
-            strokeLinejoin="round"
-          >
+            strokeLinejoin="round">
             <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"></path>
             <path d="M12 12v9"></path>
             <path d="m16 16-4-4-4 4"></path>
           </svg>
-          <p className="mt-2 text-center text-sm text-gray-500">
-            Drag and drop or click to upload.
-          </p>
-          <p className="mt-2 text-center text-sm text-gray-500">
-            Max file size: 50MB
-          </p>
+          <p className="mt-2 text-center text-sm text-gray-500">Drag and drop or click to upload.</p>
+          <p className="mt-2 text-center text-sm text-gray-500">Max file size: 50MB</p>
           <span className="sr-only">Photo upload</span>
         </div>
         {data[name] && (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
-            src={data[name] as string}
+          <BlurImage
             alt="Preview"
             className="h-full w-full rounded-md object-cover"
+            src={data[name] as string}
+            placeholder="blur"
+            blurDataURL={placeholderBlurhash}
+            width={1200}
+            height={800}
           />
         )}
       </label>

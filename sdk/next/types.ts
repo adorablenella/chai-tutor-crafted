@@ -1,4 +1,3 @@
-/* eslint-disable typescript-sort-keys/interface */
 import { TBlock } from "../package";
 
 export type TPageSEOData = {
@@ -47,6 +46,8 @@ export type TProjectData = {
   web_clip: string;
   seo_data: TPageSEOData;
   subdomain: string;
+  social_media_image: string;
+  description: string;
 };
 
 export type TUser = {
