@@ -64,18 +64,22 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
 
         // if the custom domain is valid, we need to add it to Vercel
       } else if (validDomainRegex.test(value)) {
-        // response = await prisma.site.update({
-        //   where: {
-        //     id: site.id,
-        //   },
-        //   data: {
-        //     customDomain: value,
-        //   },
-        // });
+        const { data: locData } = await supabase
+          .from("projects")
+          .update({ customDomain: value })
+          .eq("uuid", site)
+          .select();
+        response = locData?.[0];
         await addDomainToVercel(value);
 
         // empty value means the user wants to remove the custom domain
       } else if (value === "") {
+        const { data: locData } = await supabase
+          .from("projects")
+          .update({ customDomain: value })
+          .eq("uuid", site)
+          .select();
+        response = locData?.[0];
         // response = await prisma.site.update({
         //   where: {
         //     id: site.id,
