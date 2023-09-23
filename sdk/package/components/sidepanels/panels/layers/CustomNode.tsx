@@ -33,8 +33,8 @@ export const CustomNode = (props: Props) => {
     <div
       onMouseEnter={() => setHighlighted(id)}
       className={cn(
-        "flex w-full items-center group space-x-px py-px justify-between ",
-        isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-100 dark:hover:bg-gray-800"
+        "group flex w-full items-center justify-between space-x-px py-px ",
+        isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-800 dark:hover:bg-gray-200",
       )}
       onClick={(evt) => {
         evt.stopPropagation();
@@ -48,7 +48,7 @@ export const CustomNode = (props: Props) => {
       {...dragOverProps}>
       <div className="flex items-center">
         <div
-          className={`flex items-center justify-center w-4 h-4 text-xs cursor-pointer transform rotate-0 transition-transform duration-100 ${
+          className={`flex h-4 w-4 rotate-0 transform cursor-pointer items-center justify-center text-xs transition-transform duration-100 ${
             props.isOpen ? "rotate-90" : ""
           }`}>
           {props.node.droppable && (
@@ -58,10 +58,10 @@ export const CustomNode = (props: Props) => {
           )}
         </div>
         <button type="button" className="flex items-center">
-          <div className="h-3 w-3 -mt-1">
+          <div className="-mt-1 h-3 w-3">
             <TypeIcon type={data?._type} />
           </div>
-          <div className="text-[11px] ml-2">{props.node.data?._name || props.node.text}</div>
+          <div className="ml-2 text-[11px]">{props.node.data?._name || props.node.text}</div>
         </button>
       </div>
     </div>
