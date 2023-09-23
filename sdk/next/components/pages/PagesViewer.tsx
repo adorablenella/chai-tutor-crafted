@@ -60,9 +60,7 @@ const SinglePage = (page: TPageData) => {
   return (
     <button
       className={`group relative flex w-full cursor-pointer items-center justify-between px-2.5 py-2 ${
-        isActivePage
-          ? "bg-blue-200 text-gray-800"
-          : "text-gray-600 hover:bg-slate-50 dark:text-gray-300 dark:hover:bg-slate-700 "
+        isActivePage ? "bg-blue-200 " : ""
       }`}
       onClick={handleClick}
       type="button">
