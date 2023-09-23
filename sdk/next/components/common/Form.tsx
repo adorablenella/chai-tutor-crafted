@@ -55,8 +55,10 @@ const Form = ({
             richtext: RichTextEditorField,
             icon: IconPickerField,
             image: ImagePickerField,
-            link: LinkField,
             globalData: GlobalDataMapper,
+          }}
+          fields={{
+            link: LinkField,
           }}
           idSeparator="."
           autoComplete="off"
