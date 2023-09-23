@@ -150,8 +150,7 @@ export function BlocksRenderer({ blocks }: { blocks: TBlock[] }) {
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "Slot", "Link", "List", "ListItem"], block._type)) {
-            console.log("Indide Box", allBlocks, filter(allBlocks, { _parent: block._id }));
+          if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
             attrs.children = <BlocksRenderer blocks={filter(allBlocks, { _parent: block._id })} />;
           }
 

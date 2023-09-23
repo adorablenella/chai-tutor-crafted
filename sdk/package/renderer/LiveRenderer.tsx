@@ -101,11 +101,11 @@ export function BlocksRendererLive({ blocks }: { blocks: TBlock[] }) {
               attrs[key] = React.Children.toArray(
                 slots[key].map((slotId: string) => (
                   <BlocksRendererLive blocks={[find(allBlocks, { _id: slotId }) as TBlock]} />
-                ))
+                )),
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "Slot", "Link", "List", "ListItem"], block._type)) {
+          if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
             attrs.children = <BlocksRendererLive blocks={filter(allBlocks, { _parent: block._id })} />;
           }
 
@@ -120,10 +120,10 @@ export function BlocksRendererLive({ blocks }: { blocks: TBlock[] }) {
                 ...getStyles(block),
                 ...attrs,
               },
-              ["_type", "_parent", "_name"]
-            )
+              ["_type", "_parent", "_name"],
+            ),
           );
-        })
+        }),
       )}
     </>
   );

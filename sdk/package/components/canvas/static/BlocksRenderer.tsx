@@ -118,7 +118,7 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
       e.stopPropagation();
     },
     [setHighlightedId],
-    100
+    100,
   );
 
   const onMouseLeave = useCallback(
@@ -126,12 +126,12 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
       setHighlightedId("");
       e.stopPropagation();
     },
-    [setHighlightedId]
+    [setHighlightedId],
   );
 
   const getStyles = useCallback(
     (block: TBlock) => getStyleAttrs(block, onMouseMove, onMouseLeave),
-    [onMouseMove, onMouseLeave]
+    [onMouseMove, onMouseLeave],
   );
 
   const getGlobalData = useCallback((block: TBlock) => getGlobalDataAttrs(block, globalData), [globalData]);
@@ -147,11 +147,11 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
               attrs[key] = React.Children.toArray(
                 slots[key].map((slotId: string) => (
                   <BlocksRendererStatic blocks={[find(allBlocks, { _id: slotId }) as TBlock]} />
-                ))
+                )),
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "Slot", "Link", "List", "ListItem", "DataProvider"], block._type)) {
+          if (includes(["Box", "Row", "Column", "Slot", "DataContext", "Link", "List", "ListItem"], block._type)) {
             const childBlocks = filter(allBlocks, { _parent: block._id });
             attrs.children = childBlocks.length ? <BlocksRendererStatic blocks={childBlocks} /> : null;
           }
@@ -167,10 +167,10 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
                 ...getStyles(block),
                 ...attrs,
               },
-              ["_type", "_parent", "_name"]
-            )
+              ["_type", "_parent", "_name"],
+            ),
           );
-        })
+        }),
       )}
     </>
   );
