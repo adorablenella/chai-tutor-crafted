@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Globe, Settings } from "lucide-react";
+import { AppWindow, ArrowLeft, ExternalLink, Globe, Newspaper, Settings } from "lucide-react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useMemo } from "react";
 import Image from "next/image";
@@ -22,8 +22,14 @@ export default function Nav({ children }: { children: ReactNode }) {
           name: "Edit Site",
           href: `/editor/${id}`,
           isActive: segments.includes("edit"),
-          icon: <Globe width={18} />,
+          icon: <ExternalLink width={18} />,
           target: "_blank",
+        },
+        {
+          name: "Blogs",
+          href: `/site/${id}`,
+          isActive: segments.includes("site") && segments.length === 2,
+          icon: <Newspaper width={18} />,
         },
         {
           name: "Settings",
@@ -44,7 +50,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         name: "Apps",
         href: "/apps",
         isActive: segments[0] === "apps",
-        icon: <Globe width={18} />,
+        icon: <AppWindow width={18} />,
       },
       {
         name: "Settings",

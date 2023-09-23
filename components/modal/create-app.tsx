@@ -13,10 +13,7 @@ export default function CreateAppModal() {
   const router = useRouter();
   const modal = useModal();
 
-  const [data, setData] = useState({
-    name: "",
-    apiKey: "",
-  });
+  const [data, setData] = useState({ name: "" });
 
   const addSite = async (formData: FormData) => {
     createSite(formData).then((res: any) => {
@@ -56,25 +53,6 @@ export default function CreateAppModal() {
           />
         </div>
 
-        <div className="flex flex-col space-y-2">
-          <label htmlFor="subdomain" className="text-sm font-medium text-stone-500">
-            API Key
-          </label>
-          <div className="flex w-full max-w-md">
-            <input
-              name="apiKey"
-              type="text"
-              placeholder="Your Project API Key"
-              value={data.apiKey}
-              onChange={(e) => setData({ ...data, apiKey: e.target.value })}
-              autoCapitalize="off"
-              pattern="[a-zA-Z0-9\-]+" // only allow lowercase letters, numbers, and dashes
-              maxLength={32}
-              required
-              className="w-full rounded-l-lg border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
-            />
-          </div>
-        </div>
         <input type="text" name="type" value="APP" hidden />
       </div>
       <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 md:px-10">
