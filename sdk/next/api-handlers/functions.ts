@@ -47,7 +47,7 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
 
   const blocks = page?.blocks || [];
   const projectData: TProjectData = get(page, "projects", {});
-  const styles = await getTailwindCSS(BRANDING_OPTIONS_DEFAULTS, [JSON.stringify(blocks)]);
+  const styles = await getTailwindCSS(projectData.branding_options, [JSON.stringify(blocks)]);
 
   return {
     pageData: {
