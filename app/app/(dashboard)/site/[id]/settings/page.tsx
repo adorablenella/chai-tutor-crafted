@@ -44,18 +44,6 @@ export default async function SiteSettingsIndex({ params }: { params: { id: stri
         }}
       />
 
-      <UpdateSiteForm
-        title="Description"
-        description="The description of your site. This will be used as the meta description on Google as well."
-        helpText="Include SEO-optimized keywords that you want to rank for."
-        inputAttrs={{
-          name: "description",
-          type: "text",
-          defaultValue: data?.description!,
-          placeholder: "A site about really interesting things.",
-        }}
-      />
-
       <Form
         title="Social media image"
         description="The social media image for your site. Accepted formats: .png, .jpg, .jpeg"
