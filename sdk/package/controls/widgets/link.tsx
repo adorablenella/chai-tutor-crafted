@@ -35,6 +35,7 @@ const LinkField = ({ schema, formData, onChange }: FieldProps) => {
             placeholder="Choose Page"
             value={href}
             onChange={(e) => onChange({ ...formData, href: e.target.value })}>
+            <option value="">Choose page</option>
             {map(pages, (page: TPageData) => (
               <option key={page.uuid} value={page.slug}>
                 {page.page_name}
