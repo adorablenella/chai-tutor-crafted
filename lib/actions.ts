@@ -19,6 +19,7 @@ export const createSite = async (formData: FormData) => {
 
   const supabase = createServerActionClient({ cookies });
   const name = formData.get("name") as string;
+  const description = formData.get("description") as string;
   const subdomain = formData.get("subdomain") as string;
   const userId = session?.user.id;
 
@@ -26,7 +27,7 @@ export const createSite = async (formData: FormData) => {
   if (currentData && currentData.length > 0) return { error: "This subdomain is already taken" };
 
   const homePageUuid = randomUUID();
-  const payload: any = { project_name: name, user: userId };
+  const payload: any = { project_name: name, user: userId, description };
   if (formData.get("apiKey")) payload.api_key = formData.get("apiKey") as string;
   if (formData.get("type")) payload.type = formData.get("type") as string;
   if (formData.get("subdomain")) payload.subdomain = formData.get("subdomain") as string;

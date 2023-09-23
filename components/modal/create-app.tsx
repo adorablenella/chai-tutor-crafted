@@ -13,7 +13,7 @@ export default function CreateAppModal() {
   const router = useRouter();
   const modal = useModal();
 
-  const [data, setData] = useState({ name: "" });
+  const [data, setData] = useState({ name: "", description: "" });
 
   const addSite = async (formData: FormData) => {
     createSite(formData).then((res: any) => {
@@ -50,6 +50,21 @@ export default function CreateAppModal() {
             maxLength={32}
             required
             className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
+          />
+        </div>
+
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="description" className="text-sm font-medium text-stone-500">
+            Description
+          </label>
+          <textarea
+            name="description"
+            placeholder="Description about why my app is so awesome"
+            value={data.description}
+            onChange={(e) => setData({ ...data, description: e.target.value })}
+            maxLength={140}
+            rows={3}
+            className="w-full rounded-md border border-stone-200 bg-stone-50 px-4 py-2 text-sm text-stone-600 placeholder:text-stone-400 focus:border-black  focus:outline-none focus:ring-black dark:border-stone-600 dark:bg-black dark:text-white dark:placeholder-stone-700 dark:focus:ring-white"
           />
         </div>
 
