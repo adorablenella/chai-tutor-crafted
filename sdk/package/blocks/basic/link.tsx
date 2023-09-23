@@ -10,7 +10,7 @@ const LinkBlock = (props: TBlock & { children: React.ReactNode }) => {
   let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(styles.className)) {
     emptySlot = (
-      <div {...omit(styles, ["className"])} className="h-20 border-dashed border-1 flex items-center justify-center">
+      <div {...omit(styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add blocks here
       </div>
     );
@@ -30,6 +30,6 @@ registerInternalBlock(LinkBlock, {
   group: "basic",
   props: {
     styles: Styles({ default: "" }),
-    link: Link({ title: "Link", default: { type: "page", target: "_self", href: "#sdd" } }),
+    link: Link({ title: "Link", default: { type: "page", target: "_self", href: "" } }),
   },
 });

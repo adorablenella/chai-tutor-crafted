@@ -262,42 +262,15 @@ export const Link = (props: TLinkProps) =>
     type: "singular",
     schema: {
       type: "object",
-      title: props.title || "Link",
-      default: props.default || { href: "#", target: "_self", type: "url" },
+      ...(props || {}),
       properties: {
-        type: {
-          type: "string",
-          title: "Icon Position",
-          oneOf: [
-            { const: "page", title: "Open Page" },
-            { const: "url", title: "Open URL" },
-            { const: "email", title: "Compose Email" },
-            { const: "telephone", title: "Call Phone" },
-            { const: "scroll", title: "Scroll to element" },
-          ],
-        },
-        href: {
-          type: "string",
-        },
-        target: {
-          type: "string",
-        },
+        type: { type: "string" },
+        href: { type: "string" },
+        target: { type: "string" },
       },
     },
     uiSchema: {
-      "ui:widget": "fieldset",
-      "ui:order": ["type", "href", "target"],
-      type: {
-        "ui:options": { label: false },
-      },
-      href: {
-        "ui:options": { label: false },
-        "ui:placeholder": "Enter URL",
-      },
-      target: {
-        "ui:widget": "link",
-        "ui:options": { label: false },
-      },
+      "ui:field": "link",
     },
   } as IControlDefinition);
 

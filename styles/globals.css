@@ -103,7 +103,6 @@ ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration-thickness: 2px;
 }
 
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -191,19 +190,19 @@ body {
 }
 
 .rjsf .form-group input {
-  @apply text-xs px-2 py-1 mt-1 border-foreground/20 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply mt-1 rounded-sm border-foreground/20 px-2 py-1 text-xs shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
 }
 
 .ql-toolbar.ql-snow {
-  @apply bg-background border-border rounded-t-md !important;
+  @apply rounded-t-md border-border bg-background !important;
 }
 
 .ql-container.ql-snow {
-  @apply bg-background rounded-b-md !important;
+  @apply rounded-b-md bg-background !important;
 }
 
 .btn.btn-info.btn-add.col-xs-12 {
-  @apply bg-blue-500 text-white w-5 h-5;
+  @apply h-5 w-5 bg-blue-500 text-white;
 }
 
 .placeholderContainer {
@@ -211,7 +210,7 @@ body {
 }
 
 .rjsf .form-group select {
-  @apply text-xs px-1 py-1 border-foreground/20 mt-1 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply mt-1 rounded-md border-foreground/20 px-2 py-1 text-xs shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
 }
 
 .rjsf > div > button[type="submit"] {
@@ -231,7 +230,7 @@ body {
 }
 
 .rjsf .form-group > textarea {
-  @apply text-xs px-2 py-1 mt-1 border-foreground/20 rounded-sm shadow-sm focus:outline-none focus:ring-primary focus:border-primary;
+  @apply mt-1 rounded-sm border-foreground/20 px-2 py-1 text-xs shadow-sm focus:border-primary focus:outline-none focus:ring-primary;
 }
 
 .form-group > fieldset {
@@ -239,7 +238,7 @@ body {
 }
 
 .array-item-list .array-item {
-  @apply rounded px-2 pt-2 pb-6 border border-foreground/20 relative;
+  @apply relative rounded border border-foreground/20 px-2 pb-6 pt-2;
 }
 
 .array-item-list {
@@ -247,29 +246,28 @@ body {
 }
 
 .array-item-toolbox > .btn-group {
-  @apply h-7 w-max border border-gray-300 divide-x divide-gray-300 absolute -left-px -bottom-4 font-serif bg-white z-50 rounded;
+  @apply absolute -bottom-4 -left-px z-50 h-7 w-max divide-x divide-gray-300 rounded border border-gray-300 bg-white font-serif;
 }
 .array-item-toolbox > .btn-group > .btn {
-  @apply w-8 h-7 flex items-center justify-center cursor-pointer hover:scale-90 text-xs;
+  @apply flex h-7 w-8 cursor-pointer items-center justify-center text-xs hover:scale-90;
 }
 .btn.btn-danger.array-item-remove::before {
-  @apply content-['✖'] text-red-500 text-sm;
+  @apply text-sm text-red-500 content-['✖'];
 }
 .btn.btn-default.array-item-move-up::before {
-  @apply content-['⬅'] text-gray-900 rotate-90;
+  @apply rotate-90 text-gray-900 content-['⬅'];
 }
 .btn.btn-default.array-item-move-down::before {
-  @apply content-['⬅'] text-gray-900 -rotate-90;
+  @apply -rotate-90 text-gray-900 content-['⬅'];
 }
 
 .array-item-add {
-  @apply max-h-7 bg-transparent relative overflow-hidden bg-white;
+  @apply relative max-h-7 overflow-hidden bg-transparent bg-white;
 }
 .btn.btn-info.btn-add::before {
-  @apply content-['＋'] w-14 h-7 flex items-center justify-center bg-blue-500 hover:bg-blue-600 absolute top-0 right-0 rounded-md overflow-hidden text-base font-black;
+  @apply absolute right-0 top-0 flex h-7 w-14 items-center justify-center overflow-hidden rounded-md bg-blue-500 text-base font-black content-['＋'] hover:bg-blue-600;
 }
 
-#layers-view > div[data-radix-scroll-area-viewport] > div{
+#layers-view > div[data-radix-scroll-area-viewport] > div {
   @apply h-full pt-2;
 }
-
