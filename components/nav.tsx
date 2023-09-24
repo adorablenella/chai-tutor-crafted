@@ -29,7 +29,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <ArrowLeft width={18} />,
         },
         {
-          name: "Edit Site",
+          name: "Open Editor",
           href: `/editor/${id}`,
           isActive: segments.includes("edit"),
           icon: <ExternalLink width={18} />,
@@ -42,9 +42,15 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <Newspaper width={18} />,
         },
         {
+          name: "Domain",
+          href: `/site/${id}/settings/domains`,
+          isActive: segments.includes("settings") && segments.includes("domains"),
+          icon: <Globe width={18} />,
+        },
+        {
           name: "Settings",
           href: `/site/${id}/settings`,
-          isActive: segments.includes("settings"),
+          isActive: segments.includes("settings") && !segments.includes("domains"),
           icon: <Settings width={18} />,
         },
       ];
@@ -89,7 +95,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         icon: <Settings width={18} />,
       },
     ];
-  }, [segments, id]);
+  }, [segments, id, siteId]);
 
   if (segments[0] === "editor" && id) return null;
 

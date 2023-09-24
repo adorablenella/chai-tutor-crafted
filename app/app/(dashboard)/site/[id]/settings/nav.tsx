@@ -1,41 +1,27 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import Link from "next/link";
+import { TProjectData } from "@/sdk/next/types";
 import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
-export default function SiteSettingsNav() {
+export default function SiteSettingsHead({ data }: { data: TProjectData }) {
   const { id } = useParams() as { id?: string };
   const segment = useSelectedLayoutSegment();
-
-  const navItems = [
-    {
-      name: "General",
-      href: `/site/${id}/settings`,
-      segment: null,
-    },
-    {
-      name: "Domains",
-      href: `/site/${id}/settings/domains`,
-      segment: "domains",
-    },
-  ];
+  const url = `${data?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
-    <div className="flex space-x-4 border-b border-stone-200 pb-4 pt-2 dark:border-stone-700">
-      {navItems.map((item) => (
-        <Link
-          key={item.name}
-          href={item.href}
-          className={cn(
-            "rounded-md px-2 py-1 text-sm font-medium transition-colors active:bg-stone-200 dark:active:bg-stone-600",
-            segment === item.segment
-              ? "bg-stone-100 text-stone-600 dark:bg-stone-800 dark:text-stone-400"
-              : "text-stone-600 hover:bg-stone-100 dark:text-stone-400 dark:hover:bg-stone-800",
-          )}>
-          {item.name}
-        </Link>
-      ))}
-    </div>
+    <>
+      <div className="flex flex-col items-center space-x-4 space-y-2 sm:flex-row sm:space-y-0">
+        <h1 className="font-cal text-xl font-bold dark:text-white sm:text-3xl">
+          <span className="capitalize">{segment}</span> Settings for {data.project_name}
+        </h1>
+        <a
+          href={process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${url}` : `http://${data.subdomain}.localhost:3000`}
+          target="_blank"
+          rel="noreferrer"
+          className="truncate rounded-md bg-stone-100 px-2 py-1 text-sm font-medium text-stone-600 transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700">
+          {url} ↗
+        </a>
+      </div>
+    </>
   );
 }
