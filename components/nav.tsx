@@ -42,7 +42,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <Newspaper width={18} />,
         },
         {
-          name: "Domain",
+          name: "Domains",
           href: `/site/${id}/settings/domains`,
           isActive: segments.includes("settings") && segments.includes("domains"),
           icon: <Globe width={18} />,
