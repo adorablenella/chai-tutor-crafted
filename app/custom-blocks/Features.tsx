@@ -2,16 +2,7 @@
 
 // nolint
 import React from "react";
-import {
-  GlobalDataMapper,
-  Icon,
-  List,
-  Model,
-  MultilineText,
-  registerBlock,
-  SingleLineText,
-  Styles,
-} from "@/sdk/package/controls";
+import { Icon, List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
 
 type TStylesProps = {
   className: string;
@@ -86,15 +77,15 @@ registerBlock(FeaturesBlock, {
   label: "Features block",
   group: "features",
   props: {
-    badge: GlobalDataMapper({ title: "Badge", default: "", dataType: "string", multiLingual: true }),
-    heading: MultilineText({ title: "Heading", default: "This is my heading", multiLingual: true }),
+    badge: SingleLineText({ title: "Badge", default: "" }),
+    heading: MultilineText({ title: "Heading", default: "This is my heading" }),
     subHeading: MultilineText({
       title: "Sub Heading",
       default: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
       multiLingual: true,
     }),
     group: Model({
-      title: "Group",
+      title: "Heading Section",
       properties: {
         name: SingleLineText({ title: "Name", default: "Hello World" }),
         icon: Icon({ title: "SVG Icon", default: "" }),

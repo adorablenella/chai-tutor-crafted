@@ -87,6 +87,7 @@ export default function BlockSettings() {
         validator={validator}
         onChange={updateRealtime}
       />
+      <div className="pb-60"></div>
     </div>
   );
 }

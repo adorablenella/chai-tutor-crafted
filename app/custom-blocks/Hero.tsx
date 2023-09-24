@@ -2,7 +2,7 @@
 
 // nolint
 import Link from "next/link";
-import { List, Model, MultilineText, registerBlock, SingleLineText, Slot, Styles } from "@/sdk/package/controls";
+import { List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
 
 type HeroBlockProps = {
   badgeIcon: string;
@@ -114,9 +114,8 @@ registerBlock(Hero1Block, {
     styles: Styles({ default: "text-lg text-gray-600 dark:text-gray-400" }),
     btnStyles: Styles({
       default:
-        "inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-blue-600 to-violet-600 hover:from-violet-600 hover:to-blue-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4 dark:focus:ring-offset-gray-800",
+        "inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-primary-600 to-primary-600 hover:from-primary-600 hover:to-primary-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4 dark:focus:ring-offset-gray-800",
     }),
-    child: Slot({ name: "Children" }),
     demo: SingleLineText({ title: "Badge Icon", default: `Demo wording` }),
     title1: SingleLineText({ title: "Badge Icon", default: "TITle 1" }),
     title2: SingleLineText({ title: "Badge Icon", default: "helo" }),
