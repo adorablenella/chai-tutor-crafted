@@ -37,21 +37,6 @@ export function withPostAuth(action: any) {
         error: "Not authenticated",
       };
     }
-    const post = {};
-    // const post = await prisma.post.findUnique({
-    //   where: {
-    //     id: postId,
-    //   },
-    //   include: {
-    //     site: true,
-    //   },
-    // });
-    // if (!post || post.userId !== session.user.id) {
-    //   return {
-    //     error: "Post not found",
-    //   };
-    // }
-
-    return action(formData, post, key);
+    return action(formData, postId, key);
   };
 }

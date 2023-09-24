@@ -1,14 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { AppWindow, ArrowLeft, ExternalLink, Globe, Newspaper, Settings } from "lucide-react";
+import { AppWindow, ArrowLeft, Edit3, ExternalLink, Globe, Newspaper, Settings } from "lucide-react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
-import { ReactNode, useMemo } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
+import { getSiteFromPostId } from "@/lib/actions";
 
 export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
   const { id } = useParams() as { id?: string };
+  const [siteId, setSiteId] = useState<string | null>();
+
+  useEffect(() => {
+    if (segments[0] === "post" && id) {
+      getSiteFromPostId(id).then((id) => {
+        setSiteId(id);
+      });
+    }
+  }, [segments, id]);
 
   const tabs = useMemo(() => {
     if (segments[0] === "site" && id) {
@@ -34,6 +44,26 @@ export default function Nav({ children }: { children: ReactNode }) {
         {
           name: "Settings",
           href: `/site/${id}/settings`,
+          isActive: segments.includes("settings"),
+          icon: <Settings width={18} />,
+        },
+      ];
+    } else if (segments[0] === "post" && id) {
+      return [
+        {
+          name: "Back to All Posts",
+          href: id ? `/site/${siteId}` : "/",
+          icon: <ArrowLeft width={18} />,
+        },
+        {
+          name: "Editor",
+          href: `/post/${id}`,
+          isActive: segments.length === 2,
+          icon: <Edit3 width={18} />,
+        },
+        {
+          name: "Settings",
+          href: `/post/${id}/settings`,
           isActive: segments.includes("settings"),
           icon: <Settings width={18} />,
         },

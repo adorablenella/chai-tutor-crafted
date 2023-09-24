@@ -3,16 +3,21 @@ import { notFound, redirect } from "next/navigation";
 import Form from "@/components/form";
 import { updatePostMetadata } from "@/lib/actions";
 import DeletePostForm from "@/components/form/delete-post-form";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
 
 export default async function PostSettings({ params }: { params: { id: string } }) {
+  const supabase = createServerComponentClient({ cookies });
   const session = await getSession();
   if (!session) {
     redirect("/login");
   }
-  const data: any = {};
-  if (!data || data.userId !== session.user.id) {
+
+  const { data } = await supabase.from("post").select("*").eq("id", params.id).single();
+  if (!data || data.user !== session.user.id) {
     notFound();
   }
+
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-6">
       <div className="flex flex-col space-y-6">

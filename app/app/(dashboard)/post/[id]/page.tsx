@@ -9,7 +9,7 @@ export default async function PostPage({ params }: { params: { id: string } }) {
   const session = await getSession();
   if (!session) redirect("/login");
 
-  const { data } = await supabase.from("pages").select("*").eq("uuid", params.id).single();
+  const { data } = await supabase.from("post").select("*").eq("id", params.id).single();
 
   if (!data) notFound();
 

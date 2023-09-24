@@ -31,7 +31,7 @@ export default async function SitePosts({ params }: { params: { id: string } }) 
             {url} ↗
           </a>
         </div>
-        <CreatePostButton />
+        <CreatePostButton userId={session.user.id} />
       </div>
       <Posts siteId={params.id} projectData={data} />
     </>

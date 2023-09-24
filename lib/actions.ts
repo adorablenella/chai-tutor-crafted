@@ -200,15 +200,10 @@ export const deleteProject = withSiteAuth(async (_: FormData, id: any) => {
 });
 
 export const getSiteFromPostId = async (postId: string) => {
-  // const post = await prisma.post.findUnique({
-  //   where: {
-  //     id: postId,
-  //   },
-  //   select: {
-  //     siteId: true,
-  //   },
-  // });
-  return ""; //post?.siteId;
+  const supabase = createServerActionClient({ cookies });
+  const { data, error } = await supabase.from("post").select("project").eq("id", postId).single();
+  if (error) return null;
+  return data.project;
 };
 
 export const createPost = withSiteAuth(async (_: FormData, site: any) => {
@@ -238,7 +233,7 @@ export const updatePost = async (data: any) => {
 
   const supabase = createServerActionClient({ cookies });
 
-  const { data: post } = await supabase.from("pages").select("*").eq("uuid", data.uuid).single();
+  const { data: post } = await supabase.from("post").select("*").eq("id", data.id).single();
 
   if (!post || !data) {
     return {
@@ -248,13 +243,13 @@ export const updatePost = async (data: any) => {
 
   try {
     const { data: response } = await supabase
-      .from("pages")
+      .from("post")
       .update({
         title: data.title,
         description: data.description,
         content: data.content,
       })
-      .eq("uuid", data.uuid)
+      .eq("id", data.id)
       .single();
 
     // await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
@@ -273,83 +268,75 @@ export const updatePost = async (data: any) => {
   }
 };
 
-export const updatePostMetadata = withPostAuth(
-  async (
-    formData: FormData,
-    post: any & {
-      site: any;
-    },
-    key: string,
-  ) => {
-    const value = formData.get(key) as string;
+export const updatePostMetadata = withPostAuth(async (formData: FormData, postId: string, key: string) => {
+  const supabase = createServerActionClient({ cookies });
+  const value = formData.get(key) as string;
+  let post = {};
 
-    try {
-      let response;
-      if (key === "image") {
-        const file = formData.get("image") as File;
-        const filename = `${nanoid()}.${file.type.split("/")[1]}`;
-
-        const { url } = await put(filename, file, {
-          access: "public",
-        });
-
-        const blurhash = await getBlurDataURL(url);
-
-        // response = await prisma.post.update({
-        //   where: {
-        //     id: post.id,
-        //   },
-        //   data: {
-        //     image: url,
-        //     imageBlurhash: blurhash,
-        //   },
-        // });
-      } else {
-        // response = await prisma.post.update({
-        //   where: {
-        //     id: post.id,
-        //   },
-        //   data: {
-        //     [key]: key === "published" ? value === "true" : value,
-        //   },
-        // });
-      }
-
-      await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
-      await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`);
-
-      // if the site has a custom domain, we need to revalidate those tags too
-      post.site?.customDomain &&
-        (await revalidateTag(`${post.site?.customDomain}-posts`),
-        await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
-
-      return response;
-    } catch (error: any) {
-      if (error.code === "P2002") {
-        return {
-          error: `This slug is already in use`,
-        };
-      } else {
-        return {
-          error: error.message,
-        };
-      }
-    }
-  },
-);
-
-export const deletePost = withPostAuth(async (_: FormData, post: any) => {
   try {
-    return {};
-    // const response = await prisma.post.delete({
-    //   where: {
-    //     id: post.id,
-    //   },
-    //   select: {
-    //     siteId: true,
-    //   },
-    // });
-    // return response;
+    let response;
+    if (key === "image") {
+      const file = formData.get(key) as File;
+      const filename = `${nanoid()}.${file.type.split("/")[1]}`;
+      const BUCKET = "chaibuilder-blob-storage";
+
+      const { data, error } = await supabase.storage.from(BUCKET).upload(`website-image/${filename}`, file, {
+        cacheControl: "3600",
+        upsert: false,
+      });
+
+      if (error || !data?.path) {
+        throw error || { error: "Something went wrong!" };
+      }
+
+      const publicURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${data.path}`;
+
+      const { data: locData } = await supabase.from("post").update({ image: publicURL }).eq("id", postId).single();
+      response = locData;
+    } else if (key === "slug") {
+      const slugPattern = /^[a-z0-9-]+$/;
+      if (value.match(slugPattern) === null) throw { message: "Invalid slug format" };
+      const { data, error } = await supabase.from("post").update({ slug: value }).eq("id", postId).select();
+      if (error || data.length === 0) throw error;
+      post = data[0];
+    } else {
+      const { data, error } = await supabase
+        .from("post")
+        .update({ [key]: value })
+        .eq("id", postId)
+        .select();
+      if (error || data.length === 0) throw error;
+      post = data[0];
+    }
+
+    // await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-posts`);
+    // await revalidateTag(`${post.site?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}-${post.slug}`);
+
+    // // if the site has a custom domain, we need to revalidate those tags too
+    // post.site?.customDomain &&
+    //   (await revalidateTag(`${post.site?.customDomain}-posts`),
+    //   await revalidateTag(`${post.site?.customDomain}-${post.slug}`));
+
+    return response;
+  } catch (error: any) {
+    if (error.code === "P2002") {
+      return {
+        error: `This slug is already in use`,
+      };
+    } else {
+      return {
+        error: error.message,
+      };
+    }
+  }
+});
+
+export const deletePost = withPostAuth(async (_: FormData, postId: string) => {
+  const supabase = createServerActionClient({ cookies });
+  try {
+    const { data, error } = await supabase.from("post").delete().eq("id", postId).select();
+    if (error || data.length === 0) throw error;
+    return data[0];
   } catch (error: any) {
     return {
       error: error.message,

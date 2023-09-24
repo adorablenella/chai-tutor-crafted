@@ -8,8 +8,8 @@ export type Post = {
   content?: string;
   slug?: string;
   image?: string | null;
-  siteId: string;
-  userId: string;
+  project: string;
+  user: string;
   published?: boolean;
   imageBlurhash?: string | null;
   createdAt?: Date;

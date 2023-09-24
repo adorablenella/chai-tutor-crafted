@@ -13,11 +13,11 @@ import { EditorBubbleMenu } from "./bubble-menu";
 import { cn } from "@/lib/utils";
 import LoadingDots from "../icons/loading-dots";
 import { ExternalLink } from "lucide-react";
-import { updatePost } from "@/lib/actions";
+import { updatePost, updatePostMetadata } from "@/lib/actions";
 
 export default function Editor({ post }: { post: any }) {
-  let [isPendingSaving, startTransitionSaving] = useTransition();
-  let [isPendingPublishing, startTransitionPublishing] = useTransition();
+  const [isPendingSaving, startTransitionSaving] = useTransition();
+  const [isPendingPublishing, setIsPendingPublishing] = useState(false);
 
   const [data, setData] = useState(post);
   const [hydrated, setHydrated] = useState(false);
@@ -32,7 +32,7 @@ export default function Editor({ post }: { post: any }) {
     if (
       debouncedData.title === post.title &&
       debouncedData.description === post.description &&
-      debouncedData.content === post.content
+      debouncedData.content === post.contente
     ) {
       return;
     }
@@ -167,10 +167,21 @@ export default function Editor({ post }: { post: any }) {
           {isPendingSaving ? "Saving..." : "Saved"}
         </div>
         <button
-          onClick={() => {
-            startTransitionPublishing(async () => {
-              setData((prev: any) => ({ ...prev, published: !prev.published }));
-            });
+          onClick={async () => {
+            const formData = new FormData();
+            console.log(data.published, typeof data.published);
+            formData.append("published", String(!data.published));
+            setIsPendingPublishing(true);
+            await updatePostMetadata(formData, post.id, "published")
+              .then(() => {
+                toast.success(`Successfully ${data.published ? "unpublished" : "published"} your post.`);
+                setData((prev: any) => ({ ...prev, published: !prev.published }));
+                setIsPendingPublishing(false);
+              })
+              .catch(() => {
+                toast.error(`Not able to ${data.published ? "unpublished" : "published"} your post. Try again.`);
+                setIsPendingPublishing(false);
+              });
           }}
           className={cn(
             "flex h-7 w-24 items-center justify-center space-x-2 rounded-lg border text-sm transition-all focus:outline-none",
@@ -199,7 +210,7 @@ export default function Editor({ post }: { post: any }) {
         />
       </div>
       {editor && <EditorBubbleMenu editor={editor} />}
-      <EditorContent editor={editor} />
+      <EditorContent editor={editor} disabled={isPendingPublishing} />
     </div>
   );
 }
