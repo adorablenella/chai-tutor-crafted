@@ -13,6 +13,7 @@ import GlobalDataMapper from "../../controls/widgets/GlobalDataMapper";
 import { getBlockJSONFromSchemas, getBlockJSONFromUISchemas } from "../../functions/controls";
 import { useUpdateBlocksPropsRealtime } from "../../hooks/useUpdateBlocksProps";
 import { TControlDefinition } from "../../controls";
+import { DataBindings } from "@/sdk/package/components/settings/DataBindings";
 
 export default function BlockSettings() {
   const selectedBlock = useSelectedBlock() as any;
@@ -59,27 +60,33 @@ export default function BlockSettings() {
   };
 
   return (
-    <Form
-      widgets={{
-        richtext: RichTextEditorField,
-        icon: IconPickerField,
-        image: ImagePickerField,
-        globalData: GlobalDataMapper,
-      }}
-      fields={{
-        link: LinkField,
-      }}
-      idSeparator="."
-      autoComplete="off"
-      omitExtraData={false}
-      liveOmit={false}
-      liveValidate
-      uiSchema={uiSchema}
-      onBlur={createHistorySnapshot}
-      schema={propsSchema}
-      formData={formData}
-      validator={validator}
-      onChange={updateRealtime}
-    />
+    <div>
+      <div className="px-4">
+        <DataBindings />
+      </div>
+      <hr />
+      <Form
+        widgets={{
+          richtext: RichTextEditorField,
+          icon: IconPickerField,
+          image: ImagePickerField,
+          globalData: GlobalDataMapper,
+        }}
+        fields={{
+          link: LinkField,
+        }}
+        idSeparator="."
+        autoComplete="off"
+        omitExtraData={false}
+        liveOmit={false}
+        liveValidate
+        uiSchema={uiSchema}
+        onBlur={createHistorySnapshot}
+        schema={propsSchema}
+        formData={formData}
+        validator={validator}
+        onChange={updateRealtime}
+      />
+    </div>
   );
 }
