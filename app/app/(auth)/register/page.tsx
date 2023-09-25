@@ -27,7 +27,7 @@ export default function LoginPage() {
             <div className="my-2 h-10 w-full rounded-md border border-stone-200 bg-stone-100 dark:border-stone-700 dark:bg-stone-800" />
           }>
           <RegisterWithEmail />
-          <Divider> sd</Divider>
+          <Divider></Divider>
           <RegisterButton />
         </Suspense>
         <br />
