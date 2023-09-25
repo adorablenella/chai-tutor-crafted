@@ -19,13 +19,11 @@ export const useMarkAsGlobalBlock = (): Function => {
     async (blockId: string, name: string) => {
       const blockUid = generateUUID(16);
       const blocks = map(presentBlocks, (block: any) => {
-        if (block.id === blockId) {
+        if (block._id === blockId) {
           // eslint-disable-next-line no-param-reassign
-          block.global = true;
+          block._globalBlockId = blockUid;
           // eslint-disable-next-line no-param-reassign
-          block.blockId = blockUid;
-          // eslint-disable-next-line no-param-reassign
-          block.tagId = name;
+          block._name = name;
         }
         return block;
       });
@@ -40,6 +38,6 @@ export const useMarkAsGlobalBlock = (): Function => {
       addGlobalBlock(newGlobal);
       await onSavePage(getPageData());
     },
-    [presentBlocks, dispatch, getPageData, onSavePage, addGlobalBlock]
+    [presentBlocks, dispatch, getPageData, onSavePage, addGlobalBlock],
   );
 };
