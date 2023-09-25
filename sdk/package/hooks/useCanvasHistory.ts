@@ -5,9 +5,10 @@ import { useDispatch } from "./useTreeData";
 import { pageBlocksAtom } from "../store/blocks";
 import { useCutBlockIds } from "./useCutBlockIds";
 import { usePreviewMode } from "./usePreviewMode";
-import { useSavePage } from "./useSavePage";
+import { pageSyncStateAtom } from "./useSavePage";
 import { useBuilderProp } from "./useBuilderProp";
 import { historyStatesAtom } from "@/sdk/package/store/ui";
+import { useAtom } from "jotai/index";
 
 type CanvasHistory = {
   redoCount: number;
@@ -26,10 +27,11 @@ export const useCanvasHistory = (): CanvasHistory => {
   const dispatch = useDispatch();
   const [preview] = usePreviewMode();
   const [, setCutIds] = useCutBlockIds();
-  const { setSyncState } = useSavePage();
+  const [, setSyncState] = useAtom(pageSyncStateAtom);
   const onSyncStatusChange = useBuilderProp("onSyncStatusChange", () => {});
 
   const createSnapshot = useCallback(() => {
+    // creates a snapshot of the current state
     dispatch({ type: "create_snapshot" });
   }, [dispatch]);
 
