@@ -5,7 +5,15 @@ import { Checkbox, SingleLineText, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 import { generateUUID } from "../../functions/functions";
 
-const RadioBlock = (block: TBlock) => {
+const RadioBlock = (
+  block: TBlock & {
+    blockProps: Record<string, string>;
+    styles: Record<string, string>;
+    inputStyles: Record<string, string>;
+    required: boolean;
+    checked: boolean;
+  },
+) => {
   const { blockProps, label, styles, inputStyles } = block;
   const fieldId = generateUUID();
   return (

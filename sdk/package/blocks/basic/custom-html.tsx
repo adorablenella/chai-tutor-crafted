@@ -5,7 +5,7 @@ import { registerInternalBlock } from "../../controls";
 import { MultilineText, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 
-const CustomHTMLBlock = (props: TBlock) => {
+const CustomHTMLBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, styles } = props;
   const { content } = useBlockContentByLanguage("content", props);
   return React.createElement("div", { ...styles, ...blockProps, dangerouslySetInnerHTML: { __html: content } });

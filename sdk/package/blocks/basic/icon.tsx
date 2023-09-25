@@ -4,7 +4,7 @@ import { registerInternalBlock } from "../../controls";
 import { Icon, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 
-const IconBlock = (block: TBlock) => {
+const IconBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, icon, styles } = block;
   return React.createElement("div", { ...blockProps, ...styles, dangerouslySetInnerHTML: { __html: icon } });
 };

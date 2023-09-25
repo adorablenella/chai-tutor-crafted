@@ -2,11 +2,19 @@ import * as React from "react";
 import { DropdownMenuIcon } from "@radix-ui/react-icons";
 import { map } from "lodash";
 import { registerInternalBlock } from "../../controls";
-import { Checkbox, SingleLineText, Styles, List } from "../../controls/controls";
+import { Checkbox, List, SingleLineText, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 import { generateUUID } from "../../functions/functions";
 
-const SelectBlock = (block: TBlock) => {
+const SelectBlock = (
+  block: TBlock & {
+    blockProps: Record<string, string>;
+    styles: Record<string, string>;
+    inputStyles: Record<string, string>;
+    required: boolean;
+    options: { label: string; value: string }[];
+  },
+) => {
   const { blockProps, label, placeholder, styles, inputStyles } = block;
   const fieldId = generateUUID();
   return (

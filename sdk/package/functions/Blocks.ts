@@ -18,7 +18,7 @@ export const nestedToFlatArray = (nestedJson: Array<TBlock>, parent: string | nu
         return flatten([block, ...nestedToFlatArray(children, block._id)]);
       }
       return block;
-    })
+    }),
   );
 
 export function duplicateBlocks(blocks: Array<TBlock>, id: string, _parent: string | null): Array<TBlock> {
@@ -64,7 +64,9 @@ export const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot
   const slots: any = {};
   Object.keys(block).forEach((key) => {
+    // @ts-ignore
     if (isString(block[key]) && block[key].startsWith("slot")) {
+      // @ts-ignore
       slots[key] = block[key].replace("slot:", "");
     }
   });
@@ -80,12 +82,14 @@ export const getSlots = (block: TBlock) => {
 export const getDuplicatedBlocks = (
   currentBlocks: TBlock[],
   id: string,
-  newParentId: string | null = null
+  newParentId: string | null = null,
 ): TBlock[] => {
   let block = find(currentBlocks, { _id: id }) as TBlock;
+  // @ts-ignore
   block = { ...block, oldId: block._id, _id: generateUUID() };
 
   if (newParentId) {
+    // @ts-ignore
     block = { ...block, _parent: newParentId };
   }
 

@@ -4,7 +4,7 @@ import { registerInternalBlock } from "../../controls";
 import { Image, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 
-const ImageBlock = (block: TBlock) => {
+const ImageBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, image, styles } = block;
   return React.createElement("img", { ...blockProps, ...styles, src: image });
 };

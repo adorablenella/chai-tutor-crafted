@@ -1,12 +1,18 @@
 import * as React from "react";
 import { ButtonIcon } from "@radix-ui/react-icons";
 import { registerInternalBlock } from "../../controls";
-import { SingleLineText, Styles, Icon, SelectOption } from "../../controls/controls";
+import { Icon, SelectOption, SingleLineText, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 import { generateUUID } from "../../functions/functions";
 import { useBlockContentByLanguage } from "../../hooks";
 
-const FormButtonBlock = (block: TBlock) => {
+const FormButtonBlock = (
+  block: TBlock & {
+    blockProps: Record<string, string>;
+    styles: Record<string, string>;
+    inputStyles: Record<string, string>;
+  },
+) => {
   const { blockProps, placeholder, styles, inputStyles, icon, iconPos } = block;
   const { content: label } = useBlockContentByLanguage("label", block);
   const fieldId = generateUUID();

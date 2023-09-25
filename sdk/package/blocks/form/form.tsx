@@ -5,12 +5,14 @@ import { TBlock } from "../../types/TBlock";
 import { registerInternalBlock } from "../../controls";
 import { SelectOption, SingleLineText, Slot, Styles } from "../../controls/controls";
 
-const FormBlock = (props: TBlock & { children: React.ReactNode; styles: any; tag: string }) => {
+const FormBlock = (
+  props: TBlock & { children: React.ReactNode; styles: any; tag: string; blockProps: Record<string, string> },
+) => {
   const { blockProps, success, error, fields, styles } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!fields && isEmpty(styles.className)) {
     emptySlot = (
-      <div {...omit(styles, ["className"])} className="h-20 border-dashed border-1 flex items-center justify-center">
+      <div {...omit(styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add Form Fields here
       </div>
     );

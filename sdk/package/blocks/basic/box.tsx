@@ -4,13 +4,15 @@ import { registerInternalBlock } from "../../controls";
 import { SelectOption, Styles } from "../../controls/controls";
 import { cn } from "../../radix/lib/utils";
 
-const BoxBlock = (props: TBlock & { children: React.ReactNode; styles: any; tag: string }) => {
+const BoxBlock = (
+  props: TBlock & { children: React.ReactNode; styles: any; tag: string; blockProps: Record<string, string> },
+) => {
   const { blockProps, children, tag = "div", styles } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("h-20 flex flex-col items-center justify-center", props.className)}>
-        <div className="border-dashed border-4 w-full h-full rounded-md" />
+      <div className={cn("flex h-20 flex-col items-center justify-center", props.className)}>
+        <div className="h-full w-full rounded-md border-4 border-dashed" />
       </div>
     );
   }

@@ -5,13 +5,13 @@ import { registerInternalBlock } from "../../controls";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "../../controls/controls";
 import { TBlock } from "../../types/TBlock";
 
-const ButtonBlock = (block: TBlock) => {
+const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, icon, iconPos, styles } = block;
   const { content: label } = useBlockContentByLanguage("label", block);
   const child = (
     <>
       {label}
-      {icon && <span className={iconPos} dangerouslySetInnerHTML={{ __html: icon }} />}
+      {icon && <span className={iconPos || ""} dangerouslySetInnerHTML={{ __html: icon }} />}
     </>
   );
   // eslint-disable-next-line react/button-has-type

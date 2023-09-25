@@ -23,7 +23,7 @@ type CanvasHistory = {
  */
 export const useCanvasHistory = (): CanvasHistory => {
   const blocks: any = useAtomValue(pageBlocksAtom);
-  const { undoCount, redoCount } = useAtomValue(historyStatesAtom);
+  const [{ undoCount, redoCount }, setCounts] = useAtom(historyStatesAtom);
   const dispatch = useDispatch();
   const [preview] = usePreviewMode();
   const [, setCutIds] = useCutBlockIds();
@@ -59,7 +59,10 @@ export const useCanvasHistory = (): CanvasHistory => {
       dispatch(ActionCreators.redo());
     }, [preview, dispatch]),
 
-    clear: () => dispatch(ActionCreators.clearHistory()),
+    clear: () => {
+      // setCounts({ undoCount: 0, redoCount: 0 });
+      dispatch(ActionCreators.clearHistory());
+    },
     createSnapshot,
   };
 };

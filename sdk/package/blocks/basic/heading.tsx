@@ -10,7 +10,9 @@ import { TBlock } from "../../types/TBlock";
  * @param props
  * @constructor
  */
-const HeadingBlock = (props: TBlock) => {
+const HeadingBlock = (
+  props: TBlock & { level: string; blockProps: Record<string, string>; styles: Record<string, string> },
+) => {
   const { blockProps, styles, level = "h1" } = props;
   const { content } = useBlockContentByLanguage("content", props);
   // eslint-disable-next-line react/no-danger

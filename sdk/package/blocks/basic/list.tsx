@@ -7,13 +7,13 @@ import { registerInternalBlock } from "../../controls";
 import { SelectOption, Styles } from "../../controls/controls";
 import { cn } from "../../radix/lib/utils";
 
-const ListBlock = (props: TBlock & { styles: any }) => {
+const ListBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, children, listType, styles } = props;
   const className = twMerge(get(styles, "className", ""), listType);
   return React.createElement(
     listType === "list-decimal" ? "ol" : "ul",
     { ...blockProps, ...styles, className },
-    children
+    children,
   );
 };
 
@@ -36,20 +36,20 @@ registerInternalBlock(ListBlock, {
     }),
   },
   blocks: [
-    { _type: "List", _id: "a", _parent: null, listType: "list-disc", styles: "#styles:," },
+    { _type: "List", _id: "a", listType: "list-disc", styles: "#styles:," },
     { _type: "ListItem", _id: "b", _parent: "a", styles: "#styles:," },
     { _type: "ListItem", _id: "c", _parent: "a", styles: "#styles:," },
     { _type: "ListItem", _id: "d", _parent: "a", styles: "#styles:," },
   ],
 });
 
-const ListItemBlock = (props: TBlock & { styles: any }) => {
+const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, styles, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("h-20 flex flex-col items-center justify-center", props.styles.className)}>
-        <div className="border-dashed border-4 w-full h-full rounded-md" />
+      <div className={cn("flex h-20 flex-col items-center justify-center", props.styles.className)}>
+        <div className="h-full w-full rounded-md border-4 border-dashed" />
       </div>
     );
   }

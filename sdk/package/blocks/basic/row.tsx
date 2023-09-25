@@ -7,7 +7,7 @@ import { registerInternalBlock } from "../../controls";
 import { Numeric, Styles } from "../../controls/controls";
 import { cn } from "../../radix/lib/utils";
 
-const RowBlock = (props: TBlock & { styles: any }) => {
+const RowBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, children, styles } = props;
   const className = twMerge(get(styles, "className", ""), "grid grid-cols-12");
   return React.createElement("div", { ...blockProps, ...styles, className }, children);
@@ -23,23 +23,23 @@ registerInternalBlock(RowBlock, {
     styles: Styles({ default: "grid grid-cols-12" }),
   },
   blocks: [
-    { _type: "Row", _id: "a", _parent: null, styles: "#styles:," },
-    { _type: "Column", _id: "b", _parent: "a", colSpan: 6, styles: "#styles:," },
-    { _type: "Column", _id: "c", _parent: "a", colSpan: 6, styles: "#styles:," },
+    { _type: "Row", _id: "a", styles: "#styles:," },
+    { _type: "Column", _id: "b", _parent: "a", colSpan: "6", styles: "#styles:," },
+    { _type: "Column", _id: "c", _parent: "a", colSpan: "6", styles: "#styles:," },
   ],
 });
 
-const ColumnBlock = (props: TBlock & { styles: any }) => {
+const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, styles, colSpan, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("h-20 flex flex-col items-center justify-center", props.styles.className)}>
-        <div className="border-dashed border-4 w-full h-full rounded-md" />
+      <div className={cn("flex h-20 flex-col items-center justify-center", props.styles.className)}>
+        <div className="h-full w-full rounded-md border-4 border-dashed" />
       </div>
     );
   }
-  const cols: { [key: number]: string } = {
+  const cols: { [key: number | string]: string } = {
     1: "col-span-1",
     2: "col-span-2",
     3: "col-span-3",

@@ -1,5 +1,5 @@
 export type TBlock = {
-  readonly _id: string;
+  _id: string;
   _name?: string;
   _parent?: string | null;
   _bindings?: Record<string, string>;

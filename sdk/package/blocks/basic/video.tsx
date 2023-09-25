@@ -40,7 +40,9 @@ const getEmbedURL = (url: string): string | null => {
   return null;
 };
 
-const VideoBlock = (block: TBlock) => {
+const VideoBlock = (
+  block: TBlock & { controls: Record<string, any>; blockProps: Record<string, string>; styles: Record<string, string> },
+) => {
   const { blockProps, styles } = block;
 
   let embedURL = getEmbedURL(block.url);
