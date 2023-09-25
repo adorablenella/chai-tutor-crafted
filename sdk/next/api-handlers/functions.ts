@@ -2,7 +2,7 @@ import { TPageData } from "@/sdk/package/types";
 import { TProjectData } from "@/sdk/next/types";
 import { get, isEmpty, merge } from "lodash";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
-import { getTailwindCSS } from "@/sdk/next/functions";
+import { getBrandingClasses, getTailwindCSS } from "@/sdk/next/functions";
 import supabase from "@/app/helpers/supabase";
 import { revalidateTag } from "next/cache";
 
@@ -47,7 +47,12 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
 
   const blocks = page?.blocks || [];
   const projectData: TProjectData = get(page, "projects", {});
-  const styles = await getTailwindCSS(projectData.branding_options, [JSON.stringify(blocks)]);
+  const brandingClasses = getBrandingClasses(projectData.branding_options);
+  const styles = await getTailwindCSS(
+    projectData.branding_options,
+    [JSON.stringify(blocks)],
+    brandingClasses.split(" "),
+  );
 
   return {
     pageData: {
@@ -60,7 +65,7 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
     },
     projectData: {
       translations: { en: {} },
-      branding_options: merge(get(projectData, "branding_options", {}), BRANDING_OPTIONS_DEFAULTS),
+      branding_options: merge(BRANDING_OPTIONS_DEFAULTS, get(projectData, "branding_options", {})),
       primary_language: projectData?.primary_language || "en",
       custom_code: projectData?.custom_code || "",
       favicon: projectData?.favicon || "",

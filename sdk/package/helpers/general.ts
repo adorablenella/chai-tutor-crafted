@@ -1,5 +1,5 @@
 import { findIndex, isEmpty, startsWith } from "lodash";
-import { TBlock } from "../types/TBlock";
+import { TBlock } from "@/sdk/package";
 import { STYLES_KEY } from "../constants/CONTROLS";
 
 /**
@@ -14,7 +14,8 @@ export function getBgImageValue(value: string) {
 }
 
 export function insertBlockAtIndex(arr: TBlock[], parentId: string | null, destinationIndex: number, newObj: TBlock) {
-  const parentIndex = findIndex(arr, { parent: parentId });
+  // @ts-ignore
+  const parentIndex = findIndex(arr, { _parent: parentId });
   const insertIndex = parentIndex + destinationIndex;
   arr.splice(insertIndex, 0, newObj);
   return arr;

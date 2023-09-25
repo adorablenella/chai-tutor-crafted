@@ -1,11 +1,13 @@
 import * as React from "react";
 import { isEmpty, omit } from "lodash";
 import { Link1Icon } from "@radix-ui/react-icons";
-import { TBlock } from "../../types/TBlock";
+import { TBlock } from "@/sdk/package";
 import { registerInternalBlock } from "../../controls";
 import { Link, Styles } from "../../controls/controls";
 
-const LinkBlock = (props: TBlock & { children: React.ReactNode }) => {
+const LinkBlock = (
+  props: TBlock & { styles: any; link: any; blockProps: Record<string, string>; children: React.ReactNode },
+) => {
   const { blockProps, link, children, styles } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(styles.className)) {
@@ -16,7 +18,7 @@ const LinkBlock = (props: TBlock & { children: React.ReactNode }) => {
     );
   }
   return (
-    <a href={link.href} target={link.target} {...blockProps} {...styles}>
+    <a href={link.href || "#/"} target={link.target} {...blockProps} {...styles}>
       {children || emptySlot}
     </a>
   );

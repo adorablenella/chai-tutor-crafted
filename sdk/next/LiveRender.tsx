@@ -5,15 +5,7 @@ import { RenderBlocksProps } from "../package/components/canvas/framework/types"
 import { LiveRenderContext } from "../package/renderer/LiveRenderContext";
 import { BlocksRendererLive } from "../package/renderer/LiveRenderer";
 import { TBlock } from "../package";
-
-const getBodyClasses = (brandingOptions: any) => {
-  const textLight = get(brandingOptions, "_bodyTextLightColor", "#64748b");
-  const textDark = get(brandingOptions, "_bodyTextDarkColor", "#94a3b8");
-  const bgLight = get(brandingOptions, "_bodyBgLightColor", "#FFFFFF");
-  const bgDark = get(brandingOptions, "_bodyBgDarkColor", "#0f172a");
-  // @ts-ignore
-  return `font-body antialiased text-[${textLight}] bg-[${bgLight}] dark:text-[${textDark}] dark:bg-[${bgDark}]`;
-};
+import { getBrandingClasses } from "@/sdk/next/functions";
 
 const LiveRender = ({ snapshot, model }: RenderBlocksProps<any>) => {
   const value = useMemo(() => ({ ...snapshot }), [snapshot]);
@@ -33,7 +25,7 @@ const LiveRender = ({ snapshot, model }: RenderBlocksProps<any>) => {
         <link rel="shortcut icon" href={get(snapshot, "projectData.favicon", "")} />
         <style>{snapshot.styles}</style>
       </head>
-      <div className={getBodyClasses(get(snapshot, "projectData.branding_options", {}))}>
+      <div className={getBrandingClasses(get(snapshot, "projectData.branding_options", {}))}>
         <Provider>
           <BlocksRendererLive blocks={filter(snapshot.pageData.blocks, (block: TBlock) => isEmpty(block._parent))} />
         </Provider>

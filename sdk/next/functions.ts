@@ -8,7 +8,7 @@ import twAspectRatio from "@tailwindcss/aspect-ratio";
 import twLineClamp from "@tailwindcss/line-clamp";
 import twHeadlessUI from "@headlessui/tailwindcss";
 
-export async function getTailwindCSS(options: any, markupString: string[]) {
+export async function getTailwindCSS(options: any, markupString: string[], safelist: string[] = []) {
   const primary = get(options, "_primaryColor", "#000");
   const secondary = get(options, "_secondaryColor", "#ccc");
 
@@ -24,6 +24,7 @@ export async function getTailwindCSS(options: any, markupString: string[]) {
   const tailwind = createTailwindcss({
     tailwindConfig: {
       darkMode: "class",
+      safelist,
       theme: {
         fontFamily: {
           heading: [headingFont, ...defaultTheme.fontFamily.sans],
@@ -50,3 +51,12 @@ export async function getTailwindCSS(options: any, markupString: string[]) {
 
   return `${css} h1,h2,h3,h4,h5,h6{font-family: "${headingFont}",${defaultTheme.fontFamily.sans.join(", ")};}`;
 }
+
+export const getBrandingClasses = (brandingOptions: any) => {
+  const textLight = get(brandingOptions, "_bodyTextLightColor", "#64748b");
+  const textDark = get(brandingOptions, "_bodyTextDarkColor", "#94a3b8");
+  const bgLight = get(brandingOptions, "_bodyBgLightColor", "#FFFFFF");
+  const bgDark = get(brandingOptions, "_bodyBgDarkColor", "#0f172a");
+  // @ts-ignore
+  return `font-body antialiased text-[${textLight}] bg-[${bgLight}] dark:text-[${textDark}] dark:bg-[${bgDark}]`;
+};
