@@ -60,6 +60,7 @@ export interface ChaiBuilderProviderProps {
   };
   uiLibraries?: UiLibrary[];
   uploadMediaCallback?: (file: File) => Promise<string>;
+  getPages?: () => Promise<TPageData[]>;
 }
 
 export type TStyleAttrs = {

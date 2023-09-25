@@ -1,11 +1,20 @@
-import { usePages } from "@/sdk/next/hooks/usePages";
 import { FieldProps } from "@rjsf/utils";
 import { TPageData } from "../../types";
 import { map } from "lodash";
+import { useBuilderProp } from "../../hooks/useBuilderProp";
+import { useEffect, useState } from "react";
 
 const LinkField = ({ schema, formData, onChange }: FieldProps) => {
-  const { data: pages } = usePages();
+  const [pages, setPages] = useState([]);
+  const getPages = useBuilderProp("getPages", () => []);
   const { type = "page", href = "", target = "self" } = formData;
+
+  useEffect(() => {
+    (async () => {
+      const _pages = await getPages();
+      setPages(_pages);
+    })();
+  }, [getPages]);
 
   return (
     <div>

@@ -72,6 +72,11 @@ export default function RootChaiStudio() {
     return res;
   };
 
+  const getPages = async () => {
+    const res = await fetch(`/api/chaibuilder/pages?project_uuid=${project?.uuid}`).then((_res) => _res.json());
+    return res;
+  };
+
   return (
     <ChaiBuilderStudio
       loadingCanvas={isLoading}
@@ -96,6 +101,7 @@ export default function RootChaiStudio() {
       onSaveBrandingOptions={saveBrandingOptions}
       uploadMediaCallback={uploadMediaCallback}
       fetchMediaCallback={fetchMediaCallback}
+      getPages={getPages}
     />
   );
 }
