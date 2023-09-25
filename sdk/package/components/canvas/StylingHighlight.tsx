@@ -1,14 +1,17 @@
 import { flip } from "@floating-ui/dom";
 import { shift, useFloating } from "@floating-ui/react-dom";
+import { useResizeObserver } from "@react-hookz/web";
 
 export const StylingHighlight = ({ selectedStyleElement }: { selectedStyleElement: HTMLElement | null }) => {
-  const { floatingStyles, refs } = useFloating({
+  const { floatingStyles, refs, update } = useFloating({
     placement: "top-end",
     middleware: [shift(), flip()],
     elements: {
       reference: selectedStyleElement,
     },
   });
+
+  useResizeObserver(selectedStyleElement as HTMLElement, () => update(), selectedStyleElement !== null);
 
   if (!selectedStyleElement) return null;
 

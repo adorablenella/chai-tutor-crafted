@@ -6,6 +6,7 @@ import { useDrag } from "react-dnd";
 import { canDeleteBlock, canDuplicateBlock } from "../../functions/Layers";
 import { TBlock } from "@/sdk/package";
 import { useDuplicateBlocks, useRemoveBlocks, useSelectedBlockIds } from "../../hooks";
+import { useResizeObserver } from "@react-hookz/web";
 
 const BlockActionLabel = ({ block, label }: any) => {
   const [, drag] = useDrag(() => ({
@@ -38,13 +39,15 @@ export const BlockActionsStatic = ({
   const removeBlock = useRemoveBlocks();
   const duplicateBlock = useDuplicateBlocks();
   const [, setSelectedIds] = useSelectedBlockIds();
-  const { floatingStyles, refs } = useFloating({
+  const { floatingStyles, refs, update } = useFloating({
     placement: "top-start",
     middleware: [shift(), flip()],
     elements: {
       reference: selectedBlockElement,
     },
   });
+
+  useResizeObserver(selectedBlockElement as HTMLElement, () => update(), selectedBlockElement !== null);
 
   const parentId: string | undefined | null = get(block, "_parent", null);
 
