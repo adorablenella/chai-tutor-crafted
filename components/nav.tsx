@@ -104,17 +104,17 @@ export default function Nav({ children }: { children: ReactNode }) {
       <div
         className={`z-10 flex h-screen w-full flex-col justify-between border-r border-stone-200 bg-stone-100 p-4 transition-all dark:border-stone-700 dark:bg-stone-900 sm:w-60 sm:translate-x-0`}>
         <div className="grid gap-2">
-          <div className="flex items-center space-x-2 rounded-lg py-1.5">
+          <div className="flex items-center space-x-1 rounded-lg py-1.5">
             <Link href="/" className="rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700">
               <Image
                 src="https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
                 width={24}
                 height={24}
                 alt="Logo"
-                className="dark:scale-110 dark:rounded-full dark:border dark:border-stone-400"
+                className="rounded-md dark:scale-110 dark:border dark:border-stone-400"
               />
             </Link>
-            <span className="text-lg font-bold tracking-wider text-white">ChaiBuilder</span>
+            <span className="text-lg font-bold tracking-tight">Chai Builder</span>
           </div>
 
           <div className="grid gap-1">
