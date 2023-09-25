@@ -1,4 +1,3 @@
-import "@/styles/globals.css";
 import { Providers } from "./providers";
 import { Metadata } from "next";
 import "./custom-blocks";
