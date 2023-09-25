@@ -1,3 +1,4 @@
+import "@/styles/site.css";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { getSiteByDomain } from "../helpers/project";
