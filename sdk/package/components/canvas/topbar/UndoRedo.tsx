@@ -3,14 +3,14 @@ import { Button } from "../../../radix-ui";
 import { useCanvasHistory } from "../../../hooks";
 
 export const UndoRedo = () => {
-  const { canUndo, canRedo, undo, redo } = useCanvasHistory();
+  const { undoCount, redoCount, undo, redo } = useCanvasHistory();
   return (
     <div className="flex items-center">
-      <Button disabled={!canUndo} size="sm" onClick={undo as any} className="rounded-full" variant="ghost">
+      <Button disabled={!undoCount} size="sm" onClick={undo as any} className="rounded-full" variant="ghost">
         <ResetIcon />
       </Button>
-      <Button disabled={!canRedo} onClick={redo as any} size="sm" className="rounded-full" variant="ghost">
-        <ResetIcon className="transform rotate-180 scale-y-[-1]" />
+      <Button disabled={!redoCount} onClick={redo as any} size="sm" className="rounded-full" variant="ghost">
+        <ResetIcon className="rotate-180 scale-y-[-1] transform" />
       </Button>
     </div>
   );

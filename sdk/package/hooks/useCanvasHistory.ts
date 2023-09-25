@@ -7,10 +7,11 @@ import { useCutBlockIds } from "./useCutBlockIds";
 import { usePreviewMode } from "./usePreviewMode";
 import { useSavePage } from "./useSavePage";
 import { useBuilderProp } from "./useBuilderProp";
+import { historyStatesAtom } from "@/sdk/package/store/ui";
 
 type CanvasHistory = {
-  canRedo: number;
-  canUndo: number;
+  redoCount: number;
+  undoCount: number;
   clear: Function;
   createSnapshot: Function;
   redo: Function;
@@ -21,6 +22,7 @@ type CanvasHistory = {
  */
 export const useCanvasHistory = (): CanvasHistory => {
   const blocks: any = useAtomValue(pageBlocksAtom);
+  const { undoCount, redoCount } = useAtomValue(historyStatesAtom);
   const dispatch = useDispatch();
   const [preview] = usePreviewMode();
   const [, setCutIds] = useCutBlockIds();
@@ -32,15 +34,18 @@ export const useCanvasHistory = (): CanvasHistory => {
   }, [dispatch]);
 
   useEffect(() => {
-    if (blocks?.past.length || blocks?.future.length) {
+    if (undoCount !== blocks?.past.length || redoCount !== blocks?.future.length) {
       setSyncState("UNSAVED");
       onSyncStatusChange("UNSAVED");
+    } else if (undoCount === blocks?.past.length && redoCount === blocks?.future.length) {
+      setSyncState("SAVED");
+      onSyncStatusChange("SAVED");
     }
-  }, [blocks?.past.length, blocks?.future.length, setSyncState]);
+  }, [blocks?.past.length, blocks?.future.length, undoCount, redoCount, onSyncStatusChange, setSyncState]);
 
   return {
-    canUndo: blocks?.past.length,
-    canRedo: blocks?.future.length,
+    undoCount: blocks?.past.length,
+    redoCount: blocks?.future.length,
     undo: useCallback(() => {
       if (preview) return;
       dispatch(ActionCreators.undo());

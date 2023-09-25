@@ -31,14 +31,14 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
   // homepage
   const key = isEmpty(slug) ? "uuid" : "slug";
   const value = isEmpty(slug) ? project.homepage : slug;
-  const { data: page } = await supabase
+  const { data: page, error } = await supabase
     .from("pages")
     .select(`*, projects!pages_project_fkey(*)`)
     .eq(key, value)
     .eq("project", project.uuid)
     .single();
 
-  if (!page) {
+  if (!page || error) {
     return { notFound: true };
   }
 

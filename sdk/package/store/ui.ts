@@ -44,3 +44,6 @@ addBlockOffCanvasAtom.debugLabel = "addBlockOffCanvasAtom";
 
 export const showPredefinedBlockCategoryAtom = atom("");
 showPredefinedBlockCategoryAtom.debugLabel = "showPredefinedBlockCategoryAtom";
+
+export const historyStatesAtom = atom<{ undoCount: number; redoCount: number }>({ undoCount: 0, redoCount: 0 });
+historyStatesAtom.debugLabel = "historyStatesAtom";

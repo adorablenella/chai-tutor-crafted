@@ -116,9 +116,6 @@ registerBlock(Hero1Block, {
       default:
         "inline-flex justify-center items-center gap-x-3 text-center bg-gradient-to-tl from-primary-600 to-primary-600 hover:from-primary-600 hover:to-primary-600 border border-transparent text-white text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white py-3 px-4 dark:focus:ring-offset-gray-800",
     }),
-    demo: SingleLineText({ title: "Badge Icon", default: `Demo wording` }),
-    title1: SingleLineText({ title: "Badge Icon", default: "TITle 1" }),
-    title2: SingleLineText({ title: "Badge Icon", default: "helo" }),
     model: Model({
       title: "Model",
       properties: {
