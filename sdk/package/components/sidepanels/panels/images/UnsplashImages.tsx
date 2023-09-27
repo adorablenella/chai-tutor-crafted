@@ -70,7 +70,7 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
         })
         .catch(() => {});
     }
-  }, [orientation, color]);
+  }, [orientation, color, query]);
 
   return (
     <>
@@ -87,14 +87,16 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
           <PopoverTrigger asChild className="h-full w-10 cursor-pointer p-2.5 hover:bg-slate-200">
             <MixerHorizontalIcon />
           </PopoverTrigger>
-          <PopoverContent side={isModalView ? "bottom" : "right"} className="flex w-max items-center justify-center">
+          <PopoverContent
+            side={isModalView ? "bottom" : "right"}
+            className="z-[9999] flex w-max items-center justify-center">
             <div>
               <div className="py-1 text-sm font-medium">Orientation</div>
               <Select defaultValue={orientation} onValueChange={(_v) => setOrientation(_v as any)}>
                 <SelectTrigger className="h-auto w-40 p-1 px-3">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="z-[9999]">
                   <SelectItem value={""}>All</SelectItem>
                   <SelectItem value="landscape">Landscape</SelectItem>
                   <SelectItem value="portrait">Portrait</SelectItem>
@@ -106,7 +108,7 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
                 <SelectTrigger className="h-auto w-40 p-1 px-3">
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="z-[9999]">
                   <SelectItem value={""}>All</SelectItem>
                   {[
                     "black_and_white",
@@ -121,7 +123,9 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
                     "teal",
                     "blue",
                   ].map((_color) => (
-                    <SelectItem value={_color}>{startCase(_color)}</SelectItem>
+                    <SelectItem key={_color} value={_color}>
+                      {startCase(_color)}
+                    </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
@@ -150,6 +154,7 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
                 key={pic.id}
                 onClick={() => onSelect(pic.urls.regular)}>
                 <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     className="h-auto flex-1 cursor-pointer rounded-md transition duration-300 ease-in-out hover:scale-105"
                     alt={pic.alt_description}
@@ -164,6 +169,7 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
             // TODO: Drag and Drop Image to Canvas from Here use `pic.urls.[small, regular, full]` for image quality
             <div className="w-full px-2 py-1" key={pic.id}>
               <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="h-auto cursor-pointer transition duration-300 ease-in-out hover:scale-105"
                   alt={pic.alt_description}
