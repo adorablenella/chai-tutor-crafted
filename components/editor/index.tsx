@@ -14,10 +14,12 @@ import { cn } from "@/lib/utils";
 import LoadingDots from "../icons/loading-dots";
 import { ExternalLink } from "lucide-react";
 import { updatePost, updatePostMetadata } from "@/lib/actions";
+import { trim } from "lodash";
 
 export default function Editor({ post }: { post: any }) {
   const [isPendingSaving, startTransitionSaving] = useTransition();
   const [isPendingPublishing, setIsPendingPublishing] = useState(false);
+  const [slug, setSlug] = useState(post?.slug);
 
   const [data, setData] = useState(post);
   const [hydrated, setHydrated] = useState(false);
@@ -27,6 +29,8 @@ export default function Editor({ post }: { post: any }) {
     : `http://${data.site?.subdomain}.localhost:3000/${data.slug}`;
 
   const [debouncedData] = useDebounce(data, 1000);
+  const [debouncedSlug] = useDebounce(slug, 1000);
+
   useEffect(() => {
     // compare the title, description and content only
     if (
@@ -41,7 +45,24 @@ export default function Editor({ post }: { post: any }) {
     });
   }, [debouncedData, post]);
 
-  // listen to CMD + S and override the default behavior
+  useEffect(() => {
+    if (debouncedSlug.match(/^[a-z0-9-]+$/) === null) return;
+    if (post?.slug !== debouncedSlug) {
+      const formData = new FormData();
+      formData.append("slug", trim(debouncedSlug));
+      updatePostMetadata(formData, post.id, "slug")
+        .then((res) => {
+          if (res?.error) {
+            toast.error(res.error);
+          }
+        })
+        .catch((err) => {
+          toast.error(`${err.message}`);
+        });
+    }
+  }, [debouncedSlug, post]);
+
+  // listen to CMD + S and oveupdatePostMetadatarride the default behavior
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === "s") {
@@ -193,7 +214,7 @@ export default function Editor({ post }: { post: any }) {
           {isPendingPublishing ? <LoadingDots /> : <p>{data.published ? "Unpublish" : "Publish"}</p>}
         </button>
       </div>
-      <div className="mb-5 flex flex-col space-y-3 border-b border-stone-200 pb-5 dark:border-stone-700">
+      <div className="mb-5 flex flex-col space-y-2.5 border-b border-stone-200 pb-5 dark:border-stone-700">
         <input
           type="text"
           placeholder="Title"
@@ -202,13 +223,30 @@ export default function Editor({ post }: { post: any }) {
           onChange={(e) => setData({ ...data, title: e.target.value })}
           className="dark:placeholder-text-600 border-none px-0 font-cal text-3xl placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
         />
+
         <TextareaAutosize
           placeholder="Description"
           defaultValue={post?.description || ""}
           onChange={(e) => setData({ ...data, description: e.target.value })}
           className="dark:placeholder-text-600 w-full resize-none border-none px-0 placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
         />
+
+        <div className="flex flex-col gap-y-0">
+          <div className="flex items-center gap-x-2">
+            <ExternalLink size={13} color="#bbb" />
+            <TextareaAutosize
+              placeholder="Post Slug"
+              value={slug || ""}
+              onChange={(e) => setSlug(e.target.value)}
+              className="dark:placeholder-text-600 w-full resize-none border-none p-0 text-xs placeholder:text-stone-400 focus:outline-none focus:ring-0 dark:bg-black dark:text-white"
+            />
+          </div>
+          {slug.match(/^[a-z0-9-]+$/) === null && (
+            <small className="pl-5 pt-1 text-[10px] text-red-400">Invalid slug format</small>
+          )}
+        </div>
       </div>
+
       {editor && <EditorBubbleMenu editor={editor} />}
       <EditorContent editor={editor} disabled={isPendingPublishing} />
     </div>

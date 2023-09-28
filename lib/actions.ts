@@ -296,6 +296,21 @@ export const updatePostMetadata = withPostAuth(async (formData: FormData, postId
     } else if (key === "slug") {
       const slugPattern = /^[a-z0-9-]+$/;
       if (value.match(slugPattern) === null) throw { message: "Invalid slug format" };
+
+      // * Checking Duplicacy
+      const { data: postData, error: postError } = await supabase.from("post").select().eq("id", postId).single();
+      if (postError || !postData) throw postError;
+
+      const { data: existingData, error: checkError } = await supabase
+        .from("post")
+        .select("*")
+        .eq("slug", value)
+        .eq("project", postData.project);
+      if (checkError) throw checkError;
+
+      if (existingData.length > 0 && existingData[0].id !== postId) throw { code: "P2002" };
+
+      // * Updating Slug
       const { data, error } = await supabase.from("post").update({ slug: value }).eq("id", postId).select();
       if (error || data.length === 0) throw error;
       post = data[0];
