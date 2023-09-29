@@ -11,8 +11,7 @@ import "./basic/image";
 import "./basic/slot";
 import "./basic/video";
 import "./basic/custom-html";
-import "./basic/data-provider";
-
+// import "./basic/data-provider";
 import "./form/form";
 import "./form/input";
 import "./form/textarea";

@@ -1,4 +1,4 @@
-import { Half2Icon, ImageIcon, PlusIcon, StackIcon } from "@radix-ui/react-icons";
+import { Half2Icon, PlusIcon, StackIcon } from "@radix-ui/react-icons";
 import React, { lazy, LazyExoticComponent, Suspense, useState } from "react";
 import { useAtom } from "jotai";
 import { each, get } from "lodash";
@@ -64,12 +64,12 @@ const SidePanels = () => {
             variant={activePanel === "branding-options" ? "default" : "outline"}>
             <Half2Icon className="w-4 max-w-[40px] text-xs" />
           </Button>
-          <Button
-            onClick={() => handleChangePanel("images")}
-            size="sm"
-            variant={activePanel === "images" ? "default" : "outline"}>
-            <ImageIcon className="w-4 max-w-[40px] text-xs" />
-          </Button>
+          {/*<Button*/}
+          {/*  onClick={() => handleChangePanel("images")}*/}
+          {/*  size="sm"*/}
+          {/*  variant={activePanel === "images" ? "default" : "outline"}>*/}
+          {/*  <ImageIcon className="w-4 max-w-[40px] text-xs" />*/}
+          {/*</Button>*/}
           {React.Children.toArray(
             topComponents.map(({ name, icon: PanelIcon }) => (
               <Suspense fallback={<Skeleton className="h-10" />}>
