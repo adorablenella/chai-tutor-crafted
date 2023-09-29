@@ -21,10 +21,11 @@ export default async function Apps() {
       ))}
     </div>
   ) : (
-    <div className="mt-20 flex flex-col items-center space-x-4">
-      <h1 className="font-cal text-4xl">No Sites Yet</h1>
+    <div className="mt-40 flex flex-col items-center space-x-4">
+      <h1 className="mt-20 font-cal text-4xl">No Apps Yet</h1>
       <Image alt="missing site" src="https://illustrations.popsy.co/gray/web-design.svg" width={400} height={400} />
-      <p className="text-lg text-stone-500">You do not have any sites yet. Create one to get started.</p>
+      <p className="text-lg text-stone-500">Coming soon. ChaiBuilder apps are custom NextJS apps. </p>
+      <p className="text-lg text-stone-500">Apps will allow you to create your own custom blocks.</p>
     </div>
   );
 }

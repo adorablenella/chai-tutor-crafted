@@ -10,7 +10,7 @@ export default function AllApps() {
       <div className="flex flex-col space-y-6">
         <div className="flex items-center justify-between">
           <h1 className="font-cal text-3xl font-bold dark:text-white">All Apps</h1>
-          <div className="flex items-center gap-x-3">
+          <div className="flex hidden items-center gap-x-3">
             <a
               href="apps/learn-more"
               target="_blank"

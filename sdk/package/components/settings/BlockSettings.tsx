@@ -13,7 +13,6 @@ import GlobalDataMapper from "../../controls/widgets/GlobalDataMapper";
 import { getBlockJSONFromSchemas, getBlockJSONFromUISchemas } from "../../functions/controls";
 import { useUpdateBlocksPropsRealtime } from "../../hooks/useUpdateBlocksProps";
 import { TControlDefinition } from "../../controls";
-import { DataBindings } from "@/sdk/package/components/settings/DataBindings";
 
 export default function BlockSettings() {
   const selectedBlock = useSelectedBlock() as any;
@@ -61,10 +60,10 @@ export default function BlockSettings() {
 
   return (
     <div>
-      <div className="px-4">
-        <DataBindings />
-      </div>
-      <hr />
+      {/*<div className="px-4">*/}
+      {/*  <DataBindings />*/}
+      {/*</div>*/}
+      {/*<hr />*/}
       <Form
         widgets={{
           richtext: RichTextEditorField,
