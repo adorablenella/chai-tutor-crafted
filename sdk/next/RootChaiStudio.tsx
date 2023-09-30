@@ -1,7 +1,7 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FileTextIcon, GearIcon } from "@radix-ui/react-icons";
 import { lazy, useCallback } from "react";
-import { ChaiBuilderStudio, useToast } from "@/sdk/package";
+import { useToast } from "@/sdk/package/radix-ui";
 import { useProject } from "./hooks/useProject";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { useGlobalBLocks } from "./hooks/useGlobalBlocks";
@@ -11,6 +11,7 @@ import { TBrandingOptions, TProjectData } from "./types";
 import { useUpdatePage } from "./mutations/usePageActions";
 import { useUpdateProject } from "./mutations/useProjectActions";
 import { isEqual } from "lodash";
+import { ChaiBuilderStudio } from "@/sdk/package";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));

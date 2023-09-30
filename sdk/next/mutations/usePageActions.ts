@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TPageData } from "../types";
-import { useToast } from "@/sdk/package";
+import { useToast } from "@/sdk/package/radix-ui";
 import { useChangePage } from "../hooks/useChangePage";
 import { useProject } from "@/sdk/next/hooks/useProject";
 

@@ -20,7 +20,7 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
   useEffect(() => {
     (async () => {
       const uploadedImages = await fetchImages();
-      setImages(uploadedImages);
+      setImages(uploadedImages || []);
     })();
   }, []);
 
@@ -37,10 +37,13 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
       onSelect(url);
       setFile(undefined);
     } catch (err: any) {
+      setImages([]);
       setError(err?.message || "Something went wrong.");
     }
     setIsUploading(false);
   };
+
+  console.log(images);
 
   return (
     <>
@@ -85,7 +88,7 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
         )}
         {isModalView ? (
           <div className="h-full columns-3 py-2">
-            {images.map((pic) => (
+            {images?.map((pic) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div role="button" tabIndex={0} className="my-1 flex" key={pic.id} onClick={() => onSelect(pic.url)}>
                 <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">
@@ -99,7 +102,7 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
             ))}
           </div>
         ) : (
-          images.map((pic) => (
+          images?.map((pic) => (
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             <div role="button" tabIndex={0} className="px-2 py-1" key={pic.id} onClick={() => onSelect(pic.url)}>
               <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">

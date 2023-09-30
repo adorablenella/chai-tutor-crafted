@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, DialogContent, DialogTrigger } from "../../../../index";
+import { Dialog, DialogContent, DialogTrigger } from "../../../../radix-ui";
 import ImagesPanel from "./ImagesPanel";
 
 const ImagePickerModal = ({ children, onSelect }: { children: React.JSX.Element; onSelect: (url: string) => void }) => {
@@ -12,7 +12,7 @@ const ImagePickerModal = ({ children, onSelect }: { children: React.JSX.Element;
   };
 
   return (
-    <Dialog open={open} onOpenChange={(_open) => setOpen(_open)}>
+    <Dialog open={open} onOpenChange={(_open: boolean) => setOpen(_open)}>
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="flex h-3/4 max-w-5xl">
         <div className="h-full w-full">

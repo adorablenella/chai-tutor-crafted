@@ -1,5 +1,5 @@
 import React, { Suspense, useState } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../index";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../../../radix-ui";
 
 const UnsplashImages = React.lazy(() => import("./UnsplashImages"));
 const UploadImages = React.lazy(() => import("./UploadImages"));
@@ -14,7 +14,7 @@ const ImagesPanel = ({
   const [tab, setTab] = useState("unsplash");
   return (
     <div className="flex h-full flex-col">
-      <div className="bg-background/30 flex items-center justify-between rounded-md p-1">
+      <div className="flex items-center justify-between rounded-md bg-background/30 p-1">
         <h1 className="px-1 font-semibold">{isModalView ? "Select or upload images" : "Images"}</h1>
       </div>
 

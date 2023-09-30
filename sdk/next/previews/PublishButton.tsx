@@ -1,5 +1,5 @@
 import { find } from "lodash";
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "../../package";
+import { Button, Tooltip, TooltipContent, TooltipTrigger } from "@/sdk/package/radix-ui";
 import { usePages } from "../hooks/usePages";
 import { usePublishPage } from "../mutations/usePageActions";
 import { useCurrentPage, useSyncState } from "../store";
