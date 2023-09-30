@@ -15,7 +15,7 @@ import { builderStore } from "../store";
 import "../blocks/core-blocks";
 import { useSetAllBlocks } from "../hooks/useTreeData";
 import { Toaster } from "../radix/components/ui/toaster";
-import { useBuilderReset } from "@/sdk/package";
+import { useBuilderReset } from "../hooks/useBuilderReset";
 
 const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
   const { dndOptions = { backend: MultiBackend } } = props;

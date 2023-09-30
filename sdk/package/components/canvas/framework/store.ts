@@ -1,6 +1,6 @@
 import { atom, createStore } from "jotai";
 import { BRANDING_OPTIONS_DEFAULTS } from "../../../constants/MODIFIERS";
-import { TBlock } from "@/sdk/package";
+import { TBlock } from "../../../types/TBlock";
 
 export const canvasStore = createStore();
 

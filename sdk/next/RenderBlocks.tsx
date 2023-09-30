@@ -1,5 +1,4 @@
-"use client";
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense } from "react";
 import { RenderBlocksProps } from "../package/components/canvas/framework/types";
 import { Skeleton } from "../package/radix/components/ui/skeleton";
 
@@ -7,9 +6,7 @@ const InsideBuilder = lazy(() => import("../package/components/canvas/framework/
 const LiveRender = lazy(() => import("./LiveRender"));
 
 export const RenderBlocks = ({ snapshot, model = "page" }: RenderBlocksProps<"section" | "page">) => {
-  const [mode, setMode] = useState("live");
-  useEffect(() => setMode(window && window.self !== window.top ? "builder" : "live"), []);
-
+  const mode = typeof window !== "undefined" && window.self !== window.top ? "builder" : "live";
   const render =
     {
       live: <LiveRender model={model} snapshot={snapshot} />,

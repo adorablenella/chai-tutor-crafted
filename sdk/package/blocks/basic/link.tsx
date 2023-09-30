@@ -1,7 +1,7 @@
 import * as React from "react";
 import { isEmpty, omit } from "lodash";
 import { Link1Icon } from "@radix-ui/react-icons";
-import { TBlock } from "@/sdk/package";
+import { TBlock } from "../../types/TBlock";
 import { registerInternalBlock } from "../../controls";
 import { Link, Styles } from "../../controls/controls";
 

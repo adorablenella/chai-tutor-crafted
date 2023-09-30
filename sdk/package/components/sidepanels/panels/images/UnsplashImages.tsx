@@ -14,7 +14,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/sdk/package";
+} from "../../../../radix-ui";
 
 const ACCESS_KEY: string = "phfFCfD_A95ICxvwEYsFxsgHD-1veFwGA4Cu8qxvcec";
 const unsplash = createApi({ accessKey: ACCESS_KEY });

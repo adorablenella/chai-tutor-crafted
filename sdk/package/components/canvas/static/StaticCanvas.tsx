@@ -6,14 +6,13 @@ import { useThrottledCallback } from "@react-hookz/web";
 import { useAtom } from "jotai";
 import { DndContext, useDrop } from "react-dnd";
 import {
-  TBlock,
   useAddBlock,
   useCanvasWidth,
   useCanvasZoom,
   useHighlightBlockId,
   usePreviewMode,
   useSelectedBlockIds,
-} from "@/sdk/package";
+} from "../../../hooks";
 import { IframeInitialContent } from "../IframeInitialContent";
 import { HeadTags } from "./HeadTags";
 import { KeyboardHandler } from "../KeyboarHandler";
@@ -25,6 +24,7 @@ import { useBuilderProp } from "../../../hooks/useBuilderProp";
 import { useSelectedBlock } from "../../../hooks/useSelectedBlockIds";
 import { useSelectedStylingBlocks } from "../../../hooks/useSelectedStylingBlocks";
 import { StylingHighlight } from "../StylingHighlight";
+import { TBlock } from "../../../types/TBlock";
 
 const Canvas = ({ children }: { children: React.ReactNode }) => {
   const { document } = useFrame();

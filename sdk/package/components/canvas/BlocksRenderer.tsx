@@ -18,7 +18,7 @@ import { twMerge } from "tailwind-merge";
 import { useAtom } from "jotai";
 import { useThrottledCallback } from "@react-hookz/web";
 import { getBlockComponent } from "../../functions/Blocks";
-import { TBlock } from "@/sdk/package";
+import { TBlock } from "../../types/TBlock";
 import { canvasAllBlocksAtom, canvasGlobalDataAtom, canvasHighlightedBlockAtom } from "./framework/store";
 import { TStyleAttrs } from "../../types";
 import { GLOBAL_DATA_KEY, STYLES_KEY } from "../../constants/CONTROLS";

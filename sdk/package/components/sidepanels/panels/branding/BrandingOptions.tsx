@@ -2,9 +2,9 @@ import * as React from "react";
 import { RJSFSchema, UiSchema } from "@rjsf/utils";
 import validator from "@rjsf/validator-ajv8";
 import Form, { IChangeEvent } from "@rjsf/core";
-import { useBrandingOptions } from "../../../../hooks";
+import { useBrandingOptions } from "../../../../hooks/useBrandingOptions";
 import { Color, Numeric, SelectOption } from "../../../../controls/controls";
-import { useBuilderProp } from "@/sdk/package/hooks/useBuilderProp";
+import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 
 const FONTS = [
   { title: "Roboto", value: "Roboto" },

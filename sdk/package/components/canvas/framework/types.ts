@@ -1,4 +1,4 @@
-import { TGlobalBlock } from "@/sdk/package";
+import { TGlobalBlock } from "../../../types/TBlock";
 
 type TSEOData = {};
 

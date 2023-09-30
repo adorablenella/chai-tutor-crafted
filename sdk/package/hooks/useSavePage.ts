@@ -2,8 +2,8 @@ import { useThrottledCallback } from "@react-hookz/web";
 import { atom, useAtom, useSetAtom } from "jotai";
 import { useGetPageData } from "./useGetPageData";
 import { useBuilderProp } from "./useBuilderProp";
-import { historyStatesAtom } from "@/sdk/package/store/ui";
-import { useCanvasHistory } from "@/sdk/package";
+import { historyStatesAtom } from "../store/ui";
+import { useCanvasHistory } from "../hooks/useCanvasHistory";
 
 export const pageSyncStateAtom = atom<"SAVED" | "UNSAVED" | "SAVING">("SAVED"); // SAVING
 pageSyncStateAtom.debugLabel = "pageSyncStateAtom";

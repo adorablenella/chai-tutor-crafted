@@ -4,7 +4,7 @@ import { get, isEmpty } from "lodash";
 import { ArrowUpIcon, CopyIcon, DragHandleDots2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { useDrag } from "react-dnd";
 import { canDeleteBlock, canDuplicateBlock } from "../../functions/Layers";
-import { TBlock } from "@/sdk/package";
+import { TBlock } from "../../types/TBlock";
 import { useDuplicateBlocks, useRemoveBlocks, useSelectedBlockIds } from "../../hooks";
 import { useResizeObserver } from "@react-hookz/web";
 

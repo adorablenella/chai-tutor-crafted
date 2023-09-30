@@ -1,5 +1,5 @@
 import { findIndex, isEmpty, startsWith } from "lodash";
-import { TBlock } from "@/sdk/package";
+import { TBlock } from "../types/TBlock";
 import { STYLES_KEY } from "../constants/CONTROLS";
 
 /**

@@ -5,7 +5,7 @@ import "./custom-blocks";
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const image = "https://vercel.pub/thumbnail.png";
-export const dynamic = "force-dynamic";
+// export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title,
   description,
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title,
     description,
     images: [image],
-    creator: "@vercel",
+    creator: "@chaibuilder",
   },
   metadataBase: new URL("https://chaibuilder.com"),
 };

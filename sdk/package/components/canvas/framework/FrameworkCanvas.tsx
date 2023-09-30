@@ -11,7 +11,7 @@ import {
   useHighlightBlockId,
   useRemoveBlocks,
   useSelectedBlockIds,
-} from "@/sdk/package";
+} from "../../../hooks";
 import { useSelectedBlock } from "../../../hooks/useSelectedBlockIds";
 import { useSelectedStylingBlocks } from "../../../hooks/useSelectedStylingBlocks";
 import InsideBuilder from "./InsideBuilder";

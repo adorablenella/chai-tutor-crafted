@@ -7,7 +7,7 @@ import { useCutBlockIds } from "./useCutBlockIds";
 import { usePreviewMode } from "./usePreviewMode";
 import { pageSyncStateAtom } from "./useSavePage";
 import { useBuilderProp } from "./useBuilderProp";
-import { historyStatesAtom } from "@/sdk/package/store/ui";
+import { historyStatesAtom } from "../store/ui";
 import { useAtom } from "jotai/index";
 
 type CanvasHistory = {

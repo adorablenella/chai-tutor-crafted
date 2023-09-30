@@ -1,7 +1,7 @@
 import React, { Suspense } from "react";
 import { usePreviewMode } from "../hooks";
 import { cn } from "../radix/lib/utils";
-import { Button } from "@/sdk/package";
+import { Button } from "../radix-ui";
 import { Skeleton } from "../radix/components/ui/skeleton";
 import { useBuilderProp } from "../hooks/useBuilderProp";
 

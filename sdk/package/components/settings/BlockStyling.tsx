@@ -17,7 +17,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/sdk/package";
+} from "../../radix-ui";
 import { useSelectedStylingBlocks } from "../../hooks/useSelectedStylingBlocks";
 
 export default function BlockStyling() {

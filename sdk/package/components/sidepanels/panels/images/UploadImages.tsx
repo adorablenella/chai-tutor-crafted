@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { isEmpty } from "lodash";
 import { Cross1Icon, GearIcon, UploadIcon } from "@radix-ui/react-icons";
 import { atom, useAtom } from "jotai";
-import { ScrollArea } from "@/sdk/package";
+import { ScrollArea } from "../../../../radix-ui";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 
 const uploadedMediaAtom = atom<any[]>([]);
