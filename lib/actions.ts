@@ -4,12 +4,11 @@ import { revalidateTag } from "next/cache";
 import { withPostAuth, withSiteAuth } from "./auth";
 import { getSession } from "@/lib/auth";
 import { addDomainToVercel, removeDomainFromVercelProject, validDomainRegex } from "@/lib/domains";
-import { put } from "@vercel/blob";
 import { customAlphabet } from "nanoid";
-import { getBlurDataURL } from "@/lib/utils";
 import { createServerActionClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { randomUUID } from "crypto";
+import { isEmpty } from "lodash";
 
 const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 7); // 7-character random string
 
@@ -143,11 +142,13 @@ export const updateSite = withSiteAuth(async (formData: FormData, site: any, key
 
       const publicURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${data.path}`;
 
-      const { data: locData } = await supabase
-        .from("projects")
-        .update({ social_media_image: publicURL })
-        .eq("uuid", site)
-        .single();
+      const { data: _seoData } = await supabase.from("projects").select("seo_data").eq("uuid", site).single();
+
+      let seoData: any = _seoData?.seo_data;
+      if (isEmpty(seoData)) seoData = { title: "", description: "", image: publicURL };
+      else seoData = { ...seoData, image: publicURL };
+
+      const { data: locData } = await supabase.from("projects").update({ seo_data: seoData }).eq("uuid", site).single();
       response = locData;
     } else if (key === "subdomain") {
       const { data } = await supabase.from("projects").select("*").eq("subdomain", value);
@@ -361,24 +362,31 @@ export const deletePost = withPostAuth(async (_: FormData, postId: string) => {
 
 export const editUser = async (formData: FormData, _id: unknown, key: string) => {
   const session = await getSession();
-  if (!session?.user.id) {
+  if (!session?.user.email) {
     return {
       error: "Not authenticated",
     };
   }
+
+  const supabase = createServerActionClient({ cookies });
   const value = formData.get(key) as string;
 
   try {
+    if (key === "email") {
+      const { error } = await supabase.auth.updateUser({ email: value });
+      if (error) throw error;
+
+      return { customMessage: `Confirmation email sent to ${value}` };
+    } else if (key === "password") {
+      if (value.trim().length < 6) throw { message: "Password must be at least 6 characters" };
+      if (value.trim().includes(" ")) throw { message: "Password should not contain space" };
+
+      const { error } = await supabase.auth.updateUser({ password: value });
+      if (error) throw error;
+
+      return { customMessage: `Confirmation email sent to ${session.user.email}` };
+    }
     return {};
-    // const response = await prisma.user.update({
-    //   where: {
-    //     id: session.user.id,
-    //   },
-    //   data: {
-    //     [key]: value,
-    //   },
-    // });
-    // return response;
   } catch (error: any) {
     if (error.code === "P2002") {
       return {

@@ -3,8 +3,19 @@ import PlacholderCard from "@/components/placeholder-card";
 import CreateSiteButton from "@/components/create-site-button";
 import Apps from "@/components/apps";
 import CreateAppModal from "@/components/modal/create-app";
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { getSession } from "@/lib/auth";
+import { redirect } from "next/navigation";
+import { TProjectData } from "@/sdk/next/types";
 
-export default function AllApps() {
+export default async function AllApps() {
+  const supabase = createServerComponentClient({ cookies });
+  const session = await getSession();
+  if (!session) redirect("/login");
+
+  const { data: apps = [] } = await supabase.from("projects").select("*").eq("user", session.user.id).eq("type", "APP");
+
   return (
     <div className="flex max-w-screen-xl flex-col space-y-12 p-8">
       <div className="flex flex-col space-y-6">
@@ -30,7 +41,7 @@ export default function AllApps() {
               ))}
             </div>
           }>
-          <Apps />
+          <Apps apps={apps as TProjectData[]} />
         </Suspense>
       </div>
     </div>

@@ -48,7 +48,7 @@ export default function LoginWithEmail() {
   return (
     <>
       {login === "success" && (
-        <div className="text-green-500">
+        <div className="text-sm text-green-500">
           <CheckCircle2 className="h-4 w-4" color="#22c55e" />
           <p>We have sent you an email with magic link to login to your account</p>
         </div>

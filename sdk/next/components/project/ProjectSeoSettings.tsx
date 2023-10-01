@@ -1,7 +1,7 @@
 import * as React from "react";
 import Form from "../common/Form";
 import { TProjectData } from "../../types";
-import { Image, Model, SingleLineText } from "@/sdk/package/controls";
+import { Image, Model, MultilineText, SingleLineText } from "@/sdk/package/controls";
 
 const SEOSettings = ({
   _projectData,
@@ -32,7 +32,7 @@ const SEOSettings = ({
       },
       properties: {
         title: SingleLineText({ title: "Meta Title", default: (_projectData.seo_data?.title || "") as string }),
-        description: SingleLineText({
+        description: MultilineText({
           title: "Meta Description",
           default: (_projectData.seo_data?.description || "") as string,
         }),

@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { FileTextIcon, GearIcon } from "@radix-ui/react-icons";
-import { lazy, useCallback } from "react";
+import { lazy, useCallback, useEffect } from "react";
 import { useToast } from "@/sdk/package/radix-ui";
 import { useProject } from "./hooks/useProject";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
@@ -27,9 +27,21 @@ export default function RootChaiStudio() {
   const { data: pageData, isLoading } = usePageData();
   const updatePage = useUpdatePage();
   const updateProject = useUpdateProject();
-  const [, setSyncStatus] = useSyncState();
+  const [syncStatus, setSyncStatus] = useSyncState();
   const [slug] = useCurrentPageSlug();
   const { toast } = useToast();
+
+  useEffect(() => {
+    if (syncStatus !== "SAVED") {
+      window.onbeforeunload = () => {
+        return "You have unsaved changes. Please save before leaving.";
+      };
+    } else {
+      window.onbeforeunload = null;
+    }
+
+    return () => window.removeEventListener("beforeunload", () => {});
+  }, [syncStatus]);
 
   const saveBlocks = useCallback(
     async (snapshot: any) => {

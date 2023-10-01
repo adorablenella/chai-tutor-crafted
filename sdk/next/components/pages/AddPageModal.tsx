@@ -77,7 +77,7 @@ const AddPageModalContent = ({ closeModal }: { closeModal: Function }): React.Re
       default: pageData.type,
       options: [
         { title: "Static", value: "STATIC" },
-        { title: "Dynamic", value: "DYNAMIC" },
+        // { title: "Dynamic", value: "DYNAMIC" },
       ],
     }),
     page_name: SingleLineText({ title: "Page Name", default: pageData.page_name as string }),

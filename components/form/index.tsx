@@ -56,7 +56,7 @@ export default function Form({
               } else {
                 router.refresh();
               }
-              toast.success(`Successfully updated ${inputAttrs.name}!`);
+              toast.success(res.customMessage || `Successfully updated ${inputAttrs.name}!`);
             }
             setIsLoading(false);
           })

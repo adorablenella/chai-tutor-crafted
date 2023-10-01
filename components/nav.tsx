@@ -35,12 +35,12 @@ export default function Nav({ children }: { children: ReactNode }) {
           icon: <ExternalLink width={18} />,
           target: "_blank",
         },
-        {
-          name: "Blogs",
-          href: `/site/${id}`,
-          isActive: segments.includes("site") && segments.length === 2,
-          icon: <Newspaper width={18} />,
-        },
+        // {
+        //   name: "Blogs",
+        //   href: `/site/${id}`,
+        //   isActive: segments.includes("site") && segments.length === 2,
+        //   icon: <Newspaper width={18} />,
+        // },
         {
           name: "Domains",
           href: `/site/${id}/settings/domains`,

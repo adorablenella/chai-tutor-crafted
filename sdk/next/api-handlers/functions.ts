@@ -68,7 +68,6 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
       primary_language: projectData?.primary_language || "en",
       custom_code: projectData?.custom_code || "",
       favicon: projectData?.favicon || "",
-      webclip: get(projectData, "webclip", ""),
       password: projectData?.password || "",
       languages: get(projectData, "languages", ["en"]),
     },

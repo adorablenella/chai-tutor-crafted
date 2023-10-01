@@ -1,21 +1,12 @@
-import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import SiteCard from "./site-card";
 import Image from "next/image";
-import supabase from "@/app/helpers/supabase";
+import { TProjectData } from "@/sdk/next/types";
 
-export default async function Apps() {
-  const session = await getSession();
-  if (!session) redirect("/login");
-  const {
-    user: { id },
-  } = session;
-  const { data: sites = [] } = await supabase.from("projects").select("*").eq("user", id).eq("type", "APP");
-
-  return sites && sites.length > 0 ? (
+export default function Apps({ apps }: { apps: TProjectData[] }) {
+  return apps && apps.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-      {sites.map((site) => (
-        <SiteCard key={site.uuid} data={site as any} />
+      {apps.map((app) => (
+        <SiteCard key={app.uuid} data={app as any} />
       ))}
     </div>
   ) : (

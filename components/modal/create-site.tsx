@@ -8,8 +8,10 @@ import LoadingDots from "@/components/icons/loading-dots";
 import { useModal } from "./provider";
 import { useEffect, useState } from "react";
 import { createSite } from "@/lib/actions";
+import { AlertCircle } from "lucide-react";
+import { Button } from "@/sdk/package/radix-ui";
 
-export default function CreateSiteModal() {
+export default function CreateSiteModal({ canAddMore }: { canAddMore: boolean }) {
   const router = useRouter();
   const modal = useModal();
 
@@ -42,6 +44,30 @@ export default function CreateSiteModal() {
       toast.success(`Successfully created site!`);
     });
   };
+
+  if (!canAddMore) {
+    return (
+      <div className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700">
+        <div className="relative flex flex-col items-center justify-center space-y-4 px-5 py-5 md:px-10">
+          <AlertCircle className="text-blue-900" />
+          <h1 className="text-lg font-medium">No more site allowed</h1>
+          <p className="text-center text-sm">
+            <span>
+              Each user can create only <b>one site</b> in this <strong>beta version</strong>.
+            </span>
+            <br />
+            <span>Thank you for your understanding!</span>
+          </p>
+        </div>
+
+        <div className="flex items-center justify-end rounded-b-lg border-t border-stone-200 bg-stone-50 p-3 dark:border-stone-700 dark:bg-stone-800 md:px-10">
+          <Button onClick={() => modal?.hide()} className="w-full">
+            Close
+          </Button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -113,6 +139,7 @@ export default function CreateSiteModal() {
     </form>
   );
 }
+
 function CreateSiteFormButton() {
   const { pending } = useFormStatus();
   return (

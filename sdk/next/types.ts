@@ -43,11 +43,10 @@ export type TProjectData = {
   homepage: string;
   primary_language: string;
   project_name: string;
-  web_clip: string;
   seo_data: TPageSEOData;
   subdomain: string;
-  social_media_image: string;
   description: string;
+  type?: string;
 };
 
 export type TUser = {

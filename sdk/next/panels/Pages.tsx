@@ -11,7 +11,7 @@ const Pages = (): React.JSX.Element => {
   const { data: pages = [], isLoading } = usePages();
 
   const staticPages = filter(pages, (page) => page.type === "STATIC");
-  const dynamicPages = filter(pages, (page) => page.type === "DYNAMIC");
+  // const dynamicPages = filter(pages, (page) => page.type === "DYNAMIC");
 
   return (
     <>
@@ -23,7 +23,7 @@ const Pages = (): React.JSX.Element => {
       </div>
       <hr className="-mx-1" />
       <div className="-mx-1 divide-y-2">
-        <Accordion type="multiple" className="w-full" defaultValue={["STATIC", "DYNAMIC"]}>
+        <Accordion type="multiple" className="w-full" value={["STATIC", "DYNAMIC"]}>
           <AccordionItem value="STATIC">
             <AccordionTrigger className="hover:bg-background-50 bg-slate-200 px-2.5 py-1.5 font-medium hover:no-underline">
               Static Pages
@@ -33,14 +33,14 @@ const Pages = (): React.JSX.Element => {
             </AccordionContent>
           </AccordionItem>
 
-          <AccordionItem value="DYNAMIC">
+          {/* <AccordionItem value="DYNAMIC">
             <AccordionTrigger className="hover:bg-background-50 bg-slate-200 px-2.5 py-1.5 font-medium hover:no-underline ">
               Dynamic Pages
             </AccordionTrigger>
             <AccordionContent className="-mb-2 text-sm">
               <PagesViewer isLoading={isLoading} pages={dynamicPages} />
             </AccordionContent>
-          </AccordionItem>
+          </AccordionItem> */}
         </Accordion>
       </div>
     </>

@@ -16,13 +16,12 @@ export type ChaiBuilderPageSnapshot = {
   projectData: {
     branding_options: Record<string, string>;
     custom_code: string;
-    fav_icon: string;
+    favicon: string;
     languages: string[];
     password: string;
     primary_language: string;
     seo_data: TSEOData;
     translations?: TTranslations;
-    web_clip: string;
   };
   styles: string;
 };

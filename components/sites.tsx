@@ -1,19 +1,8 @@
-import { getSession } from "@/lib/auth";
-import { redirect } from "next/navigation";
 import SiteCard from "./site-card";
 import Image from "next/image";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import { TProjectData } from "@/sdk/next/types";
 
-export default async function Sites() {
-  const supabase = createServerComponentClient({ cookies });
-  const session = await getSession();
-  if (!session) redirect("/login");
-  const {
-    user: { id },
-  } = session;
-  const { data: sites = [] } = await supabase.from("projects").select("*").eq("user", id).eq("type", "WEBSITE");
-
+export default function Sites({ sites }: { sites: TProjectData[] }) {
   return sites && sites.length > 0 ? (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {sites.map((site) => (

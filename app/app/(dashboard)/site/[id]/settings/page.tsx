@@ -51,7 +51,7 @@ export default async function SiteSettingsIndex({ params }: { params: { id: stri
         inputAttrs={{
           name: "image",
           type: "file",
-          defaultValue: data?.social_media_image!,
+          defaultValue: data?.seo_data?.image!,
         }}
         handleSubmit={updateSite}
       />

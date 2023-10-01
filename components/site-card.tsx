@@ -2,22 +2,23 @@ import BlurImage from "@/components/blur-image";
 import { placeholderBlurhash } from "@/lib/utils";
 import Link from "next/link";
 import CopyToClipboard from "./form/copy-to-clipboard";
+import { TProjectData } from "@/sdk/next/types";
 
-export default function SiteCard({ data }: { data: any }) {
+export default function SiteCard({ data }: { data: TProjectData }) {
   const isWebsite = data.type === "WEBSITE";
   const url = `${data.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
     <div className="relative rounded-lg border border-stone-200 pb-10 shadow-md transition-all hover:shadow-xl dark:border-stone-700 dark:hover:border-white">
       <Link
-        href={isWebsite ? `/site/${data?.uuid}` : `/app/${data?.uuid}`}
+        href={isWebsite ? `/site/${data?.uuid}/settings/domains` : `/app/${data?.uuid}`}
         className="flex flex-col overflow-hidden rounded-lg">
         <BlurImage
-          alt={data.name ?? "Card thumbnail"}
+          alt={data.project_name ?? "Card thumbnail"}
           width={500}
           height={400}
           className="h-44 object-cover"
-          src={data.social_media_image || "/placeholder.png"}
+          src={data?.seo_data?.image || "/placeholder.png"}
           placeholder="blur"
           blurDataURL={placeholderBlurhash}
         />
@@ -40,7 +41,7 @@ export default function SiteCard({ data }: { data: any }) {
           <CopyToClipboard
             content={data.uuid as string}
             className="truncate rounded-md bg-stone-100 px-2 py-1 text-xs font-medium text-stone-600 transition-colors hover:bg-stone-200 dark:bg-stone-800 dark:text-stone-400 dark:hover:bg-stone-700">
-            {data.uuid}
+            {data.uuid as any}
           </CopyToClipboard>
         )}
       </div>
