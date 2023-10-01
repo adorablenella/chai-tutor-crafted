@@ -81,7 +81,6 @@ function getGlobalDataAttrs(block: TBlock, globalData: { [key: string]: any }) {
 }
 
 export async function BlocksRendererLive({ blocks, slug, domain }: { blocks: TBlock[]; slug: string; domain: string }) {
-  //TODO: Replace with Server Side Rendering
   const {
     globalData,
     pageData: { blocks: allBlocks },

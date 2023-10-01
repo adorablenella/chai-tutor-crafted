@@ -1,11 +1,9 @@
-import { Providers } from "./providers";
 import { Metadata } from "next";
 import "./custom-blocks";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const image = "https://vercel.pub/thumbnail.png";
-export const dynamic = "force-dynamic";
 export const metadata: Metadata = {
   title,
   description,
@@ -28,9 +26,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="min-h-full bg-background text-foreground">
-        <Providers>{children}</Providers>
-      </body>
+      <body className="min-h-full bg-background text-foreground">{children}</body>
     </html>
   );
 }
