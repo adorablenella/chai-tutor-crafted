@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import "./custom-blocks";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";

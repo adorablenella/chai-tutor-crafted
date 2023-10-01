@@ -1,4 +1,3 @@
-"use client";
 // nolint
 import React from "react";
 import { Icon, List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";

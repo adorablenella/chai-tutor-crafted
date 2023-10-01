@@ -3,7 +3,7 @@ const { fontFamily } = require("tailwindcss/defaultTheme");
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./app/custom-blocks/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./custom-blocks/*.{js,ts,jsx,tsx,mdx}", "./pages/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       boxShadow: {
