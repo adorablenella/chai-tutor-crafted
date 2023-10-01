@@ -4,6 +4,8 @@ import Profile from "@/components/profile";
 import Nav from "@/components/nav";
 import { Providers } from "@/app/app/(dashboard)/providers";
 
+export const dynamic = "force-dynamic";
+
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <Providers>

@@ -17,6 +17,7 @@ const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
 const Pages = lazy(() => import("./panels/Pages"));
 const ProjectSettings = lazy(() => import("./panels/ProjectSettings"));
+const CurrentPage = lazy(() => import("./previews/CurrentPage"));
 
 export default function RootChaiStudio() {
   const queryClient = useQueryClient();
@@ -85,7 +86,7 @@ export default function RootChaiStudio() {
       brandingOptions={(project?.branding_options ?? BRANDING_OPTIONS_DEFAULTS) as TBrandingOptions}
       blocks={pageData?.blocks ?? []}
       globalBlocks={globalBlocks ?? []}
-      topBarComponents={{ left: [Logo], center: [], right: [PublishButton] }}
+      topBarComponents={{ left: [Logo], center: [CurrentPage], right: [PublishButton] }}
       sideBarComponents={{
         top: [
           { icon: FileTextIcon, name: "pages", panel: Pages },

@@ -8,7 +8,7 @@ export const useProject = () => {
   const [currentPage, setCurrentPage] = useCurrentPage();
 
   // @TODO: Fix me more
-  const projectUuid = pathname.split("/").pop();
+  const projectUuid = pathname?.split("/").pop();
   return useQuery({
     queryKey: ["project", projectUuid],
     queryFn: async () => {

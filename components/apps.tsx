@@ -2,11 +2,9 @@ import { getSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import SiteCard from "./site-card";
 import Image from "next/image";
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
+import supabase from "@/app/helpers/supabase";
 
 export default async function Apps() {
-  const supabase = createServerComponentClient({ cookies });
   const session = await getSession();
   if (!session) redirect("/login");
   const {
