@@ -7,13 +7,12 @@ const LiveRender = lazy(() => import("./LiveRender"));
 
 export const RenderBlocks = ({
   model = "page",
-  slug,
-  domain,
-}: RenderBlocksProps<"section" | "page"> & { slug: string; domain: string }) => {
+  snapshot,
+}: RenderBlocksProps<"section" | "page"> & { snapshot: any }) => {
   const mode = typeof window !== "undefined" && window.self !== window.top ? "builder" : "live";
   const render =
     {
-      live: <LiveRender model={model} slug={slug} domain={domain} />,
+      live: <LiveRender model={model} snapshot={snapshot} />,
       builder: <InsideBuilder model={model} />,
     }[mode] || null;
 

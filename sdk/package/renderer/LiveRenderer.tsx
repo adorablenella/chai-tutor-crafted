@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   filter,
   find,
@@ -18,7 +18,6 @@ import { twMerge } from "tailwind-merge";
 import { TBlock } from "../types/TBlock";
 import { GLOBAL_DATA_KEY, STYLES_KEY } from "../constants/CONTROLS";
 import { getBlockComponent } from "../blocks/builder-blocks";
-import { fetchRouteSnapshot } from "@/sdk/next";
 
 const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot
@@ -80,14 +79,16 @@ function getGlobalDataAttrs(block: TBlock, globalData: { [key: string]: any }) {
   return globalDataAttrs;
 }
 
-export async function BlocksRendererLive({ blocks, slug, domain }: { blocks: TBlock[]; slug: string; domain: string }) {
+export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; snapshot: any }) {
   const {
     globalData,
     pageData: { blocks: allBlocks },
-  }: any = await fetchRouteSnapshot(slug, domain);
-  const getStyles = (block: TBlock) => getStyleAttrs(block);
+  }: any = snapshot;
 
-  const getGlobalData = (block: TBlock) => getGlobalDataAttrs(block, globalData || {});
+  console.log("BlocksRendererLive", snapshot);
+
+  const getStyles = useCallback((block: TBlock) => getStyleAttrs(block), []);
+  const getGlobalData = useCallback((block: TBlock) => getGlobalDataAttrs(block, globalData || {}), [globalData]);
 
   return (
     <>
@@ -99,18 +100,14 @@ export async function BlocksRendererLive({ blocks, slug, domain }: { blocks: TBl
             Object.keys(slots).forEach((key) => {
               attrs[key] = React.Children.toArray(
                 slots[key].map((slotId: string) => (
-                  <BlocksRendererLive
-                    slug={slug}
-                    domain={domain}
-                    blocks={[find(allBlocks, { _id: slotId }) as TBlock]}
-                  />
+                  <BlocksRendererLive snapshot={snapshot} blocks={[find(allBlocks, { _id: slotId }) as TBlock]} />
                 )),
               );
             });
           }
           if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
             attrs.children = (
-              <BlocksRendererLive slug={slug} domain={domain} blocks={filter(allBlocks, { _parent: block._id })} />
+              <BlocksRendererLive snapshot={snapshot} blocks={filter(allBlocks, { _parent: block._id })} />
             );
           }
 

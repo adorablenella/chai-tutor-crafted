@@ -1,21 +1,18 @@
 import { filter, get, isEmpty } from "lodash";
-import { RenderBlocksProps } from "../package/components/canvas/framework/types";
 import { BlocksRendererLive } from "../package/renderer/LiveRenderer";
 import { getBrandingClasses } from "@/sdk/next/functions";
 import { Provider } from "react-wrap-balancer";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { fetchRouteSnapshot } from "@/sdk/next/api-handlers/fetchRouteSnapshot";
+import Head from "next/head";
 
-const LiveRender = async ({ model, slug, domain }: RenderBlocksProps<any> & { slug: string; domain: string }) => {
-  const snapshot: any = await fetchRouteSnapshot(slug, domain);
-
+const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; snapshot: any }) => {
   if (model === "section") {
     return <div>Generate the section page</div>;
   }
 
   return (
     <>
-      <head>
+      <Head>
         <title>{get(snapshot, "pageData.seo_data.title", "")}</title>
         <meta property="og:title" content={get(snapshot, "pageData.seo_data.title", "")} />
         <meta name="description" content={get(snapshot, "pageData.seo_data.description", "")} />
@@ -24,12 +21,11 @@ const LiveRender = async ({ model, slug, domain }: RenderBlocksProps<any> & { sl
         <meta property="og:image" content={get(snapshot, "pageData.seo_data.image", "")} />
         <link rel="shortcut icon" href={get(snapshot, "projectData.favicon", "")} />
         <style>{snapshot.styles}</style>
-      </head>
+      </Head>
       <div className={getBrandingClasses(get(snapshot, "projectData.branding_options", {}))}>
         <Provider>
           <BlocksRendererLive
-            slug={slug}
-            domain={domain}
+            snapshot={snapshot}
             blocks={filter(snapshot.pageData.blocks, (block: TBlock) => isEmpty(block._parent))}
           />
         </Provider>
