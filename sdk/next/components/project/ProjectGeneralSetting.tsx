@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ScrollArea } from "@/sdk/package";
+import { ScrollArea } from "@/sdk/package/radix-ui";
 import { useProject } from "../../hooks/useProject";
 import { TProjectData } from "../../types";
 import Form from "../common/Form";

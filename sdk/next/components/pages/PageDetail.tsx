@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { isEmpty, isEqual, isString, kebabCase, omit } from "lodash";
 import { useQueryClient } from "@tanstack/react-query";
 import { HomeIcon } from "@radix-ui/react-icons";
-import { Button, ScrollArea } from "@/sdk/package";
+import { Button, ScrollArea } from "@/sdk/package/radix-ui";
 import { TPageData, TProjectData } from "../../types";
 import { useUpdatePage } from "../../mutations/usePageActions";
 import Form from "../common/Form";

@@ -8,7 +8,7 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Button,
-} from "../../../package";
+} from "@/sdk/package/radix-ui";
 import { TPageData, TProjectData } from "../../types";
 import { useDeletePage } from "../../mutations/usePageActions";
 import { useChangePage } from "../../hooks/useChangePage";

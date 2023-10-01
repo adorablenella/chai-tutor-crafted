@@ -1,4 +1,3 @@
-import { TPageData } from "@/sdk/package/types";
 import { TProjectData } from "@/sdk/next/types";
 import { get, isEmpty, merge } from "lodash";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
@@ -11,7 +10,7 @@ export const publishPath = async (slug: string, domain: string) => {
   return true;
 };
 
-const getSeoData = (pageData: TPageData, projectData: TProjectData) => {
+const getSeoData = (pageData: any, projectData: TProjectData) => {
   const seoData = merge(projectData.seo_data, pageData.seo_data);
   return {
     title: get(seoData, "title", ""),

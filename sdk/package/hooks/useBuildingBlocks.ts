@@ -2,8 +2,7 @@ import { useAtomValue } from "jotai";
 import { useCallback } from "react";
 import { map } from "lodash";
 import { globalBlocksAtom } from "../store/buildingBlocks";
-import { TBlock } from "../types/TBlock";
-import { BUILDER_BLOCKS } from "@/sdk/package/blocks/builder-blocks";
+import { BUILDER_BLOCKS } from "../blocks/builder-blocks";
 
 const setBlocks = (ids: any) => {};
 
@@ -23,5 +22,5 @@ export const useBuildingBlocks = (): [Array<any>, Array<any>, Function, Function
     return setBlocks(blockIds);
   }, []);
 
-  return [blocks as TBlock[], globalBlocks, addGlobalBlock, updateGlobalBlocks];
+  return [blocks as any, globalBlocks, addGlobalBlock, updateGlobalBlocks];
 };

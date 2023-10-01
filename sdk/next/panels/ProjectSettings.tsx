@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useRef } from "react";
 import { isEmpty, isEqual } from "lodash";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/sdk/package";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/sdk/package/radix-ui";
 import { useUpdateProject } from "../mutations/useProjectActions";
 import { TProjectData } from "../types";
 import { useProject } from "../hooks/useProject";

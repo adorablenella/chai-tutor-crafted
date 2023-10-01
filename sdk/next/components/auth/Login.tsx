@@ -3,7 +3,7 @@ import { isEmpty } from "lodash";
 import { TbLoader } from "react-icons/tb";
 import { useUser } from "../../hooks/useUser";
 import Logo from "../../previews/Logo";
-import { Alert, Card } from "../../../package";
+import { Alert, Card } from "@/sdk/package/radix-ui";
 
 const loginUser = async (payload: { email: string; password: string }) => {
   const response = await fetch("/api/chaibuilder/auth/login", { method: "POST", body: JSON.stringify(payload) }).then(

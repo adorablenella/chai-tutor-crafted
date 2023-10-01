@@ -1,6 +1,7 @@
 import { useCurrentPage, useCurrentPageSlug, useSyncState } from "../store";
-import { toast, useBuilderReset } from "../../package";
+import { useBuilderReset } from "@/sdk/package/hooks";
 import { TPageData } from "../types";
+import { toast } from "@/sdk/package/radix-ui";
 
 export const useChangePage = () => {
   const [syncStatus] = useSyncState();

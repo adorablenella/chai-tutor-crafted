@@ -19,9 +19,9 @@ import { useAtom } from "jotai";
 import { useThrottledCallback } from "@react-hookz/web";
 import { TBlock } from "../../types/TBlock";
 import { canvasAllBlocksAtom, canvasGlobalDataAtom, canvasHighlightedBlockAtom } from "./framework/store";
-import { TStyleAttrs } from "../../types";
+import { TStyleAttrs } from "../../types/index";
 import { GLOBAL_DATA_KEY, STYLES_KEY } from "../../constants/CONTROLS";
-import { getBlockComponent } from "@/sdk/package/blocks/builder-blocks";
+import { getBlockComponent } from "../../blocks/builder-blocks";
 
 // FIXME:  Duplicate code in CanvasRenderer.tsx
 const getSlots = (block: TBlock) => {

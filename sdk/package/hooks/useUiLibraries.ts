@@ -1,6 +1,6 @@
 import { atom, useAtom } from "jotai";
 import { useEffect } from "react";
-import { PredefinedBlock } from "../types";
+import { PredefinedBlock } from "../types/index";
 import { useBuilderProp } from "./useBuilderProp";
 
 export const uiLibrariesAtom: any = atom<{ name: string; uuid: string }[]>([]);
@@ -24,7 +24,7 @@ export const useUILibraryBlocks = () => {
       },
       () => {
         setFetchPredefinedBlocks(false);
-      }
+      },
     );
   }, [isFetching, setFetchPredefinedBlocks, setPredefinedBlocks, predefinedBlocks.length, getUILibraryBlocks]);
 

@@ -3,7 +3,7 @@ import { ChevronRightIcon, FileTextIcon, GearIcon, HomeIcon } from "@radix-ui/re
 import * as PopoverRoot from "@radix-ui/react-popover";
 import { TPageData } from "../../types";
 import { useProject } from "../../hooks/useProject";
-import { Popover, PopoverContent, PopoverTrigger } from "@/sdk/package";
+import { Popover, PopoverContent, PopoverTrigger } from "@/sdk/package/radix-ui";
 import { useCurrentPage } from "../../store";
 import { useChangePage } from "../../hooks/useChangePage";
 

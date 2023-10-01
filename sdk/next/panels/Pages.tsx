@@ -1,7 +1,7 @@
 /* eslint-disable arrow-body-style */
 import React, { Suspense } from "react";
 import { filter } from "lodash";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/sdk/package";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/sdk/package/radix-ui";
 import { usePages } from "../hooks/usePages";
 
 const AddPageModal = React.lazy(() => import("../components/pages/AddPageModal"));

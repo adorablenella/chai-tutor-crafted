@@ -8,7 +8,7 @@ import { chaiBuilderPropsAtom } from "../atoms/ChaiBuilderProps";
 import { ErrorBoundary } from "../components/ErrorBoundary";
 import { RootLayout } from "../components/RootLayout";
 import "../locales/load";
-import { ChaiBuilderProviderProps } from "../types";
+import { ChaiBuilderProviderProps } from "../types/index";
 import { builderModeAtom } from "../hooks/useBuilderMode";
 import { BUILDER_MODES } from "../constants/BUILDER_MODES";
 import { builderStore } from "../store";

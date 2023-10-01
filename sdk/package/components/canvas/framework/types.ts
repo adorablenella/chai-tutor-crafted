@@ -43,5 +43,4 @@ export type TChaiBuilderSectionSnapshot = {
 
 export interface RenderBlocksProps<Model extends "section" | "page"> {
   model?: Model;
-  snapshot: Model extends "section" ? TChaiBuilderSectionSnapshot : ChaiBuilderPageSnapshot;
 }

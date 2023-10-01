@@ -1,9 +1,8 @@
 /* eslint-disable object-shorthand */
 import { NextApiRequest, NextApiResponse } from "next";
-import { createRouteHandlerClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
 import { first } from "lodash";
 import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
+import supabase from "@/app/helpers/supabase";
 
 export const config = {
   api: {
@@ -21,7 +20,6 @@ const ENDPOINTS: { [key: string]: string } = {
 
 const handleProject = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
-  const supabase = createRouteHandlerClient({ cookies });
   const body = JSON.parse(req.body || `{}`);
   const projects = supabase.from("projects");
 
@@ -53,7 +51,6 @@ const handleProject = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const handlePages = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
-  const supabase = createRouteHandlerClient({ cookies });
   const body = JSON.parse(req.body || `{}`);
   const pages = supabase.from("pages");
   const pageUuid: string | null = query.page_uuid as string;
@@ -109,7 +106,6 @@ const handlePages = async (req: NextApiRequest, res: NextApiResponse) => {
 
 const handleStorage = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method, query } = req;
-  const supabase = createRouteHandlerClient({ cookies });
   const projectUuid: string | null = query.project_uuid as string;
   const BUCKET = "chaibuilder-blob-storage";
 
@@ -169,7 +165,6 @@ const handleStorage = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleAuthLogin = async (req: NextApiRequest, res: NextApiResponse) => {
-  const supabase = createRouteHandlerClient({ cookies });
   const { method } = req;
   const body = JSON.parse(req.body || `{}`);
 
@@ -188,7 +183,6 @@ const handleAuthLogin = async (req: NextApiRequest, res: NextApiResponse) => {
 };
 
 const handleAuthVerify = async (req: NextApiRequest, res: NextApiResponse) => {
-  const supabase = createRouteHandlerClient({ cookies });
   const { method, query } = req;
   if (method === "GET") {
     const { data, error } = await supabase.auth.getUser(query.access_token as string);
@@ -226,7 +220,6 @@ export const chaiBuilderApiHandler = async (req: NextApiRequest, res: NextApiRes
 //TODO:
 export const chaiBuilderGETHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
   const entity = first(params.path) as string;
-  const supabase = createRouteHandlerClient({ cookies });
   const { searchParams } = new URL(request.url);
   const projectUuid = searchParams.get("project_uuid") as string;
   const pageUuid = searchParams.get("page_uuid") as string;
@@ -263,7 +256,6 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
 
 export const chaiBuilderPOSTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
   const entity = first(params.path) as string;
-  const supabase = createRouteHandlerClient({ cookies });
   const body = await request.json();
 
   if (entity === ENDPOINTS.PAGES) {
@@ -279,7 +271,6 @@ export const chaiBuilderPOSTHandler = async (request: Request, { params }: { par
 
 export const chaiBuilderPUTHandler = async (request: Request, { params }: { params: { path: string[] } }) => {
   const entity = first(params.path);
-  const supabase = createRouteHandlerClient({ cookies });
   const body = await request.json();
 
   if (entity === ENDPOINTS.PROJECT) {

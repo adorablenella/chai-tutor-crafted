@@ -21,10 +21,6 @@ export const registerInternalBlock = (component: React.FC<TBlock & any>, options
  * @param component
  * @param options
  */
-export const registerBlock = (
-  component: React.FC<TBlock & Record<string, any>>,
-  options: Omit<ICustomBlockOptions, "category">,
-) => {
-  console.log("registerBlock", options);
+export const registerBlock = (component: React.FC<TBlock & any>, options: Omit<ICustomBlockOptions, "category">) => {
   registerInternalBlock(component, { ...options, ...{ category: "custom" } });
 };

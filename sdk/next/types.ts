@@ -1,4 +1,4 @@
-import { TBlock } from "../package";
+import { TBlock } from "../package/types/TBlock";
 
 export type TPageSEOData = {
   _author?: string;

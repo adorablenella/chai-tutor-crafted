@@ -5,11 +5,15 @@ import { Skeleton } from "../package/radix/components/ui/skeleton";
 const InsideBuilder = lazy(() => import("../package/components/canvas/framework/InsideBuilder"));
 const LiveRender = lazy(() => import("./LiveRender"));
 
-export const RenderBlocks = ({ snapshot, model = "page" }: RenderBlocksProps<"section" | "page">) => {
+export const RenderBlocks = ({
+  model = "page",
+  slug,
+  domain,
+}: RenderBlocksProps<"section" | "page"> & { slug: string; domain: string }) => {
   const mode = typeof window !== "undefined" && window.self !== window.top ? "builder" : "live";
   const render =
     {
-      live: <LiveRender model={model} snapshot={snapshot} />,
+      live: <LiveRender model={model} slug={slug} domain={domain} />,
       builder: <InsideBuilder model={model} />,
     }[mode] || null;
 

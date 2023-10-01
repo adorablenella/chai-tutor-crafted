@@ -6,7 +6,7 @@ import {
   AlertDialogDescription,
   AlertDialogTitle,
   Button,
-} from "../../../package";
+} from "@/sdk/package/radix-ui";
 
 const ConfirmAlert = ({
   open,

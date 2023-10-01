@@ -1,5 +1,5 @@
 import { FieldProps } from "@rjsf/utils";
-import { TPageData } from "../../types";
+import { TPageData } from "../../types/index";
 import { map } from "lodash";
 import { useBuilderProp } from "../../hooks/useBuilderProp";
 import { useEffect, useState } from "react";
