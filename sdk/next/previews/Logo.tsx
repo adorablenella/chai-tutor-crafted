@@ -8,7 +8,7 @@ const Logo = () => {
   const pathname = usePathname();
 
   const redirectTo = useMemo(() => {
-    if (pathname.includes("/editor/")) {
+    if (pathname?.includes("/editor/")) {
       const uuid = last(split(pathname, "/"));
       if (uuid) {
         return `/site/${uuid}/settings/domains`;
