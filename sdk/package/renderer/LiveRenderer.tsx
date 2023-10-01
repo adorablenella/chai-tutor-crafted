@@ -84,9 +84,6 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
     globalData,
     pageData: { blocks: allBlocks },
   }: any = snapshot;
-
-  console.log("BlocksRendererLive", snapshot);
-
   const getStyles = useCallback((block: TBlock) => getStyleAttrs(block), []);
   const getGlobalData = useCallback((block: TBlock) => getGlobalDataAttrs(block, globalData || {}), [globalData]);
 
