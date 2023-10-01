@@ -1,7 +1,6 @@
 import FlatToNested from "flat-to-nested";
 import { each, filter, find, flatten, get, isEmpty, isString, map, omit, set } from "lodash";
 import { generateUUID } from "./functions";
-import { builderBlocksAtom, builderStore } from "../store";
 import { TBlock } from "../types/TBlock";
 
 const flatToNestedInstance = new FlatToNested({ children: "blockNodes" });
@@ -54,11 +53,6 @@ export function getBlocksTree(blocks: TBlock[]) {
 
 // eslint-disable-next-line no-underscore-dangle
 export const hasChildren = (node: any): boolean => node.blockNodes && node.blockNodes.length > 0;
-
-export const getBlockComponent = (type: string): any => {
-  const blocks = builderStore.get(builderBlocksAtom);
-  return get(blocks[type], "component", () => "Undefined");
-};
 
 export const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot

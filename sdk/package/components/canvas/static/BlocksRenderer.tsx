@@ -22,7 +22,8 @@ import { GLOBAL_DATA_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
 import { TStyleAttrs } from "../../../types";
 import { useAllBlocks, useHighlightBlockId } from "../../../hooks";
 import { canvasGlobalDataAtom } from "../framework/store";
-import { getBlockComponent } from "../../../functions/Blocks";
+
+import { getBlockComponent } from "@/sdk/package/blocks/builder-blocks";
 
 // FIXME:  Duplicate code in CanvasRenderer.tsx
 const getSlots = (block: TBlock) => {

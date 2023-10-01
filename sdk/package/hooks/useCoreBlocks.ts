@@ -1,4 +1,3 @@
-import { useAtomValue } from "jotai";
-import { builderBlocksAtom } from "../store";
+import { BUILDER_BLOCKS } from "../blocks/builder-blocks";
 
-export const useCoreBlocks = () => useAtomValue(builderBlocksAtom);
+export const useCoreBlocks = () => BUILDER_BLOCKS;

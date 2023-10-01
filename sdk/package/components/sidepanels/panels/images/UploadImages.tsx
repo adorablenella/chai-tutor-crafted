@@ -43,8 +43,6 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
     setIsUploading(false);
   };
 
-  console.log(images);
-
   return (
     <>
       {file ? (

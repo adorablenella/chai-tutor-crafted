@@ -5,9 +5,9 @@ import { Provider as JotaiProvider } from "jotai";
 import { RenderBlocksProps } from "../package/components/canvas/framework/types";
 import { LiveRenderContext } from "../package/renderer/LiveRenderContext";
 import { BlocksRendererLive } from "../package/renderer/LiveRenderer";
-import { TBlock } from "../package";
 import { getBrandingClasses } from "@/sdk/next/functions";
 import { Provider } from "react-wrap-balancer";
+import { TBlock } from "@/sdk/package/types/TBlock";
 
 const LiveRender = ({ snapshot, model }: RenderBlocksProps<any>) => {
   const value = useMemo(() => ({ ...snapshot }), [snapshot]);

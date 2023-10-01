@@ -17,8 +17,8 @@ import {
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../types/TBlock";
 import { LiveRenderContext } from "./LiveRenderContext";
-import { getBlockComponent } from "../functions/Blocks";
 import { GLOBAL_DATA_KEY, STYLES_KEY } from "../constants/CONTROLS";
+import { getBlockComponent } from "@/sdk/package/blocks/builder-blocks";
 
 const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot

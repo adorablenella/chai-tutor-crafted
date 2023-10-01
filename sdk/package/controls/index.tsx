@@ -1,16 +1,8 @@
 import React from "react";
 import { ICustomBlockOptions } from "./types";
-import { builderBlocksAtom, builderStore } from "../store";
 import { TBlock } from "../types/TBlock";
-
-/**
- * Public API for registering a custom block
- * @param component
- * @param options
- */
-export const registerBlock = (component: React.FC<TBlock & any>, options: Omit<ICustomBlockOptions, "category">) => {
-  registerInternalBlock(component, { ...options, ...{ category: "custom" } });
-};
+import { BUILDER_BLOCKS } from "../blocks/builder-blocks";
+import { set } from "lodash";
 
 export const registerInternalBlock = (component: React.FC<TBlock & any>, options: ICustomBlockOptions) => {
   const Wrapper = options.wrapper
@@ -21,8 +13,18 @@ export const registerInternalBlock = (component: React.FC<TBlock & any>, options
         </div>
       )
     : component;
+  set(BUILDER_BLOCKS, options.type, { component: Wrapper, ...options });
+};
 
-  const blocks = builderStore.get(builderBlocksAtom);
-  blocks[options.type] = { component: Wrapper, ...options };
-  builderStore.set(builderBlocksAtom, blocks);
+/**
+ * Public API for registering a custom block
+ * @param component
+ * @param options
+ */
+export const registerBlock = (
+  component: React.FC<TBlock & Record<string, any>>,
+  options: Omit<ICustomBlockOptions, "category">,
+) => {
+  console.log("registerBlock", options);
+  registerInternalBlock(component, { ...options, ...{ category: "custom" } });
 };

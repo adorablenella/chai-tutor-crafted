@@ -1,2 +1,2 @@
+export { registerInternalBlock, registerBlock } from "./controls/index";
 export * from "./controls/controls";
-export { registerBlock, registerInternalBlock } from "./controls/index";

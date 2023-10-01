@@ -1,5 +1,4 @@
 "use client";
-
 // nolint
 import Link from "next/link";
 import { List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
