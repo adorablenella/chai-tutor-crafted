@@ -1,4 +1,5 @@
 "use client";
+
 import ChaiBuilderNextJS from "@/sdk/next";
 import "@/custom-blocks";
 
