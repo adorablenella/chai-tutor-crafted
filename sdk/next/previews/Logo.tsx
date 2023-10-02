@@ -1,11 +1,14 @@
-import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { last, split } from "lodash";
 import { useMemo } from "react";
+import { useSyncState } from "../store";
+import { toast } from "sonner";
 
 const Logo = () => {
+  const [syncState] = useSyncState();
   const pathname = usePathname();
+  const router = useRouter();
 
   const redirectTo = useMemo(() => {
     if (pathname?.includes("/editor/")) {
@@ -17,10 +20,18 @@ const Logo = () => {
     return "/";
   }, [pathname]);
 
+  const onRedirect = () => {
+    if (syncState !== "SAVED") {
+      toast.error("You have unsaved changes. Please save before closing the app.");
+    } else {
+      router.push(redirectTo);
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center rounded-lg py-1.5">
-        <Link href={redirectTo} className="rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700">
+        <div onClick={onRedirect} className="cursor-pointer rounded-lg p-2 hover:bg-stone-200 dark:hover:bg-stone-700">
           <Image
             src="https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
             width={24}
@@ -28,7 +39,7 @@ const Logo = () => {
             alt="Logo"
             className="rounded-md dark:scale-110 dark:border dark:border-stone-400"
           />
-        </Link>
+        </div>
         <span className="text-lg font-bold tracking-tight">Chai Builder</span>
       </div>
     </div>
