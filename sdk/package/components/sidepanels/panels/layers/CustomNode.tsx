@@ -34,7 +34,7 @@ export const CustomNode = (props: Props) => {
       onMouseEnter={() => setHighlighted(id)}
       className={cn(
         "group flex w-full items-center justify-between space-x-px py-px ",
-        isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-800 dark:hover:bg-gray-200",
+        isSelected ? "bg-blue-500 text-white" : "hover:bg-gray-200 dark:hover:bg-gray-800",
       )}
       onClick={(evt) => {
         evt.stopPropagation();
