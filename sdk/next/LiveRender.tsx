@@ -17,10 +17,12 @@ const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; s
   return (
     <>
       <Head>
-        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_headingFont"))} />
-        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_bodyFont"))} />
         <link rel="shortcut icon" href={get(snapshot, "projectData.favicon", "")} />
         <title>{get(snapshot, "pageData.seo_data.title", "")}</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={""} />
+        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_headingFont"))} />
+        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_bodyFont"))} />
         <meta property="og:title" content={get(snapshot, "pageData.seo_data.title", "")} />
         <meta name="description" content={get(snapshot, "pageData.seo_data.description", "")} />
         <meta property="og:description" content={get(snapshot, "pageData.seo_data.description", "")} />
