@@ -38,7 +38,6 @@ export async function getTailwindCSS(options: any, markupString: string[], safel
         },
       },
       plugins: [twForms, twTypography, twAspectRatio, twLineClamp, twHeadlessUI],
-      corePlugins: { preflight: false },
     },
   });
 

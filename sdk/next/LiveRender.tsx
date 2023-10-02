@@ -20,10 +20,8 @@ const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; s
         <meta property="og:description" content={get(snapshot, "pageData.seo_data.description", "")} />
         <meta property="image" content={get(snapshot, "pageData.seo_data.image", "")} />
         <meta property="og:image" content={get(snapshot, "pageData.seo_data.image", "")} />
-      </Head>
-      <head>
         <style id={"block-styles"}>{snapshot.styles}</style>
-      </head>
+      </Head>
       <div className={getBrandingClasses(get(snapshot, "projectData.branding_options", {}))}>
         <Provider>
           <BlocksRendererLive

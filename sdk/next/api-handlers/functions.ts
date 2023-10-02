@@ -19,7 +19,7 @@ const getSeoData = (pageData: any, projectData: TProjectData) => {
   };
 };
 
-export const getRouteSnapshot = async (_slug: string, domain: string) => {
+export const getRouteSnapshot = async (_slug: string, domain: string, sourceCode: string[]) => {
   const slug = _slug === "_home" ? "" : _slug;
   const { data: project } = await supabase.from("projects").select(`*`).eq("subdomain", domain).single();
 
@@ -47,9 +47,10 @@ export const getRouteSnapshot = async (_slug: string, domain: string) => {
   const blocks = page?.blocks || [];
   const projectData: TProjectData = get(page, "projects", {});
   const brandingClasses = getBrandingClasses(projectData.branding_options);
+
   const styles = await getTailwindCSS(
     projectData.branding_options,
-    [JSON.stringify(blocks)],
+    [JSON.stringify(blocks), ...sourceCode],
     brandingClasses.split(" "),
   );
 

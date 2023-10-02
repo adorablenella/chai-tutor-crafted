@@ -1,13 +1,10 @@
-import { clsx, type ClassValue } from "clsx";
+import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
-export async function fetcher<JSON = any>(
-  input: RequestInfo,
-  init?: RequestInit,
-): Promise<JSON> {
+export async function fetcher<JSON = any>(input: RequestInfo, init?: RequestInit): Promise<JSON> {
   const response = await fetch(input, { ...init, cache: "no-store" });
 
   return response.json();
@@ -31,9 +28,7 @@ export const getBlurDataURL = async (url: string | null) => {
     return "data:image/webp;base64,AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
   }
   try {
-    const response = await fetch(
-      `https://wsrv.nl/?url=${url}&w=50&h=50&blur=5`,
-    );
+    const response = await fetch(`https://wsrv.nl/?url=${url}&w=50&h=50&blur=5`);
     const buffer = await response.arrayBuffer();
     const base64 = Buffer.from(buffer).toString("base64");
 
