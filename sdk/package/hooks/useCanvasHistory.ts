@@ -1,6 +1,6 @@
 import { ActionCreators } from "redux-undo";
 import { useCallback, useEffect } from "react";
-import { useAtomValue } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 import { useDispatch } from "./useTreeData";
 import { pageBlocksAtom } from "../store/blocks";
 import { useCutBlockIds } from "./useCutBlockIds";
@@ -8,7 +8,6 @@ import { usePreviewMode } from "./usePreviewMode";
 import { pageSyncStateAtom } from "./useSavePage";
 import { useBuilderProp } from "./useBuilderProp";
 import { historyStatesAtom } from "../store/ui";
-import { useAtom } from "jotai/index";
 
 type CanvasHistory = {
   redoCount: number;

@@ -56,7 +56,7 @@ const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
             {React.Children.toArray(
               navigation.map((item: any) => (
                 <li className="text-gray-700 hover:text-gray-900">
-                  <a href={item.path} className="block">
+                  <a href={item.link.href} className="block">
                     {item.title}
                   </a>
                 </li>

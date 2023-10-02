@@ -50,10 +50,12 @@ export default function CreateSiteModal({ canAddMore }: { canAddMore: boolean })
       <div className="w-full rounded-md bg-white dark:bg-black md:max-w-md md:border md:border-stone-200 md:shadow dark:md:border-stone-700">
         <div className="relative flex flex-col items-center justify-center space-y-4 px-5 py-5 md:px-10">
           <AlertCircle className="text-blue-900" />
-          <h1 className="text-lg font-medium">No more site allowed</h1>
+          <h1 className="text-lg font-medium">
+            Limit reached! <span className="text-blue-900"></span>
+          </h1>
           <p className="text-center text-sm">
             <span>
-              Each user can create only <b>one site</b> in this <strong>beta version</strong>.
+              You can create only <b>one site</b> in <strong>beta version</strong>.
             </span>
             <br />
             <span>Thank you for your understanding!</span>
