@@ -5,7 +5,8 @@ import { Provider } from "react-wrap-balancer";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import Head from "next/head";
 
-const GOOGLE_FONT = (font: string) => `https://fonts.googleapis.com/css2?family=${font}`;
+const GOOGLE_FONT = (font: string) =>
+  `https://fonts.googleapis.com/css2?family=${font}:wght@300;400;500;600;700;800;900&display=swap`;
 
 const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; snapshot: any }) => {
   if (model === "section") {

@@ -9,8 +9,8 @@ const BG_DARK_MODE = "#000000";
 const TEXT_LIGHT_MODE = "#41454c";
 const TEXT_DARK_MODE = "#b3c3d9";
 const ROUNDED_CORNER = "5px";
-const HEADING_FONT = "DM Sans";
-const BODY_FONT = "DM Sans";
+const HEADING_FONT = "Inter";
+const BODY_FONT = "Inter";
 
 const colors = tailwindcssPaletteGenerator({
   names: ["primary", "secondary"],
