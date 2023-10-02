@@ -82,23 +82,29 @@ export default function RootChaiStudio() {
 
   const fetchMediaCallback = async (limit = 100, offset = 0) => {
     const params = `project_uuid=${project?.uuid}&limit=${limit}&offset=${offset}`;
-    const res = await fetch(`/api/chaibuilder/storage?${params}`).then((_res) => _res.json());
-    return res;
+    return await fetch(`/api/chaibuilder/storage?${params}`).then((_res) => _res.json());
   };
 
   const getPages = async () => {
-    const res = await fetch(`/api/chaibuilder/pages?project_uuid=${project?.uuid}`).then((_res) => _res.json());
-    return res;
+    return await fetch(`/api/chaibuilder/pages?project_uuid=${project?.uuid}`).then((_res) => _res.json());
   };
+
+  const isHomePage = pageData?.uuid === project?.homepage;
+  let domain = (project?.customDomain || project?.subdomain) + "." + (process.env.NEXT_PUBLIC_ROOT_DOMAIN as string);
+  domain = process.env.NEXT_PUBLIC_VERCEL_ENV ? domain : `http://${project?.subdomain}.localhost:3000`;
 
   return (
     <ChaiBuilderStudio
+      previewLink={`${domain}/${isHomePage ? "" : pageData?.slug}?_preview=true`}
       loadingCanvas={isLoading}
-      frameworkPageUrl={`/${slug}`}
       brandingOptions={(project?.branding_options ?? BRANDING_OPTIONS_DEFAULTS) as TBrandingOptions}
       blocks={pageData?.blocks ?? []}
       globalBlocks={globalBlocks ?? []}
-      topBarComponents={{ left: [Logo], center: [CurrentPage], right: [PublishButton] }}
+      topBarComponents={{
+        left: [Logo],
+        center: [CurrentPage],
+        right: [PublishButton],
+      }}
       sideBarComponents={{
         top: [
           { icon: FileTextIcon, name: "pages", panel: Pages },

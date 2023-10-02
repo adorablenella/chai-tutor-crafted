@@ -40,6 +40,7 @@ export type TProjectData = {
   favicon: string;
   languages: string[];
   password: string;
+  customDomain: string;
   homepage: string;
   primary_language: string;
   project_name: string;

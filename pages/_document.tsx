@@ -1,10 +1,10 @@
 import { Head, Html, Main, NextScript } from "next/document";
 
-const Document = ({ children }: any) => {
+const Document = () => {
   return (
     <Html lang="en" className="scroll-smooth">
       <Head />
-      <body className="font-body antialiased">
+      <body>
         <Main />
         <NextScript />
       </body>

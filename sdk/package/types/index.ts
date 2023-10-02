@@ -7,9 +7,9 @@ interface UiLibrary {
 }
 
 interface Block {
-  [key: string]: any;
-
   type: string;
+
+  [key: string]: any;
 }
 
 export interface PredefinedBlock {
@@ -31,7 +31,7 @@ export interface ChaiBuilderProviderProps {
   blocks?: TBlock[];
   brandingOptions?: Record<string, string>;
   canvas?: React.FC<any>;
-
+  previewLink?: string;
   canvasTopBarComponents?: {
     right?: React.LazyExoticComponent<any>[];
   };
