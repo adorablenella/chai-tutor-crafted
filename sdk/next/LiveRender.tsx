@@ -5,14 +5,20 @@ import { Provider } from "react-wrap-balancer";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import Head from "next/head";
 
+const GOOGLE_FONT = (font: string) => `https://fonts.googleapis.com/css2?family=${font}`;
+
 const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; snapshot: any }) => {
   if (model === "section") {
     return <div>Generate the section page</div>;
   }
 
+  const brandingOptions = get(snapshot, "projectData.branding_options", {});
+
   return (
     <>
       <Head>
+        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_headingFont"))} />
+        <link rel="stylesheet" href={GOOGLE_FONT(get(brandingOptions, "_bodyFont"))} />
         <link rel="shortcut icon" href={get(snapshot, "projectData.favicon", "")} />
         <title>{get(snapshot, "pageData.seo_data.title", "")}</title>
         <meta property="og:title" content={get(snapshot, "pageData.seo_data.title", "")} />
@@ -22,7 +28,7 @@ const LiveRender = ({ model = "page", snapshot }: { model: "section" | "page"; s
         <meta property="og:image" content={get(snapshot, "pageData.seo_data.image", "")} />
         <style id={"block-styles"}>{snapshot.styles}</style>
       </Head>
-      <div className={getBrandingClasses(get(snapshot, "projectData.branding_options", {}))}>
+      <div className={getBrandingClasses(brandingOptions)}>
         <Provider>
           <BlocksRendererLive
             snapshot={snapshot}
