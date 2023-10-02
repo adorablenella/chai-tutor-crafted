@@ -14,7 +14,6 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  // NOTE: for development. the redirect goes to localhost:3000 instead of app.localhost:3000.
-  // simply goto app.localhost:3000 to see the app
-  return NextResponse.redirect(requestUrl.origin);
+  const redirectURL = process.env.NEXTAUTH_URL || "https://app.chaibuilder.xyz/";
+  return NextResponse.redirect(redirectURL);
 }
