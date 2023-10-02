@@ -45,10 +45,6 @@ export default function RootChaiStudio() {
 
   const saveBlocks = useCallback(
     async (snapshot: any) => {
-      queryClient.setQueryData(["page_data", currentPageUuid], (currentData: any) => ({
-        ...currentData,
-        blocks: snapshot.blocks,
-      }));
       updatePage.mutate(
         { uuid: currentPageUuid as string, blocks: snapshot.blocks },
         { onSuccess: () => toast({ variant: "default", title: "Page updated successfully." }) },

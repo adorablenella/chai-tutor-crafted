@@ -21,7 +21,7 @@ export const useTreeData = (): [Array<any>, Function] => {
       const flatBlocks: Array<TBlock> = nestedToFlatArray(newTreeData);
       dispatch({ type: "set_page_blocks", payload: flatBlocks });
     },
-    [dispatch]
+    [dispatch],
   );
   return [treeData, setTreeData];
 };
@@ -32,7 +32,7 @@ export const useSetAllBlocks = (): [Function] => {
     (newBlocks: TBlock[]) => {
       dispatch({ type: "set_page_blocks", payload: newBlocks });
     },
-    [dispatch]
+    [dispatch],
   );
   return [setAllBlocks];
 };
