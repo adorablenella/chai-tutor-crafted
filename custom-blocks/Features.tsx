@@ -1,6 +1,7 @@
 // nolint
 import React from "react";
-import { Icon, List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
+import { Icon, List, Model, MultilineText, SingleLineText, Styles } from "@/sdk/package/controls";
+import { registerServerBlock } from "@/sdk/next/server";
 
 type TStylesProps = {
   className: string;
@@ -70,7 +71,7 @@ export default function FeaturesBlock({
   );
 }
 
-registerBlock(FeaturesBlock, {
+registerServerBlock(FeaturesBlock, {
   type: "Features Block",
   label: "Features block",
   group: "features",

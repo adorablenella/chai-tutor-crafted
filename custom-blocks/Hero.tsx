@@ -1,6 +1,7 @@
 // nolint
 import Link from "next/link";
-import { List, Model, MultilineText, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
+import { List, Model, MultilineText, SingleLineText, Styles } from "@/sdk/package/controls";
+import { registerServerBlock } from "@/sdk/next/server";
 
 type HeroBlockProps = {
   badgeIcon: string;
@@ -20,10 +21,6 @@ export default function Hero1Block({ badgeIcon, styles, blockProps, btnStyles }:
             className="inline-flex items-center gap-x-2 rounded-full border border-gray-200 bg-white p-1 pl-3 text-sm text-gray-800 transition hover:border-gray-300 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-200 dark:hover:border-gray-600"
             href="/">
             PRO release - Join to waitlist
-            <span
-              dangerouslySetInnerHTML={{ __html: badgeIcon }}
-              className="inline-flex items-center justify-center gap-x-2 rounded-full bg-gray-200 px-3 py-2 text-sm font-semibold text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-            />
           </Link>
         </div>
         <div className="mx-auto mt-5 max-w-2xl text-center">
@@ -104,7 +101,7 @@ export default function Hero1Block({ badgeIcon, styles, blockProps, btnStyles }:
   );
 }
 
-registerBlock(Hero1Block, {
+registerServerBlock(Hero1Block, {
   type: "Hero1",
   label: "Hero",
   group: "hero",

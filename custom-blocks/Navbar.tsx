@@ -1,6 +1,9 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
-import { Image, Link, List, registerBlock, SingleLineText } from "@/sdk/package/controls";
+import { Image, Link, List, SingleLineText } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
+import { registerClientBlock } from "@/sdk/next/client";
 
 const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
   const [state, setState] = useState(false);
@@ -86,7 +89,7 @@ const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
   );
 };
 
-registerBlock(Navbar, {
+registerClientBlock(Navbar, {
   type: "Navbar",
   label: "Navbar",
   group: "custom",

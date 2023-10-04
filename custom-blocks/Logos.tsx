@@ -1,7 +1,8 @@
 // nolint
-import { GlobalDataMapper, Image as Img, List, registerBlock, SingleLineText, Styles } from "@/sdk/package/controls";
+import { GlobalDataMapper, Image as Img, List, SingleLineText, Styles } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 import React from "react";
+import { registerServerBlock } from "@/sdk/next/server";
 
 type TStylesProps = {
   className: string;
@@ -40,7 +41,7 @@ export default function LogosBLock({ title, logos, titleStyles, logoStyles }: Lo
   );
 }
 
-registerBlock(LogosBLock, {
+registerServerBlock(LogosBLock, {
   type: "Logos Block",
   label: "Logos block",
   group: "logos",

@@ -3,7 +3,7 @@ import { RenderBlocksProps } from "../package/components/canvas/framework/types"
 import { Skeleton } from "../package/radix/components/ui/skeleton";
 
 const InsideBuilder = lazy(() => import("../package/components/canvas/framework/InsideBuilder"));
-const LiveRender = lazy(() => import("./LiveRender"));
+const NextBlocksRenderer = lazy(() => import("./NextBlocksRenderer"));
 
 export const RenderBlocks = ({
   model = "page",
@@ -13,7 +13,7 @@ export const RenderBlocks = ({
   const mode = typeof window !== "undefined" && window.self !== window.top ? "builder" : "live";
   const render =
     {
-      live: <LiveRender model={model} slug={slug} domain={domain} />,
+      live: <NextBlocksRenderer model={model} slug={slug} domain={domain} />,
       builder: <InsideBuilder model={model} />,
     }[mode] || null;
 

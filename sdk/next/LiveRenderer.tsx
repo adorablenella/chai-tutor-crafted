@@ -15,9 +15,15 @@ import {
   set,
 } from "lodash";
 import { twMerge } from "tailwind-merge";
-import { TBlock } from "../types/TBlock";
-import { GLOBAL_DATA_KEY, STYLES_KEY } from "../constants/CONTROLS";
-import { getBlockComponent } from "../blocks/builder-blocks";
+import { TBlock } from "../package/types/TBlock";
+import { GLOBAL_DATA_KEY, STYLES_KEY } from "../package/constants/CONTROLS";
+import { SERVER_BLOCKS } from "@/sdk/next/SERVER_BLOCKS";
+import { ClientWrapper } from "@/sdk/next/ClientWrapper";
+
+const isDevelopment = () => process.env.NODE_ENV === "development";
+const getBlockComponent = (type: string): any => {
+  return get(SERVER_BLOCKS, type, false);
+};
 
 const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot
@@ -107,9 +113,12 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
               <BlocksRendererLive snapshot={snapshot} blocks={filter(allBlocks, { _parent: block._id })} />
             );
           }
-
+          let Component = getBlockComponent(block._type);
+          if (Component === false) {
+            Component = ClientWrapper;
+          }
           return React.createElement(
-            getBlockComponent(block._type),
+            Component,
             omit(
               {
                 blockProps: {},
@@ -119,7 +128,7 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
                 ...getStyles(block),
                 ...attrs,
               },
-              ["_type", "_parent", "_name"],
+              ["_parent", "_name"],
             ),
           );
         }),
