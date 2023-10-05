@@ -1,15 +1,15 @@
 import * as React from "react";
 import { SketchLogoIcon } from "@radix-ui/react-icons";
-import { registerInternalBlock } from "../../controls";
-import { Icon, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Icon, Styles } from "@/sdk/package/controls/controls";
+import { TBlock } from "@/sdk/package/types/TBlock";
 
 const IconBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, icon, styles } = block;
   return React.createElement("div", { ...blockProps, ...styles, dangerouslySetInnerHTML: { __html: icon } });
 };
 
-registerInternalBlock(IconBlock as React.FC<any>, {
+registerServerBlock(IconBlock as React.FC<any>, {
   type: "Icon",
   label: "Icon",
   category: "core",

@@ -1,16 +1,14 @@
 import * as React from "react";
 import { ButtonIcon } from "@radix-ui/react-icons";
-import { useBlockContentByLanguage } from "../../hooks";
-import { registerInternalBlock } from "../../controls";
-import { Icon, Link, SelectOption, SingleLineText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, icon, iconPos, styles } = block;
-  const { content: label } = useBlockContentByLanguage("label", block);
+  const { blockProps, icon, content, iconPos, styles } = block;
   const child = (
     <>
-      {label}
+      {content}
       {icon && <span className={iconPos || ""} dangerouslySetInnerHTML={{ __html: icon }} />}
     </>
   );
@@ -18,7 +16,7 @@ const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; style
   return React.createElement("button", { ...blockProps, ...styles, type: "button" }, child);
 };
 
-registerInternalBlock(ButtonBlock as React.FC<any>, {
+registerServerBlock(ButtonBlock as React.FC<any>, {
   type: "Button",
   label: "Button",
   category: "core",

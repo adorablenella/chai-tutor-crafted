@@ -1,10 +1,9 @@
 import * as React from "react";
 import { ButtonIcon } from "@radix-ui/react-icons";
-import { registerInternalBlock } from "../../controls";
-import { Icon, SelectOption, SingleLineText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
-import { generateUUID } from "../../functions/functions";
-import { useBlockContentByLanguage } from "../../hooks";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { generateUUID } from "@/sdk/package/functions/functions";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Icon, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const FormButtonBlock = (
   block: TBlock & {
@@ -13,8 +12,7 @@ const FormButtonBlock = (
     inputStyles: Record<string, string>;
   },
 ) => {
-  const { blockProps, placeholder, styles, inputStyles, icon, iconPos } = block;
-  const { content: label } = useBlockContentByLanguage("label", block);
+  const { blockProps, content: label, placeholder, styles, inputStyles, icon, iconPos } = block;
   const fieldId = generateUUID();
   return (
     <button {...inputStyles} {...styles} {...(blockProps || {})} id={fieldId} type="submit" placeholder={placeholder}>
@@ -24,7 +22,7 @@ const FormButtonBlock = (
   );
 };
 
-registerInternalBlock(FormButtonBlock as React.FC<any>, {
+registerServerBlock(FormButtonBlock as React.FC<any>, {
   type: "FormButton",
   label: "FormButton",
   category: "core",

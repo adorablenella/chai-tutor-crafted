@@ -1,9 +1,9 @@
 import * as React from "react";
 import { VideoIcon } from "@radix-ui/react-icons";
 import { isEmpty } from "lodash";
-import { registerInternalBlock } from "../../controls";
-import { Checkbox, Model, SingleLineText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Checkbox, Model, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const YOUTUBE_REGEX = /^(https?:\/\/)?(www\.)?youtube\.com\/(watch\?v=|embed\/)([a-zA-Z0-9_-]{11})/;
 const VIMEO_REGEX = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/;
@@ -76,7 +76,7 @@ const VideoBlock = (
   });
 };
 
-registerInternalBlock(VideoBlock as React.FC<any>, {
+registerServerBlock(VideoBlock as React.FC<any>, {
   type: "Video",
   label: "Video",
   category: "core",

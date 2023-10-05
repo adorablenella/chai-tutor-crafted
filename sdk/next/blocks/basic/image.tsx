@@ -1,9 +1,9 @@
 import * as React from "react";
 import { ImageIcon } from "@radix-ui/react-icons";
-import { registerInternalBlock, SingleLineText } from "../../controls";
-import { Image, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
 import BlurImage from "@/components/blur-image";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Image, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ImageBlock = (
   block: TBlock & {
@@ -18,7 +18,7 @@ const ImageBlock = (
   return React.createElement(BlurImage, { ...blockProps, ...styles, src: image, alt, height, width });
 };
 
-registerInternalBlock(ImageBlock as React.FC<any>, {
+registerServerBlock(ImageBlock as React.FC<any>, {
   type: "Image",
   label: "Image",
   category: "core",

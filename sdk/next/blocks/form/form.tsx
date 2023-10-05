@@ -1,9 +1,9 @@
 import * as React from "react";
 import { isEmpty, omit } from "lodash";
 import { GroupIcon } from "@radix-ui/react-icons";
-import { TBlock } from "../../types/TBlock";
-import { registerInternalBlock } from "../../controls";
-import { SelectOption, SingleLineText, Slot, Styles } from "../../controls/controls";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { SelectOption, SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
 
 const FormBlock = (
   props: TBlock & { children: React.ReactNode; styles: any; tag: string; blockProps: Record<string, string> },
@@ -26,7 +26,7 @@ const FormBlock = (
   );
 };
 
-registerInternalBlock(FormBlock, {
+registerServerBlock(FormBlock, {
   type: "Form",
   label: "Form",
   category: "core",

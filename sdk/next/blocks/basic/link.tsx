@@ -1,9 +1,9 @@
 import * as React from "react";
 import { isEmpty, omit } from "lodash";
 import { Link1Icon } from "@radix-ui/react-icons";
-import { TBlock } from "../../types/TBlock";
-import { registerInternalBlock } from "../../controls";
-import { Link, Styles } from "../../controls/controls";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Link, Styles } from "@/sdk/package/controls/controls";
 
 const LinkBlock = (
   props: TBlock & { styles: any; link: any; blockProps: Record<string, string>; children: React.ReactNode },
@@ -24,7 +24,7 @@ const LinkBlock = (
   );
 };
 
-registerInternalBlock(LinkBlock, {
+registerServerBlock(LinkBlock, {
   type: "Link",
   label: "Link",
   category: "core",

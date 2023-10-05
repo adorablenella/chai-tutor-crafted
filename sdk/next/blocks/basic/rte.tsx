@@ -1,9 +1,8 @@
 import * as React from "react";
 import { CursorTextIcon } from "@radix-ui/react-icons";
-import { useBlockContentByLanguage } from "../../hooks";
-import { registerInternalBlock } from "../../controls";
-import { RichText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { RichText, Styles } from "@/sdk/package/controls/controls";
 
 /**
  * Heading component
@@ -11,8 +10,7 @@ import { TBlock } from "../../types/TBlock";
  * @constructor
  */
 const RichTextBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, styles } = props;
-  const { content } = useBlockContentByLanguage("content", props);
+  const { blockProps, content, styles } = props;
   // eslint-disable-next-line react/no-danger
   return (
     <div className="prose max-w-full">
@@ -21,7 +19,7 @@ const RichTextBlock = (props: TBlock & { blockProps: Record<string, string>; sty
   );
 };
 
-registerInternalBlock(RichTextBlock as React.FC<any>, {
+registerServerBlock(RichTextBlock as React.FC<any>, {
   type: "RichText",
   label: "Rich Text",
   category: "core",

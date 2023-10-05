@@ -1,10 +1,10 @@
 import * as React from "react";
 import { DropdownMenuIcon } from "@radix-ui/react-icons";
 import { map } from "lodash";
-import { registerInternalBlock } from "../../controls";
-import { Checkbox, List, SingleLineText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
-import { generateUUID } from "../../functions/functions";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { generateUUID } from "@/sdk/package/functions/functions";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Checkbox, List, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const SelectBlock = (
   block: TBlock & {
@@ -32,7 +32,7 @@ const SelectBlock = (
   );
 };
 
-registerInternalBlock(SelectBlock as React.FC<any>, {
+registerServerBlock(SelectBlock as React.FC<any>, {
   type: "Select",
   label: "Select",
   category: "core",

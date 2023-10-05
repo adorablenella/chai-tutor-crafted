@@ -1,7 +1,7 @@
 import React, { Attributes } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.bubble.css";
-import { useUpdateBlocksPropsRealtime } from "../hooks/useUpdateBlocksProps";
+import { useUpdateBlocksPropsRealtime } from "@/sdk/package/hooks/useUpdateBlocksProps";
 
 type BubbleEditorProps = {
   attrs: Attributes;

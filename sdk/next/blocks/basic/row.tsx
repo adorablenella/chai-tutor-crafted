@@ -2,10 +2,10 @@ import * as React from "react";
 import { ColumnsIcon, RowsIcon } from "@radix-ui/react-icons";
 import { twMerge } from "tailwind-merge";
 import { get } from "lodash";
-import { TBlock } from "../../types/TBlock";
-import { registerInternalBlock } from "../../controls";
-import { Numeric, Styles } from "../../controls/controls";
-import { cn } from "../../radix/lib/utils";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Numeric, Styles } from "@/sdk/package/controls/controls";
+import { cn } from "@/lib/utils";
 
 const RowBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, children, styles } = props;
@@ -13,7 +13,7 @@ const RowBlock = (props: TBlock & { blockProps: Record<string, string>; styles: 
   return React.createElement("div", { ...blockProps, ...styles, className }, children);
 };
 
-registerInternalBlock(RowBlock, {
+registerServerBlock(RowBlock, {
   type: "Row",
   label: "Row",
   icon: RowsIcon,
@@ -57,7 +57,7 @@ const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; style
   return React.createElement("div", { ...styles, ...blockProps, droppable: "yes", className }, children || emptySlot);
 };
 
-registerInternalBlock(ColumnBlock, {
+registerServerBlock(ColumnBlock, {
   type: "Column",
   label: "Column",
   icon: ColumnsIcon,

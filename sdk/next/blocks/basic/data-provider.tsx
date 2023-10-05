@@ -1,6 +1,5 @@
 import * as React from "react";
-import { registerInternalBlock } from "../../controls";
-import { MultilineText, SingleLineText } from "../../controls/controls";
+import { MultilineText, registerInternalBlock, SingleLineText } from "@/sdk/package/controls";
 
 const DbIcon = () => (
   <svg

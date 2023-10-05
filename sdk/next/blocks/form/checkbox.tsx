@@ -1,9 +1,9 @@
 import * as React from "react";
 import { CheckboxIcon } from "@radix-ui/react-icons";
-import { registerInternalBlock } from "../../controls";
-import { Checkbox, SingleLineText, Styles } from "../../controls/controls";
-import { TBlock } from "../../types/TBlock";
-import { generateUUID } from "../../functions/functions";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { generateUUID } from "@/sdk/package/functions/functions";
+import { registerServerBlock } from "@/sdk/next/server";
+import { Checkbox, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const CheckboxBlock = (
   block: TBlock & {
@@ -24,7 +24,7 @@ const CheckboxBlock = (
   );
 };
 
-registerInternalBlock(CheckboxBlock as React.FC<any>, {
+registerServerBlock(CheckboxBlock as React.FC<any>, {
   type: "Checkbox",
   label: "Checkbox",
   category: "core",

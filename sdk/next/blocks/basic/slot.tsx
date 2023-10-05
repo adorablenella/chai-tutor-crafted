@@ -1,6 +1,6 @@
 import * as React from "react";
-import { TBlock } from "../../types/TBlock";
-import { registerInternalBlock } from "../../controls";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
 
 const SlotBlock = (
   props: TBlock & { children: React.ReactNode } & {
@@ -16,7 +16,7 @@ const SlotBlock = (
   return React.createElement("div", { ...styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
-registerInternalBlock(SlotBlock, {
+registerServerBlock(SlotBlock, {
   type: "Slot",
   label: "Slot",
   group: "basic",

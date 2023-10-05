@@ -2,10 +2,10 @@ import * as React from "react";
 import { ColumnsIcon, RowsIcon } from "@radix-ui/react-icons";
 import { get } from "lodash";
 import { twMerge } from "tailwind-merge";
-import { TBlock } from "../../types/TBlock";
-import { registerInternalBlock } from "../../controls";
-import { SelectOption, Styles } from "../../controls/controls";
-import { cn } from "../../radix/lib/utils";
+import { TBlock } from "@/sdk/package/types/TBlock";
+import { registerServerBlock } from "@/sdk/next/server";
+import { SelectOption, Styles } from "@/sdk/package/controls/controls";
+import { cn } from "@/lib/utils";
 
 const ListBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
   const { blockProps, children, listType, styles } = props;
@@ -17,7 +17,7 @@ const ListBlock = (props: TBlock & { blockProps: Record<string, string>; styles:
   );
 };
 
-registerInternalBlock(ListBlock, {
+registerServerBlock(ListBlock, {
   type: "List",
   label: "List",
   icon: RowsIcon,
@@ -56,7 +56,7 @@ const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; sty
   return React.createElement("li", { ...styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
-registerInternalBlock(ListItemBlock, {
+registerServerBlock(ListItemBlock, {
   type: "ListItem",
   label: "List Item",
   icon: ColumnsIcon,

@@ -1,7 +1,6 @@
 import { get } from "lodash";
 import React from "react";
-import { TBlock } from "../types/TBlock";
-import { isDevelopment } from "../helpers/general";
+import { TBlock } from "@/sdk/package/types/TBlock";
 
 /**
  * This is global builder blocks
@@ -18,5 +17,5 @@ type BuilderBlock = {
 
 export let BUILDER_BLOCKS: Record<string, BuilderBlock> = {};
 export const getBlockComponent = (type: string): any => {
-  return get(BUILDER_BLOCKS[type], "component", () => (isDevelopment() ? <div>{type} Block not found</div> : null));
+  return get(BUILDER_BLOCKS[type], "component", () => <div>{type} Block not found</div>);
 };
