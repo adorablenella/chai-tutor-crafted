@@ -10,7 +10,7 @@ import {
 
 export interface ICustomBlockOptions {
   blocks?: TBlock[];
-  category: string;
+  category?: string;
   group: string;
   hidden?: boolean;
   icon?: React.ReactNode | React.FC;

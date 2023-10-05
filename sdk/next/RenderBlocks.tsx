@@ -1,8 +1,9 @@
 import { lazy, Suspense } from "react";
-import { RenderBlocksProps } from "../package/components/canvas/framework/types";
-import { Skeleton } from "../package/radix/components/ui/skeleton";
+import "./blocks/core-blocks";
+import { RenderBlocksProps } from "@/sdk/package/components/canvas/framework/types";
+import { Skeleton } from "@/sdk/package/radix/components/ui/skeleton";
 
-const InsideBuilder = lazy(() => import("../package/components/canvas/framework/InsideBuilder"));
+const InsideBuilder = lazy(() => import("@/sdk/package/components/canvas/framework/InsideBuilder"));
 const NextBlocksRenderer = lazy(() => import("./NextBlocksRenderer"));
 
 export const RenderBlocks = ({

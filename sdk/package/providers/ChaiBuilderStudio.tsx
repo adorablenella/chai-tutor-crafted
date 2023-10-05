@@ -12,7 +12,6 @@ import { ChaiBuilderProviderProps } from "../types/index";
 import { builderModeAtom } from "../hooks/useBuilderMode";
 import { BUILDER_MODES } from "../constants/BUILDER_MODES";
 import { builderStore } from "../store";
-import "../blocks/core-blocks";
 import { useSetAllBlocks } from "../hooks/useTreeData";
 import { Toaster } from "../radix/components/ui/toaster";
 import { useBuilderReset } from "../hooks/useBuilderReset";
