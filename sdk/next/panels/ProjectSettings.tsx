@@ -55,7 +55,7 @@ export default function ProjectSettings() {
               General Settings
             </AccordionTrigger>
             <AccordionContent className="px-2 pt-4 text-sm">
-              <Suspense fallback={<div className="h-52 w-full animate-pulse bg-gray-200" />}>
+              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
                 <ProjectGeneralSetting _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>
@@ -65,7 +65,7 @@ export default function ProjectSettings() {
               SEO Settings
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">
-              <Suspense fallback={<div className="h-52 w-full animate-pulse bg-gray-200" />}>
+              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
                 <ProjectSeoSettings _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>
@@ -75,7 +75,7 @@ export default function ProjectSettings() {
               Custom Code
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">
-              <Suspense fallback={<div className="h-52 w-full animate-pulse bg-gray-200" />}>
+              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
                 <ProjectCustomCode _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>

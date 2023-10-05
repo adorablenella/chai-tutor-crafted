@@ -72,14 +72,14 @@ const AddPageModalContent = ({ closeModal }: { closeModal: Function }): React.Re
   };
 
   const properties = {
-    type: SelectOption({
-      title: "Page Type",
-      default: pageData.type,
-      options: [
-        { title: "Static", value: "STATIC" },
-        // { title: "Dynamic", value: "DYNAMIC" },
-      ],
-    }),
+    // type: SelectOption({
+    //   title: "Page Type",
+    //   default: pageData.type,
+    //   options: [
+    //     { title: "Static", value: "STATIC" },
+    //     { title: "Dynamic", value: "DYNAMIC" },
+    //   ],
+    // }),
     page_name: SingleLineText({ title: "Page Name", default: pageData.page_name as string }),
     slug: SingleLineText({ title: "Page Slug", default: pageData.slug }),
   };

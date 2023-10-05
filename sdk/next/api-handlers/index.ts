@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 import { NextApiRequest, NextApiResponse } from "next";
-import { first } from "lodash";
+import { filter, first, map } from "lodash";
 import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
 import supabase from "@/app/helpers/supabase";
 
@@ -17,6 +17,8 @@ const ENDPOINTS: { [key: string]: string } = {
   AUTH_LOGIN: "auth/login",
   AUTH_VERIFY: "auth/verify",
 };
+
+const BUCKET = "chaibuilder-blob-storage";
 
 const handleProject = async (req: NextApiRequest, res: NextApiResponse) => {
   const { method } = req;
@@ -250,6 +252,17 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
     const slug = searchParams.get("slug") as string;
     const domain = searchParams.get("domain") as string;
     return { response: await publishPath(slug, domain) };
+  } else if (entity === ENDPOINTS.STORAGE) {
+    const mediaParams: Record<any, any> = { sortBy: { column: "name", order: "asc" } };
+    mediaParams.limit = (searchParams.get("limit") || 100) as number;
+    mediaParams.offset = (searchParams.get("offset") || 0) as number;
+    const { data, error } = await supabase.storage.from(BUCKET).list(projectUuid, mediaParams);
+    if (error) return { status: 500, response: error };
+
+    const validMedia = filter(data, (img: any) => img.name !== ".emptyFolderPlaceholder") || [];
+    const baseURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/${projectUuid}`;
+    const response = map(validMedia, (img: any) => ({ ...(img || {}), url: `${baseURL}/${img.name}` }));
+    return { status: 200, response: response };
   }
   return { status: 400, response: { message: "Invalid route" } };
 };

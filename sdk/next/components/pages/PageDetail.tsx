@@ -8,7 +8,7 @@ import { useUpdatePage } from "../../mutations/usePageActions";
 import Form from "../common/Form";
 import { useProject } from "../../hooks/useProject";
 import { useUpdateProject } from "../../mutations/useProjectActions";
-import { Checkbox, Image, Model, SingleLineText } from "@/sdk/package/controls";
+import { Checkbox, Image, Model, MultilineText, SingleLineText } from "@/sdk/package/controls";
 
 const DeletePage = React.lazy(() => import("./DeletePage"));
 const ConfirmAlert = React.lazy(() => import("../common/ConfirmAlert"));
@@ -141,8 +141,8 @@ const PageDetail = ({
       },
       properties: {
         title: SingleLineText({ title: "Meta Title", default: _pageData.page_name as string }),
-        description: SingleLineText({ title: "Meta Description", default: _pageData.slug }),
-        image: Image({ title: "Favicon", default: "" }),
+        description: MultilineText({ title: "Meta Description", default: _pageData.slug }),
+        image: Image({ title: "Social Media Image", default: "" }),
       },
     }),
   };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { isEmpty } from "lodash";
+import { isEmpty, map } from "lodash";
 import { Cross1Icon, GearIcon, UploadIcon } from "@radix-ui/react-icons";
 import { atom, useAtom } from "jotai";
 import { ScrollArea } from "../../../../radix-ui";
@@ -14,15 +14,18 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
 
   const [images, setImages] = useAtom(uploadedMediaAtom);
   const [isUploading, setIsUploading] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
   const [file, setFile] = useState<File>();
   const [error, setError] = useState("");
 
   useEffect(() => {
     (async () => {
+      setIsFetching(true);
       const uploadedImages = await fetchImages();
       setImages(uploadedImages || []);
+      setIsFetching(false);
     })();
-  }, []);
+  }, [fetchImages, setImages]);
 
   const onChange = (e: any) => {
     if (e && e?.target?.files?.length > 0) setFile(e.target.files[0]);
@@ -47,6 +50,7 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
     <>
       {file ? (
         <div className="relative flex w-full flex-col items-center justify-center rounded-md border bg-slate-50 p-2 px-1">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={URL.createObjectURL(file)} alt="" className="h-auto w-full max-w-sm rounded-md" />
           {error && <div className="w-full pt-2 text-center text-sm text-red-500">{error}</div>}
           <div className="flex w-full items-center justify-center gap-2 pt-2">
@@ -79,17 +83,23 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
         </label>
       )}
       <ScrollArea className={`-mx-2 flex h-full flex-col pb-8 pt-2 ${isModalView ? "px-2" : ""} pt-2`}>
-        {isEmpty(images) && (
+        {isEmpty(images) && isFetching && (
+          <div className="flex flex-col items-center justify-center py-6">
+            <div className="animate-pulse font-medium">Fetching...</div>
+          </div>
+        )}
+        {isEmpty(images) && !isFetching && (
           <div className="flex flex-col items-center justify-center py-6">
             <div className="font-medium">No Images</div>
           </div>
         )}
         {isModalView ? (
           <div className="h-full columns-3 py-2">
-            {images?.map((pic) => (
+            {map(images, (pic) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div role="button" tabIndex={0} className="my-1 flex" key={pic.id} onClick={() => onSelect(pic.url)}>
                 <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     className="h-auto flex-1 cursor-pointer rounded-md transition duration-300 ease-in-out hover:scale-105"
                     alt={pic.name}
@@ -100,10 +110,11 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
             ))}
           </div>
         ) : (
-          images?.map((pic) => (
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          map(images, (pic) => (
+            // TODO: Drag and Drop Image to Canvas from Here use `pic.url` for image quality
             <div role="button" tabIndex={0} className="px-2 py-1" key={pic.id} onClick={() => onSelect(pic.url)}>
               <div className="relative overflow-hidden rounded-md bg-cover bg-no-repeat">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="h-auto w-full cursor-pointer transition duration-300 ease-in-out hover:scale-105"
                   alt={pic.name}

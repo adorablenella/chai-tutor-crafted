@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { FileTextIcon, GearIcon } from "@radix-ui/react-icons";
 import { lazy, useCallback, useEffect } from "react";
 import { useToast } from "@/sdk/package/radix-ui";
@@ -6,12 +5,13 @@ import { useProject } from "./hooks/useProject";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { useGlobalBLocks } from "./hooks/useGlobalBlocks";
 import { usePageData } from "./hooks/usePageData";
-import { useCurrentPage, useCurrentPageSlug, useSyncState } from "./store";
+import { useCurrentPage, useSyncState } from "./store";
 import { TBrandingOptions, TProjectData } from "./types";
 import { useUpdatePage } from "./mutations/usePageActions";
 import { useUpdateProject } from "./mutations/useProjectActions";
 import { isEqual } from "lodash";
 import { ChaiBuilderStudio } from "@/sdk/package";
+import { useUploadMedia } from "./mutations/useStorageActions";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
@@ -20,16 +20,16 @@ const ProjectSettings = lazy(() => import("./panels/ProjectSettings"));
 const CurrentPage = lazy(() => import("./previews/CurrentPage"));
 
 export default function RootChaiStudio() {
-  const queryClient = useQueryClient();
+  const { toast } = useToast();
   const { data: project } = useProject();
   const { data: globalBlocks } = useGlobalBLocks();
-  const [currentPageUuid] = useCurrentPage();
   const { data: pageData, isLoading } = usePageData();
+  const [currentPageUuid] = useCurrentPage();
+  const [syncStatus, setSyncStatus] = useSyncState();
+
   const updatePage = useUpdatePage();
   const updateProject = useUpdateProject();
-  const [syncStatus, setSyncStatus] = useSyncState();
-  const [slug] = useCurrentPageSlug();
-  const { toast } = useToast();
+  const uploadMedia = useUploadMedia();
 
   useEffect(() => {
     if (syncStatus !== "SAVED") {
@@ -50,7 +50,7 @@ export default function RootChaiStudio() {
         { onSuccess: () => toast({ variant: "default", title: "Page updated successfully." }) },
       );
     },
-    [queryClient, currentPageUuid, updatePage, toast],
+    [currentPageUuid, updatePage, toast],
   );
 
   const saveBrandingOptions = useCallback(
@@ -65,16 +65,12 @@ export default function RootChaiStudio() {
     [project, toast, updateProject],
   );
 
-  // @TODO: Move supabase to /api/chaibuiilder/storage
-  // Issue : On accepting file in supabase it is not working as expected
-  const uploadMediaCallback = async (file: File) => {
-    const filePath = `${project?.uuid}/${file.name}`;
-    const BUCKET = "chaibuilder-blob-storage";
-    const { data, error } = { error: "Error", data: null };
-    if (error || !data) throw error;
-    const publicURL = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/storage/v1/object/public/${BUCKET}/`;
-    return publicURL || "";
-  };
+  const uploadMediaCallback = useCallback(
+    async (file: File) => {
+      return await uploadMedia.mutateAsync(file);
+    },
+    [uploadMedia],
+  );
 
   const fetchMediaCallback = async (limit = 100, offset = 0) => {
     const params = `project_uuid=${project?.uuid}&limit=${limit}&offset=${offset}`;

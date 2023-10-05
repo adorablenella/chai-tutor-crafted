@@ -31,12 +31,12 @@ const SEOSettings = ({
         image: (_projectData.seo_data?.image || "") as string,
       },
       properties: {
-        title: SingleLineText({ title: "Meta Title", default: (_projectData.seo_data?.title || "") as string }),
+        title: SingleLineText({ title: "Default Title", default: (_projectData.seo_data?.title || "") as string }),
         description: MultilineText({
-          title: "Meta Description",
+          title: "Default Description",
           default: (_projectData.seo_data?.description || "") as string,
         }),
-        image: Image({ title: "Image", default: (_projectData.seo_data?.image || "") as string }),
+        image: Image({ title: "Social Media Image", default: (_projectData.seo_data?.image || "") as string }),
       },
     }),
   };
