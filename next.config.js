@@ -20,6 +20,7 @@ module.exports = {
       "www.google.com",
       "flag.vercel.app",
       "illustrations.popsy.co",
+      "fakeimg.pl",
     ],
   },
   reactStrictMode: false,

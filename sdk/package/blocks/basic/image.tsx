@@ -26,7 +26,7 @@ registerInternalBlock(ImageBlock as React.FC<any>, {
   group: "basic",
   props: {
     styles: Styles({ default: "" }),
-    image: Image({ title: "Image", default: "https://placehold.it/100" }),
+    image: Image({ title: "Image", default: "https://fakeimg.pl/100x100?text=Choose&font=bebas" }),
     alt: SingleLineText({ title: "Alt", default: "" }),
     width: SingleLineText({ title: "Width", default: "200" }),
     height: SingleLineText({ title: "Height", default: "200" }),

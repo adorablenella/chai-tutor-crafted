@@ -27,6 +27,25 @@ interface BreakpointCardProps extends BreakpointItemType {
   onClick: Function;
 }
 
+const TabletIcon = ({ landscape = false }) => (
+  <svg
+    className={landscape ? "rotate-90" : ""}
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 13 13"
+    xmlSpace="preserve"
+    width={13}
+    height={13}>
+    <g strokeWidth={0} />
+    <g strokeLinecap="round" strokeLinejoin="round" />
+    <path
+      d="M10.65 0H2.349a.851.851 0 0 0-.851.852v11.299c0 .47.382.852.851.852h8.3a.851.851 0 0 0 .851-.852V.852A.851.851 0 0 0 10.65 0zM6.599 12.466a.367.367 0 1 1 0-.735.367.367 0 0 1 0 .735zm3.9-1.267H2.5V1h8.001v10.199z"
+      style={{
+        fill: "#000",
+      }}
+    />
+  </svg>
+);
+
 const BREAKPOINTS: BreakpointItemType[] = [
   {
     title: "Mobile (XS)",
@@ -46,14 +65,14 @@ const BREAKPOINTS: BreakpointItemType[] = [
     title: "Tablet (MD)",
     content: "Styles set here are applied at 768px and up",
     breakpoint: "md",
-    icon: <MobileIcon />,
+    icon: <TabletIcon />,
     width: 800,
   },
   {
     title: "Tablet Landscape (LG)",
     content: "Styles set here are applied at 1024px and up unless edited at higher breakpoint",
     breakpoint: "lg",
-    icon: <MobileIcon className="rotate-90" />,
+    icon: <TabletIcon landscape />,
     width: 1024,
   },
   {
@@ -116,20 +135,20 @@ export const Breakpoints = () => {
   };
 
   return (
-    <div className="rounded-md flex items-center">
+    <div className="flex items-center rounded-md">
       {map(
         BREAKPOINTS.filter((bp: BreakpointItemType) => includes(selectedBreakpoints, toUpper(bp.breakpoint))),
         (bp: BreakpointItemType) => (
           <BreakpointCard {...bp} onClick={setNewWidth} key={bp.breakpoint} currentBreakpoint={breakpoint} />
-        )
+        ),
       )}
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <span className="px-2.5 cursor-pointer hover:opacity-80">
-            <DotsVerticalIcon className="transform scale-90" />
+          <span className="cursor-pointer px-2.5 hover:opacity-80">
+            <DotsVerticalIcon className="scale-90 transform" />
           </span>
         </DropdownMenuTrigger>
-        <DropdownMenuContent className="w-56 text-xs border-border">
+        <DropdownMenuContent className="w-56 border-border text-xs">
           <DropdownMenuLabel>Breakpoints</DropdownMenuLabel>
           <DropdownMenuSeparator />
           {map(BREAKPOINTS, (bp: BreakpointItemType) => (

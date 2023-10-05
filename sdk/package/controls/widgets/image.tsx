@@ -3,25 +3,27 @@ import { isEmpty } from "lodash";
 import ImagePickerModal from "../../components/sidepanels/panels/images/ImagePickerModal";
 
 const ImagePickerField = ({ value, onChange, id, onBlur }: WidgetProps) => (
-  <div className="flex items-center mt-1.5 gap-x-3">
+  <div className="mt-1.5 flex items-center gap-x-3">
     {value ? (
-      <img src={value} className="w-20 h-20 object-cover border rounded-md overflow-hidden" alt="" />
+      // eslint-disable-next-line @next/next/no-img-element
+      <img src={value} className="h-20 w-20 overflow-hidden rounded-md border object-cover" alt="" />
     ) : (
       <ImagePickerModal onSelect={onChange}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://placehold.co/100?text=Choose+Image&font=roboto"
-          className="w-20 h-20 object-cover border rounded-md overflow-hidden cursor-pointer hover:border-blue-200"
+          src="https://fakeimg.pl/100x100?text=Choose&font=bebas"
+          className="h-20 w-20 cursor-pointer overflow-hidden rounded-md border object-cover hover:border-blue-200"
           alt=""
         />
       </ImagePickerModal>
     )}
-    <div className="flex flex-col w-3/5">
+    <div className="flex w-3/5 flex-col">
       <ImagePickerModal onSelect={onChange}>
-        <small className="rounded-full px-2 py-1 bg-gray-600 dark:bg-gray-700 hover:bg-gray-500 text-white cursor-pointer text-xs text-center">
+        <small className="cursor-pointer rounded-full bg-gray-600 px-2 py-1 text-center text-xs text-white hover:bg-gray-500 dark:bg-gray-700">
           {value || !isEmpty(value) ? "Replace Image" : "Choose Image"}
         </small>
       </ImagePickerModal>
-      <small className="text-xs text-gray-600 pt-2 text-center -pl-4">OR</small>
+      <small className="-pl-4 pt-2 text-center text-xs text-gray-600">OR</small>
       <input
         type="url"
         className="text-xs"
