@@ -7,6 +7,7 @@ import ReactDOM from "react-dom";
 const getSvgMarkup = (icon: string) => {
   const container = document.getElementById("icon-picker-field") as HTMLElement;
   const iconPickerContainer = document.createElement("div");
+  // eslint-disable-next-line react/no-deprecated
   ReactDOM.render(<IconPickerItem value={icon} />, iconPickerContainer);
   container.appendChild(iconPickerContainer);
 
@@ -57,7 +58,7 @@ const IconPickerField = ({ value, onChange, onBlur, id }: WidgetProps) => {
       <textarea
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="h-full w-full rounded-lg bg-gray-200 p-2 text-xs outline-0"
+        className="h-full w-full rounded-sm border-foreground/20 px-2 py-1 text-xs shadow-sm focus:border-gray-500/80 focus:outline-none focus:ring-0"
         placeholder="Choose icon or enter svg"
       />
     </div>
