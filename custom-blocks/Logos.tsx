@@ -1,5 +1,5 @@
 // nolint
-import { GlobalDataMapper, Image as Img, List, SingleLineText, Styles } from "@/sdk/package/controls";
+import { Image as Img, List, SingleLineText, Styles } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 import React from "react";
 import { registerServerBlock } from "@/sdk/next/server";
@@ -48,12 +48,11 @@ registerServerBlock(LogosBLock, {
   props: {
     titleStyles: Styles({ default: "font-semibold text-sm text-gray-600 text-center" }),
     logoStyles: Styles({ default: "font-semibold text-sm text-gray-600 text-center" }),
-    title: GlobalDataMapper({ title: "Title", dataType: "string", default: "" }),
     logos: List({
       title: "Logos",
       itemProperties: {
-        url: Img({ title: "Image" }),
-        alt: SingleLineText({ title: "Alt" }),
+        url: Img({ title: "Image", default: "" }),
+        alt: SingleLineText({ title: "Alt", default: "" }),
       },
     }),
   },

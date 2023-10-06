@@ -1,5 +1,5 @@
 import { omit } from "lodash";
-import { GLOBAL_DATA_KEY, STYLES_KEY } from "../constants/CONTROLS";
+import { STYLES_KEY } from "../constants/CONTROLS";
 
 export interface IControlDefinition {
   default?: any;
@@ -65,6 +65,7 @@ type TInputProps = TControlProps & {
 export const SingleLineText = (props: TInputProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     i18n: props.i18n || false,
     required: props.required || false,
     schema: {
@@ -88,6 +89,7 @@ type TTextAreaProps = TControlProps & {
 export const MultilineText = (props: TTextAreaProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     i18n: props.i18n || false,
     required: props.required || false,
     schema: {
@@ -128,10 +130,12 @@ type TNumberProps = TControlProps & {
   maximum?: number;
   minimum?: number;
   multipleOf?: number;
+  default?: number | string;
 };
 export const Numeric = (props: TNumberProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     i18n: props.i18n || false,
     required: props.required || false,
     schema: {
@@ -148,6 +152,7 @@ type TSelectProps = TControlProps & {
 export const SelectOption = (props: TSelectProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     i18n: props.i18n || false,
     required: props.required || false,
     schema: {
@@ -163,6 +168,7 @@ export const SelectOption = (props: TSelectProps) =>
 export const Color = (props: TControlProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     schema: {
       type: "string",
       ...omit(props, ["i18n", "required"]),
@@ -189,6 +195,7 @@ export const Slot = (props: Omit<TSlotsProps, "count">) =>
 export const RichText = (props: TControlProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     i18n: props.i18n || false,
     schema: {
       type: "string",
@@ -239,6 +246,7 @@ export const Styles = (props: TStylesProps) =>
 
 export const Icon = (props: TControlProps) =>
   ({
+    default: props.default || "",
     type: "singular",
     schema: {
       type: "string",
@@ -260,6 +268,7 @@ type TLinkProps = TControlProps & {
 
 export const Link = (props: TLinkProps) =>
   ({
+    default: props.default,
     type: "singular",
     schema: {
       type: "object",
@@ -278,6 +287,7 @@ export const Link = (props: TLinkProps) =>
 export const Image = (props: TControlProps) =>
   ({
     type: "singular",
+    default: props.default || "",
     schema: {
       type: "string",
       ...omit(props, ["i18n", "required"]),
@@ -286,27 +296,3 @@ export const Image = (props: TControlProps) =>
       "ui:widget": "image",
     },
   } as IControlDefinition);
-
-export type TGlobalDataMapperProps = TControlProps & {
-  dataType: "string" | "number" | "boolean" | "object" | "array" | "null";
-};
-
-export const GlobalDataMapper = (props: TGlobalDataMapperProps) =>
-  ({
-    type: "singular",
-    i18n: props.i18n || false,
-    required: props.required || false,
-    schema: {
-      type: "string",
-      default: `${GLOBAL_DATA_KEY}${props.dataType}:${props.path}`,
-      title: `Global Data: ${props.title}`,
-    },
-    uiSchema: {
-      "ui:widget": "globalData",
-    },
-  } as IControlDefinition);
-
-export const i18nDefaults = (values: Record<any, any>) => ({
-  i18n: true,
-  ...values,
-});

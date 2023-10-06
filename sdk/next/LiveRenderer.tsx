@@ -1,27 +1,12 @@
-import React, { useCallback } from "react";
-import {
-  filter,
-  find,
-  get,
-  includes,
-  isArray,
-  isEmpty,
-  isNumber,
-  isObject,
-  isString,
-  isUndefined,
-  memoize,
-  omit,
-  set,
-} from "lodash";
+import React from "react";
+import { filter, find, get, includes, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../package/types/TBlock";
-import { GLOBAL_DATA_KEY, STYLES_KEY } from "../package/constants/CONTROLS";
+import { STYLES_KEY } from "../package/constants/CONTROLS";
 import { SERVER_BLOCKS } from "@/sdk/next/SERVER_BLOCKS";
 import { ClientWrapper } from "@/sdk/next/ClientWrapper";
 
-const isDevelopment = () => process.env.NODE_ENV === "development";
-const getBlockComponent = (type: string): any => {
+const getBlockComponent = (type: string): boolean | { component: React.FC<TBlock>; defaults: Record<string, any> } => {
   return get(SERVER_BLOCKS, type, false);
 };
 
@@ -54,44 +39,11 @@ function getStyleAttrs(block: TBlock) {
   return styles;
 }
 
-const isCorrectFormat = (data: any, dataType: string) => {
-  if (dataType === "string") {
-    return isString(data);
-  }
-  if (dataType === "number") {
-    return isNumber(data);
-  }
-  if (dataType === "boolean") {
-    return data === true || data === false;
-  }
-  if (dataType === "object") {
-    return isObject(data);
-  }
-  if (dataType === "array") {
-    return isArray(data);
-  }
-  return false;
-};
-
-function getGlobalDataAttrs(block: TBlock, globalData: { [key: string]: any }) {
-  const globalDataAttrs: { [key: string]: any } = {};
-  Object.keys(block).forEach((key) => {
-    if (isString(block[key]) && block[key].startsWith(GLOBAL_DATA_KEY)) {
-      const [, dataType, path] = block[key].split(":");
-      const data = get(globalData, path);
-      set(globalDataAttrs, key, isUndefined(data) ? "" : isCorrectFormat(data, dataType) ? data : undefined);
-    }
-  });
-  return globalDataAttrs;
-}
-
 export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; snapshot: any }) {
   const {
-    globalData,
     pageData: { blocks: allBlocks },
   }: any = snapshot;
-  const getStyles = useCallback((block: TBlock) => getStyleAttrs(block), []);
-  const getGlobalData = useCallback((block: TBlock) => getGlobalDataAttrs(block, globalData || {}), [globalData]);
+  const getStyles = (block: TBlock) => getStyleAttrs(block);
 
   return (
     <>
@@ -113,24 +65,27 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
               <BlocksRendererLive snapshot={snapshot} blocks={filter(allBlocks, { _parent: block._id })} />
             );
           }
-          let Component = getBlockComponent(block._type);
-          if (Component === false) {
-            Component = ClientWrapper;
+          let blockDefinition = getBlockComponent(block._type);
+          if (blockDefinition !== false) {
+            let syncedBlock: TBlock = block;
+            const Component: React.FC<any> = (blockDefinition as { component: React.FC<TBlock> }).component;
+            syncedBlock = { ...(blockDefinition as any).defaults, ...block };
+            return React.createElement(
+              Component,
+              omit(
+                {
+                  blockProps: {},
+                  ...syncedBlock,
+                  index,
+                  ...getStyles(syncedBlock),
+                  ...attrs,
+                },
+                ["_parent", "_name"],
+              ),
+            );
           }
-          return React.createElement(
-            Component,
-            omit(
-              {
-                blockProps: {},
-                ...block,
-                index,
-                ...getGlobalData(block),
-                ...getStyles(block),
-                ...attrs,
-              },
-              ["_parent", "_name"],
-            ),
-          );
+
+          return React.createElement(ClientWrapper, block);
         }),
       )}
     </>

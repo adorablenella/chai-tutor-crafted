@@ -15,6 +15,7 @@ import { builderStore } from "../store";
 import { useSetAllBlocks } from "../hooks/useTreeData";
 import { Toaster } from "../radix/components/ui/toaster";
 import { useBuilderReset } from "../hooks/useBuilderReset";
+import { syncBlocksWithDefaults } from "@/sdk/package/blocks/builder-blocks";
 
 const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
   const { dndOptions = { backend: MultiBackend } } = props;
@@ -29,8 +30,7 @@ const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
 
   useEffect(() => {
     reset();
-    setAllBlocks(props.blocks);
-    console.log("Need to reset history here as well");
+    setAllBlocks(syncBlocksWithDefaults(props.blocks || []));
   }, [props.blocks]);
 
   return (

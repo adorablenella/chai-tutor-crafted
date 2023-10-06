@@ -5,9 +5,8 @@ import { Image, Link, List, SingleLineText, Styles } from "@/sdk/package/control
 import BlurImage from "@/components/blur-image";
 import { registerClientBlock } from "@/sdk/next/client";
 
-const Navbar = ({ blockProps, menuItems = [], logo, signInStyles }: any) => {
+const Navbar = ({ blockProps, menuItems = [], companyLogo, signUpBtnStyles, signInBtnStyles }: any) => {
   const [state, setState] = useState(false);
-  console.log("menuItems", signInStyles);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = menuItems;
@@ -28,7 +27,7 @@ const Navbar = ({ blockProps, menuItems = [], logo, signInStyles }: any) => {
       <div className="mx-auto max-w-screen-xl items-center gap-x-14 px-4 md:flex md:px-8">
         <div className="flex items-center justify-between py-5 md:block">
           <a href="#/">
-            <BlurImage width="100" height="40" className="h-6 w-auto" src={logo} alt="Float UI logo" />
+            <BlurImage width="100" height="40" className="h-6 w-auto" src={companyLogo} alt="Float UI logo" />
           </a>
           <div className="md:hidden">
             {/* eslint-disable-next-line react/button-has-type */}
@@ -68,10 +67,8 @@ const Navbar = ({ blockProps, menuItems = [], logo, signInStyles }: any) => {
             )}
           </ul>
           <div className="mt-6 flex-1 items-center justify-end gap-x-6 space-y-6 md:mt-0 md:flex md:space-y-0">
-            <a href="#/" className="block text-gray-700 hover:text-gray-900">
-              Log in
-            </a>
-            <div {...signInStyles}>
+            <div {...signInBtnStyles}>Log in</div>
+            <div {...signUpBtnStyles}>
               Sign in
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                 <path
@@ -93,7 +90,7 @@ registerClientBlock(Navbar, {
   label: "Navbar",
   group: "custom",
   props: {
-    logo: Image({ default: "https://floatui.com/logo.svg", title: "Logo" }),
+    companyLogo: Image({ default: "https://floatui.com/logo.svg", title: "Logo" }),
     menuItems: List({
       default: [
         { title: "Home", link: { href: "#/" } },
@@ -105,9 +102,10 @@ registerClientBlock(Navbar, {
         link: Link({ default: { target: "_self", href: "#", type: "url" }, title: "Link" }),
       },
     }),
-    loginLink: Link({ default: { target: "_self", href: "/login", type: "url" }, title: "Login Link" }),
+    signInLink: Link({ default: { target: "_self", href: "/login", type: "url" }, title: "Login Link" }),
     signUpLink: Link({ default: { target: "_self", href: "/register", type: "url" }, title: "Register Link" }),
-    signInStyles: Styles({
+    signInBtnStyles: Styles({ default: "block text-gray-700 hover:text-gray-900" }),
+    signUpBtnStyles: Styles({
       default:
         "bg-primary-800 hover:bg-primary-700 active:bg-primary-900 flex items-center justify-center gap-x-1 rounded-full px-4 py-2 font-medium text-white md:inline-flex",
     }),
