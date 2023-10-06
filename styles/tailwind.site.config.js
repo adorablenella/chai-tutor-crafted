@@ -30,7 +30,7 @@ colors.textDarkMode = TEXT_DARK_MODE;
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./custom-blocks/*.{js,ts,jsx,tsx,mdx}", "./pages/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./custom-blocks/**/*.{js,ts,jsx,tsx,mdx}", "node_modules/preline/dist/*.js"],
   theme: {
     extend: {
       borderRadius: {
@@ -65,5 +65,6 @@ module.exports = {
     require("tailwindcss-animate"),
     require("@headlessui/tailwindcss"),
     require("@headlessui/tailwindcss"),
+    require("preline/plugin"),
   ],
 };

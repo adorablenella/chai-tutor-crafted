@@ -5,10 +5,7 @@ import { mapValues, set } from "lodash";
 import { registerBlock } from "@/sdk/package/controls";
 import { CLIENT_BLOCKS } from "@/sdk/next/CLIENT_BLOCKS";
 
-export const registerClientBlock = (
-  component: React.FC<TBlock & any>,
-  options: Omit<ICustomBlockOptions, "category">,
-) => {
+export const registerClientBlock = (component: React.FC<TBlock & any>, options: ICustomBlockOptions) => {
   set(CLIENT_BLOCKS, options.type, { component, defaults: mapValues(options.props || {}, "default") });
   registerBlock(component, options);
 };

@@ -30,7 +30,7 @@ const Navbar = ({
   return (
     <nav
       {...blockProps}
-      className={`bg-white md:text-sm ${
+      className={`md:text-sm ${
         state ? "mx-2 mt-2 rounded-xl border shadow-lg md:mx-2 md:mt-0 md:border-none md:shadow-none" : ""
       }`}>
       <div className="mx-auto max-w-screen-xl items-center gap-x-14 px-4 md:flex md:px-8">

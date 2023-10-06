@@ -1,6 +1,6 @@
 "use client";
 
-import "../../custom-blocks/Navbar";
+import "../../custom-blocks/client";
 
 import { CLIENT_BLOCKS } from "@/sdk/next/CLIENT_BLOCKS";
 import React, { useCallback } from "react";

@@ -1,4 +1,6 @@
 import "./Hero";
 import "./Logos";
 import "./Features";
-import "./Navbar";
+import "./headings/heading1";
+import "./navbars/Navbar2";
+import "./client";

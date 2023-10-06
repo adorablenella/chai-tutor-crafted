@@ -92,6 +92,7 @@
     "next-mdx-remote": "^4.4.1",
     "openai-edge": "^1.2.0",
     "post-robot": "10.0.46",
+    "preline": "^1.9.0",
     "react": "18.2.0",
     "react-autosuggest": "10.1.0",
     "react-colorful": "5.6.1",

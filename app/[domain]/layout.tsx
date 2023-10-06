@@ -3,6 +3,7 @@ import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { getSiteByDomain } from "../helpers/project";
 import "@/custom-blocks";
+import { Preline } from "@/components/preline";
 
 export default async function SiteLayout({ params, children }: { params: { domain: string }; children: ReactNode }) {
   const { domain } = params;
@@ -21,5 +22,10 @@ export default async function SiteLayout({ params, children }: { params: { domai
     return redirect(`https://${data.customDomain}`);
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      <Preline />
+      {children}
+    </>
+  );
 }

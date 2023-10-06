@@ -250,6 +250,9 @@ dependencies:
   post-robot:
     specifier: 10.0.46
     version: 10.0.46
+  preline:
+    specifier: ^1.9.0
+    version: 1.9.0
   react:
     specifier: 18.2.0
     version: 18.2.0
@@ -7166,6 +7169,12 @@ packages:
       simple-get: 4.0.1
       tar-fs: 2.1.1
       tunnel-agent: 0.6.0
+    dev: false
+
+  /preline@1.9.0:
+    resolution: {integrity: sha512-zvOexsDBood9gBAQYSwz7iY8TaomtRD0/qxvCnJl3caq5pif6frl8Oe4b4DsxHHD3Clzl4I5RmVKTq9XjMvNJA==}
+    dependencies:
+      '@popperjs/core': 2.11.8
     dev: false
 
   /prelude-ls@1.2.1:
