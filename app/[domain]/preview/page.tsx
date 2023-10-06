@@ -4,7 +4,7 @@ import { get } from "lodash";
 export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { domain: string } }) {
-  const snapshot = await fetchRouteSnapshot(params.domain, "", true);
+  const snapshot = await fetchRouteSnapshot(params.domain);
   return {
     title: get(snapshot, "pageData.seo_data.title", ""),
     description: get(snapshot, "pageData.seo_data.description", ""),
@@ -24,5 +24,5 @@ export async function generateMetadata({ params }: { params: { domain: string } 
 }
 
 export default async function SiteHomePage({ params }: { params: { domain: string } }) {
-  return <RenderBlocks preview={true} slug={""} domain={params.domain} />;
+  return <RenderBlocks slug={""} domain={params.domain} />;
 }
