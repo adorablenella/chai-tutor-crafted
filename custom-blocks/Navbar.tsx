@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Image, Link, List, SingleLineText } from "@/sdk/package/controls";
+import { Image, Link, List, SingleLineText, Styles } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 import { registerClientBlock } from "@/sdk/next/client";
 
-const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
+const Navbar = ({ blockProps, menuItems = [], logo, signInStyles }: any) => {
   const [state, setState] = useState(false);
+  console.log("menuItems", signInStyles);
 
   // Replace javascript:void(0) paths with your paths
   const navigation = menuItems;
@@ -70,9 +71,7 @@ const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
             <a href="#/" className="block text-gray-700 hover:text-gray-900">
               Log in
             </a>
-            <a
-              href="#/"
-              className="bg-primary-800 hover:bg-primary-700 active:bg-primary-900 flex items-center justify-center gap-x-1 rounded-full px-4 py-2 font-medium text-white md:inline-flex">
+            <div {...signInStyles}>
               Sign in
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                 <path
@@ -81,7 +80,7 @@ const Navbar = ({ blockProps, menuItems = [], logo }: any) => {
                   clipRule="evenodd"
                 />
               </svg>
-            </a>
+            </div>
           </div>
         </div>
       </div>
@@ -108,5 +107,9 @@ registerClientBlock(Navbar, {
     }),
     loginLink: Link({ default: { target: "_self", href: "/login", type: "url" }, title: "Login Link" }),
     signUpLink: Link({ default: { target: "_self", href: "/register", type: "url" }, title: "Register Link" }),
+    signInStyles: Styles({
+      default:
+        "bg-primary-800 hover:bg-primary-700 active:bg-primary-900 flex items-center justify-center gap-x-1 rounded-full px-4 py-2 font-medium text-white md:inline-flex",
+    }),
   },
 });
