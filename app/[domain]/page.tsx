@@ -2,7 +2,7 @@ import { fetchRouteSnapshot, RenderBlocks } from "@/sdk/next";
 import { get } from "lodash";
 
 export async function generateMetadata({ params }: { params: { domain: string } }) {
-  const snapshot = await fetchRouteSnapshot("_home", params.domain);
+  const snapshot = await fetchRouteSnapshot(params.domain);
   return {
     title: get(snapshot, "pageData.seo_data.title", ""),
     description: get(snapshot, "pageData.seo_data.description", ""),
@@ -22,5 +22,5 @@ export async function generateMetadata({ params }: { params: { domain: string } 
 }
 
 export default async function SiteHomePage({ params }: { params: { domain: string } }) {
-  return <RenderBlocks slug={"_home"} domain={params.domain} />;
+  return <RenderBlocks domain={params.domain} />;
 }

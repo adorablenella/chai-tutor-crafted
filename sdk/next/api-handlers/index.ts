@@ -247,7 +247,7 @@ export const chaiBuilderGETHandler = async (request: Request, { params }: { para
   } else if (entity === "route-data") {
     const slug = searchParams.get("slug") as string;
     const domain = searchParams.get("domain") as string;
-    return { response: await getRouteSnapshot(slug, domain, []) };
+    return { response: await getRouteSnapshot(domain, slug) };
   } else if (entity === "publish") {
     const slug = searchParams.get("slug") as string;
     const domain = searchParams.get("domain") as string;

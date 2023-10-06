@@ -15,7 +15,7 @@ const NextBlocksRenderer = async ({
   slug: string;
   domain: string;
 }) => {
-  const snapshot = await fetchRouteSnapshot(slug, domain);
+  const snapshot = await fetchRouteSnapshot(domain, slug);
   if (model === "section") {
     return <div>Generate the section page</div>;
   }

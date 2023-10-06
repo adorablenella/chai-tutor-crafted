@@ -8,9 +8,9 @@ const NextBlocksRenderer = lazy(() => import("./NextBlocksRenderer"));
 
 export const RenderBlocks = ({
   model = "page",
-  slug,
+  slug = "",
   domain,
-}: RenderBlocksProps<"section" | "page"> & { slug: string; domain: string }) => {
+}: RenderBlocksProps<"section" | "page"> & { slug?: string; domain: string }) => {
   const mode = typeof window !== "undefined" && window.self !== window.top ? "builder" : "live";
   const render =
     {

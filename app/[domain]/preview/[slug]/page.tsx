@@ -2,6 +2,8 @@ import { fetchRouteSnapshot, RenderBlocks } from "@/sdk/next";
 import { notFound } from "next/navigation";
 import { get } from "lodash";
 
+export const revalidate = 0;
+
 export async function generateMetadata({ params }: { params: { domain: string; slug: string } }) {
   const snapshot = await fetchRouteSnapshot(params.domain, params.slug);
   return {

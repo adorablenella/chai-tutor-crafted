@@ -19,8 +19,8 @@ const getSeoData = (pageData: any, projectData: TProjectData) => {
   };
 };
 
-export const getRouteSnapshot = async (_slug: string, domain: string, sourceCode: string[]) => {
-  const slug = _slug === "_home" ? "" : _slug;
+export const getRouteSnapshot = async (domain: string, _slug: string) => {
+  const slug = _slug === "" ? "" : _slug;
   const { data: project } = await supabase.from("projects").select(`*`).eq("subdomain", domain).single();
 
   if (!project) {
@@ -41,16 +41,13 @@ export const getRouteSnapshot = async (_slug: string, domain: string, sourceCode
     return { notFound: true };
   }
 
-  // TODO:
-  // fetch global blocks here once and pass as params
-
   const blocks = page?.blocks || [];
   const projectData: TProjectData = get(page, "projects", {});
   const brandingClasses = getBrandingClasses(projectData.branding_options);
 
   const styles = await getTailwindCSS(
     projectData.branding_options,
-    [JSON.stringify(blocks), ...sourceCode],
+    [JSON.stringify(blocks)],
     brandingClasses.split(" "),
   );
 
