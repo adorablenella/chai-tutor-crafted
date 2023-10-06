@@ -1,5 +1,5 @@
 import { TProjectData } from "@/sdk/next/types";
-import { get, isEmpty, merge } from "lodash";
+import { get, isEmpty, merge, replace } from "lodash";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { getBrandingClasses, getTailwindCSS } from "@/sdk/next/functions";
 import supabase from "@/app/helpers/supabase";
@@ -47,7 +47,7 @@ export const getRouteSnapshot = async (domain: string, _slug: string) => {
 
   const styles = await getTailwindCSS(
     projectData.branding_options,
-    [JSON.stringify(blocks)],
+    [replace(JSON.stringify(blocks), /#styles:/g, "")],
     brandingClasses.split(" "),
   );
 

@@ -38,17 +38,15 @@ export async function getTailwindCSS(options: any, markupString: string[], safel
         },
       },
       plugins: [twForms, twTypography, twAspectRatio, twLineClamp, twHeadlessUI],
-      corePlugins: {},
+      corePlugins: { preflight: false },
     },
   });
 
   const css = await tailwind.generateStylesFromContent(
-    ` @tailwind base;
-      @tailwind components;
+    ` @tailwind components;
       @tailwind utilities;`,
     markupString,
   );
-
   return `${css} h1,h2,h3,h4,h5,h6{font-family: "${headingFont}",${defaultTheme.fontFamily.sans.join(", ")};}`;
 }
 
