@@ -5,10 +5,10 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, icon, content, iconPos, styles } = block;
+  const { blockProps, icon, label, iconPos, styles } = block;
   const child = (
     <>
-      {content}
+      {label}
       {icon && <span className={iconPos || ""} dangerouslySetInnerHTML={{ __html: icon }} />}
     </>
   );

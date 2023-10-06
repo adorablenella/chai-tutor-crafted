@@ -17,10 +17,10 @@ export const HeadTags = ({ model }: { model: string }) => {
 
   const [highlightedBlockStyle] = useState(iframeDoc?.getElementById("highlighted-block") as HTMLStyleElement);
   const [selectedBlockStyle] = useState<HTMLStyleElement>(
-    iframeDoc?.getElementById("selected-block") as HTMLStyleElement
+    iframeDoc?.getElementById("selected-block") as HTMLStyleElement,
   );
   const [selectedStylingBlocks] = useState<HTMLStyleElement>(
-    iframeDoc?.getElementById("selected-styling-block") as HTMLStyleElement
+    iframeDoc?.getElementById("selected-styling-block") as HTMLStyleElement,
   );
 
   useEffect(() => {
@@ -42,7 +42,7 @@ export const HeadTags = ({ model }: { model: string }) => {
     colors.primary.DEFAULT = primary;
     colors.secondary.DEFAULT = secondary;
 
-    const borderRadius = get(brandingOptions, "roundedCorners", "0");
+    const borderRadius = get(brandingOptions, "_roundedCorners", "0");
     // @ts-ignore
     if (!iframeWin || !iframeWin.tailwind) return;
     // @ts-ignore
@@ -125,7 +125,7 @@ export const HeadTags = ({ model }: { model: string }) => {
           type="text/css"
           href={`https://fonts.googleapis.com/css2?family=${headingFont.replace(
             / /g,
-            "+"
+            "+",
           )}:wght@300;400;500;600;700;800;900&display=swap`}
           media="all"
         />
@@ -137,7 +137,7 @@ export const HeadTags = ({ model }: { model: string }) => {
           type="text/css"
           href={`https://fonts.googleapis.com/css2?family=${bodyFont.replace(
             / /g,
-            "+"
+            "+",
           )}:wght@300;400;500;600;700;800;900&display=swap`}
           media="all"
         />
