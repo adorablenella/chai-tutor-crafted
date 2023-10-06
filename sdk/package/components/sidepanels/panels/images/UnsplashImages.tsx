@@ -144,7 +144,7 @@ const UnsplashImages = ({ isModalView, onSelect }: { isModalView: boolean; onSel
           </div>
         )}
         {isModalView ? (
-          <div className="h-full columns-3 py-2">
+          <div className="h-full columns-5 py-2">
             {images.map((pic) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div

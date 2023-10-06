@@ -65,7 +65,8 @@ const BrandingOptions = (): React.JSX.Element => {
 
   React.useEffect(() => {
     return () => onSaveBrandingOptions(brandingRef.current);
-  }, [brandingRef, onSaveBrandingOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [brandingRef]);
 
   const updateRealtime = ({ formData }: IChangeEvent, id?: string) => {
     if (id) {

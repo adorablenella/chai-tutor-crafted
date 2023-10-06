@@ -94,7 +94,7 @@ const UploadImages = ({ isModalView, onSelect }: { isModalView: boolean; onSelec
           </div>
         )}
         {isModalView ? (
-          <div className="h-full columns-3 py-2">
+          <div className="h-full columns-5 py-2">
             {map(images, (pic) => (
               // eslint-disable-next-line jsx-a11y/click-events-have-key-events
               <div role="button" tabIndex={0} className="my-1 flex" key={pic.id} onClick={() => onSelect(pic.url)}>
