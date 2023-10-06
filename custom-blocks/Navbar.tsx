@@ -1,11 +1,20 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Image, Link, List, SingleLineText, Styles } from "@/sdk/package/controls";
+import { Image, Link as LinkControl, List, SingleLineText, Styles } from "@/sdk/package/controls";
 import BlurImage from "@/components/blur-image";
 import { registerClientBlock } from "@/sdk/next/client";
+import Link from "next/link";
 
-const Navbar = ({ blockProps, menuItems = [], companyLogo, signUpBtnStyles, signInBtnStyles }: any) => {
+const Navbar = ({
+  blockProps,
+  menuItems = [],
+  companyLogo,
+  signUpBtnStyles,
+  signInBtnStyles,
+  signUpLink,
+  signInLink,
+}: any) => {
   const [state, setState] = useState(false);
 
   // Replace javascript:void(0) paths with your paths
@@ -26,9 +35,16 @@ const Navbar = ({ blockProps, menuItems = [], companyLogo, signUpBtnStyles, sign
       }`}>
       <div className="mx-auto max-w-screen-xl items-center gap-x-14 px-4 md:flex md:px-8">
         <div className="flex items-center justify-between py-5 md:block">
-          <a href="#/">
-            <BlurImage width="100" height="40" className="h-6 w-auto" src={companyLogo} alt="Float UI logo" />
-          </a>
+          <Link href="/" className="flex items-center font-bold">
+            <BlurImage
+              width="100"
+              height="40"
+              className="h-6 w-auto rounded-md"
+              src={companyLogo}
+              alt="Float UI logo"
+            />
+            &nbsp; Chai Builder
+          </Link>
           <div className="md:hidden">
             {/* eslint-disable-next-line react/button-has-type */}
             <button className="menu-btn text-gray-500 hover:text-gray-800" onClick={() => setState(!state)}>
@@ -54,21 +70,23 @@ const Navbar = ({ blockProps, menuItems = [], companyLogo, signUpBtnStyles, sign
             </button>
           </div>
         </div>
-        <div className={`mt-8 flex-1 items-center md:mt-0 md:flex ${state ? "block" : "hidden"} `}>
+        <div className={`mt-8 flex-1 items-center pb-5 md:mt-0 md:flex md:pb-0 ${state ? "block" : "hidden"} `}>
           <ul className="items-center justify-center space-y-6 md:flex md:space-x-6 md:space-y-0">
             {React.Children.toArray(
               navigation.map((item: any) => (
                 <li className="text-gray-700 hover:text-gray-900">
-                  <a href={item.link.href} className="block">
+                  <Link href={item.link.href} className="block">
                     {item.title}
-                  </a>
+                  </Link>
                 </li>
               )),
             )}
           </ul>
           <div className="mt-6 flex-1 items-center justify-end gap-x-6 space-y-6 md:mt-0 md:flex md:space-y-0">
-            <div {...signInBtnStyles}>Log in</div>
-            <div {...signUpBtnStyles}>
+            <Link href={signInLink.href} {...signInBtnStyles}>
+              Log in
+            </Link>
+            <Link href={signUpLink.href} {...signUpBtnStyles}>
               Sign in
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-5 w-5">
                 <path
@@ -77,7 +95,7 @@ const Navbar = ({ blockProps, menuItems = [], companyLogo, signUpBtnStyles, sign
                   clipRule="evenodd"
                 />
               </svg>
-            </div>
+            </Link>
           </div>
         </div>
       </div>
@@ -91,6 +109,13 @@ registerClientBlock(Navbar, {
   group: "custom",
   props: {
     companyLogo: Image({ default: "https://floatui.com/logo.svg", title: "Logo" }),
+    signInLink: LinkControl({ default: { target: "_self", href: "/login", type: "url" }, title: "Login Link" }),
+    signUpLink: LinkControl({ default: { target: "_self", href: "/register", type: "url" }, title: "Register Link" }),
+    signInBtnStyles: Styles({ default: "block text-gray-700 hover:text-gray-900" }),
+    signUpBtnStyles: Styles({
+      default:
+        "bg-primary-800 hover:bg-primary-700 active:bg-primary-900 flex items-center justify-center gap-x-1 rounded-full px-4 py-2 font-medium text-white md:inline-flex",
+    }),
     menuItems: List({
       default: [
         { title: "Home", link: { href: "#/" } },
@@ -99,15 +124,8 @@ registerClientBlock(Navbar, {
       title: "Menu Items",
       itemProperties: {
         title: SingleLineText({ default: "Menu Item", title: "Menu Item" }),
-        link: Link({ default: { target: "_self", href: "#", type: "url" }, title: "Link" }),
+        link: LinkControl({ default: { target: "_self", href: "#", type: "url" }, title: "Link" }),
       },
-    }),
-    signInLink: Link({ default: { target: "_self", href: "/login", type: "url" }, title: "Login Link" }),
-    signUpLink: Link({ default: { target: "_self", href: "/register", type: "url" }, title: "Register Link" }),
-    signInBtnStyles: Styles({ default: "block text-gray-700 hover:text-gray-900" }),
-    signUpBtnStyles: Styles({
-      default:
-        "bg-primary-800 hover:bg-primary-700 active:bg-primary-900 flex items-center justify-center gap-x-1 rounded-full px-4 py-2 font-medium text-white md:inline-flex",
     }),
   },
 });
