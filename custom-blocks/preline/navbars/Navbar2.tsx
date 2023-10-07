@@ -3,7 +3,7 @@ import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import React from "react";
 import { Image } from "@/sdk/package/controls/controls";
-import { DarkModeSwitch } from "@/custom-blocks/preline/dark-mode-switch";
+import { DarkModeSwitch } from "@/custom-blocks/preline/DarkModeSwitch";
 
 const Navbar2 = ({ logo, blockProps }: any) => {
   return (
@@ -14,7 +14,7 @@ const Navbar2 = ({ logo, blockProps }: any) => {
         <div className="flex items-center justify-between">
           <Link href="/" className="flex w-fit items-center font-bold">
             <BlurImage width="100" height="40" className="h-6 w-auto rounded-md" src={logo} alt="Float UI logo" />
-            <span>&nbsp; Chai Builder</span>
+            <span className="block w-40 text-lg">&nbsp; Chai Builder</span>
           </Link>
           <div className="md:hidden">
             <button
@@ -47,7 +47,7 @@ const Navbar2 = ({ logo, blockProps }: any) => {
         </div>
         <div
           id="navbar-collapse-with-animation"
-          className="hs-collapse hidden grow basis-full overflow-hidden transition-all duration-300 md:block">
+          className="hs-collapse hidden grow basis-full transition-all duration-300 md:block">
           <div className="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-7 md:gap-y-0 md:pl-7">
             <a className="font-medium text-blue-600 dark:text-blue-500 md:py-6" href="#" aria-current="page">
               Landing

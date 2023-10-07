@@ -1,24 +1,10 @@
 import React, { useCallback } from "react";
-import {
-  filter,
-  find,
-  get,
-  includes,
-  isArray,
-  isEmpty,
-  isNumber,
-  isObject,
-  isString,
-  isUndefined,
-  memoize,
-  omit,
-  set,
-} from "lodash";
+import { filter, find, includes, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { useAtom } from "jotai";
 import { useThrottledCallback } from "@react-hookz/web";
 import { TBlock } from "../../../types/TBlock";
-import { GLOBAL_DATA_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
+import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
 import { TStyleAttrs } from "../../../types/index";
 import { useAllBlocks, useHighlightBlockId } from "../../../hooks";
 import { canvasGlobalDataAtom } from "../framework/store";
@@ -29,8 +15,8 @@ const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot
   const slots: { [key: string]: string[] } = {};
   Object.keys(block).forEach((key) => {
-    if (isString(block[key]) && block[key].startsWith("slots:")) {
-      slots[key] = block[key].replace("slots:", "").split(",");
+    if (isString(block[key]) && block[key].startsWith(SLOT_KEY)) {
+      slots[key] = block[key].replace(SLOT_KEY, "").split(",");
     }
   });
   return slots;
@@ -58,49 +44,6 @@ function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any) {
   });
   return styles;
 }
-
-const isCorrectFormat = (data: any, dataType: string) => {
-  if (dataType === "string") {
-    return isString(data);
-  }
-  if (dataType === "number") {
-    return isNumber(data);
-  }
-  if (dataType === "boolean") {
-    return data === true || data === false;
-  }
-  if (dataType === "object") {
-    return isObject(data);
-  }
-  if (dataType === "array") {
-    return isArray(data);
-  }
-  return false;
-};
-
-function getGlobalDataAttrs(block: TBlock, globalData: { [key: string]: any }) {
-  const globalDataAttrs: { [key: string]: any } = {};
-  Object.keys(block).forEach((key) => {
-    if (isString(block[key]) && block[key].startsWith(GLOBAL_DATA_KEY)) {
-      const [, dataType, path] = block[key].split(":");
-      const data = get(globalData, path);
-      set(globalDataAttrs, key, isUndefined(data) ? "" : isCorrectFormat(data, dataType) ? data : undefined);
-    }
-  });
-  return globalDataAttrs;
-}
-
-// function getLanguageTranslationAttrs(block: TBlock, globalData: { [key: string]: any }) {
-//   const globalDataAttrs: { [key: string]: any } = {};
-//   Object.keys(block).forEach((key) => {
-//     if (isString(block[key]) && block[key].startsWith(I18N_KEY)) {
-//       const [, dataType, path] = block[key].split(":");
-//       const data = get(globalData, path);
-//       set(globalDataAttrs, key, isUndefined(data) ? "" : isCorrectFormat(data, dataType) ? data : undefined);
-//     }
-//   });
-//   return globalDataAttrs;
-// }
 
 export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
   const allBlocks = useAllBlocks();
@@ -134,8 +77,6 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
     [onMouseMove, onMouseLeave],
   );
 
-  const getGlobalData = useCallback((block: TBlock) => getGlobalDataAttrs(block, globalData), [globalData]);
-
   return (
     <>
       {React.Children.toArray(
@@ -151,7 +92,7 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "Slot", "DataContext", "Link", "List", "ListItem"], block._type)) {
+          if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
             const childBlocks = filter(allBlocks, { _parent: block._id });
             attrs.children = childBlocks.length ? <BlocksRendererStatic blocks={childBlocks} /> : null;
           }
@@ -163,7 +104,6 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
                 blockProps: { "data-block-id": block._id, "data-block-type": block._type },
                 ...block,
                 index,
-                ...getGlobalData(block),
                 ...getStyles(block),
                 ...attrs,
               },

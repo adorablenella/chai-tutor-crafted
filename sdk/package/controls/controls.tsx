@@ -116,6 +116,7 @@ export const Checkbox = (props: TCheckboxProps) =>
   ({
     type: "singular",
     i18n: props.i18n || false,
+    default: props.default || false,
     schema: {
       type: "boolean",
       ...omit(props, ["i18n", "required"]),

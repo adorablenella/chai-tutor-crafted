@@ -2,7 +2,7 @@ import React from "react";
 import { filter, find, get, includes, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../package/types/TBlock";
-import { STYLES_KEY } from "../package/constants/CONTROLS";
+import { SLOT_KEY, STYLES_KEY } from "../package/constants/CONTROLS";
 import { SERVER_BLOCKS } from "@/sdk/next/SERVER_BLOCKS";
 import { ClientWrapper } from "@/sdk/next/ClientWrapper";
 
@@ -14,8 +14,8 @@ const getSlots = (block: TBlock) => {
   // loop over all keys and find the ones that start with slot
   const slots: { [key: string]: string[] } = {};
   Object.keys(block).forEach((key) => {
-    if (isString(block[key]) && block[key].startsWith("slots:")) {
-      slots[key] = block[key].replace("slots:", "").split(",");
+    if (isString(block[key]) && block[key].startsWith(SLOT_KEY)) {
+      slots[key] = block[key].replace(SLOT_KEY, "").split(",");
     }
   });
   return slots;
