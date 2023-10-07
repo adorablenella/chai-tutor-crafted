@@ -60,10 +60,6 @@ export default function BlockSettings() {
 
   return (
     <div>
-      {/*<div className="px-4">*/}
-      {/*  <DataBindings />*/}
-      {/*</div>*/}
-      {/*<hr />*/}
       <Form
         widgets={{
           richtext: RichTextEditorField,

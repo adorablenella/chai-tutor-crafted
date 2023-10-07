@@ -3,7 +3,7 @@ import { useThrottledCallback } from "@react-hookz/web";
 import { get, isNaN, isNull, startsWith } from "lodash";
 import { useTranslation } from "react-i18next";
 import { MixerHorizontalIcon } from "@radix-ui/react-icons";
-import { ScrollArea, Tabs, TabsContent, TabsList, TabsTrigger } from "../../radix-ui";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../../radix-ui";
 import BlockSettings from "./BlockSettings";
 import BlockStyling from "./BlockStyling";
 import { BlockSettingsContext } from "./SettingsContext";
@@ -63,7 +63,7 @@ const Settings: React.FC = () => {
       setDraggedVal(`${value}`);
     },
     [dragData],
-    50
+    50,
   );
 
   const dragStopped = useCallback(() => {
@@ -104,15 +104,15 @@ const Settings: React.FC = () => {
         />
       ) : null}
 
-      <Tabs defaultValue="settings" className="flex flex-col h-full w-full py-1">
-        <TabsList className="grid grid-cols-2 mx-1">
+      <Tabs defaultValue="settings" className="flex h-full w-full flex-col py-1">
+        <TabsList className="mx-1 grid grid-cols-2">
           <TabsTrigger value="settings">Settings</TabsTrigger>
           <TabsTrigger value="styling">Styling</TabsTrigger>
         </TabsList>
-        <TabsContent value="settings" className="flex-1 overflow-y-auto">
-          <ScrollArea className="h-full overflow-x-hidden no-scrollbar -mx-1">
-            <BlockSettings />
-          </ScrollArea>
+        <TabsContent
+          value="settings"
+          className="no-scrollbar -mx-1 -mr-2 h-full flex-1 overflow-y-auto overflow-x-hidden">
+          <BlockSettings />
         </TabsContent>
         <TabsContent value="styling" className="flex-1 overflow-y-auto overflow-x-hidden">
           <BlockStyling />

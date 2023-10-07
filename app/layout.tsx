@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Script from "next/script";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
@@ -25,7 +26,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="min-h-full bg-background text-foreground">{children}</body>
+      <body className="min-h-full bg-background text-foreground">
+        {children}
+        <Script src={"https://preline.co/assets/vendor/preline/preline.js"} />
+      </body>
     </html>
   );
 }

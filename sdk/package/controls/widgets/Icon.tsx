@@ -14,7 +14,7 @@ const getSvgMarkup = (icon: string) => {
   iconPickerContainer.hidden = true;
   const iconPickerMarkup = iconPickerContainer.innerHTML;
 
-  setTimeout(() => container.removeChild(iconPickerContainer), 2000);
+  setTimeout(() => container.removeChild(iconPickerContainer), 1000);
 
   return iconPickerMarkup;
 };
