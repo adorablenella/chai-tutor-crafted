@@ -2,9 +2,6 @@
 
 import { get } from "lodash";
 
-const GOOGLE_FONT = (font: string) =>
-  `https://fonts.googleapis.com/css2?family=${font}:wght@300;400;500;600;700;800;900&display=swap`;
-
 export const StylesAndFonts = ({ snapshot }: any) => {
   const isDifferentFont =
     get(snapshot.projectData.branding_options, "_headingFont", "") !==
@@ -14,11 +11,25 @@ export const StylesAndFonts = ({ snapshot }: any) => {
     <>
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin={""} />
-      <link rel="stylesheet" href={GOOGLE_FONT(get(snapshot.projectData.branding_options, "_headingFont", ""))} />
-      {isDifferentFont ? (
-        <link rel="stylesheet" href={GOOGLE_FONT(get(snapshot.projectData.branding_options, "_bodyFont", ""))} />
-      ) : null}
-      <style id={"block-styles"}>{snapshot.styles}</style>
+      <style jsx global>
+        {`
+          @import url("https://fonts.googleapis.com/css2?family=${get(
+            snapshot.projectData.branding_options,
+            "_headingFont",
+            "",
+          )}:wght@300;400;500;600;700;800;900&display=swap");
+          ${isDifferentFont
+            ? `@import url("https://fonts.googleapis.com/css2?family=${get(
+                snapshot.projectData.branding_options,
+                "_bodyFont",
+                "",
+              )}:wght@300;400;500;600;700;800;900&display=swap");`
+            : ""}
+          body {
+          }
+          ${snapshot.styles}
+        `}
+      </style>
     </>
   );
 };
