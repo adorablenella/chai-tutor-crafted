@@ -30,6 +30,7 @@ colors.textDarkMode = TEXT_DARK_MODE;
 module.exports = {
   darkMode: "class",
   content: ["./custom-blocks/**/*.{js,ts,jsx,tsx,mdx}", "node_modules/preline/dist/*.js"],
+  safelist: ["min-h-screen"],
   theme: {
     extend: {
       borderRadius: {

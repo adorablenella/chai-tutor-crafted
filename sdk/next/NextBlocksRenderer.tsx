@@ -5,6 +5,7 @@ import { Provider } from "react-wrap-balancer";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { fetchRouteSnapshot } from "@/sdk/next/api-handlers/fetchRouteSnapshot";
 import { StylesAndFonts } from "@/app/[domain]/StylesAndFonts";
+import { cn } from "@/lib/utils";
 
 const NextBlocksRenderer = async ({
   model = "page",
@@ -25,7 +26,7 @@ const NextBlocksRenderer = async ({
   return (
     <>
       <StylesAndFonts snapshot={snapshot} />
-      <div className={getBrandingClasses(brandingOptions)}>
+      <div className={cn(getBrandingClasses(brandingOptions), "min-h-screen")}>
         <Provider>
           <BlocksRendererLive
             snapshot={snapshot}
