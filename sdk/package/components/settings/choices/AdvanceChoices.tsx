@@ -3,7 +3,7 @@ import { get, isEmpty, isNaN, parseInt } from "lodash";
 import { useThrottledCallback } from "@react-hookz/web";
 import { InfoCircledIcon, RowSpacingIcon, TriangleDownIcon } from "@radix-ui/react-icons";
 import { getUserInputValues } from "../../../functions/GetUserInputValues";
-import { Button, Tooltip, TooltipContent, TooltipTrigger } from "../../../radix-ui";
+import { Button, Tooltip, TooltipContent, TooltipPortal, TooltipTrigger } from "../../../radix-ui";
 import { getClassValueAndUnit } from "../../../styling/Helpers";
 import { BlockSettingsContext } from "../SettingsContext";
 
@@ -262,17 +262,19 @@ export const AdvanceChoices = (props: RangeOptionsType) => {
                     {units.length > 1 ? <TriangleDownIcon /> : null}
                   </button>
                 </TooltipTrigger>
-                <TooltipContent className="bg-background">
-                  <UnitSelection
-                    units={units}
-                    current={unit}
-                    onSelect={(val: string) => {
-                      setShowUnits(false);
-                      setUnit(val);
-                      setStyleForUnit(val);
-                    }}
-                  />
-                </TooltipContent>
+                <TooltipPortal>
+                  <TooltipContent className="bg-background">
+                    <UnitSelection
+                      units={units}
+                      current={unit}
+                      onSelect={(val: string) => {
+                        setShowUnits(false);
+                        setUnit(val);
+                        setStyleForUnit(val);
+                      }}
+                    />
+                  </TooltipContent>
+                </TooltipPortal>
               </Tooltip>
             </div>
             {["none", "auto"].indexOf(unit) !== -1 || lift ? null : (
