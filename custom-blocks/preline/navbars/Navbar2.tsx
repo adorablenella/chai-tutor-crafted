@@ -1,15 +1,21 @@
 import { registerServerBlock } from "@/sdk/next/server";
+import BlurImage from "@/components/blur-image";
+import Link from "next/link";
+import React from "react";
+import { Image } from "@/sdk/package/controls/controls";
+import { DarkModeSwitch } from "@/custom-blocks/preline/dark-mode-switch";
 
-const Navbar2 = () => {
+const Navbar2 = ({ logo, blockProps }: any) => {
   return (
-    <header className="z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start">
+    <header {...blockProps} className="z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start">
       <nav
         className="relative mx-2 mt-6 w-full max-w-7xl rounded-[36px] border border-gray-200 bg-white px-4 py-3 dark:border-gray-700 dark:bg-gray-800 md:flex md:items-center md:justify-between md:px-6 md:py-0 lg:px-8 xl:mx-auto"
         aria-label="Global">
         <div className="flex items-center justify-between">
-          <a className="flex-none text-xl font-semibold dark:text-white" href="#" aria-label="Brand">
-            Brand
-          </a>
+          <Link href="/" className="flex w-fit items-center font-bold">
+            <BlurImage width="100" height="40" className="h-6 w-auto rounded-md" src={logo} alt="Float UI logo" />
+            <span>&nbsp; Chai Builder</span>
+          </Link>
           <div className="md:hidden">
             <button
               type="button"
@@ -24,7 +30,7 @@ const Navbar2 = () => {
                 fill="currentColor"
                 viewBox="0 0 16 16">
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"
                 />
               </svg>
@@ -154,6 +160,7 @@ const Navbar2 = () => {
               </svg>
               Log in
             </a>
+            <DarkModeSwitch />
           </div>
         </div>
       </nav>
@@ -165,5 +172,11 @@ registerServerBlock(Navbar2, {
   type: "Navbar2",
   label: "Navbar 2",
   group: "Navbar",
-  props: {},
+  props: {
+    logo: Image({
+      default:
+        "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/chai-builder-logo.png",
+      title: "Logo",
+    }),
+  },
 });

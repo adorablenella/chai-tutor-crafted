@@ -167,3 +167,5 @@ registerClientBlock(DarkModeSwitch, {
   group: "core",
   props: {},
 });
+
+export { DarkModeSwitch };

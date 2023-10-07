@@ -1,2 +1,1 @@
-import "./dark-mode-switch";
-import "./Navbar";
+import "./preline/dark-mode-switch";

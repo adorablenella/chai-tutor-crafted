@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AppWindow, ArrowLeft, Edit3, ExternalLink, Globe, Newspaper, Settings } from "lucide-react";
+import { AppWindow, ArrowLeft, Edit3, ExternalLink, Globe, Settings } from "lucide-react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -33,7 +33,7 @@ export default function Nav({ children }: { children: ReactNode }) {
           href: `/editor/${id}`,
           isActive: segments.includes("edit"),
           icon: <ExternalLink width={18} />,
-          target: "_blank",
+          target: "_self",
         },
         // {
         //   name: "Blogs",
