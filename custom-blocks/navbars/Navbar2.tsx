@@ -77,8 +77,8 @@ const Navbar2 = () => {
                   <path
                     d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
                     stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"></path>
+                    strokeWidth="2"
+                    strokeLinecap="round"></path>
                 </svg>
               </button>
 
@@ -91,7 +91,7 @@ const Navbar2 = () => {
                 <div className="hs-dropdown relative [--adaptive:none] [--strategy:static] md:[--trigger:hover] md:[--strategy:absolute]">
                   <button
                     type="button"
-                    className="flex w-full w-full items-center justify-between rounded-md px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">
+                    className="flex w-full items-center justify-between rounded-md px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-blue-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300">
                     Sub Menu
                     <svg
                       className="ml-2 h-2.5 w-2.5 text-gray-600 md:-rotate-90"
@@ -103,8 +103,8 @@ const Navbar2 = () => {
                       <path
                         d="M2 5L8.16086 10.6869C8.35239 10.8637 8.64761 10.8637 8.83914 10.6869L15 5"
                         stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"></path>
+                        strokeWidth="2"
+                        strokeLinecap="round"></path>
                     </svg>
                   </button>
 

@@ -3,7 +3,7 @@ import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { getSiteByDomain } from "../helpers/project";
 import "@/custom-blocks";
-import { Preline } from "@/components/preline";
+import Script from "next/script";
 
 export default async function SiteLayout({ params, children }: { params: { domain: string }; children: ReactNode }) {
   const { domain } = params;
@@ -24,8 +24,8 @@ export default async function SiteLayout({ params, children }: { params: { domai
 
   return (
     <>
-      <Preline />
       {children}
+      <Script src={"https://preline.co/assets/vendor/preline/preline.js"} />
     </>
   );
 }
