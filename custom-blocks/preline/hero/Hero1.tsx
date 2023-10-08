@@ -95,6 +95,6 @@ registerServerBlock(Hero1, {
   label: "Hero 1",
   group: "Hero",
   props: {
-    content: Slot({ name: "Hero Content" }),
+    content: Slot({ name: "Hero Content", emptyStyles: "h-20" }),
   },
 });

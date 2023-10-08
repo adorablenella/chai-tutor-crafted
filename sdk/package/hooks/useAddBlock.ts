@@ -46,18 +46,11 @@ export const useAddBlock = (): AddBlocks => {
             _parent: blockId,
             _name: coreBlock.props[key].name,
             styles: coreBlock.props[key].styles,
+            emptyStyles: coreBlock.props[key].emptyStyles,
           });
         }
       });
-      // const translations: { [path: string]: any } = getBlockDefaultTranslations(
-      //   coreBlock.props,
-      //   blockId,
-      //   primaryLang,
-      //   []
-      // );
 
-      // TODO: check for #slots and generate slot blocks
-      // TODO: add languages to translations
       const newBlock: any = {
         _type: coreBlock.type,
         _id: blockId,
@@ -77,7 +70,7 @@ export const useAddBlock = (): AddBlocks => {
       setSelected([newBlock._id]);
       return true;
     },
-    [presentBlocks, dispatch, setSelected]
+    [presentBlocks, dispatch, setSelected],
   );
 
   const addPredefinedBlock = useCallback(
@@ -100,7 +93,7 @@ export const useAddBlock = (): AddBlocks => {
       dispatch({ type: "set_blocks", payload: [...presentBlocks, ...blocks] });
       setSelected([first(blocks)?._id]);
     },
-    [presentBlocks, dispatch, setSelected, globalBlocks]
+    [presentBlocks, dispatch, setSelected, globalBlocks],
   );
 
   return { addCoreBlock, addPredefinedBlock };

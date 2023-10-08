@@ -1,13 +1,11 @@
 import React, { useCallback } from "react";
 import { filter, find, includes, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
-import { useAtom } from "jotai";
 import { useThrottledCallback } from "@react-hookz/web";
 import { TBlock } from "../../../types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
 import { TStyleAttrs } from "../../../types/index";
 import { useAllBlocks, useHighlightBlockId } from "../../../hooks";
-import { canvasGlobalDataAtom } from "../framework/store";
 import { getBlockComponent } from "../../../blocks/builder-blocks";
 
 // FIXME:  Duplicate code in CanvasRenderer.tsx
@@ -47,7 +45,6 @@ function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any) {
 
 export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
   const allBlocks = useAllBlocks();
-  const [globalData] = useAtom(canvasGlobalDataAtom);
   const [, setHighlightedId] = useHighlightBlockId();
 
   const onMouseMove = useThrottledCallback(
@@ -99,16 +96,13 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
 
           return React.createElement(
             getBlockComponent(block._type),
-            omit(
-              {
-                blockProps: { "data-block-id": block._id, "data-block-type": block._type },
-                ...block,
-                index,
-                ...getStyles(block),
-                ...attrs,
-              },
-              ["_type", "_parent", "_name"],
-            ),
+            omit({
+              blockProps: { "data-block-id": block._id, "data-block-type": block._type },
+              ...block,
+              index,
+              ...getStyles(block),
+              ...attrs,
+            }),
           );
         }),
       )}

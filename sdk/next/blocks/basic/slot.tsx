@@ -7,14 +7,18 @@ const SlotBlock = (
   props: TBlock & { children: React.ReactNode } & {
     blockProps: Record<string, string>;
     styles: Record<string, string>;
+    emptyStyles?: string;
   },
 ) => {
   const { blockProps, styles, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("flex h-20 flex-col items-center justify-center", props.className)}>
-        <div className="h-full w-full rounded-md border-4 border-dashed" />
+      // @ts-ignore
+      <div className={cn("flex flex-col items-center justify-center", props.emptyStyles?.className)}>
+        <div className="h-full w-full rounded-md border-4 border-dashed">
+          <p className="truncate p-1 text-left text-xs text-gray-400">Slot: {props._name}</p>
+        </div>
       </div>
     );
   }

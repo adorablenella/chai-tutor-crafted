@@ -184,6 +184,7 @@ type TSlotsProps = {
   count: number;
   name: string;
   styles?: string;
+  emptyStyles?: string;
 };
 
 export const Slot = (props: Omit<TSlotsProps, "count">) =>
@@ -192,6 +193,7 @@ export const Slot = (props: Omit<TSlotsProps, "count">) =>
     count: 1,
     name: props.name,
     styles: `${STYLES_KEY},${props.styles || ""}`,
+    emptyStyles: `${STYLES_KEY},${props.emptyStyles || ""}`,
   } as ISlotControlDefinition);
 
 export const RichText = (props: TControlProps) =>

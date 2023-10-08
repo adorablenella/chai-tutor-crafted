@@ -13,7 +13,6 @@ import { useLanguages } from "../../hooks/useLanguages";
 export const Languages = () => {
   const languages = useLanguages();
 
-  console.log("languages", languages);
   if (languages.length === 1) {
     return null;
   }
