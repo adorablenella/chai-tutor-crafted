@@ -122,7 +122,8 @@ export const Checkbox = (props: TCheckboxProps) =>
       ...omit(props, ["i18n", "required"]),
     },
     uiSchema: {
-      "ui:widget": "checkbox",
+      "ui:title": props.title || "Select Item",
+      "ui:description": "",
     },
   } as IControlDefinition);
 

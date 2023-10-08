@@ -69,8 +69,9 @@ const Navbar1 = ({
           id="navbar-collapse-with-animation"
           className="hs-collapse hidden grow basis-full transition-all duration-300 sm:block">
           <div className="mt-5 flex flex-col gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
-            {menuItems?.map((menuItem: any) => (
+            {menuItems?.map((menuItem: any, index: number) => (
               <Link
+                key={menuItem.label + index}
                 className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
                 href={menuItem.link.href}>
                 {menuItem.label}

@@ -18,7 +18,12 @@ const SettingPopover = ({ pageData }: { pageData: TPageData }): React.ReactEleme
       onOpenChange={(_open) => {
         setOpen(open === "PENDING" ? "ALERT" : _open ? "OPEN" : "CLOSE");
       }}>
-      <PopoverTrigger asChild onClick={() => setOpen("OPEN")}>
+      <PopoverTrigger
+        asChild
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpen("OPEN");
+        }}>
         <div className="flex items-center justify-between">
           {open === "OPEN" || open === "ALERT" || open === "PENDING" ? (
             <ChevronRightIcon />
