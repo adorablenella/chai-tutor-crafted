@@ -35,10 +35,10 @@ const AddBlocksPanel = () => {
       </div>
 
       <Tabs onValueChange={() => setCategory("")} defaultValue="core" className="flex h-full w-full flex-col">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="core">Core</TabsTrigger>
           <TabsTrigger value="ui-blocks">UI Blocks</TabsTrigger>
-          <TabsTrigger value="custom">Custom</TabsTrigger>
+          {/*<TabsTrigger value="custom">Custom</TabsTrigger>*/}
         </TabsList>
         <TabsContent value="core" className="h-full px-1">
           <ScrollArea>

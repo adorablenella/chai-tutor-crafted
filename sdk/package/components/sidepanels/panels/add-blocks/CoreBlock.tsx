@@ -6,9 +6,9 @@ import { BoxIcon } from "@radix-ui/react-icons";
 import { addBlockOffCanvasAtom } from "../../../../store/ui";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../radix/components/ui/tooltip";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
-import { TBlock } from "../../../../types/TBlock";
+import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
 
-export const CoreBlock = ({ block }: { block: TBlock }) => {
+export const CoreBlock = ({ block }: { block: any }) => {
   const { type, icon, label } = block;
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
@@ -20,7 +20,7 @@ export const CoreBlock = ({ block }: { block: TBlock }) => {
 
   const addBlockToPage = () => {
     if (has(block, "pre_block_id")) {
-      addPredefinedBlock(block.blocks, first(ids));
+      addPredefinedBlock(syncBlocksWithDefaults(block.blocks), first(ids));
     } else {
       addCoreBlock(block, first(ids));
     }
@@ -37,9 +37,9 @@ export const CoreBlock = ({ block }: { block: TBlock }) => {
             setTimeout(() => setOpen(false), 100);
           }}
           ref={drag}
-          className="border border-border cursor-pointer p-3 text-center space-y-2 rounded-lg hover:bg-slate-300/50">
+          className="cursor-pointer space-y-2 rounded-lg border border-border p-3 text-center hover:bg-slate-300/50">
           {createElement(icon || BoxIcon, { className: "w-4 h-4 mx-auto" })}
-          <p className="text-xs truncate">{label || type}</p>
+          <p className="truncate text-xs">{label || type}</p>
         </button>
       </TooltipTrigger>
       <TooltipContent>

@@ -6,6 +6,7 @@ import { ChevronRightIcon, GearIcon } from "@radix-ui/react-icons";
 import * as PopoverRoot from "@radix-ui/react-popover";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
+import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
 
 const BlockCard = ({ block }: { block: any }) => {
   const getExternalPredefinedBlock = useBuilderProp("getExternalPredefinedBlock");
@@ -13,7 +14,7 @@ const BlockCard = ({ block }: { block: any }) => {
   const [ids] = useSelectedBlockIds();
   const addBlock = useCallback(async () => {
     const uiBlock = await getExternalPredefinedBlock(block);
-    addPredefinedBlock(uiBlock.blocks, first(ids));
+    addPredefinedBlock(syncBlocksWithDefaults(uiBlock.blocks), first(ids));
   }, []);
 
   return (
