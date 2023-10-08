@@ -2,12 +2,22 @@ import { useProject } from "@/sdk/next/hooks/useProject";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/sdk/package/radix-ui";
 import { usePages } from "../hooks/usePages";
 import { map } from "lodash";
-import { useCurrentPage } from "../store";
+import { useCurrentPage, useSyncState } from "../store";
+import { toast } from "sonner";
 
 const CurrentPage = () => {
   const { data: project } = useProject();
   const { data: pages, isLoading } = usePages();
+  const [syncState] = useSyncState();
   const [currentPageUuid, setCurrentPageUuid] = useCurrentPage();
+
+  const changePage = (newPage: string) => {
+    if (syncState !== "SAVED") {
+      toast.error("You have unsaved changes. Please save before changing the page.");
+    } else {
+      setCurrentPageUuid(newPage);
+    }
+  };
 
   if (isLoading) return null;
 
@@ -66,7 +76,7 @@ const CurrentPage = () => {
                 d="m1 9 4-4-4-4"
               />
             </svg>
-            <Select defaultValue={currentPageUuid || ""} onValueChange={setCurrentPageUuid}>
+            <Select defaultValue={currentPageUuid || ""} onValueChange={changePage}>
               <SelectTrigger className="h-max border-0 py-0 text-sm font-medium text-gray-600 shadow-none outline-none ring-0 focus:ring-0 dark:text-gray-400">
                 <SelectValue placeholder="Page" />
               </SelectTrigger>

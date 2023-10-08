@@ -88,17 +88,9 @@ const BrandingOptions = (): React.JSX.Element => {
   }: any = brandingOptions;
 
   const brandingProperties: Record<string, any> = {
-    _headingFont: SelectOption({
-      title: "Heading font",
-      default: _headingFont,
-      options: FONTS,
-    }),
-    _bodyFont: SelectOption({
-      title: "Body font",
-      default: _bodyFont,
-      options: FONTS,
-    }),
-    _roundedCorners: Numeric({ title: "Rounded Corner", default: parseInt(_roundedCorners, 10) }),
+    _headingFont: SelectOption({ title: "Heading font", default: _headingFont, options: FONTS }),
+    _bodyFont: SelectOption({ title: "Body font", default: _bodyFont, options: FONTS }),
+    _roundedCorners: Numeric({ title: "Rounded Corner", default: parseInt(_roundedCorners || 5, 10) }),
     _primaryColor: Color({ title: "Primary", default: _primaryColor }),
     _secondaryColor: Color({ title: "Secondary", default: _secondaryColor }),
     _bodyBgLightColor: Color({ title: "Body Background (Light)", default: _bodyBgLightColor }),
