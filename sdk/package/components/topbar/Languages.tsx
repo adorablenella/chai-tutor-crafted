@@ -13,6 +13,7 @@ import { useLanguages } from "../../hooks/useLanguages";
 export const Languages = () => {
   const languages = useLanguages();
 
+  console.log("languages", languages);
   if (languages.length === 1) {
     return null;
   }
@@ -23,7 +24,7 @@ export const Languages = () => {
           <SelectValue
             placeholder={
               <span className="flex items-center">
-                <FontFamilyIcon className="w-4 h-4" />
+                <FontFamilyIcon className="h-4 w-4" />
                 &nbsp;English(US)
               </span>
             }

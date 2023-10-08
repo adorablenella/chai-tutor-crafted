@@ -5,12 +5,10 @@ import { presentBlocksAtom } from "../store/blocks";
 import { useDispatch } from "./useTreeData";
 import { generateUUID } from "../functions/functions";
 import { useGetPageData } from "./useGetPageData";
-import { useBuilderProps } from "./useBuilderProps";
 import { useBuildingBlocks } from "./useBuildingBlocks";
 
 export const useMarkAsGlobalBlock = (): Function => {
   const presentBlocks = useAtomValue(presentBlocksAtom);
-  const { onSavePage } = useBuilderProps();
   const dispatch = useDispatch();
   const getPageData = useGetPageData();
   const [, , addGlobalBlock] = useBuildingBlocks();
@@ -36,8 +34,9 @@ export const useMarkAsGlobalBlock = (): Function => {
         blocks,
       };
       addGlobalBlock(newGlobal);
-      await onSavePage(getPageData());
+      //TODO: save page
+      // await onSavePage(getPageData());
     },
-    [presentBlocks, dispatch, getPageData, onSavePage, addGlobalBlock],
+    [presentBlocks, dispatch, getPageData, addGlobalBlock],
   );
 };

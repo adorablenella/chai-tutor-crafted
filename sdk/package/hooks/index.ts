@@ -28,7 +28,6 @@ import { useStylingState } from "./useStylingState";
 import { useTreeData } from "./useTreeData";
 import { useUpdateBlocksProps } from "./useUpdateBlocksProps";
 import { useActiveModal } from "./useActiveModal";
-import { useBuilderProps } from "./useBuilderProps";
 import { useAllBlocks } from "./useAllBlocks";
 import { useReadOnlyMode } from "./useReadOnlyMode";
 import { useActivePanel, useAddBlockParent } from "./useActivePanel";
@@ -41,7 +40,6 @@ export {
   useBuilderReset,
   useReadOnlyMode,
   useActiveModal,
-  useBuilderProps,
   useAddBlock,
   useAddClassesToBlocks,
   useBuildingBlocks,

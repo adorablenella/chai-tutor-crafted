@@ -8,7 +8,6 @@ import {
 } from "../../../../radix/components/ui/context-menu";
 import { Dialog, DialogContent } from "../../../../radix/components/ui/dialog";
 import {
-  useBuilderProps,
   useCopyBlockIds,
   useCutBlockIds,
   useDuplicateBlocks,
@@ -17,6 +16,7 @@ import {
   useSelectedBlockIds,
 } from "../../../../hooks";
 import { useSelectedBlock } from "@/sdk/package/hooks/useSelectedBlockIds";
+import { useBuilderProp } from "@/sdk/package/hooks/useBuilderProp";
 
 const MarkAsGlobalBlock = lazy(() => import("./MarkAsGlobalBlock"));
 
@@ -69,7 +69,7 @@ const BlockContextMenuContent = ({
   // const multipleSelected = useMemo<boolean>(() => selectedIds.length > 1, [selectedIds]);
   const duplicateBlocks = useDuplicateBlocks();
   const { pasteBlocks, canPaste } = usePasteBlocks();
-  const { globalBlocksSupport } = useBuilderProps();
+  const globalBlocksSupport = useBuilderProp("globalBlocksSupport", false);
 
   const duplicate = useCallback(() => {
     duplicateBlocks(selectedIds);

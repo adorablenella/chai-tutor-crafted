@@ -3,7 +3,6 @@ import { findLast, get } from "lodash";
 import { InfoCircledIcon, TrashIcon } from "@radix-ui/react-icons";
 import {
   useAddClassesToBlocks,
-  useBuilderProps,
   useCanvasWidth,
   useDarkMode,
   useRemoveClassesFromBlocks,
@@ -134,7 +133,6 @@ const getBreakpoint = (mq: string): string =>
 export const BlockStyle = (props: EditOptionProps) => {
   const { type = "icons", label, property, onEmitChange = () => {}, units, negative = false } = props;
   const [dark] = useDarkMode();
-  const { excludeSettingProperties } = useBuilderProps();
   const [stylingState] = useStylingState();
   const [, mq] = useCanvasWidth();
   const currentClass: ClassDerivedObject = useCurrentClassByProperty(property);
@@ -154,7 +152,7 @@ export const BlockStyle = (props: EditOptionProps) => {
 
       addClassesToBlocks(selectedIds, [fullCls], history);
     },
-    [selectedIds, dark, mq, stylingState, property, addClassesToBlocks]
+    [selectedIds, dark, mq, stylingState, property, addClassesToBlocks],
   );
 
   const removeClass = useCallback(() => {
@@ -181,12 +179,12 @@ export const BlockStyle = (props: EditOptionProps) => {
       };
       setNewWidth(widths[mQuery]);
     },
-    [setNewWidth]
+    [setNewWidth],
   );
 
-  if (excludeSettingProperties.includes(property as never)) {
-    return null;
-  }
+  // if (excludeSettingProperties.includes(property as never)) {
+  //   return null;
+  // }
 
   const canReset =
     get(currentClass, "dark", null) === dark &&
@@ -223,7 +221,7 @@ export const BlockStyle = (props: EditOptionProps) => {
                   <TooltipTrigger asChild>
                     <button
                       type="button"
-                      className="invisible ml-3 mt-1 text-white rounded-full bg-blue-500 group-hover:visible">
+                      className="invisible ml-3 mt-1 rounded-full bg-blue-500 text-white group-hover:visible">
                       <InfoCircledIcon />
                     </button>
                   </TooltipTrigger>
@@ -239,7 +237,7 @@ export const BlockStyle = (props: EditOptionProps) => {
                         <button
                           type="button"
                           onClick={() => setCanvasWidth(get(currentClass, "mq"))}
-                          className="block cursor-default w-full text-right font-semibold text-blue-500">
+                          className="block w-full cursor-default text-right font-semibold text-blue-500">
                           Switch to {get(currentClass, "mq").toUpperCase()}
                         </button>
                       </div>
@@ -249,7 +247,7 @@ export const BlockStyle = (props: EditOptionProps) => {
               ) : null
             ) : (
               <button type="button" onClick={() => removeClass()} title="Reset" className="flex px-1.5 text-xs">
-                <TrashIcon className="w-5 h-5 text-blue-500 hover:opacity-80" />
+                <TrashIcon className="h-5 w-5 text-blue-500 hover:opacity-80" />
               </button>
             )}
           </div>

@@ -42,6 +42,7 @@ export interface ChaiBuilderProviderProps {
   getExternalPredefinedBlock?: (block: PredefinedBlock) => Promise<PredefinedBlock>;
   getUILibraryBlocks?: (libraryUuid: string) => Promise<PredefinedBlock[]>;
   globalBlocks?: Block[];
+  globalBlocksSupport?: boolean;
   importHTML?: boolean;
   loadingCanvas?: boolean;
   mode?: "STATIC" | "EMAIL" | "GRAPHIC" | "PRESENTATION" | "FRAMEWORK";
