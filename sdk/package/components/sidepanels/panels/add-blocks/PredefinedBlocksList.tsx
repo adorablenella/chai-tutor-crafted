@@ -1,10 +1,9 @@
 import { useDrag } from "react-dnd";
 import { useAtom } from "jotai";
-import { filter, first } from "lodash";
+import { first } from "lodash";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { addBlockOffCanvasAtom } from "../../../../store/ui";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
-import { useUILibraryBlocks } from "../../../../hooks/useUiLibraries";
 
 const PredefinedBlock = ({ block }: { block: any }) => {
   const { image } = block;
@@ -12,7 +11,7 @@ const PredefinedBlock = ({ block }: { block: any }) => {
   const [ids] = useSelectedBlockIds();
   const getExternalBlock = useBuilderProp(
     "getExternalPredefinedBlock",
-    async (predefinedBlock: any) => predefinedBlock
+    async (predefinedBlock: any) => predefinedBlock,
   );
   const [{ dragging }, drag, dragPreview] = useDrag(() => ({
     type: "PREDEFINED_BLOCK",
@@ -37,21 +36,9 @@ const PredefinedBlock = ({ block }: { block: any }) => {
         setTimeout(() => setOpen(false), 100);
       }}
       ref={drag}
-      className="border border-border cursor-pointer text-center rounded-lg hover:bg-slate-800/50">
-      <img alt="Group" src={image} className="w-full mx-auto rounded-md" />
-      {dragging ? <div className="w-32 h-10 mx-auto" ref={dragPreview} /> : null}
+      className="cursor-pointer rounded-lg border border-border text-center hover:bg-slate-800/50">
+      <img alt="Group" src={image} className="mx-auto w-full rounded-md" />
+      {dragging ? <div className="mx-auto h-10 w-32" ref={dragPreview} /> : null}
     </button>
-  );
-};
-
-export const PredefinedBlocksList = ({ category }: { category: string }) => {
-  const { data: predefinedBlocks } = useUILibraryBlocks();
-  const blocks = filter(predefinedBlocks, { group: category });
-  return (
-    <div className="grid gap-y-2">
-      {blocks.map((block) => (
-        <PredefinedBlock key={block.c_id} block={block} />
-      ))}
-    </div>
   );
 };
