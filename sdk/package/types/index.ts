@@ -8,13 +8,16 @@ interface UiLibrary {
 
 interface Block {
   type: string;
-
   [key: string]: any;
 }
 
-export interface PredefinedBlock {
-  [key: string]: any;
-}
+export type PredefinedBlock = {
+  uuid: string;
+  name: string;
+  preview: string;
+  blocks?: TBlock[];
+  html?: string;
+};
 
 export type TPageData = {
   uuid?: string;
@@ -39,7 +42,9 @@ export interface ChaiBuilderProviderProps {
   dndOptions?: any;
   fetchMediaCallback?: (limit?: number, offset?: number) => Promise<any[]>;
   frameworkPageUrl?: string;
-  getExternalPredefinedBlock?: (block: PredefinedBlock) => Promise<PredefinedBlock>;
+  getExternalPredefinedBlock?: (
+    block: PredefinedBlock,
+  ) => Promise<PredefinedBlock & { blocks: TBlock[]; html: string }>;
   getUILibraryBlocks?: (libraryUuid: string) => Promise<PredefinedBlock[]>;
   globalBlocks?: Block[];
   globalBlocksSupport?: boolean;

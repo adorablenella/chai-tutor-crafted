@@ -30,15 +30,15 @@ const AddBlocksPanel = () => {
 
   return (
     <>
-      <div className="bg-background/30 p-1 rounded-md">
+      <div className="rounded-md bg-background/30 p-1">
         <h1 className="px-1 font-semibold">Add block</h1>
       </div>
 
-      <Tabs onValueChange={() => setCategory("")} defaultValue="core" className="w-full h-full flex flex-col">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs onValueChange={() => setCategory("")} defaultValue="core" className="flex h-full w-full flex-col">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="core">Core</TabsTrigger>
+          <TabsTrigger value="ui-blocks">UI Blocks</TabsTrigger>
           <TabsTrigger value="custom">Custom</TabsTrigger>
-          {/* <TabsTrigger value="ui-blocks">UI Blocks</TabsTrigger> */}
         </TabsList>
         <TabsContent value="core" className="h-full px-1">
           <ScrollArea>
@@ -46,7 +46,7 @@ const AddBlocksPanel = () => {
               {React.Children.toArray(
                 uniq(map(groupedBlocks.core, "group")).map((group) => (
                   <AccordionItem value={group} className="border-border">
-                    <AccordionTrigger onClick={() => onToggle(group)} className="capitalize py-2">
+                    <AccordionTrigger onClick={() => onToggle(group)} className="py-2 capitalize">
                       {group}
                     </AccordionTrigger>
                     <AccordionContent>
@@ -54,12 +54,12 @@ const AddBlocksPanel = () => {
                         {React.Children.toArray(
                           reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
                             <CoreBlock block={block} />
-                          ))
+                          )),
                         )}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                ))
+                )),
               )}
             </Accordion>
           </ScrollArea>
@@ -78,20 +78,22 @@ const AddBlocksPanel = () => {
                         {React.Children.toArray(
                           reject(filter(values(groupedBlocks.custom), { group }), { hidden: true }).map((block) => (
                             <CoreBlock block={block} />
-                          ))
+                          )),
                         )}
                       </div>
                     </AccordionContent>
                   </AccordionItem>
-                ))
+                )),
               )}
             </Accordion>
           </ScrollArea>
         </TabsContent>
-        <TabsContent value="ui-blocks">
-          <Suspense fallback={<Skeleton className="h-32 w-full" />}>
-            <PredefinedBlocks />
-          </Suspense>
+        <TabsContent value="ui-blocks" className="h-full px-1">
+          <ScrollArea className="relative h-full">
+            <Suspense fallback={<Skeleton className="h-32 w-full" />}>
+              <PredefinedBlocks />
+            </Suspense>
+          </ScrollArea>
         </TabsContent>
       </Tabs>
     </>

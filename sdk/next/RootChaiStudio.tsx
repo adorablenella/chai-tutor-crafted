@@ -111,6 +111,20 @@ export default function RootChaiStudio() {
       }}
       onSaveBlocks={saveBlocks}
       onSaveBrandingOptions={saveBrandingOptions}
+      //TODO: Get these from the server. public/library.json
+      getUILibraryBlocks={async () => [
+        { name: "Navbar", uuid: "Navbar", blocks: [], group: "Navs", preview: "https://placehold.it/300" },
+        { name: "Hero 1", uuid: "Hero 1", blocks: [], group: "Hero Sections", preview: "https://placehold.it/100" },
+      ]}
+      //TODO: Get these from the server. public/blocks/[uuid].json
+      getExternalPredefinedBlock={async () => ({
+        name: "Navbar",
+        uuid: "Navbar",
+        blocks: [{ _type: "Heading", content: "Hello World", level: "h1", _id: "a" }],
+        html: "",
+        group: "Navs",
+        preview: "https://placehold.it/200",
+      })}
       uploadMediaCallback={uploadMediaCallback}
       fetchMediaCallback={fetchMediaCallback}
       getPages={getPages}

@@ -1,32 +1,13 @@
-import { atom, useAtom } from "jotai";
-import { useEffect } from "react";
-import { PredefinedBlock } from "../types/index";
-import { useBuilderProp } from "./useBuilderProp";
+import { useBuilderProp } from "@/sdk/package/hooks/useBuilderProp";
+import { useEffect, useState } from "react";
 
-export const uiLibrariesAtom: any = atom<{ name: string; uuid: string }[]>([]);
-export const useUiLibraries = () => useAtom(uiLibrariesAtom);
-
-const predefinedBlocksAtom = atom<PredefinedBlock[]>([]);
-const fetchPredefinedBlocksAtom = atom<boolean>(false);
 export const useUILibraryBlocks = () => {
-  const [predefinedBlocks, setPredefinedBlocks] = useAtom(predefinedBlocksAtom);
-  const [isFetching, setFetchPredefinedBlocks] = useAtom(fetchPredefinedBlocksAtom);
-  const getUILibraryBlocks: Function = useBuilderProp("getUILibraryBlocks", async () => []);
+  const [blocks, setBlocks] = useState([]);
+  const getBlocks = useBuilderProp("getUILibraryBlocks", () => []);
   useEffect(() => {
-    if (predefinedBlocks.length > 0 || isFetching) {
-      return;
-    }
-    setFetchPredefinedBlocks(true);
-    getUILibraryBlocks().then(
-      (blocks: PredefinedBlock[]) => {
-        setPredefinedBlocks(blocks);
-        setFetchPredefinedBlocks(false);
-      },
-      () => {
-        setFetchPredefinedBlocks(false);
-      },
-    );
-  }, [isFetching, setFetchPredefinedBlocks, setPredefinedBlocks, predefinedBlocks.length, getUILibraryBlocks]);
-
-  return { data: predefinedBlocks, isLoading: isFetching };
+    (async () => {
+      setBlocks(await getBlocks());
+    })();
+  }, []);
+  return blocks;
 };
