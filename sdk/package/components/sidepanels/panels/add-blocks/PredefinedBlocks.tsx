@@ -1,4 +1,4 @@
-import { filter, first, map } from "lodash";
+import { filter, first, groupBy, map } from "lodash";
 import React, { Suspense, useCallback, useState } from "react";
 import { useUILibraryBlocks } from "../../../../hooks/useUiLibraries";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../../radix-ui";
@@ -12,6 +12,7 @@ const BlockCard = ({ block }: { block: any }) => {
   const getExternalPredefinedBlock = useBuilderProp("getExternalPredefinedBlock");
   const { addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
+
   const addBlock = useCallback(async () => {
     const uiBlock = await getExternalPredefinedBlock(block);
     addPredefinedBlock(syncBlocksWithDefaults(uiBlock.blocks), first(ids));
@@ -19,6 +20,7 @@ const BlockCard = ({ block }: { block: any }) => {
 
   return (
     <div onClick={addBlock}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={block.preview} className="w-full rounded-md" alt={block.name} />
     </div>
   );
@@ -45,7 +47,7 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
         </div>
       </PopoverTrigger>
       <PopoverRoot.Portal>
-        <PopoverContent side="right" align="start" alignOffset={-35} className="h-screen w-96">
+        <PopoverContent side="right" align="start" alignOffset={0} sideOffset={10} className="h-screen w-96 space-y-2">
           <Suspense
             fallback={
               <div className="flex w-full animate-pulse flex-col gap-y-3">
@@ -54,9 +56,7 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
                 <div className="bg-background-300 h-20 w-full" />
               </div>
             }>
-            {blocks.map((block) => (
-              <BlockCard block={block} />
-            ))}
+            {React.Children.toArray(blocks.map((block) => <BlockCard block={block} />))}
           </Suspense>
         </PopoverContent>
       </PopoverRoot.Portal>
@@ -66,14 +66,16 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
 
 export const PredefinedBlocks = () => {
   const predefinedBlocks = useUILibraryBlocks();
-  const groupsList: string[] = map(predefinedBlocks, "group");
+  const groupsList: Record<string, any[]> = groupBy(predefinedBlocks, "group");
   return (
-    <ul className="px-4">
-      {groupsList.map((group) => (
-        <li>
-          <Panel blocks={filter(predefinedBlocks, { group })} group={group} />
-        </li>
-      ))}
+    <ul className="divide-y">
+      {React.Children.toArray(
+        map(groupsList, (blocks, group) => (
+          <li className="cursor-pointer rounded p-2 hover:bg-primary/10">
+            <Panel blocks={blocks} group={group} />
+          </li>
+        )),
+      )}
     </ul>
   );
 };

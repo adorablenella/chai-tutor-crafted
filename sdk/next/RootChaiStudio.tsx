@@ -12,6 +12,7 @@ import { useUpdateProject } from "./mutations/useProjectActions";
 import { isEqual } from "lodash";
 import { ChaiBuilderStudio } from "@/sdk/package";
 import { useUploadMedia } from "./mutations/useStorageActions";
+import { useUiLibraryBlocks, useExternalPredefinedBlock } from "./hooks/useUiLibrary";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
@@ -30,6 +31,8 @@ export default function RootChaiStudio() {
   const updatePage = useUpdatePage();
   const updateProject = useUpdateProject();
   const uploadMedia = useUploadMedia();
+  const uiLibrary = useUiLibraryBlocks();
+  const predefinedBlock = useExternalPredefinedBlock();
 
   useEffect(() => {
     if (syncStatus !== "SAVED") {
@@ -81,6 +84,17 @@ export default function RootChaiStudio() {
     return await fetch(`/api/chaibuilder/pages?project_uuid=${project?.uuid}`).then((_res) => _res.json());
   };
 
+  const getUILibraryBlocks = useCallback(async () => {
+    return await uiLibrary.mutateAsync();
+  }, [uiLibrary]);
+
+  const getExternalPredefinedBlock = useCallback(
+    async (block: any) => {
+      return await predefinedBlock.mutateAsync(block);
+    },
+    [predefinedBlock],
+  );
+
   const isHomePage = pageData?.uuid === project?.homepage;
   let domain = (project?.customDomain || project?.subdomain) + "." + (process.env.NEXT_PUBLIC_ROOT_DOMAIN as string);
   domain = process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${domain}` : `http://${project?.subdomain}.localhost:3000`;
@@ -111,20 +125,8 @@ export default function RootChaiStudio() {
       }}
       onSaveBlocks={saveBlocks}
       onSaveBrandingOptions={saveBrandingOptions}
-      //TODO: Get these from the server. public/library.json
-      getUILibraryBlocks={async () => [
-        { name: "Navbar", uuid: "Navbar", blocks: [], group: "Navs", preview: "https://placehold.it/300" },
-        { name: "Hero 1", uuid: "Hero 1", blocks: [], group: "Hero Sections", preview: "https://placehold.it/100" },
-      ]}
-      //TODO: Get these from the server. public/blocks/[uuid].json
-      getExternalPredefinedBlock={async () => ({
-        name: "Navbar",
-        uuid: "Navbar",
-        blocks: [{ _type: "Heading", content: "Hello World", level: "h1", _id: "a" }],
-        html: "",
-        group: "Navs",
-        preview: "https://placehold.it/200",
-      })}
+      getUILibraryBlocks={getUILibraryBlocks}
+      getExternalPredefinedBlock={getExternalPredefinedBlock}
       uploadMediaCallback={uploadMediaCallback}
       fetchMediaCallback={fetchMediaCallback}
       getPages={getPages}
