@@ -70,10 +70,10 @@ export const BlockActionsStatic = ({
       <BlockActionLabel label={label} block={block} />
       <div className="flex gap-2 px-1 ">
         {parentId && <ArrowUpIcon className="hover:scale-105 " onClick={() => setSelectedIds([parentId])} />}
-        {canDuplicateBlock(get(block, "type", "")) ? (
+        {canDuplicateBlock(get(block, "_type", "")) ? (
           <CopyIcon className="hover:scale-105 " onClick={() => duplicateBlock([block?._id])} />
         ) : null}
-        {canDeleteBlock(get(block, "type", "")) ? (
+        {canDeleteBlock(get(block, "_type", "")) ? (
           <TrashIcon className="hover:scale-105 " onClick={() => removeBlock([block?._id])} />
         ) : null}
       </div>

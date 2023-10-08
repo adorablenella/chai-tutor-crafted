@@ -1,5 +1,5 @@
 import { ClipboardCopyIcon, ClipboardIcon, CopyIcon, GlobeIcon, ScissorsIcon, TrashIcon } from "@radix-ui/react-icons";
-import { Suspense, lazy, useCallback, useState } from "react";
+import React, { lazy, Suspense, useCallback, useState } from "react";
 import {
   ContextMenu,
   ContextMenuContent,
@@ -16,6 +16,7 @@ import {
   useRemoveBlocks,
   useSelectedBlockIds,
 } from "../../../../hooks";
+import { useSelectedBlock } from "@/sdk/package/hooks/useSelectedBlockIds";
 
 const MarkAsGlobalBlock = lazy(() => import("./MarkAsGlobalBlock"));
 
@@ -44,9 +45,14 @@ const CopyBlocks = () => {
 const RemoveBlocks = () => {
   const [selectedIds] = useSelectedBlockIds();
   const removeBlocks = useRemoveBlocks();
+  const selectedBlock = useSelectedBlock();
 
   return (
-    <ContextMenuItem className="flex items-center gap-x-4 text-xs" onClick={() => removeBlocks(selectedIds)}>
+    <ContextMenuItem
+      // @ts-ignore
+      disabled={selectedBlock?._type === "Slot"}
+      className="flex items-center gap-x-4 text-xs"
+      onClick={() => removeBlocks(selectedIds)}>
       <TrashIcon /> Remove
     </ContextMenuItem>
   );

@@ -82,6 +82,7 @@ export const canDuplicateBlock = (type: string) => !["Slot"].includes(type);
 export const canDeleteBlock = (type: string) => !["Slot"].includes(type);
 
 function canAddAsChild(dragSourceType: string, dropTargetType: string) {
+  if (dragSourceType === "Slot") return false;
   if (dropTargetType === "List" && dragSourceType !== "ListItem") {
     return false;
   }
@@ -103,6 +104,7 @@ export const canDropBlock = (_currentTree: any, { dragSource, dropTarget }: any)
   const dragSourceType = get(dragSource, "data._type", "");
   const dropTargetType = get(dropTarget, "data._type", "");
 
+  if (dragSourceType === "Slot") return false;
   if (isEmpty(dropTargetType)) return true;
   return canAddAsChild(dragSourceType, dropTargetType);
 };
