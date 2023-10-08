@@ -7,6 +7,7 @@ import { canDeleteBlock, canDuplicateBlock } from "../../functions/Layers";
 import { TBlock } from "../../types/TBlock";
 import { useDuplicateBlocks, useRemoveBlocks, useSelectedBlockIds } from "../../hooks";
 import { useResizeObserver } from "@react-hookz/web";
+import { useSelectedStylingBlocks } from "@/sdk/package/hooks/useSelectedStylingBlocks";
 
 const BlockActionLabel = ({ block, label }: any) => {
   const [, drag] = useDrag(() => ({
@@ -39,6 +40,7 @@ export const BlockActionsStatic = ({
   const removeBlock = useRemoveBlocks();
   const duplicateBlock = useDuplicateBlocks();
   const [, setSelectedIds] = useSelectedBlockIds();
+  const [, setStyleBlocks] = useSelectedStylingBlocks();
   const { floatingStyles, refs, update } = useFloating({
     placement: "top-start",
     middleware: [shift(), flip()],
@@ -69,7 +71,15 @@ export const BlockActionsStatic = ({
       className="z-50 flex h-6 items-center bg-blue-500  py-2 text-xs text-white">
       <BlockActionLabel label={label} block={block} />
       <div className="flex gap-2 px-1 ">
-        {parentId && <ArrowUpIcon className="hover:scale-105 " onClick={() => setSelectedIds([parentId])} />}
+        {parentId && (
+          <ArrowUpIcon
+            className="hover:scale-105 "
+            onClick={() => {
+              setStyleBlocks([]);
+              setSelectedIds([parentId]);
+            }}
+          />
+        )}
         {canDuplicateBlock(get(block, "_type", "")) ? (
           <CopyIcon className="hover:scale-105 " onClick={() => duplicateBlock([block?._id])} />
         ) : null}
