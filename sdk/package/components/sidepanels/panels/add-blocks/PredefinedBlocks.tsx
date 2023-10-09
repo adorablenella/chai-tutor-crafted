@@ -112,9 +112,12 @@ export const PredefinedBlocks = () => {
     <ul className="">
       {isLoading ? (
         <>
-          <li className="h-24 w-full animate-pulse"></li>
-          <li className="h-24 w-full animate-pulse"></li>
-          <li className="h-24 w-full animate-pulse"></li>
+          <li className="h-8 w-full animate-pulse bg-gray-200"></li>
+          <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+          <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+          <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+          <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+          <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
         </>
       ) : (
         React.Children.toArray(

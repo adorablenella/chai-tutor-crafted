@@ -36,7 +36,7 @@ primaryLanguageAtom.debugLabel = "primaryLanguageAtom";
 export const canvasIframeAtom: any = atom<HTMLIFrameElement | null>(null);
 canvasIframeAtom.debugLabel = "canvasIframeAtom";
 
-export const activePanelAtom = atomWithStorage<string>("active_panel", "layers");
+export const activePanelAtom = atom<string>("layers");
 activePanelAtom.debugLabel = "activePanelAtom";
 
 export const addBlockOffCanvasAtom = atom(false);
