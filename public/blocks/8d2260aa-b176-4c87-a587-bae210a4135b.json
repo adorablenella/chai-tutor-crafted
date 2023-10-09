@@ -1,8 +1,0 @@
-{
-  "uuid": "8d2260aa-b176-4c87-a587-bae210a4135b",
-  "name": "Navbar 1",
-  "blocks": [{ "_type": "Heading", "content": "Navbar", "level": "h2", "_id": "a" }],
-  "html": "",
-  "preview": "https://fakeimg.pl/100x100?text=Navbar+1&font=bebas",
-  "group": "Navbar"
-}
