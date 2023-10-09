@@ -1,5 +1,5 @@
-import { filter, first, groupBy, isEmpty, map } from "lodash";
-import React, { Suspense, useCallback, useState } from "react";
+import { filter, first, groupBy, has, isArray, isEmpty, map, mergeWith, values } from "lodash";
+import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { useUILibraryBlocks } from "../../../../hooks/useUiLibraries";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../../radix-ui";
 import { ChevronRightIcon, GearIcon } from "@radix-ui/react-icons";
@@ -9,14 +9,20 @@ import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
 import Image from "next/image";
 import { Loader } from "lucide-react";
+import { useCoreBlocks } from "@/sdk/package/hooks/useCoreBlocks";
 
 const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => void }) => {
   const [isAdding, setIsAdding] = useState(false);
   const getExternalPredefinedBlock = useBuilderProp("getExternalPredefinedBlock");
-  const { addPredefinedBlock } = useAddBlock();
+  const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
 
   const addBlock = useCallback(async () => {
+    if (has(block, "component")) {
+      addCoreBlock(block, first(ids));
+      closePopover();
+      return;
+    }
     setIsAdding(true);
     const uiBlock = await getExternalPredefinedBlock(block);
     if (!isEmpty(uiBlock.blocks)) addPredefinedBlock(syncBlocksWithDefaults(uiBlock.blocks), first(ids));
@@ -33,7 +39,13 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
           <span className="pl-2 text-sm text-white">Adding...</span>
         </div>
       )}
-      <Image src={block.preview} className="w-full" alt={block.name} width={100} height={100} />
+      <Image
+        src={block.preview || "https://placehold.it/400/150"}
+        className="w-full"
+        alt={block.name}
+        width={100}
+        height={100}
+      />
     </div>
   );
 };
@@ -47,7 +59,7 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
         setOpen(open === "PENDING" ? "ALERT" : _open ? "OPEN" : "CLOSE");
       }}>
       <PopoverTrigger asChild onClick={() => setOpen("OPEN")}>
-        <div className="flex items-center justify-between text-sm">
+        <div className="flex items-center justify-between text-sm capitalize">
           {group}
           {open === "OPEN" || open === "ALERT" || open === "PENDING" ? (
             <ChevronRightIcon />
@@ -85,7 +97,17 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
 
 export const PredefinedBlocks = () => {
   const { data: predefinedBlocks, isLoading } = useUILibraryBlocks();
+  const coreBlocks = useCoreBlocks();
+  const customBlocks = filter(values(coreBlocks), { category: "custom" });
+  const customGroupsList: Record<string, any[]> = groupBy(customBlocks, "group");
   const groupsList: Record<string, any[]> = groupBy(predefinedBlocks, "group");
+
+  const mergedGroups = useMemo(() => {
+    return mergeWith(customGroupsList, groupsList, (a: any, b: any) => {
+      // Concatenate arrays for the same key
+      if (isArray(a) && isArray(b)) return [...a, ...b];
+    });
+  }, [customGroupsList, groupsList]);
   return (
     <ul className="">
       {isLoading ? (
@@ -96,7 +118,7 @@ export const PredefinedBlocks = () => {
         </>
       ) : (
         React.Children.toArray(
-          map(groupsList, (blocks, group) => (
+          map(mergedGroups, (blocks, group) => (
             <li className="cursor-pointer rounded p-2 hover:bg-primary/5">
               <Panel blocks={blocks} group={group} />
             </li>

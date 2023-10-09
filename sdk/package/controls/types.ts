@@ -12,6 +12,7 @@ export interface ICustomBlockOptions {
   blocks?: TBlock[];
   category?: string;
   group: string;
+  preview?: string;
   hidden?: boolean;
   icon?: React.ReactNode | React.FC;
   label: string;

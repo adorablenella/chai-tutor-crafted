@@ -38,7 +38,6 @@ const AddBlocksPanel = () => {
         <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="core">Core</TabsTrigger>
           <TabsTrigger value="ui-blocks">UI Blocks</TabsTrigger>
-          {/*<TabsTrigger value="custom">Custom</TabsTrigger>*/}
         </TabsList>
         <TabsContent value="core" className="h-full px-1">
           <ScrollArea>
@@ -53,30 +52,6 @@ const AddBlocksPanel = () => {
                       <div className="grid grid-cols-3 gap-2">
                         {React.Children.toArray(
                           reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
-                            <CoreBlock block={block} />
-                          )),
-                        )}
-                      </div>
-                    </AccordionContent>
-                  </AccordionItem>
-                )),
-              )}
-            </Accordion>
-          </ScrollArea>
-        </TabsContent>
-        <TabsContent value="custom" className="h-full px-1">
-          <ScrollArea>
-            <Accordion type="single" value={active} className="w-full">
-              {React.Children.toArray(
-                uniq(map(groupedBlocks.custom, "group")).map((group) => (
-                  <AccordionItem value={group} className="border-border">
-                    <AccordionTrigger onClick={() => onToggle(group)} className="capitalize">
-                      {group}
-                    </AccordionTrigger>
-                    <AccordionContent>
-                      <div className="grid grid-cols-3 gap-2">
-                        {React.Children.toArray(
-                          reject(filter(values(groupedBlocks.custom), { group }), { hidden: true }).map((block) => (
                             <CoreBlock block={block} />
                           )),
                         )}

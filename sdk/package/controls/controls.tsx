@@ -51,6 +51,7 @@ type TControlProps = {
   i18n?: boolean;
   required?: boolean;
   title: string;
+  builderProp?: boolean;
 };
 
 type TInputProps = TControlProps & {
