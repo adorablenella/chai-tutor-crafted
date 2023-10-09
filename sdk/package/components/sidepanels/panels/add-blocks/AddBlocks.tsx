@@ -17,6 +17,7 @@ import { CoreBlock } from "./CoreBlock";
 import { PredefinedBlocks } from "./PredefinedBlocks";
 import { showPredefinedBlockCategoryAtom } from "../../../../store/ui";
 import { Skeleton } from "../../../../radix/components/ui/skeleton";
+import ImportHTML from "@/sdk/package/components/sidepanels/panels/add-blocks/ImportHTML";
 
 const AddBlocksPanel = () => {
   const [active, setActive] = React.useState<string>("basic");
@@ -35,9 +36,10 @@ const AddBlocksPanel = () => {
       </div>
 
       <Tabs onValueChange={() => setCategory("")} defaultValue="core" className="flex h-full w-full flex-col">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="core">Core</TabsTrigger>
           <TabsTrigger value="ui-blocks">UI Blocks</TabsTrigger>
+          <TabsTrigger value="html">Import</TabsTrigger>
         </TabsList>
         <TabsContent value="core" className="h-full px-1">
           <ScrollArea>
@@ -49,7 +51,7 @@ const AddBlocksPanel = () => {
                       {group}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-2 gap-2">
                         {React.Children.toArray(
                           reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
                             <CoreBlock block={block} />
@@ -69,6 +71,9 @@ const AddBlocksPanel = () => {
               <PredefinedBlocks />
             </Suspense>
           </ScrollArea>
+        </TabsContent>
+        <TabsContent value={"html"} className={"h-full px-1"}>
+          <ImportHTML />
         </TabsContent>
       </Tabs>
     </>

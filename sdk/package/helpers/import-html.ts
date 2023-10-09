@@ -18,7 +18,7 @@ function getAdditionalProps(type, node, parentBlock) {
   const props = {};
   switch (type) {
     case "RawText":
-      props.type = "Span";
+      props._type = "Paragraph";
       props.content = node.content;
       break;
     case "SVG":
@@ -31,7 +31,7 @@ function getAdditionalProps(type, node, parentBlock) {
       break;
     case "Input":
     case "TextArea":
-      props.type = type;
+      props._type = type;
       props.attrs = [
         { name: get(find(node.attrs, { name: "name" }), "content", "") },
         { placeholder: get(find(node.attrs, { name: "placeholder" }), "content", "") },
@@ -176,8 +176,8 @@ export function getHtmlToComponents(html: string) {
   if (root.error) {
     return [
       {
-        type: "Box",
-        classes: "",
+        _type: "Box",
+        styles: "#styles:,",
         id: "some-error",
         parent: null,
         tag: "div",
