@@ -35,6 +35,8 @@ export default async function SiteSettingsDomains({ params }: { params: { id: st
           pattern: "^[a-z0-9]+([\\-\\.]{1}[a-z0-9]+)*\\.[a-z]{2,5}$",
         }}
         handleSubmit={updateSite}
+        disabled={true}
+        buttonText="Coming soon"
       />
     </div>
   );

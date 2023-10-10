@@ -51,26 +51,19 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
 };
 
 const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
-  const [open, setOpen] = useState<"CLOSE" | "OPEN" | "ALERT" | "PENDING">("CLOSE");
+  const [open, setOpen] = useState(false);
   return (
-    <Popover
-      open={open === "OPEN" || open === "ALERT" || open === "PENDING"}
-      onOpenChange={(_open) => {
-        setOpen(open === "PENDING" ? "ALERT" : _open ? "OPEN" : "CLOSE");
-      }}>
-      <PopoverTrigger asChild onClick={() => setOpen("OPEN")}>
-        <div className="flex items-center justify-between text-sm capitalize">
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild onClick={() => setOpen(!open)} onMouseEnter={() => setOpen(!open)}>
+        <div
+          className={`flex cursor-pointer items-center justify-between rounded p-2 text-sm capitalize ${
+            open ? "bg-primary/10" : "duration-200 hover:bg-primary/5"
+          }`}>
           {group}
-          {open === "OPEN" || open === "ALERT" || open === "PENDING" ? (
-            <ChevronRightIcon />
-          ) : (
-            <div className="hidden hover:text-blue-600 group-hover:flex">
-              <GearIcon />
-            </div>
-          )}
+          {open && <ChevronRightIcon />}
         </div>
       </PopoverTrigger>
-      <PopoverRoot.Portal>
+      <PopoverRoot.Portal className="bg-white">
         <PopoverContent
           side="right"
           align="start"
@@ -86,7 +79,7 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
               </div>
             }>
             {React.Children.toArray(
-              blocks.map((block) => <BlockCard block={block} closePopover={() => setOpen("CLOSE")} />),
+              blocks.map((block) => <BlockCard block={block} closePopover={() => setOpen(false)} />),
             )}
           </Suspense>
         </PopoverContent>
@@ -122,7 +115,7 @@ export const PredefinedBlocks = () => {
       ) : (
         React.Children.toArray(
           map(mergedGroups, (blocks, group) => (
-            <li className="cursor-pointer rounded p-2 hover:bg-primary/5">
+            <li>
               <Panel blocks={blocks} group={group} />
             </li>
           )),
