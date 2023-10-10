@@ -11,6 +11,8 @@ import "./basic/image";
 import "./basic/slot";
 import "./basic/video";
 import "./basic/custom-html";
+import "./basic/span";
+import "./basic/divider";
 import "./form/form";
 import "./form/input";
 import "./form/textarea";
