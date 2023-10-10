@@ -96,7 +96,7 @@ function getNodeType(node) {
   const tag = "Box";
   switch (name) {
     case "p":
-      return "Text";
+      return "Paragraph";
     case "h1":
     case "h2":
     case "h3":
