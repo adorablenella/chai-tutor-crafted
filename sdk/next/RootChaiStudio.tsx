@@ -35,10 +35,8 @@ export default function RootChaiStudio() {
   const predefinedBlock = useExternalPredefinedBlock();
 
   useEffect(() => {
-    if (syncStatus !== "SAVED") {
-      window.onbeforeunload = () => {
-        return "You have unsaved changes. Please save before leaving.";
-      };
+    if (syncStatus !== "SAVED" && window.location.pathname.startsWith("/editor/")) {
+      window.onbeforeunload = () => "";
     } else {
       window.onbeforeunload = null;
     }

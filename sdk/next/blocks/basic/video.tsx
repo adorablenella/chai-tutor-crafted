@@ -49,10 +49,14 @@ const VideoBlock = (
   if (embedURL) {
     if (!isEmpty(embedURL)) {
       const iframeControls = [];
-      iframeControls.push(`autoplay=${block?.controls.autoPlay ? 1 : 0}`);
-      iframeControls.push(`controls=${block?.controls.controls ? 1 : 0}`);
-      iframeControls.push(`mute=${block?.controls.muted ? 1 : 0}&muted=${block?.controls.muted ? 1 : 0}`);
-      iframeControls.push(`loop=${block?.controls.loop ? 1 : 0}`);
+      const autoplay = block?.controls.autoPlay;
+      const controls = block?.controls.controls;
+      const muted = autoplay || block?.controls.muted;
+      const loop = block?.controls.loop;
+      iframeControls.push(`autoplay=${autoplay ? 1 : 0}`);
+      iframeControls.push(`controls=${controls ? 1 : 0}`);
+      iframeControls.push(`mute=${muted ? 1 : 0}&muted=${muted ? 1 : 0}`);
+      iframeControls.push(`loop=${loop ? 1 : 0}`);
       embedURL = `${embedURL}?${iframeControls.join("&")}`;
     }
     return React.createElement("iframe", {
@@ -91,7 +95,7 @@ registerServerBlock(VideoBlock as React.FC<any>, {
         autoPlay: Checkbox({ title: "Autoplay", default: true }),
         controls: Checkbox({ title: "Show controls", default: false }),
         loop: Checkbox({ title: "Loop", default: false }),
-        muted: Checkbox({ title: "Muted", default: false }),
+        muted: Checkbox({ title: "Muted", default: true }),
       },
     }),
   },
