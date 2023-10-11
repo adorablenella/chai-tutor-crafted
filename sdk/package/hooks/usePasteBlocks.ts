@@ -1,6 +1,6 @@
 import { useAtomValue } from "jotai";
 import { useCallback, useMemo } from "react";
-import { includes, isEmpty, map, set } from "lodash";
+import { get, includes, isEmpty, map, set } from "lodash";
 import { useDuplicateBlocks } from "./useDuplicateBlocks";
 import { useDispatch } from "./useTreeData";
 import { copiedBlockIdsAtom } from "./useCopyBlockIds";
@@ -14,14 +14,14 @@ const useMoveCutBlocks = () => {
   return useCallback(
     (blockIds: Array<string>, newParentId: string) => {
       const newBlocks = map(presentBlocks, (block: BlockNode) => {
-        if (includes(blockIds, block.id)) {
-          set(block, "parent", newParentId);
+        if (includes(blockIds, get(block, "_id"))) {
+          set(block, "_parent", newParentId);
         }
         return block;
       });
       dispatch({ type: "set_blocks", payload: newBlocks });
     },
-    [presentBlocks, dispatch]
+    [presentBlocks, dispatch],
   );
 };
 
@@ -36,7 +36,7 @@ export const usePasteBlocks = (): {
   const moveCutBlocks = useMoveCutBlocks();
   const canPaste = useMemo<boolean>(
     () => cutBlockIds.length > 0 || copiedBlockIds.length > 0,
-    [copiedBlockIds, cutBlockIds]
+    [copiedBlockIds, cutBlockIds],
   );
   return {
     canPaste,
@@ -49,7 +49,7 @@ export const usePasteBlocks = (): {
         }
         setCutBlockIds(() => []);
       },
-      [cutBlockIds, copiedBlockIds, duplicateBlocks, moveCutBlocks, setCutBlockIds]
+      [cutBlockIds, copiedBlockIds, duplicateBlocks, moveCutBlocks, setCutBlockIds],
     ),
   };
 };
