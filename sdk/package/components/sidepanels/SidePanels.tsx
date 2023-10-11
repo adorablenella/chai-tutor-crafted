@@ -109,7 +109,7 @@ const SidePanels = () => {
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
           <div onClick={() => handleChangePanel("layers")} className="fixed inset-0 z-50" />
           <div
-            className={cn("relative h-full bg-background", activePanel === "layers" ? "" : "z-[100]")}
+            className={cn("relative h-full max-h-[93%] bg-background", activePanel === "layers" ? "" : "z-[100]")}
             onMouseLeave={() => handleChangePanel("layers")}>
             {React.createElement(get(panels, _activePanel, () => <div />))}
           </div>

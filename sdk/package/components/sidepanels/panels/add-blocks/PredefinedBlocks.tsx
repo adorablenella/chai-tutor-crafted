@@ -68,7 +68,7 @@ const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
           side="right"
           align="start"
           alignOffset={0}
-          sideOffset={10}
+          sideOffset={5}
           className="h-screen w-96 space-y-2 overflow-y-auto">
           <Suspense
             fallback={

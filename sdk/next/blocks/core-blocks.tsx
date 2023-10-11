@@ -13,6 +13,7 @@ import "./basic/video";
 import "./basic/custom-html";
 import "./basic/span";
 import "./basic/divider";
+import "./basic/line-break";
 import "./form/form";
 import "./form/input";
 import "./form/textarea";

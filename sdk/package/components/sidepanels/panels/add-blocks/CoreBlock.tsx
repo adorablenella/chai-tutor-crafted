@@ -43,7 +43,7 @@ export const CoreBlock = ({ block }: { block: any }) => {
         </button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{type}</p>
+        <p>{label || type}</p>
       </TooltipContent>
     </Tooltip>
   );
