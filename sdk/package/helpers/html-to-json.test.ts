@@ -65,10 +65,10 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "option":
       return { _type: "Option" };
     case "ul":
+    case "ol":
     case "dl":
       return { _type: "List", _tag: node.tagName };
     case "li":
-    case "ol":
     case "dt":
       return { _type: "ListItem", _tag: node.tagName };
 

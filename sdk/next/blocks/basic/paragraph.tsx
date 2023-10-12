@@ -3,16 +3,22 @@ import { TextIcon } from "@radix-ui/react-icons";
 import { registerServerBlock } from "@/sdk/next/server";
 import { RichText, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
+import { isNull } from "lodash";
 
 /**
  * Heading component
  * @param props
  * @constructor
  */
-const ParagraphBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+const ParagraphBlock = (
+  props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string>; children: React.ReactNode },
+) => {
   const { blockProps, _styles, _content } = props;
+
+  if (!isNull(props.children)) return React.createElement("p", { ..._styles, ...blockProps }, props.children);
+
   // eslint-disable-next-line react/no-danger
-  return React.createElement("div", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
+  return React.createElement("p", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 
 registerServerBlock(ParagraphBlock as React.FC<any>, {

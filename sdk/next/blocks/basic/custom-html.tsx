@@ -17,6 +17,6 @@ registerServerBlock(CustomHTMLBlock as React.FC<any>, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _content: MultilineText({ title: "Content", default: "" }),
+    _content: MultilineText({ title: "HTML Content", default: "" }),
   },
 });
