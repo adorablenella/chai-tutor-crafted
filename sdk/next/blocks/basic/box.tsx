@@ -25,8 +25,8 @@ registerServerBlock(BoxBlock, {
   category: "core",
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
-    tag: SelectOption({
+    _styles: Styles({ default: "" }),
+    _tag: SelectOption({
       title: "Tag",
       default: "div",
       options: [

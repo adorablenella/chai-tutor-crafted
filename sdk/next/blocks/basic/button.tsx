@@ -23,11 +23,11 @@ registerServerBlock(ButtonBlock as React.FC<any>, {
   icon: ButtonIcon,
   group: "basic",
   props: {
-    label: SingleLineText({ title: "Label", default: "Button", multiLingual: true }),
-    styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center" }),
-    link: Link({ title: "Link", default: { type: "page", href: "", target: "_blank" } }),
-    icon: Icon({ title: "Icon", default: "" }),
-    iconPos: SelectOption({
+    _label: SingleLineText({ title: "Label", default: "Button", multiLingual: true }),
+    _styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center" }),
+    _link: Link({ title: "Link", default: { type: "page", href: "", target: "_blank" } }),
+    _icon: Icon({ title: "Icon", default: "" }),
+    _iconPos: SelectOption({
       title: "Icon Position",
       default: "order-last",
       options: [

@@ -30,19 +30,72 @@ const getStyles = (node: Node, propKey: string): Record<string, string> => {
 
 const getBlockProps = (node: Node): Record<string, any> => {
   switch (node.tagName) {
-    case "div":
-    case "header":
-    case "footer":
-    case "main":
-    case "section":
-    case "article":
-    case "aside":
-    case "nav":
-      return { tag: node.tagName, _type: "Box", ...getStyles(node, "styles") };
+    // self closing tags
+    case "img":
+      return { _type: "Image", ...getStyles(node, "styles") };
+    case "input":
+      return { _type: "Input", ...getStyles(node, "styles") };
+    case "hr":
+      return { _type: "Line", ...getStyles(node, "styles") };
+    case "br":
+      return { _type: "LineBreak", ...getStyles(node, "styles") };
+    case "textarea":
+      return { _type: "Textarea", ...getStyles(node, "styles") };
+    case "audio":
+      return { _type: "Audio", ...getStyles(node, "styles") };
+    case "iframe":
+      return { _type: "Iframe", ...getStyles(node, "styles") };
+    case "canvas":
+      return { _type: "Canvas", ...getStyles(node, "styles") };
+    case "video":
+      return { _type: "Video", ...getStyles(node, "styles") };
+
+    // non self closing tags
+    // non self closing tags fixed structure
+    case "select":
+      return { _type: "Select", ...getStyles(node, "styles") };
+    case "option":
+      return { _type: "Option", ...getStyles(node, "styles") };
+    case "ul":
+    case "dl":
+      return { _type: "List", ...getStyles(node, "styles") };
+    case "li":
+    case "ol":
+    case "dt":
+      return { _type: "ListItem", ...getStyles(node, "styles") };
+
+    // non self closing tags free flow structure
     case "p":
       return { _type: "Paragraph", ...getStyles(node, "styles") };
+    case "a":
+      return { _type: "Link", ...getStyles(node, "styles") };
+    case "form":
+      return { _type: "Form", ...getStyles(node, "styles") };
+    case "button":
+      return { _type: "Button", ...getStyles(node, "styles") };
+    case "code":
+      return { _type: "Code", ...getStyles(node, "styles") };
+    case "h1":
+    case "h2":
+    case "h3":
+    case "h4":
+    case "h5":
+    case "h6":
+      return { _type: "Heading", ...getStyles(node, "styles") };
+    case "table":
+      return { _type: "Table", ...getStyles(node, "styles") };
+    case "tr":
+      return { _type: "TableRow", ...getStyles(node, "styles") };
+    case "td":
+    case "th":
+      return { _type: "TableCell", ...getStyles(node, "styles") };
+    case "thead":
+      return { _type: "TableHead", ...getStyles(node, "styles") };
+    case "tfoot":
+      return { _type: "TableFooter", ...getStyles(node, "styles") };
+
     default:
-      return {};
+      return { tag: node.tagName, _type: "Box", ...getStyles(node, "styles") };
   }
 };
 
@@ -60,7 +113,7 @@ const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] =>
         block = { ...block, ...getBlockProps(node) };
         break;
       case "text":
-        block = { ...block, _type: "Paragraph" };
+        block = { ...block, _type: "Paragraph", _parent: undefined, _bindings: {} };
         break;
       default:
         break;
