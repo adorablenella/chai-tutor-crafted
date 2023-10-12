@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parse } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import { find, flatMapDeep, flatten } from "lodash";
+import { capitalize, find, flatMapDeep, flatten } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
 
@@ -17,7 +17,11 @@ const typeMapping: Record<string, string> = {
   p: "Paragraph",
 };
 
-const getStyles = (node: Node, propKey: string): Record<string, string> => {
+const getAttrs = (node: Node): { [_attrs: string]: Record<string, string> } => {
+  return { _attrs: { id: "one", role: "blockquote" } };
+};
+
+const getStyles = (node: Node, propKey: string = "_styles"): Record<string, string> => {
   if (!node.attributes) return { [propKey]: `${STYLES_KEY},` };
   // @ts-ignore
   const classAttr = find(node.attributes, { key: "class" }) as { value: string } | undefined;
@@ -32,70 +36,84 @@ const getBlockProps = (node: Node): Record<string, any> => {
   switch (node.tagName) {
     // self closing tags
     case "img":
-      return { _type: "Image", ...getStyles(node, "styles") };
+      return { _type: "Image", ...getStyles(node), ...getAttrs(node) };
     case "input":
-      return { _type: "Input", ...getStyles(node, "styles") };
+      return { _type: "Input", ...getStyles(node), ...getAttrs(node) };
     case "hr":
-      return { _type: "Line", ...getStyles(node, "styles") };
+      return { _type: "Divider", ...getStyles(node), ...getAttrs(node) };
     case "br":
-      return { _type: "LineBreak", ...getStyles(node, "styles") };
+      return { _type: "LineBreak" };
     case "textarea":
-      return { _type: "Textarea", ...getStyles(node, "styles") };
+      return { _type: "Textarea" };
     case "audio":
-      return { _type: "Audio", ...getStyles(node, "styles") };
+      return { _type: "Audio" };
     case "iframe":
-      return { _type: "Iframe", ...getStyles(node, "styles") };
+      return { _type: "Iframe" };
     case "canvas":
-      return { _type: "Canvas", ...getStyles(node, "styles") };
+      return { _type: "Canvas" };
     case "video":
-      return { _type: "Video", ...getStyles(node, "styles") };
+      return { _type: "Video" };
+    case "svg":
+      return { _type: "Icon" };
+    case "progress":
+      return { _type: "Progress" };
 
     // non self closing tags
     // non self closing tags fixed structure
     case "select":
-      return { _type: "Select", ...getStyles(node, "styles") };
+      return { _type: "Select" };
     case "option":
-      return { _type: "Option", ...getStyles(node, "styles") };
+      return { _type: "Option" };
     case "ul":
     case "dl":
-      return { _type: "List", ...getStyles(node, "styles") };
+      return { _type: "List", _tag: node.tagName };
     case "li":
     case "ol":
     case "dt":
-      return { _type: "ListItem", ...getStyles(node, "styles") };
+      return { _type: "ListItem", _tag: node.tagName };
 
     // non self closing tags free flow structure
+    case "span":
+    case "figcaption":
+    case "legend":
+      return { _type: "Span", _tag: node.tagName };
     case "p":
-      return { _type: "Paragraph", ...getStyles(node, "styles") };
+      return { _type: "Paragraph" };
     case "a":
-      return { _type: "Link", ...getStyles(node, "styles") };
+      return { _type: "Link" };
     case "form":
-      return { _type: "Form", ...getStyles(node, "styles") };
+      return { _type: "Form" };
+    case "label":
+      return { _type: "Label" };
     case "button":
-      return { _type: "Button", ...getStyles(node, "styles") };
+      return { _type: "Button" };
     case "code":
-      return { _type: "Code", ...getStyles(node, "styles") };
+      return { _type: "Code" };
     case "h1":
     case "h2":
     case "h3":
     case "h4":
     case "h5":
     case "h6":
-      return { _type: "Heading", ...getStyles(node, "styles") };
+      return { _type: "Heading", _tag: node.tagName };
     case "table":
-      return { _type: "Table", ...getStyles(node, "styles") };
+      return { _type: "Table" };
     case "tr":
-      return { _type: "TableRow", ...getStyles(node, "styles") };
+      return { _type: "TableRow" };
     case "td":
     case "th":
-      return { _type: "TableCell", ...getStyles(node, "styles") };
+      return { _type: "TableCell", _tag: node.tagName };
     case "thead":
-      return { _type: "TableHead", ...getStyles(node, "styles") };
+      return { _type: "TableHead" };
     case "tfoot":
-      return { _type: "TableFooter", ...getStyles(node, "styles") };
+      return { _type: "TableFooter" };
 
     default:
-      return { tag: node.tagName, _type: "Box", ...getStyles(node, "styles") };
+      return {
+        _tag: node.tagName,
+        _type: "Box",
+        _name: node.tagName === "div" ? "Box" : capitalize(node.tagName),
+      };
   }
 };
 
@@ -108,16 +126,7 @@ const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] =>
     if (parent) {
       block._parent = parent;
     }
-    switch (node.type) {
-      case "element":
-        block = { ...block, ...getBlockProps(node) };
-        break;
-      case "text":
-        block = { ...block, _type: "Paragraph", _parent: undefined, _bindings: {} };
-        break;
-      default:
-        break;
-    }
+    block = { ...block, ...getBlockProps(node) };
     const children = traverseNodes(node.children, block._id);
     return [block, ...children] as TBlock[];
   });

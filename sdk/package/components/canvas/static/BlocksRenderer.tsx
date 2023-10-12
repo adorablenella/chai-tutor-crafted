@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { filter, find, includes, isEmpty, isString, memoize, omit } from "lodash";
+import { filter, find, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { useThrottledCallback } from "@react-hookz/web";
 import { TBlock } from "../../../types/TBlock";
@@ -89,10 +89,8 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
-            const childBlocks = filter(allBlocks, { _parent: block._id });
-            attrs.children = childBlocks.length ? <BlocksRendererStatic blocks={childBlocks} /> : null;
-          }
+          const childBlocks = filter(allBlocks, { _parent: block._id });
+          attrs.children = childBlocks.length ? <BlocksRendererStatic blocks={childBlocks} /> : null;
 
           return React.createElement(
             getBlockComponent(block._type),
