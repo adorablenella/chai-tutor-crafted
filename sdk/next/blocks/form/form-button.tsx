@@ -8,16 +8,22 @@ import { Icon, SelectOption, SingleLineText, Styles } from "@/sdk/package/contro
 const FormButtonBlock = (
   block: TBlock & {
     blockProps: Record<string, string>;
-    styles: Record<string, string>;
-    inputStyles: Record<string, string>;
+    _styles: Record<string, string>;
+    _inputStyles: Record<string, string>;
   },
 ) => {
-  const { blockProps, content: label, placeholder, styles, inputStyles, icon, iconPos } = block;
+  const { blockProps, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos } = block;
   const fieldId = generateUUID();
   return (
-    <button {...inputStyles} {...styles} {...(blockProps || {})} id={fieldId} type="submit" placeholder={placeholder}>
-      {label}
-      {icon && <span className={iconPos} dangerouslySetInnerHTML={{ __html: icon }} />}
+    <button
+      {..._inputStyles}
+      {..._styles}
+      {...(blockProps || {})}
+      id={fieldId}
+      type="submit"
+      placeholder={_placeholder}>
+      {_label}
+      {_icon && <span className={_iconPos} dangerouslySetInnerHTML={{ __html: _icon }} />}
     </button>
   );
 };
@@ -29,10 +35,10 @@ registerServerBlock(FormButtonBlock as React.FC<any>, {
   icon: ButtonIcon,
   group: "form",
   props: {
-    label: SingleLineText({ title: "Label", default: "Submit" }),
-    styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center gap-x-2" }),
-    icon: Icon({ title: "Icon", default: "" }),
-    iconPos: SelectOption({
+    _label: SingleLineText({ title: "Label", default: "Submit" }),
+    _styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center gap-x-2" }),
+    _icon: Icon({ title: "Icon", default: "" }),
+    _iconPos: SelectOption({
       title: "Icon Position",
       default: "order-last",
       options: [

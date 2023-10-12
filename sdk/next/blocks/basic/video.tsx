@@ -41,18 +41,23 @@ const getEmbedURL = (url: string): string | null => {
 };
 
 const VideoBlock = (
-  block: TBlock & { controls: Record<string, any>; blockProps: Record<string, string>; styles: Record<string, string> },
+  block: TBlock & {
+    _controls: Record<string, any>;
+    blockProps: Record<string, string>;
+    _styles: Record<string, string>;
+  },
 ) => {
-  const { blockProps, styles } = block;
+  const { blockProps, _styles, _url, _controls } = block;
 
-  let embedURL = getEmbedURL(block.url);
+  const autoplay = _controls.autoPlay;
+  const controls = _controls.controls;
+  const muted = autoplay || _controls.muted;
+  const loop = _controls.loop;
+
+  let embedURL = getEmbedURL(_url);
   if (embedURL) {
     if (!isEmpty(embedURL)) {
       const iframeControls = [];
-      const autoplay = block?.controls.autoPlay;
-      const controls = block?.controls.controls;
-      const muted = autoplay || block?.controls.muted;
-      const loop = block?.controls.loop;
       iframeControls.push(`autoplay=${autoplay ? 1 : 0}`);
       iframeControls.push(`controls=${controls ? 1 : 0}`);
       iframeControls.push(`mute=${muted ? 1 : 0}&muted=${muted ? 1 : 0}`);
@@ -61,7 +66,7 @@ const VideoBlock = (
     }
     return React.createElement("iframe", {
       ...blockProps,
-      ...styles,
+      ..._styles,
       src: embedURL,
       allow: "autoplay *; fullscreen *",
       allowFullScreen: true,
@@ -71,12 +76,12 @@ const VideoBlock = (
 
   return React.createElement("video", {
     ...blockProps,
-    ...styles,
-    src: block.url,
-    controls: block?.controls.controls,
-    muted: block?.controls.muted,
-    autoPlay: block?.controls.autoPlay,
-    loop: block?.controls.loop,
+    ..._styles,
+    src: _url,
+    controls,
+    muted,
+    autoPlay: autoplay,
+    loop,
   });
 };
 
@@ -87,9 +92,9 @@ registerServerBlock(VideoBlock as React.FC<any>, {
   icon: VideoIcon,
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
-    url: SingleLineText({ title: "Video URL", default: "" }),
-    controls: Model({
+    _styles: Styles({ default: "" }),
+    _url: SingleLineText({ title: "Video URL", default: "" }),
+    _controls: Model({
       title: "Controls",
       properties: {
         autoPlay: Checkbox({ title: "Autoplay", default: true }),

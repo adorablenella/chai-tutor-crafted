@@ -9,16 +9,16 @@ import { Checkbox, SelectOption, SingleLineText, Styles } from "@/sdk/package/co
 const InputBlock = (
   block: TBlock & {
     blockProps: Record<string, string>;
-    styles: Record<string, string>;
-    inputStyles: Record<string, string>;
+    _styles: Record<string, string>;
+    _inputStyles: Record<string, string>;
   },
 ) => {
-  const { blockProps, type, label, placeholder, styles, inputStyles } = block;
+  const { blockProps, _type, _label, _placeholder, _styles, _inputStyles } = block;
   const fieldId = generateUUID();
   return (
-    <div {...styles} {...blockProps}>
-      <label htmlFor={fieldId}>{label}</label>
-      <input {...inputStyles} id={fieldId} type={type} placeholder={placeholder} />
+    <div {..._styles} {...blockProps}>
+      <label htmlFor={fieldId}>{_label}</label>
+      <input {..._inputStyles} id={fieldId} type={_type} placeholder={_placeholder} />
     </div>
   );
 };
@@ -30,12 +30,12 @@ registerServerBlock(InputBlock as React.FC<any>, {
   icon: InputIcon,
   group: "form",
   props: {
-    showLabel: Checkbox({ title: "Show label", default: true }),
-    styles: Styles({ default: "" }),
-    inputStyles: Styles({ default: "w-full p-1" }),
-    label: SingleLineText({ title: "Label", default: "Label" }),
-    placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),
-    inputType: SelectOption({
+    _showLabel: Checkbox({ title: "Show label", default: true }),
+    _styles: Styles({ default: "" }),
+    _inputStyles: Styles({ default: "w-full p-1" }),
+    _label: SingleLineText({ title: "Label", default: "Label" }),
+    _placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),
+    _inputType: SelectOption({
       title: "Type",
       options: map(["text", "email", "password", "number"], (type) => ({ value: type, title: type })),
       default: "text",

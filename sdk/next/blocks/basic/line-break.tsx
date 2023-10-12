@@ -4,9 +4,9 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Styles } from "@/sdk/package/controls/controls";
 import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 
-const LineBreakComponent = (props: TBlock & { styles: any; blockProps: Record<string, string> }) => {
-  const { blockProps, styles } = props;
-  return React.createElement("br", { ...blockProps, ...styles });
+const LineBreakComponent = (props: TBlock & { _styles: any; blockProps: Record<string, string> }) => {
+  const { blockProps, _styles } = props;
+  return React.createElement("br", { ...blockProps, ..._styles });
 };
 
 registerServerBlock(LineBreakComponent, {
@@ -16,6 +16,6 @@ registerServerBlock(LineBreakComponent, {
   group: "basic",
   icon: SpaceBetweenVerticallyIcon,
   props: {
-    styles: Styles({ default: "" }),
+    _styles: Styles({ default: "" }),
   },
 });

@@ -6,19 +6,19 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Link, Styles } from "@/sdk/package/controls/controls";
 
 const LinkBlock = (
-  props: TBlock & { styles: any; link: any; blockProps: Record<string, string>; children: React.ReactNode },
+  props: TBlock & { _styles: any; _link: any; blockProps: Record<string, string>; children: React.ReactNode },
 ) => {
-  const { blockProps, link, children, styles } = props;
+  const { blockProps, _link, children, _styles } = props;
   let emptySlot: React.ReactNode | null = null;
-  if (!children && isEmpty(styles.className)) {
+  if (!children && isEmpty(_styles?.className)) {
     emptySlot = (
-      <div {...omit(styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
+      <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add blocks here
       </div>
     );
   }
   return (
-    <a href={link.href || "#/"} target={link.target} {...blockProps} {...styles}>
+    <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles}>
       {children || emptySlot}
     </a>
   );
@@ -31,7 +31,7 @@ registerServerBlock(LinkBlock, {
   icon: Link1Icon,
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
-    link: Link({ title: "Link", default: { type: "page", target: "_self", href: "" } }),
+    _styles: Styles({ default: "" }),
+    _link: Link({ title: "Link", default: { type: "page", target: "_self", href: "" } }),
   },
 });

@@ -31,7 +31,7 @@ registerInternalBlock(DataProviderBlock, {
   group: "basic",
   icon: DbIcon,
   props: {
-    url: SingleLineText({ title: "URL", default: "" }),
-    params: MultilineText({ title: "Params", default: "{}" }),
+    _url: SingleLineText({ title: "URL", default: "" }),
+    _params: MultilineText({ title: "Params", default: "{}" }),
   },
 });

@@ -4,16 +4,16 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerServerBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
-const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, icon, label, iconPos, styles } = block;
+const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, _icon, _label, _iconPos, _styles } = block;
   const child = (
     <>
-      {label}
-      {icon && <span className={iconPos || ""} dangerouslySetInnerHTML={{ __html: icon }} />}
+      {_label}
+      {_icon && <span className={_iconPos || ""} dangerouslySetInnerHTML={{ __html: _icon }} />}
     </>
   );
   // eslint-disable-next-line react/button-has-type
-  return React.createElement("button", { ...blockProps, ...styles, type: "button" }, child);
+  return React.createElement("button", { ...blockProps, ..._styles, type: "button" }, child);
 };
 
 registerServerBlock(ButtonBlock as React.FC<any>, {

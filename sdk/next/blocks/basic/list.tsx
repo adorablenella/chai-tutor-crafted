@@ -7,12 +7,12 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
 
-const ListBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, children, listType, styles } = props;
-  const className = twMerge(get(styles, "className", ""), listType);
+const ListBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, children, _listType, _styles } = props;
+  const className = twMerge(get(_styles, "className", ""), _listType);
   return React.createElement(
-    listType === "list-decimal" ? "ol" : "ul",
-    { ...blockProps, ...styles, className },
+    _listType === "list-decimal" ? "ol" : "ul",
+    { ...blockProps, ..._styles, className },
     children,
   );
 };
@@ -24,8 +24,8 @@ registerServerBlock(ListBlock, {
   category: "core",
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
-    listType: SelectOption({
+    _styles: Styles({ default: "" }),
+    _listType: SelectOption({
       title: "List type",
       default: "list-disc",
       options: [
@@ -43,17 +43,17 @@ registerServerBlock(ListBlock, {
   ],
 });
 
-const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, styles, children } = props;
+const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, _styles, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("flex h-20 flex-col items-center justify-center", props.styles.className)}>
+      <div className={cn("flex h-20 flex-col items-center justify-center", _styles?.className)}>
         <div className="h-full w-full rounded-md border-4 border-dashed" />
       </div>
     );
   }
-  return React.createElement("li", { ...styles, ...blockProps, droppable: "yes" }, children || emptySlot);
+  return React.createElement("li", { ..._styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
 registerServerBlock(ListItemBlock, {
@@ -63,6 +63,6 @@ registerServerBlock(ListItemBlock, {
   category: "core",
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
+    _styles: Styles({ default: "" }),
   },
 });

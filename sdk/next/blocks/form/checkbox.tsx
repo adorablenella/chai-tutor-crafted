@@ -8,18 +8,18 @@ import { Checkbox, SingleLineText, Styles } from "@/sdk/package/controls/control
 const CheckboxBlock = (
   block: TBlock & {
     blockProps: Record<string, string>;
-    styles: Record<string, string>;
-    inputStyles: Record<string, string>;
-    required: boolean;
-    checked: boolean;
+    _styles: Record<string, string>;
+    _inputStyles: Record<string, string>;
+    _required: boolean;
+    _checked: boolean;
   },
 ) => {
-  const { blockProps, label, styles, inputStyles } = block;
+  const { blockProps, _label, _styles, _inputStyles, _required, _checked } = block;
   const fieldId = generateUUID();
   return (
-    <div {...styles} {...blockProps}>
-      <input {...inputStyles} id={fieldId} type="checkbox" required={block.required} checked={block.checked} />
-      <label htmlFor={fieldId}>{label}</label>
+    <div {..._styles} {...blockProps}>
+      <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} />
+      <label htmlFor={fieldId}>{_label}</label>
     </div>
   );
 };
@@ -31,9 +31,9 @@ registerServerBlock(CheckboxBlock as React.FC<any>, {
   icon: CheckboxIcon,
   group: "form",
   props: {
-    styles: Styles({ default: "flex items-center gap-x-2" }),
-    label: SingleLineText({ title: "Label", default: "Label" }),
-    checked: Checkbox({ title: "Checked", default: false }),
-    required: Checkbox({ title: "Required", default: false }),
+    _styles: Styles({ default: "flex items-center gap-x-2" }),
+    _label: SingleLineText({ title: "Label", default: "Label" }),
+    _checked: Checkbox({ title: "Checked", default: false }),
+    _required: Checkbox({ title: "Required", default: false }),
   },
 });

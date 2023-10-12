@@ -9,12 +9,12 @@ import { RichText, Styles } from "@/sdk/package/controls/controls";
  * @param props
  * @constructor
  */
-const RichTextBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, content, styles } = props;
+const RichTextBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, _content, _styles } = props;
   // eslint-disable-next-line react/no-danger
   return (
     <div className="prose max-w-full">
-      <div {...blockProps} {...styles} dangerouslySetInnerHTML={{ __html: content }} />
+      <div {...blockProps} {..._styles} dangerouslySetInnerHTML={{ __html: _content }} />
     </div>
   );
 };
@@ -26,8 +26,8 @@ registerServerBlock(RichTextBlock as React.FC<any>, {
   icon: CursorTextIcon,
   group: "basic",
   props: {
-    styles: Styles({ default: "" }),
-    content: RichText({
+    _styles: Styles({ default: "" }),
+    _content: RichText({
       title: "Content",
       default:
         "Lorem Ipsum Rich Text Editor Demo\n" +

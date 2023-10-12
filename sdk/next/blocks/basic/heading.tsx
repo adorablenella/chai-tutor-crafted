@@ -10,11 +10,11 @@ import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/cont
  * @constructor
  */
 const HeadingBlock = (
-  props: TBlock & { level: string; blockProps: Record<string, string>; styles: Record<string, string> },
+  props: TBlock & { _level: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, styles, content, level = "h1" } = props;
+  const { blockProps, _styles, _content, _level = "h1" } = props;
   // eslint-disable-next-line react/no-danger
-  return React.createElement(level, { ...styles, ...blockProps, dangerouslySetInnerHTML: { __html: content } });
+  return React.createElement(_level, { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 
 registerServerBlock(HeadingBlock as React.FC<any>, {
@@ -24,7 +24,7 @@ registerServerBlock(HeadingBlock as React.FC<any>, {
   icon: HeadingIcon,
   group: "basic",
   props: {
-    level: SelectOption({
+    _level: SelectOption({
       title: "Level",
       default: "h1",
       options: [
@@ -36,7 +36,7 @@ registerServerBlock(HeadingBlock as React.FC<any>, {
         { value: "h6", title: "h6" },
       ],
     }),
-    styles: Styles({ default: "text-3xl" }),
-    content: MultilineText({ title: "Content", default: "Heading goes here", rows: 3, multiLingual: true }),
+    _styles: Styles({ default: "text-3xl" }),
+    _content: MultilineText({ title: "Content", default: "Heading goes here", rows: 3, multiLingual: true }),
   },
 });

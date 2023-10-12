@@ -7,10 +7,10 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Numeric, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
 
-const RowBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, children, styles } = props;
-  const className = twMerge(get(styles, "className", ""), "grid grid-cols-12");
-  return React.createElement("div", { ...blockProps, ...styles, className }, children);
+const RowBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, children, _styles } = props;
+  const className = twMerge(get(_styles, "className", ""), "grid grid-cols-12");
+  return React.createElement("div", { ...blockProps, ..._styles, className }, children);
 };
 
 registerServerBlock(RowBlock, {
@@ -20,7 +20,7 @@ registerServerBlock(RowBlock, {
   category: "core",
   group: "layout",
   props: {
-    styles: Styles({ default: "grid grid-cols-12" }),
+    _styles: Styles({ default: "grid grid-cols-12" }),
   },
   blocks: [
     { _type: "Row", _id: "a", styles: "#styles:," },
@@ -29,12 +29,12 @@ registerServerBlock(RowBlock, {
   ],
 });
 
-const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, styles, colSpan, children } = props;
+const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, _styles, _colSpan, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
-      <div className={cn("flex h-20 flex-col items-center justify-center", props.styles.className)}>
+      <div className={cn("flex h-20 flex-col items-center justify-center", _styles?.className)}>
         <div className="h-full w-full rounded-md border-4 border-dashed" />
       </div>
     );
@@ -53,8 +53,8 @@ const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; style
     11: "col-span-11",
     12: "col-span-12",
   };
-  const className = twMerge(get(styles, "className", ""), cols[colSpan]);
-  return React.createElement("div", { ...styles, ...blockProps, droppable: "yes", className }, children || emptySlot);
+  const className = twMerge(get(_styles, "className", ""), cols[_colSpan]);
+  return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes", className }, children || emptySlot);
 };
 
 registerServerBlock(ColumnBlock, {
@@ -64,7 +64,7 @@ registerServerBlock(ColumnBlock, {
   category: "core",
   group: "layout",
   props: {
-    styles: Styles({ default: "" }),
-    colSpan: Numeric({ title: "Columns", default: 6, minimum: 1, maximum: 12 }),
+    _styles: Styles({ default: "" }),
+    _colSpan: Numeric({ title: "Columns", default: 6, minimum: 1, maximum: 12 }),
   },
 });

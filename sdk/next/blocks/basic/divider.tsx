@@ -9,9 +9,9 @@ import { TBlock } from "@/sdk/package/types/TBlock";
  * @param props
  * @constructor
  */
-const DividerBlock = (props: TBlock & { blockProps: Record<string, string>; styles: Record<string, string> }) => {
-  const { blockProps, styles } = props;
-  return React.createElement("hr", { ...styles, ...blockProps });
+const DividerBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
+  const { blockProps, _styles } = props;
+  return React.createElement("hr", { ..._styles, ...blockProps });
 };
 
 registerServerBlock(DividerBlock as React.FC<any>, {
@@ -21,6 +21,6 @@ registerServerBlock(DividerBlock as React.FC<any>, {
   icon: DividerHorizontalIcon,
   group: "basic",
   props: {
-    styles: Styles({ default: "bg-gray-900 h-0.5 my-1" }),
+    _styles: Styles({ default: "bg-gray-900 h-0.5 my-1" }),
   },
 });

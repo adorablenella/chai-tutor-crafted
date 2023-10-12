@@ -5,9 +5,9 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 
 const BoxBlock = (
-  props: TBlock & { children: React.ReactNode; styles: any; tag: string; blockProps: Record<string, string> },
+  props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, tag = "div", styles } = props;
+  const { blockProps, children, _tag = "div", _styles } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
@@ -16,7 +16,7 @@ const BoxBlock = (
       </div>
     );
   }
-  return React.createElement(tag, { ...blockProps, droppable: "yes", ...styles }, children || emptySlot);
+  return React.createElement(_tag, { ...blockProps, droppable: "yes", ..._styles }, children || emptySlot);
 };
 
 registerServerBlock(BoxBlock, {
