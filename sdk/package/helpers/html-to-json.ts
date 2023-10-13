@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parse, stringify } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import _, { capitalize, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, last, set } from "lodash";
+import { capitalize, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
 
@@ -212,7 +212,7 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
           return [] as any;
         }
       }
-      return { ...block, _type: "Text", content: get(node, "content", ""), ...getStyles(node) };
+      return { ...block, _type: "Text", _content: get(node, "content", "") };
     }
 
     block = { ...block, ...getBlockProps(node) };

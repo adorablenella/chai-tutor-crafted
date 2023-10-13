@@ -5,7 +5,9 @@ import { MultilineText, Styles } from "@/sdk/package/controls/controls";
 
 const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; blockProps: Record<string, string> }) => {
   const { blockProps, _styles, _content, children = null, _tag } = props;
-  if (children) return React.createElement("div", { ..._styles, ...blockProps }, children);
+
+  if (children) return React.createElement("span", { ..._styles, ...blockProps }, children);
+
   return React.createElement(_tag || "span", {
     ..._styles,
     ...blockProps,
@@ -20,6 +22,6 @@ registerChaiBlock(SpanBlock, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _content: MultilineText({ title: "Content", default: "Span content" }),
+    _content: MultilineText({ title: "Content", default: "Your text" }),
   },
 });

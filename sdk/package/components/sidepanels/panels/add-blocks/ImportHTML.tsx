@@ -11,21 +11,21 @@ import {
 import { Label } from "../../../../radix/components/ui/label";
 import { Textarea } from "../../../../radix/components/ui/textarea";
 import { Button } from "../../../../radix/components/ui/button";
-import { useAddBlock, useAddBlockParent } from "../../../../hooks";
+import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { addBlockOffCanvasAtom } from "../../../../store/ui";
 import { getBlocksFromHTML } from "@/sdk/package/helpers/html-to-json";
+import { first } from "lodash";
 
 const ImportHTML = () => {
   const [code, setCode] = useState("");
   const { addPredefinedBlock } = useAddBlock();
-  const [parentId, setParentId]: any = useAddBlockParent();
+  const [ids]: any = useSelectedBlockIds();
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
 
   const importComponents = () => {
     const blocks = getBlocksFromHTML(code);
-    addPredefinedBlock([...blocks], parentId);
+    addPredefinedBlock([...blocks], first(ids) || null);
     setCode("");
-    setParentId(null);
     setOpen(false);
   };
 
