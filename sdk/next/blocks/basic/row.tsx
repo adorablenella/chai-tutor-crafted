@@ -3,7 +3,7 @@ import { ColumnsIcon, RowsIcon } from "@radix-ui/react-icons";
 import { twMerge } from "tailwind-merge";
 import { get } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Numeric, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
 
@@ -13,7 +13,7 @@ const RowBlock = (props: TBlock & { blockProps: Record<string, string>; _styles:
   return React.createElement("div", { ...blockProps, ..._styles, className }, children);
 };
 
-registerServerBlock(RowBlock, {
+registerChaiBlock(RowBlock, {
   type: "Row",
   label: "Row",
   icon: RowsIcon,
@@ -57,7 +57,7 @@ const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; _styl
   return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes", className }, children || emptySlot);
 };
 
-registerServerBlock(ColumnBlock, {
+registerChaiBlock(ColumnBlock, {
   type: "Column",
   label: "Column",
   icon: ColumnsIcon,

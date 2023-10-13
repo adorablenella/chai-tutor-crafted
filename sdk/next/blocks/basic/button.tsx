@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ButtonIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
@@ -16,7 +16,7 @@ const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styl
   return React.createElement("button", { ...blockProps, ..._styles, type: "button" }, child);
 };
 
-registerServerBlock(ButtonBlock as React.FC<any>, {
+registerChaiBlock(ButtonBlock as React.FC<any>, {
   type: "Button",
   label: "Button",
   category: "core",

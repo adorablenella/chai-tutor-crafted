@@ -1,6 +1,6 @@
 import * as React from "react";
 import { SketchLogoIcon } from "@radix-ui/react-icons";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
 
@@ -9,7 +9,7 @@ const IconBlock = (block: TBlock & { blockProps: Record<string, string>; _styles
   return React.createElement("div", { ...blockProps, ..._styles, dangerouslySetInnerHTML: { __html: _icon } });
 };
 
-registerServerBlock(IconBlock as React.FC<any>, {
+registerChaiBlock(IconBlock as React.FC<any>, {
   type: "Icon",
   label: "Icon",
   category: "core",

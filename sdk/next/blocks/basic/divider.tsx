@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DividerHorizontalIcon } from "@radix-ui/react-icons";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { isEmpty } from "lodash";
@@ -25,7 +25,7 @@ const DividerBlock = (props: TBlock & { blockProps: Record<string, string>; _sty
   return React.createElement("hr", { ..._styles, ...blockProps });
 };
 
-registerServerBlock(DividerBlock as React.FC<any>, {
+registerChaiBlock(DividerBlock as React.FC<any>, {
   type: "Divider",
   label: "Divider",
   category: "core",

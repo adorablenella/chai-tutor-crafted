@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TextIcon } from "@radix-ui/react-icons";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { isNull } from "lodash";
@@ -21,7 +21,7 @@ const ParagraphBlock = (
   return React.createElement("p", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 
-registerServerBlock(ParagraphBlock as React.FC<any>, {
+registerChaiBlock(ParagraphBlock as React.FC<any>, {
   type: "Paragraph",
   label: "Paragraph",
   category: "core",

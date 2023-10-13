@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Styles } from "@/sdk/package/controls/controls";
 import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 
@@ -9,7 +9,7 @@ const LineBreakComponent = (props: TBlock & { _styles: any; blockProps: Record<s
   return React.createElement("br", { ...blockProps, ..._styles });
 };
 
-registerServerBlock(LineBreakComponent, {
+registerChaiBlock(LineBreakComponent, {
   type: "LineBreak",
   label: "Line Break",
   category: "core",

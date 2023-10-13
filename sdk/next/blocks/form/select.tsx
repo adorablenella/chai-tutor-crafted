@@ -3,7 +3,7 @@ import { DropdownMenuIcon } from "@radix-ui/react-icons";
 import { map } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, List, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const SelectBlock = (
@@ -32,7 +32,7 @@ const SelectBlock = (
   );
 };
 
-registerServerBlock(SelectBlock as React.FC<any>, {
+registerChaiBlock(SelectBlock as React.FC<any>, {
   type: "Select",
   label: "Select",
   category: "core",

@@ -1,5 +1,5 @@
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText } from "@/sdk/package/controls/controls";
 import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 
@@ -7,7 +7,7 @@ const RawTextBlock = (props: TBlock & { content: string }) => {
   return props.content;
 };
 
-registerServerBlock(RawTextBlock, {
+registerChaiBlock(RawTextBlock, {
   type: "Text",
   label: "Text",
   hidden: true,

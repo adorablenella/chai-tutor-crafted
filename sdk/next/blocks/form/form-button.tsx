@@ -2,7 +2,7 @@ import * as React from "react";
 import { ButtonIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const FormButtonBlock = (
@@ -28,7 +28,7 @@ const FormButtonBlock = (
   );
 };
 
-registerServerBlock(FormButtonBlock as React.FC<any>, {
+registerChaiBlock(FormButtonBlock as React.FC<any>, {
   type: "FormButton",
   label: "FormButton",
   category: "core",

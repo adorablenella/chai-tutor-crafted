@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { cn } from "@/sdk/package/radix/lib/utils";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 
 const BoxBlock = (
@@ -19,7 +19,7 @@ const BoxBlock = (
   return React.createElement(_tag, { ...blockProps, droppable: "yes", ..._styles }, children || emptySlot);
 };
 
-registerServerBlock(BoxBlock, {
+registerChaiBlock(BoxBlock, {
   type: "Box",
   label: "Box",
   category: "core",

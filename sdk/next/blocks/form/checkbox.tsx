@@ -2,7 +2,7 @@ import * as React from "react";
 import { CheckboxIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const CheckboxBlock = (
@@ -24,7 +24,7 @@ const CheckboxBlock = (
   );
 };
 
-registerServerBlock(CheckboxBlock as React.FC<any>, {
+registerChaiBlock(CheckboxBlock as React.FC<any>, {
   type: "Checkbox",
   label: "Checkbox",
   category: "core",

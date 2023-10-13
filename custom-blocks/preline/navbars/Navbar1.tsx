@@ -1,4 +1,4 @@
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import React from "react";
 import {
   Checkbox,
@@ -100,7 +100,7 @@ const Navbar1 = ({
   );
 };
 
-registerServerBlock(Navbar1, {
+registerChaiBlock(Navbar1, {
   type: "Navbar1",
   label: "Navbar Simple",
   group: "Navbar",

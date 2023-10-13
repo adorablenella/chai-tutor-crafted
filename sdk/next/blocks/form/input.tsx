@@ -3,7 +3,7 @@ import { InputIcon } from "@radix-ui/react-icons";
 import { map } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const InputBlock = (
@@ -23,7 +23,7 @@ const InputBlock = (
   );
 };
 
-registerServerBlock(InputBlock as React.FC<any>, {
+registerChaiBlock(InputBlock as React.FC<any>, {
   type: "Input",
   label: "Input",
   category: "core",

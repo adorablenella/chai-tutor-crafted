@@ -1,5 +1,5 @@
 import React from "react";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Slot } from "@/sdk/package/controls/controls";
 
 const TwoColumnsLayout: React.FC = ({ leftColumn, rightColumn, blockProps }: any) => {
@@ -13,7 +13,7 @@ const TwoColumnsLayout: React.FC = ({ leftColumn, rightColumn, blockProps }: any
   );
 };
 
-registerServerBlock(TwoColumnsLayout, {
+registerChaiBlock(TwoColumnsLayout, {
   type: "TwoColumnLayout",
   label: "Two Column Layout",
   group: "layout",

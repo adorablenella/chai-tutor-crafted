@@ -1,7 +1,7 @@
 import * as React from "react";
 import { HeadingIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/controls";
 
 /**
@@ -18,7 +18,7 @@ const HeadingBlock = (
   return React.createElement(_level, { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 
-registerServerBlock(HeadingBlock as React.FC<any>, {
+registerChaiBlock(HeadingBlock as React.FC<any>, {
   type: "Heading",
   label: "Heading",
   category: "core",

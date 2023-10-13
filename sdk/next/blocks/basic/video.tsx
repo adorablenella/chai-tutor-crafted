@@ -2,7 +2,7 @@ import * as React from "react";
 import { VideoIcon } from "@radix-ui/react-icons";
 import { isEmpty } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, Model, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const YOUTUBE_REGEX = /^(https?:\/\/)?(www\.)?youtube\.com\/(watch\?v=|embed\/)([a-zA-Z0-9_-]{11})/;
@@ -85,7 +85,7 @@ const VideoBlock = (
   });
 };
 
-registerServerBlock(VideoBlock as React.FC<any>, {
+registerChaiBlock(VideoBlock as React.FC<any>, {
   type: "Video",
   label: "Video",
   category: "core",

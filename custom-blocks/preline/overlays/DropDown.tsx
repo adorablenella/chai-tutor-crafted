@@ -1,4 +1,4 @@
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, Slot } from "@/sdk/package/controls/controls";
 import { cn } from "@/sdk/package/radix/lib/utils";
 
@@ -31,7 +31,7 @@ const DropDown = ({ _trigger, _items, _show, blockProps }: any) => {
   );
 };
 
-registerServerBlock(DropDown, {
+registerChaiBlock(DropDown, {
   type: "DropDown",
   label: "Drop Down",
   category: "core",

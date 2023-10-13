@@ -1,7 +1,7 @@
 import * as React from "react";
 import { CursorTextIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, Styles } from "@/sdk/package/controls/controls";
 
 /**
@@ -19,7 +19,7 @@ const RichTextBlock = (props: TBlock & { blockProps: Record<string, string>; _st
   );
 };
 
-registerServerBlock(RichTextBlock as React.FC<any>, {
+registerChaiBlock(RichTextBlock as React.FC<any>, {
   type: "RichText",
   label: "Rich Text",
   category: "core",

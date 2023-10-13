@@ -2,7 +2,7 @@ import * as React from "react";
 import { RadiobuttonIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const RadioBlock = (
@@ -24,7 +24,7 @@ const RadioBlock = (
   );
 };
 
-registerServerBlock(RadioBlock as React.FC<any>, {
+registerChaiBlock(RadioBlock as React.FC<any>, {
   type: "Radio",
   label: "Radio",
   category: "core",

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { cn } from "@/sdk/package/radix/lib/utils";
 
 const SlotBlock = (
@@ -25,7 +25,7 @@ const SlotBlock = (
   return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
-registerServerBlock(SlotBlock, {
+registerChaiBlock(SlotBlock, {
   type: "Slot",
   label: "Slot",
   group: "basic",

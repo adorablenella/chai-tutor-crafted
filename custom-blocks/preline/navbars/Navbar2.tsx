@@ -1,4 +1,4 @@
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import React from "react";
@@ -168,7 +168,7 @@ const Navbar2 = ({ logo, blockProps }: any) => {
   );
 };
 
-registerServerBlock(Navbar2, {
+registerChaiBlock(Navbar2, {
   type: "Navbar2",
   label: "Navbar 2",
   group: "Navbar",

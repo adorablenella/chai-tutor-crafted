@@ -2,7 +2,7 @@ import * as React from "react";
 import { isEmpty, omit } from "lodash";
 import { Link1Icon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Link, Styles } from "@/sdk/package/controls/controls";
 
 const LinkBlock = (
@@ -37,7 +37,7 @@ const LinkBlock = (
   );
 };
 
-registerServerBlock(LinkBlock, {
+registerChaiBlock(LinkBlock, {
   type: "Link",
   label: "Link",
   category: "core",

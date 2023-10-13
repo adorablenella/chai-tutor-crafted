@@ -1,6 +1,6 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText, Styles } from "@/sdk/package/controls/controls";
 
 const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; blockProps: Record<string, string> }) => {
@@ -9,7 +9,7 @@ const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; bl
   return React.createElement("div", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 
-registerServerBlock(SpanBlock, {
+registerChaiBlock(SpanBlock, {
   type: "Span",
   label: "Span",
   category: "core",

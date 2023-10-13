@@ -1,4 +1,4 @@
-import { registerServerBlock } from "@/sdk/next/server";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { Slot } from "@/sdk/package/controls/controls";
 
 const Hero1 = ({ content, blockProps }: any) => {
@@ -90,7 +90,7 @@ const Hero1 = ({ content, blockProps }: any) => {
   );
 };
 
-registerServerBlock(Hero1, {
+registerChaiBlock(Hero1, {
   type: "Hero1",
   label: "Hero 1",
   group: "Hero",
