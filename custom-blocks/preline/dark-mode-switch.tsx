@@ -1,9 +1,7 @@
-"use client";
+import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
+import { registerServerBlock } from "@/sdk/next/server";
 
-import { registerClientBlock } from "@/sdk/next/client";
-import { DarkModeSwitch } from "@/custom-blocks/preline/DarkModeSwitch";
-
-registerClientBlock(DarkModeSwitch, {
+registerServerBlock(DarkModeSwitch, {
   type: "DarkModeSwitch",
   label: "Dark Mode",
   category: "basic",

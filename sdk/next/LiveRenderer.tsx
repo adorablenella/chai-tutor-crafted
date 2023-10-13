@@ -1,10 +1,9 @@
 import React from "react";
-import { filter, find, get, includes, isEmpty, isString, memoize, omit } from "lodash";
+import { filter, find, get, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../package/types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../package/constants/CONTROLS";
 import { SERVER_BLOCKS } from "@/sdk/next/SERVER_BLOCKS";
-import { ClientWrapper } from "@/sdk/next/ClientWrapper";
 
 const getBlockComponent = (type: string): boolean | { component: React.FC<TBlock>; defaults: Record<string, any> } => {
   return get(SERVER_BLOCKS, type, false);
@@ -60,11 +59,9 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
               );
             });
           }
-          if (includes(["Box", "Row", "Column", "DataContext", "Slot", "Link", "List", "ListItem"], block._type)) {
-            attrs.children = (
-              <BlocksRendererLive snapshot={snapshot} blocks={filter(allBlocks, { _parent: block._id })} />
-            );
-          }
+          const blocks = filter(allBlocks, { _parent: block._id });
+          attrs.children = blocks.length > 0 ? <BlocksRendererLive snapshot={snapshot} blocks={blocks} /> : null;
+
           let blockDefinition = getBlockComponent(block._type);
           if (blockDefinition !== false) {
             let syncedBlock: TBlock = block;
@@ -79,13 +76,14 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
                   index,
                   ...getStyles(syncedBlock),
                   ...attrs,
+                  inBuilder: false,
                 },
                 ["_parent", "_name"],
               ),
             );
           }
 
-          return React.createElement(ClientWrapper, block);
+          return <noscript>{block._type} not found</noscript>;
         }),
       )}
     </>

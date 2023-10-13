@@ -1,8 +1,8 @@
 import "@/styles/site.css";
+import "@/custom-blocks";
 import { ReactNode } from "react";
 import { redirect } from "next/navigation";
 import { getSiteByDomain } from "../helpers/project";
-import "@/custom-blocks";
 
 export default async function SiteLayout({ params, children }: { params: { domain: string }; children: ReactNode }) {
   const { domain } = params;

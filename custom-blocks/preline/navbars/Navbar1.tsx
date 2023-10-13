@@ -12,7 +12,7 @@ import {
 } from "@/sdk/package/controls/controls";
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
-import { DarkModeSwitch } from "@/custom-blocks/preline/DarkModeSwitch";
+import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
 
 const Navbar1 = ({
   blockProps,

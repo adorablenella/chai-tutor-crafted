@@ -6,14 +6,27 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Link, Styles } from "@/sdk/package/controls/controls";
 
 const LinkBlock = (
-  props: TBlock & { _styles: any; _link: any; blockProps: Record<string, string>; children: React.ReactNode },
+  props: TBlock & {
+    _styles: any;
+    _link: any;
+    inBuilder: boolean;
+    blockProps: Record<string, string>;
+    children: React.ReactNode;
+  },
 ) => {
-  const { blockProps, _link, children, _styles } = props;
+  const { blockProps, _link, children, _styles, inBuilder } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(_styles?.className)) {
     emptySlot = (
       <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add blocks here
+      </div>
+    );
+  }
+  if (inBuilder) {
+    return (
+      <div data-simulate={"a"} {...blockProps} {..._styles}>
+        {children || emptySlot}
       </div>
     );
   }

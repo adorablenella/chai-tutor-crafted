@@ -3,7 +3,7 @@ import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import React from "react";
 import { Image } from "@/sdk/package/controls/controls";
-import { DarkModeSwitch } from "@/custom-blocks/preline/DarkModeSwitch";
+import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
 
 const Navbar2 = ({ logo, blockProps }: any) => {
   return (

@@ -100,6 +100,7 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
               index,
               ...getStyles(block),
               ...attrs,
+              inBuilder: true,
             }),
           );
         }),
