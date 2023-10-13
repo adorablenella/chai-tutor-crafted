@@ -3,7 +3,14 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText } from "@/sdk/package/controls/controls";
 import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 
-const RawTextBlock = (props: TBlock & { _content: string }) => {
+const RawTextBlock = (props: TBlock & { _content: string; inBuilder: boolean; blockProps: Record<string, string> }) => {
+  if (props.inBuilder) {
+    return (
+      <span {...props.blockProps} className="inline-block">
+        {props._content}
+      </span>
+    );
+  }
   return props._content;
 };
 
