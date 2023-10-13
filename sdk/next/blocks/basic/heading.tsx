@@ -12,8 +12,9 @@ import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/cont
 const HeadingBlock = (
   props: TBlock & { _level: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, _styles, _content, _level = "h1" } = props;
+  const { blockProps, _styles, _content, _level = "h1", children = null } = props;
   // eslint-disable-next-line react/no-danger
+  if (children) return React.createElement(_level, { ..._styles, ...blockProps }, children);
   return React.createElement(_level, { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
 };
 

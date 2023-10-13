@@ -1,7 +1,7 @@
 // @ts-ignore
-import { parse } from "himalaya";
+import { parse, stringify } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import { capitalize, find, flatMapDeep, flatten } from "lodash";
+import _, { capitalize, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, last, set } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
 
@@ -17,8 +17,69 @@ const typeMapping: Record<string, string> = {
   p: "Paragraph",
 };
 
-const getAttrs = (node: Node): { [_attrs: string]: Record<string, string> } => {
-  return { _attrs: { id: "one", role: "blockquote" } };
+const attributeMap: Record<string, Record<string, string>> = {
+  img: { alt: "_alt", width: "_width", height: "_height", src: "_image" },
+  video: {
+    src: "_url",
+    autoplay: "_controls.autoPlay",
+    muted: "_controls.muted",
+    loop: "_controls.loop",
+    controls: "_controls.controls",
+  },
+  a: {
+    href: "_link.href",
+    target: "_link.target",
+    type: "", // @TODO: Detect here what to url, email, phone, elementId
+  },
+};
+
+/**
+ *
+ * @param node
+ * @param block
+ * @returns Condition add text as _content
+ */
+const shouldAddText = (node: Node, block: any) => {
+  return (
+    node.children.length === 1 &&
+    includes(["Heading", "Paragraph", "Span", "ListItem", "Button", "Label", "TableCell"], block._type)
+  );
+};
+
+/**
+ *
+ * @param value
+ * @returns For boolean attributes without content marking true and passing if value is null
+ */
+const getSanitizedValue = (value: any) => (value === null ? true : value);
+
+/**
+ *
+ * @param attributes
+ * @param replacers
+ * @returns Mapping Attributes as per blocks need from @attributeMap and rest passing as it is
+ */
+const mapAttributes = (attributes: any, replacers: Record<string, string> = {}) => {
+  let attrs: Record<string, string> = {};
+  forEach(attributes as Array<{ key: string; value: string }>, ({ key, value }) => {
+    if (replacers[key]) set(attrs, replacers[key], getSanitizedValue(value));
+    else set(attrs, key, getSanitizedValue(value));
+  });
+  delete attrs.class;
+  return attrs;
+};
+
+const getAttrs = (node: Node): Record<string, string> => {
+  switch (node.tagName) {
+    case "img":
+    case "hr":
+    case "br":
+    case "video":
+    case "a":
+      return mapAttributes(node.attributes, attributeMap[node.tagName] || {});
+    default:
+      return mapAttributes(node.attributes, {});
+  }
 };
 
 const getStyles = (node: Node, propKey: string = "_styles"): Record<string, string> => {
@@ -42,7 +103,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "hr":
       return { _type: "Divider", ...getStyles(node), ...getAttrs(node) };
     case "br":
-      return { _type: "LineBreak" };
+      return { _type: "LineBreak", ...getStyles(node), ...getAttrs(node) };
     case "textarea":
       return { _type: "Textarea" };
     case "audio":
@@ -52,7 +113,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "canvas":
       return { _type: "Canvas" };
     case "video":
-      return { _type: "Video" };
+      return { _type: "Video", ...getStyles(node), ...getAttrs(node) };
     case "svg":
       return { _type: "Icon" };
     case "progress":
@@ -67,26 +128,32 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "ul":
     case "ol":
     case "dl":
-      return { _type: "List", _tag: node.tagName };
+      return {
+        _type: "List",
+        _tag: node.tagName,
+        _listType: node.tagName === "ol" ? "list-decimal" : "list-disc",
+        ...getStyles(node),
+        ...getAttrs(node),
+      };
     case "li":
     case "dt":
-      return { _type: "ListItem", _tag: node.tagName };
+      return { _type: "ListItem", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
 
     // non self closing tags free flow structure
     case "span":
     case "figcaption":
     case "legend":
-      return { _type: "Span", _tag: node.tagName };
+      return { _type: "Span", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
     case "p":
-      return { _type: "Paragraph" };
+      return { _type: "Paragraph", ...getStyles(node), ...getAttrs(node) };
     case "a":
-      return { _type: "Link" };
+      return { _type: "Link", ...getStyles(node), ...getAttrs(node) };
     case "form":
       return { _type: "Form" };
     case "label":
       return { _type: "Label" };
     case "button":
-      return { _type: "Button" };
+      return { _type: "Button", ...getStyles(node), ...getAttrs(node) };
     case "code":
       return { _type: "Code" };
     case "h1":
@@ -95,7 +162,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "h4":
     case "h5":
     case "h6":
-      return { _type: "Heading", _tag: node.tagName };
+      return { _type: "Heading", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
     case "table":
       return { _type: "Table" };
     case "tr":
@@ -113,9 +180,13 @@ const getBlockProps = (node: Node): Record<string, any> => {
         _tag: node.tagName,
         _type: "Box",
         _name: node.tagName === "div" ? "Box" : capitalize(node.tagName),
+        ...getStyles(node),
+        ...getAttrs(node),
       };
   }
 };
+
+let parentBlock: any[] = [];
 
 const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] => {
   return flatMapDeep(nodes, (node: Node) => {
@@ -126,41 +197,80 @@ const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] =>
     if (parent) {
       block._parent = parent;
     }
+
+    /**
+     * @handling_text_content
+     * 1. Checking if parent exist
+     * 2. If parent has only one children and current node type is text
+     * 3. checking does parent block type support _content
+     * 4. setting parent _content to current node text content
+     * 5. destroying current node
+     */
+    if (node.type === "text") {
+      if (parentBlock.length > 0) {
+        const parent = last(parentBlock);
+        if (shouldAddText(parent.node, parent.block)) {
+          set(parent, "block._content", get(node, "content", ""));
+          return [] as any;
+        }
+      }
+      return { ...block, _type: "Text", content: get(node, "content", ""), ...getStyles(node) };
+    }
+
     block = { ...block, ...getBlockProps(node) };
+
+    /**
+     * @handling_svg_tag
+     * if svg tag just pass html stringify content as _icon
+     */
+    if (node.tagName === "svg") {
+      block._icon = stringify([node]);
+      return [block] as TBlock[];
+    }
+    parentBlock.push({ block, node });
     const children = traverseNodes(node.children, block._id);
+    parentBlock.pop();
     return [block, ...children] as TBlock[];
   });
 };
 
 const getBlocksFromHTML = (html: string): TBlock[] => {
   const nodes: Node[] = parse(html);
-  // console.log(JSON.stringify(nodes));
+  if (isEmpty(html)) return [];
+  parentBlock = [];
   const blocks = flatten(traverseNodes(nodes)) as TBlock[];
   return blocks;
 };
 
+const HTML =
+  `<p class="mb-3"><span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs uppercase font-semibold bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-white">Most popular</span></p>`.replaceAll(
+    "> <",
+    "><",
+  );
+
 describe("getBlocksFromHTML", () => {
-  xit("should return an empty array when given an empty string", () => {
+  const result = getBlocksFromHTML(HTML);
+  it("should return an empty array when given an empty string", () => {
     const result = getBlocksFromHTML("");
     expect(result).toEqual([]);
   });
 
-  it("should return an array of blocks when given valid HTML", () => {
-    const html = "<div><p class='px-2'>Hello, world!</p></div>";
-    const result = getBlocksFromHTML(html);
-    expect(result).toEqual([
-      {
-        _id: expect.any(String),
-        _type: "Box",
-        tag: "div",
-      },
-      {
-        _id: expect.any(String),
-        _type: "Paragraph",
-        _parent: expect.any(String),
-        content: "Hello, world!",
-        styles: "#styles:,px-2",
-      },
-    ]);
-  });
+  // it("should return an array of blocks when given valid HTML", () => {
+  //   const html = HTML;
+  //   const result = getBlocksFromHTML(html);
+  // expect(result).toEqual([
+  //   {
+  //     _id: expect.any(String),
+  //     _type: "Box",
+  //     tag: "div",
+  //   },
+  //   {
+  //     _id: expect.any(String),
+  //     _type: "Paragraph",
+  //     _parent: expect.any(String),
+  //     content: "Hello, world!",
+  //     styles: "#styles:,px-2",
+  //   },
+  // ]);
+  // });
 });

@@ -5,10 +5,10 @@ import { registerServerBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _icon, _label, _iconPos, _styles } = block;
+  const { blockProps, _icon, _content, _iconPos, _styles } = block;
   const child = (
     <>
-      {_label}
+      {_content}
       {_icon && <span className={_iconPos || ""} dangerouslySetInnerHTML={{ __html: _icon }} />}
     </>
   );
@@ -23,7 +23,7 @@ registerServerBlock(ButtonBlock as React.FC<any>, {
   icon: ButtonIcon,
   group: "basic",
   props: {
-    _label: SingleLineText({ title: "Label", default: "Button", multiLingual: true }),
+    _content: SingleLineText({ title: "Label", default: "Button", multiLingual: true }),
     _styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center" }),
     _link: Link({ title: "Link", default: { type: "page", href: "", target: "_blank" } }),
     _icon: Icon({ title: "Icon", default: "" }),

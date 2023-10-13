@@ -24,7 +24,7 @@ const LinkField = ({ schema, formData, onChange }: FieldProps) => {
           name="type"
           defaultValue="page"
           value={type}
-          onChange={(e) => onChange({ ...formData, href: "", type: e.target.value })}>
+          onChange={(e) => onChange({ ...formData, type: e.target.value })}>
           {[
             { const: "page", title: "Open Page" },
             { const: "url", title: "Open URL" },

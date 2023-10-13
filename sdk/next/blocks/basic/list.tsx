@@ -8,10 +8,10 @@ import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
 
 const ListBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, children, _listType, _styles } = props;
+  const { blockProps, children, _listType, _styles, _tag } = props;
   const className = twMerge(get(_styles, "className", ""), _listType);
   return React.createElement(
-    _listType === "list-decimal" ? "ol" : "ul",
+    _tag ? _tag : _listType === "list-decimal" ? "ol" : "ul",
     { ...blockProps, ..._styles, className },
     children,
   );
@@ -44,7 +44,7 @@ registerServerBlock(ListBlock, {
 });
 
 const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _styles, children } = props;
+  const { blockProps, _styles, children, _tag } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
@@ -53,7 +53,7 @@ const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; _st
       </div>
     );
   }
-  return React.createElement("li", { ..._styles, ...blockProps, droppable: "yes" }, children || emptySlot);
+  return React.createElement(_tag || "li", { ..._styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
 registerServerBlock(ListItemBlock, {
