@@ -1,6 +1,5 @@
 import * as React from "react";
 import { ImageIcon } from "@radix-ui/react-icons";
-import BlurImage from "@/components/blur-image";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Image, SingleLineText, Styles } from "@/sdk/package/controls/controls";
@@ -15,7 +14,7 @@ const ImageBlock = (
   },
 ) => {
   const { blockProps, _image, _styles, _alt, _height = 200, _width = 200 } = block;
-  return React.createElement(BlurImage, {
+  return React.createElement("img", {
     ...blockProps,
     ..._styles,
     src: _image,

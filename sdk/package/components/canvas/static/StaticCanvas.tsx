@@ -23,7 +23,6 @@ import { Skeleton } from "../../../radix/components/ui/skeleton";
 import { useBuilderProp } from "../../../hooks/useBuilderProp";
 import { useSelectedBlock } from "../../../hooks/useSelectedBlockIds";
 import { useSelectedStylingBlocks } from "../../../hooks/useSelectedStylingBlocks";
-import { StylingHighlight } from "../StylingHighlight";
 import { TBlock } from "../../../types/TBlock";
 
 const Canvas = ({ children }: { children: React.ReactNode }) => {
@@ -275,7 +274,6 @@ const StaticCanvas = (): React.JSX.Element => {
         initialContent={iframeContent}>
         <KeyboardHandler />
         <BlockActionsStatic block={selectedBlock as unknown as TBlock} selectedBlockElement={first(selectedElements)} />
-        <StylingHighlight selectedStyleElement={first(selectedStyleElements) as HTMLElement | null} />
         <HeadTags model="page" />
         <Canvas>
           {loadingCanvas ? (
