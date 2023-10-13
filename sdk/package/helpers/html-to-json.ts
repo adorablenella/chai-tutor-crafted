@@ -186,16 +186,14 @@ const getBlockProps = (node: Node): Record<string, any> => {
   }
 };
 
-let parentBlock: any[] = [];
-
-const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] => {
+const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
   return flatMapDeep(nodes, (node: Node) => {
     if (node.type === "comment") {
       return [];
     }
     let block: Partial<TBlock> = { _id: generateUUID() };
     if (parent) {
-      block._parent = parent;
+      block._parent = parent.block._id;
     }
 
     /**
@@ -208,8 +206,7 @@ const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] =>
      */
     if (node.type === "text") {
       if (isEmpty(get(node, "content", ""))) return [] as any;
-      if (parentBlock.length > 0) {
-        const parent = last(parentBlock);
+      if (parent) {
         if (shouldAddText(parent.node, parent.block)) {
           set(parent, "block._content", get(node, "content", ""));
           return [] as any;
@@ -228,9 +225,7 @@ const traverseNodes = (nodes: Node[], parent: string | null = null): TBlock[] =>
       block._icon = stringify([node]);
       return [block] as TBlock[];
     }
-    parentBlock.push({ block, node });
-    const children = traverseNodes(node.children, block._id);
-    parentBlock.pop();
+    const children = traverseNodes(node.children, { block, node });
     return [block, ...children] as TBlock[];
   });
 };
@@ -240,7 +235,6 @@ export const getBlocksFromHTML = (html: string): TBlock[] => {
 
   const nodes: Node[] = parse(sanitizedHTML);
   if (isEmpty(html)) return [];
-  parentBlock = [];
   const blocks = flatten(traverseNodes(nodes)) as TBlock[];
   console.log("## BLOCKS", JSON.stringify(blocks));
   return blocks;
