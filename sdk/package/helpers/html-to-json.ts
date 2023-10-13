@@ -42,7 +42,7 @@ const attributeMap: Record<string, Record<string, string>> = {
 const shouldAddText = (node: Node, block: any) => {
   return (
     node.children.length === 1 &&
-    includes(["Heading", "Paragraph", "Span", "ListItem", "Button", "Label", "TableCell"], block._type)
+    includes(["Heading", "Paragraph", "Span", "ListItem", "Button", "Label", "TableCell", "Link"], block._type)
   );
 };
 
