@@ -230,12 +230,29 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
   });
 };
 
-export const getBlocksFromHTML = (html: string): TBlock[] => {
-  const sanitizedHTML = html.replace(/\s+/g, " ").replaceAll("> <", "><").trim();
+const sanitizedHTML = (html: string) => {
+  // * Checking if having body tag then converting it to div and using that as root
+  const bodyContent = html.match(/<body[^>]*>[\s\S]*?<\/body>/);
+  const htmlContent =
+    bodyContent && bodyContent.length > 0
+      ? bodyContent[0].replace(/<body/, "<div").replace(/<\/body>/, "</div>")
+      : html;
 
-  const nodes: Node[] = parse(sanitizedHTML);
+  // * Replacing script and unwanted whitespaces and nextline
+  const sanitizedHTML = htmlContent
+    .replace(/\s+/g, " ")
+    .replaceAll("> <", "><")
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
+    .trim();
+
+  return sanitizedHTML;
+};
+
+export const getBlocksFromHTML = (html: string): TBlock[] => {
+  const nodes: Node[] = parse(sanitizedHTML(html));
   if (isEmpty(html)) return [];
+  console.log("## NODES", nodes);
   const blocks = flatten(traverseNodes(nodes)) as TBlock[];
-  console.log("## BLOCKS", JSON.stringify(blocks));
+  console.log("## BLOCKS", blocks);
   return blocks;
 };

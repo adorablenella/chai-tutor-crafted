@@ -3,8 +3,8 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText } from "@/sdk/package/controls/controls";
 import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 
-const RawTextBlock = (props: TBlock & { content: string }) => {
-  return props.content;
+const RawTextBlock = (props: TBlock & { _content: string }) => {
+  return props._content;
 };
 
 registerChaiBlock(RawTextBlock, {
@@ -15,6 +15,6 @@ registerChaiBlock(RawTextBlock, {
   group: "basic",
   icon: SpaceBetweenVerticallyIcon,
   props: {
-    content: MultilineText({ title: "Content", defaultValue: "" }),
+    _content: MultilineText({ title: "Content", defaultValue: "" }),
   },
 });
