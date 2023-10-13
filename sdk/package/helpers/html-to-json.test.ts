@@ -243,10 +243,18 @@ const getBlocksFromHTML = (html: string): TBlock[] => {
 };
 
 const HTML =
-  `<p class="mb-3"><span class="inline-flex items-center gap-1.5 py-1.5 px-3 rounded-md text-xs uppercase font-semibold bg-blue-100 text-blue-800 dark:bg-blue-600 dark:text-white">Most popular</span></p>`.replaceAll(
-    "> <",
-    "><",
-  );
+  `<a href="www.google.com" class="flex items-center border-2 border-black rounded-full px-3 gap-x-1 text-black">
+    Hello
+    <svg class="text-white"
+         height="10"
+         width="10"
+         viewBox="0 0 10 10"
+         focusable="false">
+        <path d="m1 7h8v2h-8zm0-3h8v2h-8zm0-3h8v2h-8z"/>
+    </svg>
+</a>`
+    .replace(/\s+/g, " ")
+    .replaceAll("> <", "><");
 
 describe("getBlocksFromHTML", () => {
   const result = getBlocksFromHTML(HTML);

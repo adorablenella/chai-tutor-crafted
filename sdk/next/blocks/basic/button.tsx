@@ -5,8 +5,8 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _icon, _content, _iconPos, _styles } = block;
-  const child = (
+  const { blockProps, _icon, _content, _iconPos, _styles, children } = block;
+  const child = children || (
     <>
       {_content}
       {_icon && <span className={_iconPos || ""} dangerouslySetInnerHTML={{ __html: _icon }} />}
