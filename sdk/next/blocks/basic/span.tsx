@@ -4,9 +4,13 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText, Styles } from "@/sdk/package/controls/controls";
 
 const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; blockProps: Record<string, string> }) => {
-  const { blockProps, _styles, _content, children = null } = props;
+  const { blockProps, _styles, _content, children = null, _tag } = props;
   if (children) return React.createElement("div", { ..._styles, ...blockProps }, children);
-  return React.createElement("div", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
+  return React.createElement(_tag || "span", {
+    ..._styles,
+    ...blockProps,
+    dangerouslySetInnerHTML: { __html: _content },
+  });
 };
 
 registerChaiBlock(SpanBlock, {

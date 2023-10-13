@@ -12,16 +12,17 @@ import { Label } from "../../../../radix/components/ui/label";
 import { Textarea } from "../../../../radix/components/ui/textarea";
 import { Button } from "../../../../radix/components/ui/button";
 import { useAddBlock, useAddBlockParent } from "../../../../hooks";
-import { getHtmlToComponents } from "../../../../helpers/import-html";
 import { addBlockOffCanvasAtom } from "../../../../store/ui";
+import { getBlocksFromHTML } from "@/sdk/package/helpers/html-to-json";
 
 const ImportHTML = () => {
   const [code, setCode] = useState("");
   const { addPredefinedBlock } = useAddBlock();
   const [parentId, setParentId]: any = useAddBlockParent();
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
+
   const importComponents = () => {
-    const blocks = getHtmlToComponents(code);
+    const blocks = getBlocksFromHTML(code);
     addPredefinedBlock([...blocks], parentId);
     setCode("");
     setParentId(null);
