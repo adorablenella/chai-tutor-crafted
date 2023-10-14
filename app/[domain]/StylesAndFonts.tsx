@@ -27,6 +27,9 @@ export const StylesAndFonts = ({ snapshot }: any) => {
             : ""}
           body {
           }
+          .c {
+            visibility: visible !important;
+          }
           ${snapshot.styles}
         `}
       </style>

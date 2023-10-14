@@ -26,7 +26,7 @@ const NextBlocksRenderer = async ({
   return (
     <>
       <StylesAndFonts snapshot={snapshot} />
-      <div className={cn(getBrandingClasses(brandingOptions), "min-h-screen")}>
+      <div className={cn("c", getBrandingClasses(brandingOptions), "min-h-screen")}>
         <Provider>
           <BlocksRendererLive
             snapshot={snapshot}
