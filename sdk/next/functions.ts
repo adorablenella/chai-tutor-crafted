@@ -23,6 +23,7 @@ export async function getTailwindCSS(options: any, markupString: string[], safel
   set(colors, "secondary.DEFAULT", secondary);
   const tailwind = createTailwindcss({
     tailwindConfig: {
+      prefix: "c-",
       darkMode: "class",
       safelist,
       theme: {
