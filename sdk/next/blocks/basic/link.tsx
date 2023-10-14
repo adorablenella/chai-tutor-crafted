@@ -24,7 +24,7 @@ const LinkBlock = (
     );
   }
   if (inBuilder) {
-    if (children) {
+    if (children || emptySlot) {
       return (
         <span data-simulate={"a"} {...blockProps} {..._styles}>
           {children || emptySlot}
@@ -41,7 +41,7 @@ const LinkBlock = (
       });
     }
   }
-  if (children) {
+  if (children || emptySlot) {
     return (
       <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles}>
         {children || emptySlot}

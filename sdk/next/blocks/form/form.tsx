@@ -65,6 +65,6 @@ registerChaiBlock(LabelBlock, {
   group: "form",
   props: {
     _styles: Styles({ default: "" }),
-    _content: SingleLineText({ title: "Content", default: "" }),
+    _content: SingleLineText({ title: "Content", default: "Label" }),
   },
 });

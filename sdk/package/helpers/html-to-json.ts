@@ -160,7 +160,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "legend":
       return { _type: "Span", _tag: node.tagName };
     case "p":
-      return { _type: "Paragraph" };
+      return { _type: "Paragraph", _content: "" };
     case "a":
       return { _type: "Link" };
     case "form":
