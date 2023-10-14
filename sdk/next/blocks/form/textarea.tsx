@@ -15,11 +15,18 @@ const InputBlock = (
     _rows: number;
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _rows } = block;
+  const { blockProps, _label, _placeholder, _styles, _inputStyles, _rows, _showLabel } = block;
   const fieldId = generateUUID();
+
+  if (!_showLabel) {
+    return (
+      <textarea {...blockProps} {..._inputStyles} {..._styles} id={fieldId} placeholder={_placeholder} rows={_rows} />
+    );
+  }
+
   return (
     <div {..._styles} {...blockProps}>
-      <label htmlFor={fieldId}>{_label}</label>
+      {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <textarea {..._inputStyles} id={fieldId} placeholder={_placeholder} rows={_rows} />
     </div>
   );

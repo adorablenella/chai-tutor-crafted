@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parse, stringify } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import { capitalize, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
+import { capitalize, find, first, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
 
@@ -12,12 +12,7 @@ type Node = {
   children: Node[];
 };
 
-const typeMapping: Record<string, string> = {
-  div: "Box",
-  p: "Paragraph",
-};
-
-const attributeMap: Record<string, Record<string, string>> = {
+const ATTRIBUTE_MAP: Record<string, Record<string, string>> = {
   img: { alt: "_alt", width: "_width", height: "_height", src: "_image" },
   video: {
     src: "_url",
@@ -30,6 +25,21 @@ const attributeMap: Record<string, Record<string, string>> = {
     href: "_link.href",
     target: "_link.target",
     type: "", // @TODO: Detect here what to url, email, phone, elementId
+  },
+  input: {
+    placeholder: "_placeholder",
+    required: "_required",
+    type: "_inputType",
+  },
+  textarea: {
+    placeholder: "_placeholder",
+    required: "_required",
+    type: "_inputType",
+  },
+  select: {
+    placeholder: "_placeholder",
+    required: "_required",
+    multiple: "_multiple",
   },
 };
 
@@ -48,6 +58,21 @@ const shouldAddText = (node: Node, block: any) => {
 
 /**
  *
+ * @param nodes
+ * @returns from list of nested nodes extractiong only text type content
+ */
+const getTextContent = (nodes: Node[]): string => {
+  return nodes
+    .map((node) => {
+      if (node.type === "text") return get(node, "content", "");
+      else if (!isEmpty(node.children)) return getTextContent(node.children);
+      return "";
+    })
+    .join("");
+};
+
+/**
+ *
  * @param value
  * @returns For boolean attributes without content marking true and passing if value is null
  */
@@ -57,29 +82,20 @@ const getSanitizedValue = (value: any) => (value === null ? true : value);
  *
  * @param attributes
  * @param replacers
- * @returns Mapping Attributes as per blocks need from @attributeMap and rest passing as it is
+ * @returns Mapping Attributes as per blocks need from @ATTRIBUTE_MAP and rest passing as it is
  */
-const mapAttributes = (attributes: any, replacers: Record<string, string> = {}) => {
+const getAttrs = (node: Node) => {
   let attrs: Record<string, string> = {};
-  forEach(attributes as Array<{ key: string; value: string }>, ({ key, value }) => {
+  const replacers = ATTRIBUTE_MAP[node.tagName] || {};
+  const attributes: Array<{ key: string; value: string }> = node.attributes as any;
+
+  forEach(attributes, ({ key, value }) => {
     if (replacers[key]) set(attrs, replacers[key], getSanitizedValue(value));
     else set(attrs, key, getSanitizedValue(value));
   });
+
   delete attrs.class;
   return attrs;
-};
-
-const getAttrs = (node: Node): Record<string, string> => {
-  switch (node.tagName) {
-    case "img":
-    case "hr":
-    case "br":
-    case "video":
-    case "a":
-      return mapAttributes(node.attributes, attributeMap[node.tagName] || {});
-    default:
-      return mapAttributes(node.attributes, {});
-  }
 };
 
 const getStyles = (node: Node, propKey: string = "_styles"): Record<string, string> => {
@@ -97,15 +113,15 @@ const getBlockProps = (node: Node): Record<string, any> => {
   switch (node.tagName) {
     // self closing tags
     case "img":
-      return { _type: "Image", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Image" };
     case "input":
-      return { _type: "Input", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Input", _showLabel: false }; // _showLabel: hiding default block label
     case "hr":
-      return { _type: "Divider", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Divider" };
     case "br":
-      return { _type: "LineBreak", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "LineBreak" };
     case "textarea":
-      return { _type: "Textarea" };
+      return { _type: "TextArea", _showLabel: false };
     case "audio":
       return { _type: "Audio" };
     case "iframe":
@@ -113,16 +129,16 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "canvas":
       return { _type: "Canvas" };
     case "video":
-      return { _type: "Video", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Video" };
     case "svg":
       return { _type: "Icon" };
     case "progress":
       return { _type: "Progress" };
 
     // non self closing tags
-    // non self closing tags fixed structure
+    // fixed structure
     case "select":
-      return { _type: "Select" };
+      return { _type: "Select", _options: [] };
     case "option":
       return { _type: "Option" };
     case "ul":
@@ -131,29 +147,28 @@ const getBlockProps = (node: Node): Record<string, any> => {
       return {
         _type: "List",
         _tag: node.tagName,
-        _listType: node.tagName === "ol" ? "list-decimal" : "list-disc",
-        ...getStyles(node),
-        ...getAttrs(node),
+        _listType: node.tagName === "ol" ? "list-decimal" : "list-none",
       };
     case "li":
     case "dt":
-      return { _type: "ListItem", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
+      return { _type: "ListItem", _tag: node.tagName };
 
-    // non self closing tags free flow structure
+    // non self closing tags
+    // free flow structure
     case "span":
     case "figcaption":
     case "legend":
-      return { _type: "Span", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Span", _tag: node.tagName };
     case "p":
-      return { _type: "Paragraph", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Paragraph" };
     case "a":
-      return { _type: "Link", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Link" };
     case "form":
       return { _type: "Form" };
     case "label":
       return { _type: "Label" };
     case "button":
-      return { _type: "Button", ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Button" };
     case "code":
       return { _type: "Code" };
     case "h1":
@@ -162,7 +177,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "h4":
     case "h5":
     case "h6":
-      return { _type: "Heading", _tag: node.tagName, ...getStyles(node), ...getAttrs(node) };
+      return { _type: "Heading", _tag: node.tagName };
     case "table":
       return { _type: "Table" };
     case "tr":
@@ -180,57 +195,82 @@ const getBlockProps = (node: Node): Record<string, any> => {
         _tag: node.tagName,
         _type: "Box",
         _name: node.tagName === "div" ? "Box" : capitalize(node.tagName),
-        ...getStyles(node),
-        ...getAttrs(node),
       };
   }
 };
 
+/**
+ *
+ * @param nodes
+ * @param parent { block, node }
+ * @returns Traversing all nodes one by one and mapping there style, attribute and block type
+ */
 const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
   return flatMapDeep(nodes, (node: Node) => {
-    if (node.type === "comment") {
-      return [];
-    }
+    // * Ignoring code comment nodes
+    if (node.type === "comment") return [];
+
+    // * Generating block id and setting parent id if nested
     let block: Partial<TBlock> = { _id: generateUUID() };
-    if (parent) {
-      block._parent = parent.block._id;
-    }
+    if (parent) block._parent = parent.block._id;
 
     /**
      * @handling_text_content
-     * 1. Checking if parent exist
-     * 2. If parent has only one children and current node type is text
-     * 3. checking does parent block type support _content
-     * 4. setting parent _content to current node text content
-     * 5. destroying current node
+     * Checking if parent exist
+     * If parent has only one children and current node type is text
+     * checking does parent block type support _content
+     * setting parent _content to current node text content
+     * destroying current node
      */
     if (node.type === "text") {
       if (isEmpty(get(node, "content", ""))) return [] as any;
       if (parent) {
         if (shouldAddText(parent.node, parent.block)) {
           set(parent, "block._content", get(node, "content", ""));
-          return [] as any;
+          return [] as TBlock[];
         }
       }
       return { ...block, _type: "Text", _content: get(node, "content", "") };
     }
 
-    block = { ...block, ...getBlockProps(node) };
+    // * Adding default block props, default attrs and default style
+    block = { ...block, ...getBlockProps(node), ...getAttrs(node), ...getStyles(node) };
 
-    /**
-     * @handling_svg_tag
-     * if svg tag just pass html stringify content as _icon
-     */
-    if (node.tagName === "svg") {
+    if (block._type === "Input") {
+      /**
+       * hanlding input tag mapping type to input type
+       * setting block _type to non-standard inputs like checkbox, radio, range, file
+       */
+      const inputType = block._inputType || "text";
+      if (inputType === "checkbox") set(block, "_type", "Checkbox");
+      else if (inputType === "radio") set(block, "_type", "Radio");
+    } else if (node.tagName === "svg") {
+      /**
+       * handling svg tag
+       * if svg tag just pass html stringify content as _icon
+       */
       block._icon = stringify([node]);
       return [block] as TBlock[];
+    } else if (node.tagName == "option" && parent && parent.block?._type === "Select") {
+      /**
+       * mapping select options as underscore options
+       * for label extracting string from all option child and mapping all attributes
+       */
+      parent.block._options.push({ label: getTextContent(node.children), ...getAttrs(node) });
+      return [] as any;
     }
+
     const children = traverseNodes(node.children, { block, node });
     return [block, ...children] as TBlock[];
   });
 };
 
-const sanitizedHTML = (html: string) => {
+/**
+ *
+ * @param html
+ * @returns sanitizing html content
+ */
+const getSanitizedHTML = (html: string) => {
   // * Checking if having body tag then converting it to div and using that as root
   const bodyContent = html.match(/<body[^>]*>[\s\S]*?<\/body>/);
   const htmlContent =
@@ -248,11 +288,14 @@ const sanitizedHTML = (html: string) => {
   return sanitizedHTML;
 };
 
+/**
+ *
+ * @param html
+ * @returns Blocks JSON
+ */
 export const getBlocksFromHTML = (html: string): TBlock[] => {
-  const nodes: Node[] = parse(sanitizedHTML(html));
+  const nodes: Node[] = parse(getSanitizedHTML(html));
   if (isEmpty(html)) return [];
-  console.log("## NODES", nodes);
   const blocks = flatten(traverseNodes(nodes)) as TBlock[];
-  console.log("## BLOCKS", blocks);
   return blocks;
 };

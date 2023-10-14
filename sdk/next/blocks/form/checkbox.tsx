@@ -14,12 +14,25 @@ const CheckboxBlock = (
     _checked: boolean;
   },
 ) => {
-  const { blockProps, _label, _styles, _inputStyles, _required, _checked } = block;
+  const { blockProps, _label, _styles, _inputStyles, _required, _checked, _showLabel = true } = block;
   const fieldId = generateUUID();
+
+  if (!_showLabel)
+    return (
+      <input
+        {...blockProps}
+        {..._inputStyles}
+        {..._styles}
+        id={fieldId}
+        type="checkbox"
+        required={_required}
+        checked={_checked}
+      />
+    );
   return (
     <div {..._styles} {...blockProps}>
       <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} />
-      <label htmlFor={fieldId}>{_label}</label>
+      {_label && <label htmlFor={fieldId}>{_label}</label>}
     </div>
   );
 };

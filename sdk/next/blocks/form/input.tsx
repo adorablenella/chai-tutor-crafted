@@ -11,14 +11,29 @@ const InputBlock = (
     blockProps: Record<string, string>;
     _styles: Record<string, string>;
     _inputStyles: Record<string, string>;
+    _required: boolean;
   },
 ) => {
-  const { blockProps, _type, _label, _placeholder, _styles, _inputStyles } = block;
+  const { blockProps, _type, _label, _placeholder, _styles, _inputStyles, _showLabel, _required } = block;
   const fieldId = generateUUID();
+
+  if (!_showLabel) {
+    return (
+      <input
+        {...blockProps}
+        {..._inputStyles}
+        {..._styles}
+        id={fieldId}
+        type={_type}
+        placeholder={_placeholder}
+        required={_required}
+      />
+    );
+  }
   return (
     <div {..._styles} {...blockProps}>
-      <label htmlFor={fieldId}>{_label}</label>
-      <input {..._inputStyles} id={fieldId} type={_type} placeholder={_placeholder} />
+      {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
+      <input {..._inputStyles} id={fieldId} type={_type} placeholder={_placeholder} required={_required} />
     </div>
   );
 };
@@ -35,6 +50,7 @@ registerChaiBlock(InputBlock as React.FC<any>, {
     _inputStyles: Styles({ default: "w-full p-1" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),
+    _required: Checkbox({ title: "Required", default: false }),
     _inputType: SelectOption({
       title: "Type",
       options: map(["text", "email", "password", "number"], (type) => ({ value: type, title: type })),

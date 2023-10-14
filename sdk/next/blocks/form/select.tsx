@@ -1,6 +1,6 @@
 import * as React from "react";
 import { DropdownMenuIcon } from "@radix-ui/react-icons";
-import { map } from "lodash";
+import { get, map } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
@@ -15,17 +15,52 @@ const SelectBlock = (
     _options: { label: string; value: string }[];
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _required } = block;
+  const { blockProps, _label, _placeholder, _styles, _inputStyles, _required, _showLabel, _multiple = false } = block;
   const fieldId = generateUUID();
-  return (
-    <div {..._styles} {...blockProps}>
-      {block.showLabel && <label htmlFor={fieldId}>{_label}</label>}
-      <select {..._inputStyles} id={fieldId} placeholder={_placeholder} required={_required}>
+
+  if (!_showLabel) {
+    return (
+      <select
+        {..._styles}
+        {...blockProps}
+        id={fieldId}
+        placeholder={_placeholder}
+        required={_required}
+        multiple={_multiple as boolean}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>
         {map(block._options, (option) => (
-          <option value={option.value}>{option.label}</option>
+          <option
+            selected={get(option, "selected", false)}
+            key={option.value}
+            value={option.value}
+            dangerouslySetInnerHTML={{ __html: option.label }}
+          />
+        ))}
+      </select>
+    );
+  }
+
+  return (
+    <div {..._styles} {...blockProps}>
+      {block._showLabel && <label htmlFor={fieldId}>{_label}</label>}
+      <select
+        {..._inputStyles}
+        id={fieldId}
+        placeholder={_placeholder}
+        required={_required}
+        multiple={_multiple as boolean}>
+        <option value="" disabled selected hidden>
+          {_placeholder}
+        </option>
+        {map(block._options, (option) => (
+          <option
+            key={option.value}
+            selected={get(option, "selected", false)}
+            value={option.value}
+            dangerouslySetInnerHTML={{ __html: option.label }}
+          />
         ))}
       </select>
     </div>
@@ -45,6 +80,7 @@ registerChaiBlock(SelectBlock as React.FC<any>, {
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),
     _required: Checkbox({ title: "Required", default: false }),
+    _multiple: Checkbox({ title: "Multiple Choice", default: false }),
     _options: List({
       title: "Options",
       itemProperties: {

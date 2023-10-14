@@ -26,12 +26,12 @@ const LinkBlock = (
   if (inBuilder) {
     if (children) {
       return (
-        <div data-simulate={"a"} {...blockProps} {..._styles}>
+        <span data-simulate={"a"} {...blockProps} {..._styles}>
           {children || emptySlot}
-        </div>
+        </span>
       );
     } else {
-      return React.createElement("div", {
+      return React.createElement("span", {
         ...blockProps,
         ..._styles,
         href: _link.href || "#",

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { isEmpty, omit } from "lodash";
-import { GroupIcon } from "@radix-ui/react-icons";
+import { GroupIcon, LetterCaseToggleIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
@@ -8,7 +8,7 @@ import { SelectOption, SingleLineText, Slot, Styles } from "@/sdk/package/contro
 const FormBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; _tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, _success, _error, _fields, _styles } = props;
+  const { blockProps, _success, _error, _fields, _styles, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!_fields && isEmpty(_styles?.className)) {
     emptySlot = (
@@ -21,7 +21,7 @@ const FormBlock = (
     <form {...blockProps} {..._styles}>
       {_success}
       {_error}
-      {_fields || emptySlot}
+      {children || _fields || emptySlot}
     </form>
   );
 };
@@ -46,5 +46,25 @@ registerChaiBlock(FormBlock, {
         { value: "GET", title: "GET" },
       ],
     }),
+  },
+});
+
+const LabelBlock = (
+  props: TBlock & { children: React.ReactNode; _styles: any; _content: string; blockProps: Record<string, string> },
+) => {
+  const { blockProps, _content, _styles, children } = props;
+  if (children) return React.createElement("label", { ..._styles, ...blockProps }, children);
+  return React.createElement("label", { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
+};
+
+registerChaiBlock(LabelBlock, {
+  type: "Label",
+  label: "Label",
+  category: "core",
+  icon: LetterCaseToggleIcon,
+  group: "form",
+  props: {
+    _styles: Styles({ default: "" }),
+    _content: SingleLineText({ title: "Content", default: "" }),
   },
 });
