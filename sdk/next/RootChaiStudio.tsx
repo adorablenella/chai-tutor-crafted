@@ -35,14 +35,16 @@ export default function RootChaiStudio() {
   const predefinedBlock = useExternalPredefinedBlock();
 
   useEffect(() => {
-    if (syncStatus !== "SAVED" && window.location.pathname.startsWith("/editor/")) {
+    if (syncStatus !== "SAVED" && currentPageUuid) {
       window.onbeforeunload = () => "";
     } else {
       window.onbeforeunload = null;
     }
 
-    return () => window.removeEventListener("beforeunload", () => {});
-  }, [syncStatus]);
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, [syncStatus, currentPageUuid]);
 
   const saveBlocks = useCallback(
     async (snapshot: any) => {

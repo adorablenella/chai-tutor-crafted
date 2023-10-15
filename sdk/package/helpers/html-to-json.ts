@@ -132,8 +132,6 @@ const getBlockProps = (node: Node): Record<string, any> => {
       return { _type: "Video" };
     case "svg":
       return { _type: "Icon" };
-    case "progress":
-      return { _type: "Progress" };
 
     // non self closing tags
     // fixed structure
