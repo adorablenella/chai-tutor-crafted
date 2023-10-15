@@ -3,7 +3,7 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { cn } from "@/sdk/package/radix/lib/utils";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
-import _, { isEmpty } from "lodash";
+import { isEmpty } from "lodash";
 import { getRestProps } from "../helper";
 
 const BoxBlock = (
@@ -20,11 +20,7 @@ const BoxBlock = (
     );
   }
 
-  return React.createElement(
-    _tag,
-    { ...blockProps, droppable: "yes", ..._styles, ...getRestProps(rest) },
-    children || emptySlot,
-  );
+  return React.createElement(_tag, { ...blockProps, ..._styles, ...getRestProps(rest) }, children || emptySlot);
 };
 
 registerChaiBlock(BoxBlock, {
