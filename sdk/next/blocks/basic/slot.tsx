@@ -34,5 +34,6 @@ registerChaiBlock(SlotBlock, {
   hidden: true,
   props: {
     _styles: Styles({ default: "" }),
+    _emptyStyles: Styles({ default: "" }),
   },
 });

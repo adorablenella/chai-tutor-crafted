@@ -3,7 +3,7 @@ import { isEmpty, omit } from "lodash";
 import { GroupIcon, LetterCaseToggleIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
-import { SelectOption, SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
+import { SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
 import { getRestProps } from "../helper";
 
 const FormBlock = (
@@ -20,8 +20,6 @@ const FormBlock = (
   }
   return (
     <form {...blockProps} {..._styles} {...getRestProps(rest)}>
-      {_success}
-      {_error}
       {children || _fields || emptySlot}
     </form>
   );
@@ -39,14 +37,6 @@ registerChaiBlock(FormBlock, {
     _error: Slot({ name: "Error Message" }),
     _fields: Slot({ name: "Form Fields" }),
     _action: SingleLineText({ title: "Action", default: "https://api.chaibuilder.com/form/submit" }),
-    _method: SelectOption({
-      title: "Method",
-      default: "POST",
-      options: [
-        { value: "POST", title: "POST" },
-        { value: "GET", title: "GET" },
-      ],
-    }),
   },
 });
 

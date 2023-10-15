@@ -45,8 +45,8 @@ export const useAddBlock = (): AddBlocks => {
             _type: "Slot",
             _parent: blockId,
             _name: coreBlock.props[key].name,
-            styles: coreBlock.props[key].styles,
-            emptyStyles: coreBlock.props[key].emptyStyles,
+            _styles: coreBlock.props[key].styles,
+            _emptyStyles: coreBlock.props[key].emptyStyles,
           });
         }
       });
