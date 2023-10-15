@@ -4,12 +4,17 @@ import { usePages } from "../hooks/usePages";
 import { map } from "lodash";
 import { useCurrentPage, useSyncState } from "../store";
 import { toast } from "sonner";
+import { useEffect } from "react";
 
 const CurrentPage = () => {
   const { data: project } = useProject();
   const { data: pages, isLoading } = usePages();
   const [syncState] = useSyncState();
   const [currentPageUuid, setCurrentPageUuid] = useCurrentPage();
+
+  useEffect(() => {
+    return () => setCurrentPageUuid(null);
+  }, [setCurrentPageUuid]);
 
   const changePage = (newPage: string) => {
     if (syncState !== "SAVED") {
