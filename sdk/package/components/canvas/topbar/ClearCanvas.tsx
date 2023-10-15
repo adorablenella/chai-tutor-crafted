@@ -12,15 +12,16 @@ import {
   AlertDialogTrigger,
   Button,
 } from "../../../radix-ui";
-import { useCanvasHistory, useTreeData } from "../../../hooks";
+import { useCanvasHistory } from "../../../hooks";
+import { useSetAllBlocks } from "@/sdk/package/hooks/useTreeData";
 
 export const ClearCanvas = () => {
-  const [, setTreeData] = useTreeData();
+  const [setAllBlocks] = useSetAllBlocks();
   const { createSnapshot } = useCanvasHistory();
   const clearCanvas = useCallback(() => {
-    setTreeData([]);
+    setAllBlocks([]);
     createSnapshot();
-  }, [setTreeData, createSnapshot]);
+  }, [setAllBlocks, createSnapshot]);
 
   return (
     <div className="flex items-center">
