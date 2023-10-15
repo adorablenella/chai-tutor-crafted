@@ -1,10 +1,11 @@
 import * as React from "react";
 import { InputIcon } from "@radix-ui/react-icons";
-import { map } from "lodash";
+import { map, omit } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import { getRestProps } from "../helper";
 
 const InputBlock = (
   block: TBlock & {
@@ -14,26 +15,47 @@ const InputBlock = (
     _required: boolean;
   },
 ) => {
-  const { blockProps, _type, _label, _placeholder, _styles, _inputStyles, _showLabel, _required } = block;
+  const {
+    blockProps,
+    _label,
+    _placeholder,
+    _styles,
+    _inputStyles,
+    _showLabel,
+    _required,
+    _inputType = "text",
+    ...rest
+  } = block;
   const fieldId = generateUUID();
+  const restProps = getRestProps(rest);
 
-  if (!_showLabel) {
+  if (!_showLabel || _inputType === "submit") {
+    if (_inputType === "submit") blockProps.value = _label;
+
     return (
       <input
         {...blockProps}
         {..._inputStyles}
         {..._styles}
         id={fieldId}
-        type={_type}
+        type={_inputType}
         placeholder={_placeholder}
         required={_required}
+        {...restProps}
       />
     );
   }
   return (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
-      <input {..._inputStyles} id={fieldId} type={_type} placeholder={_placeholder} required={_required} />
+      <input
+        {..._inputStyles}
+        id={fieldId}
+        type={_inputType}
+        placeholder={_placeholder}
+        required={_required}
+        {...restProps}
+      />
     </div>
   );
 };
@@ -45,16 +67,22 @@ registerChaiBlock(InputBlock as React.FC<any>, {
   icon: InputIcon,
   group: "form",
   props: {
-    _showLabel: Checkbox({ title: "Show label", default: true }),
     _styles: Styles({ default: "" }),
+    _inputType: SelectOption({
+      title: "Type",
+      options: map(
+        ["text", "email", "password", "number", "tel", "file", "range", "submit", "color", "date", "time"],
+        (type) => ({
+          value: type,
+          title: type,
+        }),
+      ),
+      default: "text",
+    }),
+    _showLabel: Checkbox({ title: "Show label", default: true }),
     _inputStyles: Styles({ default: "w-full p-1" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),
     _required: Checkbox({ title: "Required", default: false }),
-    _inputType: SelectOption({
-      title: "Type",
-      options: map(["text", "email", "password", "number"], (type) => ({ value: type, title: type })),
-      default: "text",
-    }),
   },
 });

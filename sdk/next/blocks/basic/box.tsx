@@ -4,11 +4,13 @@ import { cn } from "@/sdk/package/radix/lib/utils";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import _, { isEmpty } from "lodash";
+import { getRestProps } from "../helper";
 
 const BoxBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles } = props;
+  const { blockProps, children, _tag = "div", _styles, ...rest } = props;
+
   let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(_styles?.className)) {
     emptySlot = (
@@ -17,7 +19,12 @@ const BoxBlock = (
       </div>
     );
   }
-  return React.createElement(_tag, { ...blockProps, droppable: "yes", ..._styles }, children || emptySlot);
+
+  return React.createElement(
+    _tag,
+    { ...blockProps, droppable: "yes", ..._styles, ...getRestProps(rest) },
+    children || emptySlot,
+  );
 };
 
 registerChaiBlock(BoxBlock, {

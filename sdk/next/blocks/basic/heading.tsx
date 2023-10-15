@@ -3,6 +3,7 @@ import { HeadingIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/controls";
+import { getRestProps } from "../helper";
 
 /**
  * Heading component
@@ -12,10 +13,17 @@ import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/cont
 const HeadingBlock = (
   props: TBlock & { _level: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, _styles, _content, _level = "h1", children = null } = props;
-  // eslint-disable-next-line react/no-danger
-  if (children) return React.createElement(_level, { ..._styles, ...blockProps }, children);
-  return React.createElement(_level, { ..._styles, ...blockProps, dangerouslySetInnerHTML: { __html: _content } });
+  const { blockProps, _styles, _content, _level = "h1", children = null, ...rest } = props;
+  const restProps = getRestProps(rest);
+
+  if (children) return React.createElement(_level, { ..._styles, ...blockProps, ...restProps }, children);
+
+  return React.createElement(_level, {
+    ..._styles,
+    ...blockProps,
+    ...restProps,
+    dangerouslySetInnerHTML: { __html: _content },
+  });
 };
 
 registerChaiBlock(HeadingBlock as React.FC<any>, {

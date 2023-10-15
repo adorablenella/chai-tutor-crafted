@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, Model, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import { getRestProps } from "../helper";
 
 const YOUTUBE_REGEX = /^(https?:\/\/)?(www\.)?youtube\.com\/(watch\?v=|embed\/)([a-zA-Z0-9_-]{11})/;
 const VIMEO_REGEX = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/;
@@ -47,8 +48,9 @@ const VideoBlock = (
     _styles: Record<string, string>;
   },
 ) => {
-  const { blockProps, _styles, _url, _controls } = block;
+  const { blockProps, _styles, _url, _controls, ...rest } = block;
 
+  const restProps = getRestProps(rest);
   const autoplay = _controls.autoPlay;
   const controls = _controls.controls;
   const muted = autoplay || _controls.muted;
@@ -71,6 +73,7 @@ const VideoBlock = (
       allow: "autoplay *; fullscreen *",
       allowFullScreen: true,
       frameBorder: 0,
+      ...restProps,
     });
   }
 
@@ -78,6 +81,7 @@ const VideoBlock = (
     ...blockProps,
     ..._styles,
     src: _url,
+    ...restProps,
     controls,
     muted,
     autoPlay: autoplay,

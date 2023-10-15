@@ -6,13 +6,15 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
+import { getRestProps } from "../helper";
 
 const ListBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, children, _listType, _styles, _tag } = props;
+  const { blockProps, children, _listType, _styles, _tag, ...rest } = props;
   const className = twMerge(get(_styles, "className", ""), _listType);
+
   return React.createElement(
     _tag ? _tag : _listType === "list-decimal" ? "ol" : "ul",
-    { ...blockProps, ..._styles, className },
+    { ...blockProps, ..._styles, className, ...getRestProps(rest) },
     children,
   );
 };

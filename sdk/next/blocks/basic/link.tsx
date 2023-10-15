@@ -4,6 +4,7 @@ import { Link1Icon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Link, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import { getRestProps } from "../helper";
 
 const LinkBlock = (
   props: TBlock & {
@@ -14,7 +15,9 @@ const LinkBlock = (
     children: React.ReactNode;
   },
 ) => {
-  const { blockProps, _link, children, _styles, inBuilder, _content } = props;
+  const { blockProps, _link, children, _styles, inBuilder, _content, ...rest } = props;
+  const restProps = getRestProps(rest);
+
   let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(_styles?.className) && isEmpty(_content)) {
     emptySlot = (
@@ -23,10 +26,11 @@ const LinkBlock = (
       </div>
     );
   }
+
   if (inBuilder) {
     if (children || emptySlot) {
       return (
-        <span data-simulate={"a"} {...blockProps} {..._styles}>
+        <span data-simulate={"a"} {...blockProps} {..._styles} {...restProps}>
           {children || emptySlot}
         </span>
       );
@@ -38,21 +42,25 @@ const LinkBlock = (
         target: _link.target || "_self",
         dangerouslySetInnerHTML: { __html: _content },
         "data-simulate": "a",
+        ...restProps,
       });
     }
   }
+
   if (children || emptySlot) {
     return (
-      <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles}>
+      <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles} {...restProps}>
         {children || emptySlot}
       </a>
     );
   }
+
   return React.createElement("a", {
     ...blockProps,
     ..._styles,
     href: _link.href || "#",
     target: _link.target || "_self",
+    ...restProps,
     dangerouslySetInnerHTML: { __html: _content },
   });
 };

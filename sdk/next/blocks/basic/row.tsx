@@ -6,11 +6,12 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Numeric, Styles } from "@/sdk/package/controls/controls";
 import { cn } from "@/lib/utils";
+import { getRestProps } from "../helper";
 
 const RowBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, children, _styles } = props;
+  const { blockProps, children, _styles, ...rest } = props;
   const className = twMerge(get(_styles, "className", ""), "grid grid-cols-12");
-  return React.createElement("div", { ...blockProps, ..._styles, className }, children);
+  return React.createElement("div", { ...blockProps, ..._styles, ...getRestProps(rest), className }, children);
 };
 
 registerChaiBlock(RowBlock, {
@@ -30,7 +31,8 @@ registerChaiBlock(RowBlock, {
 });
 
 const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _styles, _colSpan, children } = props;
+  const { blockProps, _styles, _colSpan, children, ...rest } = props;
+
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
@@ -39,6 +41,7 @@ const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; _styl
       </div>
     );
   }
+
   const cols: { [key: number | string]: string } = {
     1: "col-span-1",
     2: "col-span-2",
@@ -54,7 +57,11 @@ const ColumnBlock = (props: TBlock & { blockProps: Record<string, string>; _styl
     12: "col-span-12",
   };
   const className = twMerge(get(_styles, "className", ""), cols[_colSpan]);
-  return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes", className }, children || emptySlot);
+  return React.createElement(
+    "div",
+    { ..._styles, ...blockProps, droppable: "yes", ...getRestProps(rest), className },
+    children || emptySlot,
+  );
 };
 
 registerChaiBlock(ColumnBlock, {

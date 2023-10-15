@@ -5,6 +5,7 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, List, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import { getRestProps } from "../helper";
 
 const SelectBlock = (
   block: TBlock & {
@@ -15,8 +16,19 @@ const SelectBlock = (
     _options: { label: string; value: string }[];
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _required, _showLabel, _multiple = false } = block;
+  const {
+    blockProps,
+    _label,
+    _placeholder,
+    _styles,
+    _inputStyles,
+    _required,
+    _showLabel,
+    _multiple = false,
+    ...rest
+  } = block;
   const fieldId = generateUUID();
+  const restProps = getRestProps(rest);
 
   if (!_showLabel) {
     return (
@@ -26,7 +38,8 @@ const SelectBlock = (
         id={fieldId}
         placeholder={_placeholder}
         required={_required}
-        multiple={_multiple as boolean}>
+        multiple={_multiple as boolean}
+        {...restProps}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>
@@ -44,13 +57,14 @@ const SelectBlock = (
 
   return (
     <div {..._styles} {...blockProps}>
-      {block._showLabel && <label htmlFor={fieldId}>{_label}</label>}
+      {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <select
         {..._inputStyles}
         id={fieldId}
         placeholder={_placeholder}
         required={_required}
-        multiple={_multiple as boolean}>
+        multiple={_multiple as boolean}
+        {...restProps}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>
