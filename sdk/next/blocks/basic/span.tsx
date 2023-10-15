@@ -1,7 +1,7 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
-import { MultilineText, Styles } from "@/sdk/package/controls/controls";
+import { RichText, Styles } from "@/sdk/package/controls/controls";
 import { getRestProps } from "../helper";
 
 const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; blockProps: Record<string, string> }) => {
@@ -25,6 +25,6 @@ registerChaiBlock(SpanBlock, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _content: MultilineText({ title: "Content", default: "Your text" }),
+    _content: RichText({ title: "Content", default: "Your text" }),
   },
 });

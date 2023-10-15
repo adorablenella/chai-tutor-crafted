@@ -2,7 +2,7 @@ import * as React from "react";
 import { HeadingIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
-import { MultilineText, SelectOption, Styles } from "@/sdk/package/controls/controls";
+import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { getRestProps } from "../helper";
 
 /**
@@ -46,6 +46,6 @@ registerChaiBlock(HeadingBlock as React.FC<any>, {
       ],
     }),
     _styles: Styles({ default: "text-3xl" }),
-    _content: MultilineText({ title: "Content", default: "Heading goes here", rows: 3, multiLingual: true }),
+    _content: RichText({ title: "Content", default: "Heading goes here" }),
   },
 });
