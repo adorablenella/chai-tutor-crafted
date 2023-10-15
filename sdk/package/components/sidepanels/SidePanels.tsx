@@ -13,6 +13,8 @@ const LayersPanel = lazy(() => import("./panels/layers/Layers"));
 const BrandingOptions = lazy(() => import("./panels/branding/BrandingOptions"));
 const ImagesPanel = lazy(() => import("./panels/images/ImagesPanel"));
 
+let timeout: any = null;
+
 const SidePanels = () => {
   const topComponents: { icon: React.FC<any>; name: string; panel: LazyExoticComponent<any> }[] = useBuilderProp(
     "sideBarComponents.top",
@@ -34,8 +36,9 @@ const SidePanels = () => {
 
   const handleChangePanel = (newPanel: string) => {
     // * Waiting for panel to slide in before changing its content
+    clearTimeout(timeout);
     if (activePanel !== "layers" && newPanel === "layers") {
-      setTimeout(() => _setActivePanel("layers"), 700);
+      timeout = setTimeout(() => _setActivePanel("layers"), 700);
     } else {
       _setActivePanel(newPanel);
     }
@@ -95,7 +98,7 @@ const SidePanels = () => {
         </div>
       </div>
       <div
-        className={`fixed left-14 z-[50] h-full w-60 border-r bg-background p-1 duration-700 ease-in-out ${
+        className={`fixed left-14 z-[50] h-full w-96 border-r bg-background p-1 duration-700 ease-in-out ${
           activePanel !== "layers" ? "translate-x-0" : "-translate-x-full"
         }`}>
         <Suspense

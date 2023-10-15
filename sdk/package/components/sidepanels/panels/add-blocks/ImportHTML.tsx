@@ -12,7 +12,7 @@ import { Label } from "../../../../radix/components/ui/label";
 import { Textarea } from "../../../../radix/components/ui/textarea";
 import { Button } from "../../../../radix/components/ui/button";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
-import { addBlockOffCanvasAtom } from "../../../../store/ui";
+import { activePanelAtom, addBlockOffCanvasAtom } from "../../../../store/ui";
 import { getBlocksFromHTML } from "@/sdk/package/helpers/html-to-json";
 import { first } from "lodash";
 
@@ -21,12 +21,14 @@ const ImportHTML = () => {
   const { addPredefinedBlock } = useAddBlock();
   const [ids]: any = useSelectedBlockIds();
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
+  const [, setActivePanel] = useAtom(activePanelAtom);
 
   const importComponents = () => {
     const blocks = getBlocksFromHTML(code);
     addPredefinedBlock([...blocks], first(ids) || null);
     setCode("");
     setOpen(false);
+    setActivePanel("layers");
   };
 
   return (
@@ -42,11 +44,22 @@ const ImportHTML = () => {
       <CardContent className="space-y-2 p-3">
         <div className="space-y-1">
           <Label htmlFor="current">Enter HTML Code:</Label>
-          <Textarea ref={(el) => el && el.focus()} onChange={(evt) => setCode(evt.target.value)} rows={5} />
+          <Textarea
+            autoFocus
+            tabIndex={0}
+            ref={(el) => el && el.focus()}
+            defaultValue={code}
+            onChange={(evt) => setCode(evt.target.value)}
+            rows={12}
+            placeholder={`<div>
+    <h1>Enter code here</h1>
+</div>`}
+            className="resize-none overflow-x-auto font-mono font-normal"
+          />
         </div>
       </CardContent>
-      <CardFooter className="p-3">
-        <Button disabled={code.trim() === ""} onClick={() => importComponents()} size="sm">
+      <CardFooter className="flex justify-end p-3">
+        <Button disabled={code.trim() === ""} onClick={() => importComponents()} size="sm" className="w-full">
           Import
         </Button>
       </CardFooter>
