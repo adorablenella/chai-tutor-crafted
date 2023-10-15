@@ -58,7 +58,7 @@ const AddBlocksPanel = () => {
                     {group}
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-3 gap-2">
                       {React.Children.toArray(
                         reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
                           <CoreBlock block={block} />

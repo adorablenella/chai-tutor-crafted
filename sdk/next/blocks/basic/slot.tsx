@@ -2,6 +2,7 @@ import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { cn } from "@/sdk/package/radix/lib/utils";
+import { Styles } from "@/sdk/package/controls/controls";
 
 const SlotBlock = (
   props: TBlock & { children: React.ReactNode } & {
@@ -31,5 +32,7 @@ registerChaiBlock(SlotBlock, {
   group: "basic",
   category: "core",
   hidden: true,
-  props: {},
+  props: {
+    _styles: Styles({ default: "" }),
+  },
 });
