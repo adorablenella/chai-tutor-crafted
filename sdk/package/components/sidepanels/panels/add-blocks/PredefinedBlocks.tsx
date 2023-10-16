@@ -2,7 +2,7 @@ import { filter, first, groupBy, has, isArray, isEmpty, map, mergeWith, values }
 import React, { Suspense, useCallback, useMemo, useState } from "react";
 import { useUILibraryBlocks } from "../../../../hooks/useUiLibraries";
 import { Popover, PopoverContent, PopoverTrigger } from "../../../../radix-ui";
-import { ChevronRightIcon, GearIcon } from "@radix-ui/react-icons";
+import { ChevronRightIcon } from "@radix-ui/react-icons";
 import * as PopoverRoot from "@radix-ui/react-popover";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
@@ -24,8 +24,8 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
       return;
     }
     setIsAdding(true);
-    const uiBlock = await getExternalPredefinedBlock(block);
-    if (!isEmpty(uiBlock.blocks)) addPredefinedBlock(syncBlocksWithDefaults(uiBlock.blocks), first(ids));
+    const uiBlocks = await getExternalPredefinedBlock(block);
+    if (!isEmpty(uiBlocks)) addPredefinedBlock(syncBlocksWithDefaults(uiBlocks), first(ids));
     closePopover();
   }, []);
 

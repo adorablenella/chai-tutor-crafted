@@ -23,8 +23,8 @@ const PredefinedBlock = ({ block }: { block: any }) => {
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
 
   const addBlockToPage = async () => {
-    const externalBlock = await getExternalBlock(block);
-    addPredefinedBlock(externalBlock.blocks, first(ids));
+    const externalBlocks = await getExternalBlock(block);
+    addPredefinedBlock(externalBlocks, first(ids));
     setOpen(false);
   };
 

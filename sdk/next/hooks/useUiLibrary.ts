@@ -12,7 +12,7 @@ export const useExternalPredefinedBlock = () => {
     if (!block || !block.uuid) return null;
     try {
       const res = await fetch(`/${block.uuid}.${block.format}`).then(async (res) =>
-        block.format === "html" ? getBlocksFromHTML(await res.text()) : res.json(),
+        block.format === "html" ? getBlocksFromHTML(await res.text()) : await res.json(),
       );
       return res || [];
     } catch (error) {
