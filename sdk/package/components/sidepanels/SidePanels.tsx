@@ -23,6 +23,7 @@ const SidePanels = () => {
   const bottomComponents: LazyExoticComponent<any>[] = useBuilderProp("sideBarComponents.bottom", []);
   const [activePanel, setActivePanel] = useAtom(activePanelAtom);
   const [_activePanel, _setActivePanel] = useState(activePanel);
+  const [hideTimeout, setHideTimeout] = useState<any>(null);
 
   const panels: { [key: string]: LazyExoticComponent<any> } = {
     "add-blocks": AddBlocksPanel,
@@ -98,7 +99,7 @@ const SidePanels = () => {
         </div>
       </div>
       <div
-        className={`fixed left-14 z-[50] h-full w-96 border-r bg-background p-1 duration-700 ease-in-out ${
+        className={`fixed left-14 z-[50] h-full w-96 border-r bg-background duration-700 ease-in-out ${
           activePanel !== "layers" ? "translate-x-0" : "-translate-x-full"
         }`}>
         <Suspense
@@ -110,10 +111,26 @@ const SidePanels = () => {
             </div>
           }>
           {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div onClick={() => handleChangePanel("layers")} className="fixed inset-0 z-50" />
           <div
-            className={cn("relative h-full max-h-[93%] bg-background", activePanel === "layers" ? "" : "z-[100]")}
-            onMouseLeave={() => handleChangePanel("layers")}>
+            onClick={() => {
+              handleChangePanel("layers");
+            }}
+            className={"fixed inset-0 z-50 w-screen bg-black opacity-20" + (activePanel === "layers" ? " hidden" : "")}
+          />
+          <div
+            className={cn("relative h-full max-h-[93%] bg-background p-1", activePanel === "layers" ? "" : "z-[100]")}
+            onMouseEnter={() => {
+              if (hideTimeout) clearTimeout(hideTimeout);
+            }}
+            onMouseLeave={() => {
+              const timeout = setTimeout(() => {
+                if (hideTimeout) {
+                  handleChangePanel("layers");
+                  clearTimeout(hideTimeout);
+                }
+              }, 1000);
+              setHideTimeout(timeout);
+            }}>
             {React.createElement(get(panels, _activePanel, () => <div />))}
           </div>
         </Suspense>
