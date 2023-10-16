@@ -1,0 +1,9 @@
+[
+  {
+    "uuid": "hero-one",
+    "name": "Hero 1",
+    "format": "html",
+    "preview": "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/hero-one",
+    "group": "hero"
+  }
+]

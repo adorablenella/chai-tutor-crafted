@@ -12,7 +12,7 @@ import { useUpdateProject } from "./mutations/useProjectActions";
 import { isEqual } from "lodash";
 import { ChaiBuilderStudio } from "@/sdk/package";
 import { useUploadMedia } from "./mutations/useStorageActions";
-import { useUiLibraryBlocks, useExternalPredefinedBlock } from "./hooks/useUiLibrary";
+import { useExternalPredefinedBlock, useUiLibraryBlocks } from "./hooks/useUiLibrary";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
@@ -101,7 +101,7 @@ export default function RootChaiStudio() {
 
   return (
     <ChaiBuilderStudio
-      previewLink={`${domain}/${isHomePage ? "" : pageData?.slug}?_preview=true`}
+      previewLink={`${domain}/${isHomePage ? "" : pageData?.slug}`}
       loadingCanvas={isLoading}
       brandingOptions={(project?.branding_options ?? BRANDING_OPTIONS_DEFAULTS) as TBrandingOptions}
       blocks={pageData?.blocks ?? []}
