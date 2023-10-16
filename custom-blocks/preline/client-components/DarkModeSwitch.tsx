@@ -34,11 +34,17 @@ const DarkModeSwitch = () => {
         // @ts-ignore
         document.querySelector("html").classList.remove("dark");
         // @ts-ignore
+        document.querySelector("html").classList.remove("c-dark");
+        // @ts-ignore
         document.querySelector("html").classList.remove("default");
         // @ts-ignore
         document.querySelector("html").classList.remove("auto");
         // @ts-ignore
         document.querySelector("html").classList.add(this.getOriginalAppearance());
+        if (this.getOriginalAppearance() === "dark") {
+          // @ts-ignore
+          document.querySelector("html").classList.add("c-dark");
+        }
 
         setTimeout(() => {
           $resetStylesEl.remove();

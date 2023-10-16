@@ -59,5 +59,5 @@ export const getBrandingClasses = (brandingOptions: any) => {
   const bgLight = get(brandingOptions, "_bodyBgLightColor", "#FFFFFF");
   const bgDark = get(brandingOptions, "_bodyBgDarkColor", "#0f172a");
   // @ts-ignore
-  return `font-body antialiased text-[${textLight}] bg-[${bgLight}] dark:text-[${textDark}] dark:bg-[${bgDark}]`;
+  return `c-font-body c-antialiased c-text-[${textLight}] c-bg-[${bgLight}] dark:c-text-[${textDark}] dark:c-bg-[${bgDark}]`;
 };
