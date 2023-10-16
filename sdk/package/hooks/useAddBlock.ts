@@ -81,14 +81,19 @@ export const useAddBlock = (): AddBlocks => {
         const { _id } = blocks[i];
         // eslint-disable-next-line no-param-reassign
         blocks[i]._id = generateUUID();
-        if (i === 0) {
-          // eslint-disable-next-line no-param-reassign
-          blocks[i]._parent = parentId;
-        }
         const children = filter(blocks, { _parent: _id });
         for (let j = 0; j < children.length; j++) {
           children[j]._parent = blocks[i]._id;
         }
+      }
+      let parentBlock;
+      if (parentId) {
+        parentBlock = find(presentBlocks, { _id: parentId }) as TBlock;
+        blocks[0]._parent = parentId;
+      }
+      const canAdd = parentBlock ? canAddChildBlock(parentBlock._type) : true;
+      if (!canAdd && parentBlock) {
+        blocks[0]._parent = parentBlock._parent;
       }
       dispatch({ type: "set_blocks", payload: [...presentBlocks, ...blocks] });
       setSelected([first(blocks)?._id]);
