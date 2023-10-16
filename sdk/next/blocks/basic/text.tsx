@@ -6,7 +6,7 @@ import { SpaceBetweenVerticallyIcon } from "@radix-ui/react-icons";
 const RawTextBlock = (props: TBlock & { _content: string; inBuilder: boolean; blockProps: Record<string, string> }) => {
   if (props.inBuilder) {
     return (
-      <span {...props.blockProps} className="inline-block">
+      <span {...props.blockProps} className="">
         &nbsp;{props._content}&nbsp;
       </span>
     );
