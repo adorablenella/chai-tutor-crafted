@@ -39,7 +39,7 @@ const SidePanels = () => {
     // * Waiting for panel to slide in before changing its content
     clearTimeout(timeout);
     if (activePanel !== "layers" && newPanel === "layers") {
-      timeout = setTimeout(() => _setActivePanel("layers"), 700);
+      timeout = setTimeout(() => _setActivePanel("layers"), 500);
     } else {
       _setActivePanel(newPanel);
     }
@@ -99,7 +99,13 @@ const SidePanels = () => {
         </div>
       </div>
       <div
-        className={`fixed left-14 z-[50] h-full w-96 border-r bg-background duration-700 ease-in-out ${
+        onClick={() => {
+          handleChangePanel("layers");
+        }}
+        className={"absolute inset-0 right-0 z-50 w-screen bg-black/20" + (activePanel === "layers" ? " hidden" : "")}
+      />
+      <div
+        className={`fixed left-14 z-[50] h-full w-96 border-r bg-background duration-500 ease-in-out ${
           activePanel !== "layers" ? "translate-x-0" : "-translate-x-full"
         }`}>
         <Suspense
@@ -110,13 +116,6 @@ const SidePanels = () => {
               <div className="h-16 w-full bg-gray-200" />
             </div>
           }>
-          {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-          <div
-            onClick={() => {
-              handleChangePanel("layers");
-            }}
-            className={"fixed inset-0 z-50 w-screen bg-black opacity-20" + (activePanel === "layers" ? " hidden" : "")}
-          />
           <div
             className={cn("relative h-full max-h-[93%] bg-background p-1", activePanel === "layers" ? "" : "z-[100]")}
             onMouseEnter={() => {

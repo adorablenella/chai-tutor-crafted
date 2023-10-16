@@ -16,11 +16,14 @@ import { useSetAllBlocks } from "../hooks/useTreeData";
 import { Toaster } from "../radix/components/ui/toaster";
 import { useBuilderReset } from "../hooks/useBuilderReset";
 import { syncBlocksWithDefaults } from "@/sdk/package/blocks/builder-blocks";
+import { useBrandingOptions } from "../hooks";
 
 const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
   const { dndOptions = { backend: MultiBackend } } = props;
   const [setAllBlocks] = useSetAllBlocks();
+  const [, setBrandingOptions] = useBrandingOptions();
   const reset = useBuilderReset();
+
   useEffect(() => {
     // @ts-ignore
     builderStore.set(chaiBuilderPropsAtom, omit(props, ["blocks", "globalBlocks", "brandingOptions"]));
@@ -32,6 +35,10 @@ const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
     reset();
     setAllBlocks(syncBlocksWithDefaults(props.blocks || []));
   }, [props.blocks]);
+
+  useEffect(() => {
+    setBrandingOptions(props.brandingOptions);
+  }, [props.brandingOptions]);
 
   return (
     <DndProvider {...dndOptions} options={getBackendOptions()}>

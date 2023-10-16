@@ -53,11 +53,12 @@ const SettingPopover = ({ pageData }: { pageData: TPageData }): React.ReactEleme
 };
 
 const SinglePage = (page: TPageData) => {
-  const [currentPageUid] = useCurrentPage();
+  const [currentPageUuid] = useCurrentPage();
   const { data: projectData } = useProject();
   const changePage = useChangePage();
   const isHomePage = projectData?.homepage === page.uuid;
-  const isActivePage = currentPageUid === page.uuid;
+  const isActivePage = currentPageUuid === page.uuid;
+
   const handleClick = () => changePage(page);
 
   if (!projectData) return null;
