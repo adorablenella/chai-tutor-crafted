@@ -4,8 +4,8 @@ import { get } from "lodash";
 
 export const StylesAndFonts = ({ snapshot }: any) => {
   const isDifferentFont =
-    get(snapshot.projectData.branding_options, "_headingFont", "") !==
-    get(snapshot.projectData.branding_options, "_bodyFont", "");
+    get(snapshot, "projectData.branding_options._headingFont", "") !==
+    get(snapshot, "projectData.branding_options._bodyFont", "");
 
   return (
     <>
