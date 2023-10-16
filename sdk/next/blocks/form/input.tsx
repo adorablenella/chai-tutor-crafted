@@ -1,6 +1,6 @@
 import * as React from "react";
 import { InputIcon } from "@radix-ui/react-icons";
-import { map, omit } from "lodash";
+import { map } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
@@ -9,6 +9,7 @@ import { getRestProps } from "../helper";
 
 const InputBlock = (
   block: TBlock & {
+    inBuilder: boolean;
     blockProps: Record<string, string>;
     _styles: Record<string, string>;
     _inputStyles: Record<string, string>;
@@ -24,6 +25,7 @@ const InputBlock = (
     _showLabel,
     _required,
     _inputType = "text",
+    inBuilder,
     ...rest
   } = block;
   const fieldId = generateUUID();
@@ -34,6 +36,7 @@ const InputBlock = (
 
     return (
       <input
+        readOnly={inBuilder}
         {...blockProps}
         {..._inputStyles}
         {..._styles}
@@ -49,6 +52,7 @@ const InputBlock = (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <input
+        readOnly={inBuilder}
         {..._inputStyles}
         id={fieldId}
         type={_inputType}

@@ -3,19 +3,19 @@ import { useFrame } from "react-frame-component";
 import { useAtom } from "jotai";
 import { first } from "lodash";
 import {
-  useSelectedBlockIds,
   useCanvasHistory,
+  useCopyBlockIds,
+  useCutBlockIds,
   useDuplicateBlocks,
+  usePasteBlocks,
   usePreviewMode,
   useRemoveBlocks,
-  useCutBlockIds,
-  useCopyBlockIds,
-  usePasteBlocks,
   useSavePage,
+  useSelectedBlockIds,
 } from "../../hooks";
 import { editLayerNameAtom, inlineEditingActiveAtom } from "../../store/ui";
 
-export const KeyboardHandler = ({ sendToParent }: any) => {
+export const KeyboardHandler = ({ sendToParent = () => {} }: any) => {
   const { window: iframeWin }: any = useFrame();
   const [ids, setSelected] = useSelectedBlockIds();
   const { undo, redo } = useCanvasHistory();
@@ -41,12 +41,12 @@ export const KeyboardHandler = ({ sendToParent }: any) => {
     // eslint-disable-next-line consistent-return
     const handleKeyDown = (e: any) => {
       if (e.key === "Escape") {
-        sendToParent("setSelected", []);
+        setSelected([]);
       }
       enterEditMode(e);
       if (!editing && (e.key === "Delete" || e.key === "Backspace")) {
         e.preventDefault();
-        sendToParent("removeBlocks", ids);
+        removeBlocks(ids);
       }
       if (e.ctrlKey || e.metaKey) {
         if (["z", "y", "d", "x", "c", "p", "s", "v"].includes(e.key)) {
@@ -65,7 +65,6 @@ export const KeyboardHandler = ({ sendToParent }: any) => {
         if (e.key === "d") duplicateBlocks(ids);
         if (e.key === "x") cut(ids);
         if (e.key === "c") copy(ids);
-        if (e.key === "p") setPreview((preview: boolean) => !preview);
         if (e.key === "v" && ids.length > 0) pasteBlocks(ids[0]);
       }
     };

@@ -7,7 +7,7 @@ const RawTextBlock = (props: TBlock & { _content: string; inBuilder: boolean; bl
   if (props.inBuilder) {
     return (
       <span {...props.blockProps} className="inline-block">
-        {props._content}
+        &nbsp;{props._content}&nbsp;
       </span>
     );
   }
