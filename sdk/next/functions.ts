@@ -48,7 +48,9 @@ export async function getTailwindCSS(options: any, markupString: string[], safel
       @tailwind utilities;`,
     markupString,
   );
-  return `${css} h1,h2,h3,h4,h5,h6{font-family: "${headingFont}",${defaultTheme.fontFamily.sans.join(", ")};}`;
+  return `${css} .c-bg-clip-text{background-clip: text;-webkit-background-clip: text;} h1,h2,h3,h4,h5,h6{font-family: "${headingFont}",${defaultTheme.fontFamily.sans.join(
+    ", ",
+  )};}`;
 }
 
 export const getBrandingClasses = (brandingOptions: any) => {

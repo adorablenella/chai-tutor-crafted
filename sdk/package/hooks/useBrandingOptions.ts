@@ -1,5 +1,4 @@
-import { useAtom } from "jotai";
-import { atomWithStorage } from "jotai/utils";
+import { atom, useAtom } from "jotai";
 import { BRANDING_OPTIONS_DEFAULTS } from "../constants/MODIFIERS";
 
 type TBrandingOptions = {
@@ -14,10 +13,7 @@ type TBrandingOptions = {
   _secondaryColor: string;
 } & Record<string, string>;
 
-export const brandingOptionsAtom: any = atomWithStorage<TBrandingOptions>(
-  "branding_options",
-  BRANDING_OPTIONS_DEFAULTS as TBrandingOptions
-);
+export const brandingOptionsAtom: any = atom<TBrandingOptions>(BRANDING_OPTIONS_DEFAULTS as TBrandingOptions);
 
 /**
  * Wrapper around useAtom
