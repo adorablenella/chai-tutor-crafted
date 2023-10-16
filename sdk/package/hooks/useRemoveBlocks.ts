@@ -13,11 +13,14 @@ export const useRemoveBlocks = (): Function => {
 
   return useCallback(
     (blockIds: Array<string>) => {
-      const newBlocks = filter(presentBlocks, (block: TBlock) => !includes(blockIds, block._id));
+      const newBlocks = filter(
+        presentBlocks,
+        (block: TBlock) => !includes(blockIds, block._id) && !includes(blockIds, block._parent),
+      );
       dispatch({ type: "set_blocks", payload: newBlocks });
       // TODO: Clear all cut ids and copy ids
       setSelectedIds(without(ids, ...blockIds));
     },
-    [presentBlocks, setSelectedIds, dispatch, ids]
+    [presentBlocks, setSelectedIds, dispatch, ids],
   );
 };

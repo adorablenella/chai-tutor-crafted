@@ -46,7 +46,7 @@ const ImportHTML = () => {
           <Label htmlFor="current">Enter HTML Code:</Label>
           <Textarea
             autoFocus
-            tabIndex={0}
+            tabIndex={1}
             ref={(el) => el && el.focus()}
             defaultValue={code}
             onChange={(evt) => setCode(evt.target.value)}
@@ -54,7 +54,7 @@ const ImportHTML = () => {
             placeholder={`<div>
     <h1>Enter code here</h1>
 </div>`}
-            className="resize-none overflow-x-auto font-mono font-normal"
+            className="resize-none overflow-x-auto whitespace-pre font-mono font-normal"
           />
         </div>
       </CardContent>

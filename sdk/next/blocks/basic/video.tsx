@@ -97,7 +97,10 @@ registerChaiBlock(VideoBlock as React.FC<any>, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _url: SingleLineText({ title: "Video URL", default: "" }),
+    _url: SingleLineText({
+      title: "Video URL",
+      default: "https://www.youtube.com/watch?v=9xwazD5SyVg&ab_channel=MaximilianMustermann",
+    }),
     _controls: Model({
       title: "Controls",
       properties: {
