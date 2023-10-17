@@ -40,7 +40,7 @@ const addPrefixToClasses = (classes: string, prefix: string = "c-") => {
     });
     return newClasses.join(" ");
   });
-  return `${STYLES_KEY}${array.join(",")}`;
+  return `${STYLES_KEY}${array.join(" , ")}`;
 };
 
 export const getRouteSnapshot = async (domain: string, _slug: string) => {
