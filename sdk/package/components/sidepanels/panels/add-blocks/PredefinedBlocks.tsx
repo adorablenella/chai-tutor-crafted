@@ -52,9 +52,22 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
 
 const Panel = ({ group, blocks }: { blocks: any[]; group: string }) => {
   const [open, setOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<any>(null);
   return (
     <Popover open={open} onOpenChange={setOpen}>
-      <PopoverTrigger asChild onClick={() => setOpen(!open)} onMouseEnter={() => setOpen(!open)}>
+      <PopoverTrigger
+        asChild
+        onClick={() => setOpen(!open)}
+        onMouseOut={() => {
+          clearTimeout(timeoutId);
+          setTimeoutId(null);
+        }}
+        onMouseEnter={() => {
+          const timeout = setTimeout(() => {
+            setOpen(!open);
+          }, 700);
+          setTimeoutId(timeout);
+        }}>
         <div
           className={`flex cursor-pointer items-center justify-between rounded p-2 text-sm capitalize ${
             open ? "bg-primary/10" : "duration-200 hover:bg-primary/5"
