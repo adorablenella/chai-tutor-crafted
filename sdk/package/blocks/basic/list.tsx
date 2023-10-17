@@ -53,7 +53,7 @@ const ListItemBlock = (props: TBlock & { blockProps: Record<string, string>; sty
       </div>
     );
   }
-  return React.createElement("li", { ...styles, ...blockProps, droppable: "yes" }, children || emptySlot);
+  return React.createElement("li", { ...styles, ...blockProps }, children || emptySlot);
 };
 
 registerInternalBlock(ListItemBlock, {
