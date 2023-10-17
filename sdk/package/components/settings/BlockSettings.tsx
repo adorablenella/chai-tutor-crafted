@@ -13,7 +13,6 @@ import GlobalDataMapper from "../../controls/widgets/GlobalDataMapper";
 import { getBlockJSONFromSchemas, getBlockJSONFromUISchemas } from "../../functions/controls";
 import { useUpdateBlocksPropsRealtime } from "../../hooks/useUpdateBlocksProps";
 import { TControlDefinition } from "../../controls";
-import { useEffect } from "react";
 
 export default function BlockSettings() {
   const selectedBlock = useSelectedBlock() as any;
@@ -35,14 +34,6 @@ export default function BlockSettings() {
     },
   };
   const uiSchema: UiSchema = {};
-
-  useEffect(() => {
-    if (selectedBlock._type === "Box") {
-      const tag = selectedBlock._tag;
-      const schema = get(properties, `_tag.schema.oneOf`, []) as any[];
-      schema.push({ const: tag, title: tag });
-    }
-  }, [selectedBlock._type, selectedBlock._tag, properties]);
 
   Object.keys(properties).forEach((key) => {
     const control = properties[key];
