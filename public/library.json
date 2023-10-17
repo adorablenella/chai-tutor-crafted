@@ -5,5 +5,26 @@
     "format": "html",
     "preview": "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/hero-one",
     "group": "hero"
+  },
+  {
+    "uuid": "hero-two",
+    "name": "Hero 2",
+    "format": "html",
+    "preview": "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/Screenshot%202023-10-17%20at%209.36.29%20PM.png",
+    "group": "hero"
+  },
+  {
+    "uuid": "hero-three",
+    "name": "Hero 3",
+    "format": "html",
+    "preview": "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/Screenshot%202023-10-17%20at%209.37.56%20PM.png",
+    "group": "hero"
+  },
+  {
+    "uuid": "icons-one",
+    "name": "Icons 1",
+    "format": "html",
+    "preview": "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/Screenshot%202023-10-17%20at%209.40.16%20PM.png",
+    "group": "icons"
   }
 ]
