@@ -13,6 +13,7 @@ import GlobalDataMapper from "../../controls/widgets/GlobalDataMapper";
 import { getBlockJSONFromSchemas, getBlockJSONFromUISchemas } from "../../functions/controls";
 import { useUpdateBlocksPropsRealtime } from "../../hooks/useUpdateBlocksProps";
 import { TControlDefinition } from "../../controls";
+import { useEffect } from "react";
 
 export default function BlockSettings() {
   const selectedBlock = useSelectedBlock() as any;
@@ -35,6 +36,14 @@ export default function BlockSettings() {
   };
   const uiSchema: UiSchema = {};
 
+  useEffect(() => {
+    if (selectedBlock._type === "Box") {
+      const tag = selectedBlock._tag;
+      const schema = get(properties, `_tag.schema.oneOf`, []) as any[];
+      schema.push({ const: tag, title: tag });
+    }
+  }, [selectedBlock._type, selectedBlock._tag, properties]);
+
   Object.keys(properties).forEach((key) => {
     const control = properties[key];
     if (includes(["slot", "styles"], control.type)) return;
@@ -48,8 +57,6 @@ export default function BlockSettings() {
   const updateRealtime = ({ formData: newData }: IChangeEvent, id?: string) => {
     if (id) {
       const path = id.replace("root.", "") as string;
-      // TODO: check the key if it's a multi lang field
-      // TODO: get the current lang key and append it to key
       updateBlockPropsRealtime([selectedBlock._id], { [path]: get(newData, path) });
     }
   };
