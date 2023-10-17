@@ -9,7 +9,7 @@ import { useCurrentPage, useSyncState } from "./store";
 import { TBrandingOptions, TProjectData } from "./types";
 import { useUpdatePage } from "./mutations/usePageActions";
 import { useUpdateProject } from "./mutations/useProjectActions";
-import { isEqual } from "lodash";
+import { isEmpty, isEqual } from "lodash";
 import { ChaiBuilderStudio } from "@/sdk/package";
 import { useUploadMedia } from "./mutations/useStorageActions";
 import { useExternalPredefinedBlock, useUiLibraryBlocks } from "./hooks/useUiLibrary";
@@ -99,11 +99,13 @@ export default function RootChaiStudio() {
   let domain = (project?.customDomain || project?.subdomain) + "." + (process.env.NEXT_PUBLIC_ROOT_DOMAIN as string);
   domain = process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${domain}` : `http://${project?.subdomain}.localhost:3000`;
 
+  const brandingOptions = isEmpty(project?.branding_options) ? BRANDING_OPTIONS_DEFAULTS : project?.branding_options;
+
   return (
     <ChaiBuilderStudio
       previewLink={`${domain}/${isHomePage ? "" : pageData?.slug}`}
       loadingCanvas={isLoading}
-      brandingOptions={(project?.branding_options ?? BRANDING_OPTIONS_DEFAULTS) as TBrandingOptions}
+      brandingOptions={brandingOptions as TBrandingOptions}
       blocks={pageData?.blocks ?? []}
       globalBlocks={globalBlocks ?? []}
       topBarComponents={{

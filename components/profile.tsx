@@ -27,7 +27,9 @@ export default async function Profile() {
         ) : (
           <UserCircle2 className="h-6 w-6 rounded-full" />
         )}
-        <span className="truncate text-xs font-medium">{session?.user?.user_metadata?.name}</span>
+        <span className="truncate text-xs font-medium">
+          {session?.user?.user_metadata?.name || session?.user?.email}
+        </span>
       </Link>
       <LogoutButton />
     </div>

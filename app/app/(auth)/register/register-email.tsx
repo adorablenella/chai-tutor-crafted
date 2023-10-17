@@ -5,7 +5,7 @@ import LoadingDots from "@/components/icons/loading-dots";
 import { useRouter } from "next/navigation";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { CheckCircle2 } from "lucide-react";
+import { MailCheck } from "lucide-react";
 
 export default function LoginWithEmail() {
   const [loading, setLoading] = useState(false);
@@ -42,8 +42,8 @@ export default function LoginWithEmail() {
   return (
     <>
       {login === "success" && (
-        <div className="text-sm text-green-500">
-          <CheckCircle2 className="h-4 w-4" color="#22c55e" />
+        <div className="flex flex-col items-center justify-center rounded-md bg-green-500/20 p-2 text-center text-sm text-green-500">
+          <MailCheck className="h-6 w-6" color="#22c55e" />
           <p>We have sent you an email with magic link to login to your account</p>
         </div>
       )}

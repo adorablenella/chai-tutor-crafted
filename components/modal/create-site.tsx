@@ -39,7 +39,7 @@ export default function CreateSiteModal({ canAddMore }: { canAddMore: boolean })
       }
       const { uuid } = res;
       router.refresh();
-      router.push(`/site/${uuid}`);
+      router.push(`/editor/${uuid}`);
       modal?.hide();
       toast.success(`Successfully created site!`);
     });

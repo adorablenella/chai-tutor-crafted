@@ -2,15 +2,13 @@
 
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import LoadingDots from "@/components/icons/loading-dots";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
-import { CheckCircle2 } from "lucide-react";
+import { MailCheck } from "lucide-react";
 
 export default function LoginWithEmail() {
   const [loading, setLoading] = useState(false);
-  const [form, setForm] = useState({ fullName: "", email: "" });
-  // Get error message added by next/auth in URL.
   const searchParams = useSearchParams();
   const error = searchParams?.get("error");
 
@@ -21,13 +19,13 @@ export default function LoginWithEmail() {
 
   const [login, setLogin] = useState("");
   const [email, setEmail] = useState("");
-  const router = useRouter();
   const supabase = createClientComponentClient();
 
   const attemptLogin = useCallback(
     async (evt: any) => {
       evt.preventDefault();
       setLogin("email");
+      setLoading(true);
       const { error } = await supabase.auth.signInWithOtp({
         email,
         options: {
@@ -36,11 +34,13 @@ export default function LoginWithEmail() {
       });
       if (error) {
         setLogin("error");
+        setLoading(false);
         return;
       }
 
+      setEmail("");
       setLogin("success");
-      setEmail(() => "");
+      setLoading(false);
     },
     [email, supabase.auth],
   );
@@ -48,8 +48,8 @@ export default function LoginWithEmail() {
   return (
     <>
       {login === "success" && (
-        <div className="text-sm text-green-500">
-          <CheckCircle2 className="h-4 w-4" color="#22c55e" />
+        <div className="flex flex-col items-center justify-center rounded-md bg-green-500/20 p-2 text-center text-sm text-green-500">
+          <MailCheck className="h-6 w-6" color="#22c55e" />
           <p>We have sent you an email with magic link to login to your account</p>
         </div>
       )}
@@ -61,6 +61,7 @@ export default function LoginWithEmail() {
               : "bg-white hover:bg-stone-50 active:bg-stone-100 dark:bg-black dark:hover:border-white dark:hover:bg-black"
           } group my-2 flex h-10 w-full items-center justify-center space-x-2 rounded-md border border-stone-200 text-white transition-colors duration-75 focus:outline-none dark:border-stone-700`}
           onChange={(e) => setEmail(e.target.value)}
+          value={email}
           type="email"
           placeholder="Email"
         />
