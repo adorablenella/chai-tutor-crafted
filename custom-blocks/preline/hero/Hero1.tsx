@@ -1,6 +1,3 @@
-import { registerChaiBlock } from "@/sdk/next/server";
-import { Slot } from "@/sdk/package/controls/controls";
-
 const Hero1 = ({ content, blockProps }: any) => {
   return (
     <div
@@ -90,11 +87,11 @@ const Hero1 = ({ content, blockProps }: any) => {
   );
 };
 
-registerChaiBlock(Hero1, {
-  type: "Hero1",
-  label: "Hero 1",
-  group: "Hero",
-  props: {
-    content: Slot({ name: "Hero Content", emptyStyles: "h-20" }),
-  },
-});
+// registerChaiBlock(Hero1, {
+//   type: "Hero1",
+//   label: "Hero 1",
+//   group: "Hero",
+//   props: {
+//     content: Slot({ name: "Hero Content", emptyStyles: "h-20" }),
+//   },
+// });

@@ -41,7 +41,7 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
       )}
       <Image
         src={block.preview || "https://placehold.it/400/150"}
-        className="w-full"
+        className="w-full rounded-md border border-border"
         alt={block.name}
         width={100}
         height={100}

@@ -104,6 +104,8 @@ registerChaiBlock(Navbar1, {
   type: "Navbar1",
   label: "Navbar Simple",
   group: "Navbar",
+  preview:
+    "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/block-previews/navbar-one.png?t=2023-10-17T15%3A56%3A22.261Z",
   props: {
     logo: Image({
       default:

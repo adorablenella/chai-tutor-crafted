@@ -1,8 +1,6 @@
-import { registerChaiBlock } from "@/sdk/next/server";
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import React from "react";
-import { Image } from "@/sdk/package/controls/controls";
 import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
 
 const Navbar2 = ({ logo, blockProps }: any) => {
@@ -168,15 +166,62 @@ const Navbar2 = ({ logo, blockProps }: any) => {
   );
 };
 
-registerChaiBlock(Navbar2, {
-  type: "Navbar2",
-  label: "Navbar 2",
-  group: "Navbar",
-  props: {
-    logo: Image({
-      default:
-        "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/chai-builder-logo.png",
-      title: "Logo",
-    }),
-  },
-});
+// registerChaiBlock(Navbar2, {
+//   hidden: true,
+//   type: "Navbar2",
+//   label: "Navbar Bordered",
+//   group: "Navbar",
+//   props: {
+//     logo: Image({
+//       default:
+//         "https://fldwljgzcktqnysdkxnn.supabase.co/storage/v1/object/public/chaibuilder-blob-storage/chai-builder-logo.png",
+//       title: "Logo",
+//     }),
+//     name: SingleLineText({ title: "Name", default: "Chai Builder" }),
+//     darkModeSwitch: Checkbox({ title: "Show Dark Mode Switch?", default: true }),
+//     rightButton1: Model({
+//       title: "Right Button 1",
+//       default: {
+//         icon: "",
+//         label: "Button 1",
+//         link: { href: "/", type: "page", target: "_self" },
+//       },
+//       properties: {
+//         icon: Icon({ title: "Icon", default: "" }),
+//         label: SingleLineText({ title: "Label", default: "Label" }),
+//         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
+//       },
+//     }),
+//     rightButton2: Model({
+//       title: "Right Button 2",
+//       default: {
+//         icon: "",
+//         label: "Button 2",
+//         link: { href: "/", type: "page", target: "_self" },
+//       },
+//       properties: {
+//         icon: Icon({ title: "Icon", default: "" }),
+//         label: SingleLineText({ title: "Label", default: "Label" }),
+//         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
+//       },
+//     }),
+//     menuItems: List({
+//       title: "Menu Items",
+//       default: [
+//         {
+//           label: "About",
+//           link: { href: "/", type: "page", target: "_self" },
+//         },
+//       ],
+//       itemProperties: {
+//         label: SingleLineText({ title: "Label", default: "Label" }),
+//         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
+//       },
+//     }),
+//     // styles
+//     rightButton2Styles: Styles({
+//       default:
+//         "flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500",
+//     }),
+//   },
+// });
