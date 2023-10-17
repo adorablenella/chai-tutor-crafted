@@ -185,6 +185,8 @@ const getBlockProps = (node: Node): Record<string, any> => {
       return { _type: "TableCell", _tag: node.tagName };
     case "thead":
       return { _type: "TableHead" };
+    case "tbody":
+      return { _type: "TableBody" };
     case "tfoot":
       return { _type: "TableFooter" };
 
