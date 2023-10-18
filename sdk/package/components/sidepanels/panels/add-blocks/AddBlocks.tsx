@@ -1,5 +1,5 @@
-import React, { Suspense, useState } from "react";
-import { filter, groupBy, map, reject, uniq, values } from "lodash";
+import React, { Suspense, useEffect, useState } from "react";
+import { filter, find, first, groupBy, includes, isEmpty, keys, map, reject, uniq, values } from "lodash";
 import { useAtom } from "jotai";
 import {
   Accordion,
@@ -17,17 +17,52 @@ import { PredefinedBlocks } from "./PredefinedBlocks";
 import { showPredefinedBlockCategoryAtom } from "../../../../store/ui";
 import { Skeleton } from "../../../../radix/components/ui/skeleton";
 import ImportHTML from "@/sdk/package/components/sidepanels/panels/add-blocks/ImportHTML";
+import { useAllBlocks, useSelectedBlockIds } from "@/sdk/package/hooks";
+import { TBlock } from "@/sdk/package/types";
+
+/**
+ *
+ * Checking which block to show in add block list
+ *
+ */
+const notAllowedInRoot = ["ListItem", "TableHead", "TableBody", "TableRow", "TableCell", "Column"];
+const isAllowedBlockType = (block: TBlock | null | undefined, type: string) => {
+  if (!block) return !includes(notAllowedInRoot, type);
+
+  const parentType = block._type;
+  if (parentType === "List") return type === "ListItem";
+  else if (parentType === "Table") return type === "TableHead" || type === "TableBody";
+  else if (parentType === "TableHead" || parentType === "TableBody") return type === "TableRow";
+  else if (parentType === "TableRow") return type === "TableCell";
+  else if (parentType === "Row") return type === "Column";
+  return !includes(notAllowedInRoot, type);
+};
 
 const AddBlocksPanel = () => {
   const [tab, setTab] = useState<string>("core");
   const [active, setActive] = useState<string>("basic");
   const coreBlocks = useCoreBlocks();
   const [, setCategory] = useAtom(showPredefinedBlockCategoryAtom);
-  const onToggle = (value: string) => {
-    setActive((oldValue) => (oldValue === value ? "" : value));
-  };
 
-  const groupedBlocks = groupBy(coreBlocks, "category") as { core: any[]; custom: any[] };
+  const [ids] = useSelectedBlockIds();
+  const blocks = useAllBlocks();
+  const block = find(blocks, { _id: first(ids) });
+
+  const groupedBlocks = groupBy(
+    filter(coreBlocks, (cBlock: any) => isAllowedBlockType(block, cBlock.type)),
+    "category",
+  ) as { core: any[]; custom: any[] };
+
+  const uniqueTypeGroup = uniq(map(groupedBlocks.core, "group"));
+
+  // * setting active tab if not already selected from current unique list
+  useEffect(() => {
+    if (!includes(uniqueTypeGroup, active) && !isEmpty(uniqueTypeGroup) && !isEmpty(active)) {
+      setActive(first(uniqueTypeGroup) as string);
+    }
+  }, [uniqueTypeGroup, active]);
+
+  const onToggle = (value: string) => setActive((oldValue) => (oldValue === value ? "" : value));
 
   return (
     <div className="flex h-full flex-col">
@@ -52,7 +87,7 @@ const AddBlocksPanel = () => {
         <ScrollArea className="-mx-1.5 h-full">
           <Accordion type="single" value={active} className="w-full px-3">
             {React.Children.toArray(
-              uniq(map(groupedBlocks.core, "group")).map((group) => (
+              map(uniqueTypeGroup, (group) => (
                 <AccordionItem value={group} className="border-border">
                   <AccordionTrigger onClick={() => onToggle(group)} className="py-2 capitalize">
                     {group}

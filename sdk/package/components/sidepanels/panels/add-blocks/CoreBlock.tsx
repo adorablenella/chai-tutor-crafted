@@ -3,7 +3,7 @@ import { useAtom } from "jotai";
 import { first, has } from "lodash";
 import { createElement } from "react";
 import { BoxIcon } from "@radix-ui/react-icons";
-import { addBlockOffCanvasAtom } from "../../../../store/ui";
+import { activePanelAtom, addBlockOffCanvasAtom } from "../../../../store/ui";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../radix/components/ui/tooltip";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
@@ -12,6 +12,7 @@ export const CoreBlock = ({ block }: { block: any }) => {
   const { type, icon, label } = block;
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
+  const [, setActivePanel] = useAtom(activePanelAtom);
   const [, drag] = useDrag(() => ({
     type: "CORE_BLOCK",
     item: block,
@@ -25,6 +26,7 @@ export const CoreBlock = ({ block }: { block: any }) => {
       addCoreBlock(block, first(ids));
     }
     setOpen(false);
+    setActivePanel("layers");
   };
 
   return (
