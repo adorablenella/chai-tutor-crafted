@@ -36,10 +36,10 @@ registerChaiBlock(ListBlock, {
     }),
   },
   blocks: [
-    { _type: "List", _id: "a", listType: "list-none", styles: "#styles:," },
-    { _type: "ListItem", _id: "b", _parent: "a", styles: "#styles:," },
-    { _type: "ListItem", _id: "c", _parent: "a", styles: "#styles:," },
-    { _type: "ListItem", _id: "d", _parent: "a", styles: "#styles:," },
+    { _type: "List", _id: "a", listType: "list-none", _styles: "#styles:," },
+    { _type: "ListItem", _id: "b", _parent: "a", _styles: "#styles:,", _content: "Item 1" },
+    { _type: "ListItem", _id: "c", _parent: "a", _styles: "#styles:,", _content: "Item 2" },
+    { _type: "ListItem", _id: "d", _parent: "a", _styles: "#styles:,", _content: "Item 3" },
   ],
 });
 
