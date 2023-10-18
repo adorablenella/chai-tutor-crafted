@@ -79,6 +79,7 @@ export default function BlockStyling() {
             <SettingsSection key={section.heading} section={section} />
           ))}
         </Accordion>
+        <div className="h-60"></div>
       </ScrollArea>
     </div>
   );
