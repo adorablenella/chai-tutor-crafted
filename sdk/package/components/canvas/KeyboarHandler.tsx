@@ -14,10 +14,12 @@ import {
   useSelectedBlockIds,
 } from "../../hooks";
 import { editLayerNameAtom, inlineEditingActiveAtom } from "../../store/ui";
+import { useSelectedStylingBlocks } from "@/sdk/package/hooks/useSelectedStylingBlocks";
 
 export const KeyboardHandler = ({ sendToParent = () => {} }: any) => {
   const { window: iframeWin }: any = useFrame();
   const [ids, setSelected] = useSelectedBlockIds();
+  const [, setStylingBlocks] = useSelectedStylingBlocks();
   const { undo, redo } = useCanvasHistory();
   const duplicateBlocks = useDuplicateBlocks();
   const [, cut] = useCutBlockIds();
@@ -42,6 +44,8 @@ export const KeyboardHandler = ({ sendToParent = () => {} }: any) => {
     const handleKeyDown = (e: any) => {
       if (e.key === "Escape") {
         setSelected([]);
+        setStylingBlocks([]);
+        return;
       }
       enterEditMode(e);
       if (!editing && (e.key === "Delete" || e.key === "Backspace")) {

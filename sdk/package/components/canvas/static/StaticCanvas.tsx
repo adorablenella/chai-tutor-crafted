@@ -192,6 +192,7 @@ const StaticCanvas = (): React.JSX.Element => {
   const [networkMode] = useAtom(networkModeAtom);
   const [preview] = usePreviewMode();
   const [width] = useCanvasWidth();
+  const [, setIds] = useSelectedBlockIds();
   const selectedBlock: any = useSelectedBlock();
   const [, highlight] = useHighlightBlockId();
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -202,7 +203,7 @@ const StaticCanvas = (): React.JSX.Element => {
   const [selectedElements, setSelectedElements] = useState<HTMLElement[]>([]);
   const [selectedStyleElements, setSelectedStyleElements] = useState<HTMLElement[] | null[]>([]);
   const [, setCanvasIframe] = useAtom(canvasIframeAtom);
-  const [stylingBlocks] = useSelectedStylingBlocks();
+  const [stylingBlocks, setStylingBlocks] = useSelectedStylingBlocks();
   const loadingCanvas = useBuilderProp("loadingCanvas", false);
 
   useEffect(() => {
@@ -261,6 +262,10 @@ const StaticCanvas = (): React.JSX.Element => {
 
   return (
     <div
+      onClick={() => {
+        setIds([]);
+        setStylingBlocks([]);
+      }}
       onMouseLeave={() => setTimeout(() => highlight(""), 300)}
       className="relative mx-auto h-full w-full bg-black/80"
       style={initialWidth > 0 && !isEmpty(scale) ? { width: preview ? "100%" : initialWidth } : {}}

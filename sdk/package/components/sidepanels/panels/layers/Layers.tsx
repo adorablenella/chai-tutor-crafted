@@ -4,7 +4,17 @@ import { StackIcon } from "@radix-ui/react-icons";
 import { useDrop } from "react-dnd";
 import { NodeModel, Tree } from "@minoru/react-dnd-treeview";
 import { useTranslation } from "react-i18next";
-import { useAddBlock, useAllBlocks, useCanvasHistory, useSelectedBlockIds } from "../../../../hooks";
+import {
+  useAddBlock,
+  useAllBlocks,
+  useCanvasHistory,
+  useCopyBlockIds,
+  useCutBlockIds,
+  useDuplicateBlocks,
+  usePasteBlocks,
+  useRemoveBlocks,
+  useSelectedBlockIds,
+} from "../../../../hooks";
 import { CustomNode } from "./CustomNode";
 import { CustomDragPreview } from "./CustomDragPreview";
 import { Placeholder } from "./Placeholder";
@@ -18,6 +28,35 @@ import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { BlockContextMenu } from "./BlockContextMenu";
 import { ScrollArea } from "../../../../radix-ui";
 import { useSelectedStylingBlocks } from "../../../../hooks/useSelectedStylingBlocks";
+import { useHotkeys } from "react-hotkeys-hook";
+
+const useKeyEventWatcher = () => {
+  const [ids, setIds, toggleIds] = useSelectedBlockIds();
+  const [, setStyleBlocks] = useSelectedStylingBlocks();
+  const [, setCopyIds] = useCopyBlockIds();
+  const removeBlocks = useRemoveBlocks();
+  const duplicateBlocks = useDuplicateBlocks();
+  const [, setCutIds] = useCutBlockIds();
+  const { pasteBlocks, canPaste } = usePasteBlocks();
+  const { undo, redo } = useCanvasHistory();
+  useHotkeys("esc", () => setIds([]), {}, [setIds]);
+  useHotkeys("ctrl+c,command+c", () => setCopyIds(ids), {}, [ids, setCopyIds]);
+  useHotkeys("ctrl+d,command+d", () => duplicateBlocks(ids), {}, [ids, duplicateBlocks]);
+  useHotkeys("ctrl+x,command+x", () => setCutIds(ids), {}, [ids, setCutIds]);
+  useHotkeys("ctrl+v,command+v", () => (ids.length === 1 ? pasteBlocks(ids[0]) : null), {}, [ids, pasteBlocks]);
+  useHotkeys("ctrl+z,command+z", () => undo(), {}, [undo]);
+  useHotkeys("ctrl+y,command+y", () => redo(), {}, [redo]);
+
+  useHotkeys(
+    "del, backspace",
+    (event: any) => {
+      event.preventDefault();
+      removeBlocks(ids);
+    },
+    {},
+    [ids, removeBlocks],
+  );
+};
 
 const Layers = (): React.JSX.Element => {
   const allBlocks = useAllBlocks();
@@ -27,11 +66,12 @@ const Layers = (): React.JSX.Element => {
   const { t } = useTranslation();
   const { createSnapshot } = useCanvasHistory();
   useExpandTree();
+  useKeyEventWatcher();
   const expandedIds = useExpandedIds();
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const getExternalBlock = useBuilderProp(
     "getExternalPredefinedBlock",
-    async (predefinedBlock: any) => predefinedBlock
+    async (predefinedBlock: any) => predefinedBlock,
   );
   const handleDrop = async (newTree: NodeModel[], options: any) => {
     const { monitor, dropTargetId, dragSource, relativeIndex } = options;
@@ -68,6 +108,11 @@ const Layers = (): React.JSX.Element => {
     data: block,
   }));
 
+  const clearSelection = () => {
+    setIds([]);
+    setStyleBlocks([]);
+  };
+
   const [{ isOver }, drop] = useDrop(() => ({
     accept: ["CORE_BLOCK", "PREDEFINED_BLOCK"],
     collect: (monitor) => ({
@@ -83,19 +128,19 @@ const Layers = (): React.JSX.Element => {
   }));
 
   return (
-    <div className="h-full flex flex-col space-y-1 select-none -mx-1">
-      <div className="bg-background/30 p-1 rounded-md mx-1">
+    <div onClick={() => clearSelection()} className="-mx-1 flex h-full select-none flex-col space-y-1">
+      <div className="mx-1 rounded-md bg-background/30 p-1">
         <h1 className="px-1 font-semibold">Tree view</h1>
       </div>
       {isEmpty(allBlocks) ? (
         <div
           ref={drop}
-          className={`mx-1 text-sm h-full text-center text-gray-400 p-6 mt-4 ${isOver ? "bg-blue-200" : ""}`}>
-          <StackIcon className="w-10 h-10 mx-auto" />
+          className={`mx-1 mt-4 h-full p-6 text-center text-sm text-gray-400 ${isOver ? "bg-blue-200" : ""}`}>
+          <StackIcon className="mx-auto h-10 w-10" />
           <p className="mt-2">{t("tree_view_no_blocks")}</p>
         </div>
       ) : null}
-      <ScrollArea id="layers-view" className="h-full overflow-y-auto no-scrollbar p-1">
+      <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">
         <Tree
           initialOpen={expandedIds}
           extraAcceptTypes={["CORE_BLOCK", "PREDEFINED_BLOCK"]}
