@@ -27,6 +27,7 @@ const addPrefixToClasses = (classes: string, prefix: string = "c-") => {
     const classes = item.split(" ");
     const newClasses = classes.map((item) => {
       if (item === "") return "";
+      if (startsWith(item, "hs-")) return item;
       // if the class had a state of media query, then prefix the classes
       // eg: dark:hover:bg-red-500 => dark:hover:c-bg-red-500
       // eg: hover:bg-red-500 => hover:c-bg-red-500
