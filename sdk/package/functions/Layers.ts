@@ -42,7 +42,6 @@ export type BlockNode = {
   parent?: string | null;
   placeholder?: string;
 
-  pre_block_id?: string;
   props?: object;
 
   rows?: number;

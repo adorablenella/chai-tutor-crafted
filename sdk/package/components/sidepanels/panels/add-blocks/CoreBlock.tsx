@@ -19,7 +19,7 @@ export const CoreBlock = ({ block }: { block: any }) => {
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
 
   const addBlockToPage = () => {
-    if (has(block, "pre_block_id")) {
+    if (has(block, "blocks")) {
       addPredefinedBlock(syncBlocksWithDefaults(block.blocks), first(ids));
     } else {
       addCoreBlock(block, first(ids));
