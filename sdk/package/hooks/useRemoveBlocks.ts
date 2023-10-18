@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { filter, includes, without } from "lodash";
+import { filter, find, includes } from "lodash";
 import { useCallback } from "react";
 import { presentBlocksAtom } from "../store/blocks";
 import { useDispatch } from "./useTreeData";
@@ -28,10 +28,10 @@ export const useRemoveBlocks = (): Function => {
 
   return useCallback(
     (blockIds: Array<string>) => {
+      const parentBlockId = find(presentBlocks, { _id: blockIds[0] })?._parent || null;
       const newBlocks = removeBlocks(presentBlocks, blockIds);
       dispatch({ type: "set_blocks", payload: newBlocks });
-      // TODO: Clear all cut ids and copy ids
-      setSelectedIds(without(ids, ...blockIds));
+      setSelectedIds(parentBlockId ? [parentBlockId] : []);
     },
     [presentBlocks, setSelectedIds, dispatch, ids],
   );
