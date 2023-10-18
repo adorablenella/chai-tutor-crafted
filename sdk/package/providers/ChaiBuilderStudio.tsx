@@ -32,8 +32,8 @@ const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
   }, [props]);
 
   useEffect(() => {
-    reset();
     setAllBlocks(syncBlocksWithDefaults(props.blocks || []));
+    reset();
   }, [props.blocks]);
 
   useEffect(() => {

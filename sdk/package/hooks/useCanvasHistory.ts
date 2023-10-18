@@ -8,6 +8,8 @@ import { usePreviewMode } from "./usePreviewMode";
 import { pageSyncStateAtom } from "./useSavePage";
 import { useBuilderProp } from "./useBuilderProp";
 import { historyStatesAtom } from "../store/ui";
+import { useSelectedBlockIds } from "@/sdk/package/hooks/useSelectedBlockIds";
+import { useSelectedStylingBlocks } from "@/sdk/package/hooks/useSelectedStylingBlocks";
 
 type CanvasHistory = {
   redoCount: number;
@@ -26,6 +28,8 @@ export const useCanvasHistory = (): CanvasHistory => {
   const dispatch = useDispatch();
   const [preview] = usePreviewMode();
   const [, setCutIds] = useCutBlockIds();
+  const [, setIds] = useSelectedBlockIds();
+  const [, setStyleBlocks] = useSelectedStylingBlocks();
   const [, setSyncState] = useAtom(pageSyncStateAtom);
   const onSyncStatusChange = useBuilderProp("onSyncStatusChange", () => {});
 
@@ -50,16 +54,22 @@ export const useCanvasHistory = (): CanvasHistory => {
     undo: useCallback(() => {
       if (preview) return;
       dispatch(ActionCreators.undo());
-      setCutIds([]);
-    }, [setCutIds, dispatch, preview, setSyncState]),
+      setTimeout(() => {
+        setStyleBlocks([]);
+        setIds([]);
+      }, 200);
+    }, [dispatch, preview, setSyncState]),
 
     redo: useCallback(() => {
       if (preview) return;
       dispatch(ActionCreators.redo());
+      setTimeout(() => {
+        setStyleBlocks([]);
+        setIds([]);
+      }, 200);
     }, [preview, dispatch]),
 
     clear: () => {
-      // setCounts({ undoCount: 0, redoCount: 0 });
       dispatch(ActionCreators.clearHistory());
     },
     createSnapshot,

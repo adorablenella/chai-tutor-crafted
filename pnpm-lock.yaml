@@ -305,8 +305,8 @@ dependencies:
     specifier: ^1.0.0
     version: 1.1.0(react@18.2.0)
   redux-undo:
-    specifier: 1.0.1
-    version: 1.0.1
+    specifier: 1.1.0
+    version: 1.1.0
   remark:
     specifier: ^14.0.3
     version: 14.0.3
@@ -9235,8 +9235,8 @@ packages:
       postcss-value-parser: 3.3.1
     dev: false
 
-  /redux-undo@1.0.1:
-    resolution: {integrity: sha512-0yFPT+FUgwxCEiS0Mg5T1S4tkgjR8h6sJRY9CW4EMsbJOf1SxO289TbJmlzhRouCHacdDF+powPjrjLHoJYxWQ==}
+  /redux-undo@1.1.0:
+    resolution: {integrity: sha512-zzLFh2qeF0MTIlzDhDLm9NtkfBqCllQJ3OCuIl5RKlG/ayHw6GUdIFdMhzMS9NnrnWdBX5u//ExMOHpfudGGOg==}
     dev: false
 
   /redux@4.2.1:

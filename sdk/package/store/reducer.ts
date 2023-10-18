@@ -1,10 +1,9 @@
 import { isEmpty, set } from "lodash";
-import * as undoable from "redux-undo";
-import { excludeAction } from "redux-undo";
+import undoable, { excludeAction } from "redux-undo";
 import { TBlock } from "../types/TBlock";
 
 // @ts-ignore
-export const pageBlocksReducer: any = undoable.default(
+export const pageBlocksReducer: any = undoable(
   // eslint-disable-next-line default-param-last
   (state: TBlock[] = [], action: any) => {
     switch (action.type) {
@@ -33,6 +32,8 @@ export const pageBlocksReducer: any = undoable.default(
     }
   },
   {
+    debug: false,
+    ignoreInitialState: false,
     limit: 30,
     filter: excludeAction(["update_props_realtime", "add_duplicate_blocks", "set_page_blocks"]),
   },
