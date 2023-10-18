@@ -1,8 +1,7 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { cn } from "@/sdk/package/radix/lib/utils";
 import { registerChaiBlock } from "@/sdk/next/server";
-import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls";
+import { RichText, Styles } from "@/sdk/package/controls/controls";
 import { getRestProps } from "../helper";
 import {
   BorderAllIcon,
@@ -14,15 +13,52 @@ import {
 import { generateUUID } from "@/sdk/package/functions/functions";
 
 const getDefaultBlocks = (type: string): TBlock[] => {
-  if (type === "TableRow") {
-    const parentId = generateUUID();
+  const td = (id: string, content: string) => ({
+    _id: generateUUID(),
+    _parent: id,
+    _type: "TableCell",
+    _styles: "#styles:,",
+    _content: `${type === "TableHead" ? "Table Head" : "Table Cell " + content}`,
+  });
+
+  const tr = (id?: string) => {
+    const trId = generateUUID();
+    const rootBlock: any = { _type: "TableRow", _id: trId, _styles: "#styles:,border-b" };
+    if (id) rootBlock._parent = id;
+    return [rootBlock, td(trId, "1"), td(trId, "2"), td(trId, "3")];
+  };
+
+  const thead = (id?: string) => {
+    const theadId = generateUUID();
+    const rootBlock: any = { _id: theadId, _type: "TableHead", _styles: "#styles:,font-medium" };
+    if (id) rootBlock._parent = id;
+    return [rootBlock, ...tr(theadId)];
+  };
+
+  const tbody = (id?: string) => {
+    const tbodyId = generateUUID();
+    const rootBlock: any = { _id: tbodyId, _type: "TableBody", _styles: "#styles:," };
+    if (id) rootBlock._parent = id;
+    return [rootBlock, ...tr(tbodyId), ...tr(tbodyId)];
+  };
+
+  if (type === "Table") {
+    const tableId = generateUUID();
     return [
-      { _type: "TableRow", _id: parentId, listType: "list-none", styles: "#styles:," },
-      { _type: "TableCell", _id: "b", _parent: parentId, styles: "#styles:," },
-      { _type: "TableCell", _id: "c", _parent: parentId, styles: "#styles:," },
-      { _type: "TableCell", _id: "d", _parent: parentId, styles: "#styles:," },
+      {
+        _id: tableId,
+        _type: "Table",
+        _styles: "#styles:,w-full text-left text-gray-500 dark:text-gray-400",
+      },
+      ...thead(tableId),
+      ...tbody(tableId),
     ];
   }
+
+  if (type === "TableRow") return tr();
+  if (type === "TableHead") return thead();
+  if (type === "TableBody") return tbody();
+
   return [];
 };
 
@@ -42,6 +78,7 @@ registerChaiBlock(TableBlock, {
   props: {
     _styles: Styles({ default: "" }),
   },
+  blocks: getDefaultBlocks("Table"),
 });
 
 const TableHeadBlock = (
@@ -60,6 +97,7 @@ registerChaiBlock(TableHeadBlock, {
   props: {
     _styles: Styles({ default: "" }),
   },
+  blocks: getDefaultBlocks("TableHead"),
 });
 
 const TableBodyBlock = (
@@ -78,6 +116,7 @@ registerChaiBlock(TableBodyBlock, {
   props: {
     _styles: Styles({ default: "" }),
   },
+  blocks: getDefaultBlocks("TableBody"),
 });
 
 const TableRowBlock = (
@@ -94,7 +133,7 @@ registerChaiBlock(TableRowBlock, {
   group: "table",
   icon: ViewHorizontalIcon,
   props: {
-    _styles: Styles({ default: "" }),
+    _styles: Styles({ default: "w-full" }),
   },
   blocks: getDefaultBlocks("TableRow"),
 });
