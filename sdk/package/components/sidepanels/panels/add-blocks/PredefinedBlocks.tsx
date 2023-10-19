@@ -7,7 +7,6 @@ import * as PopoverRoot from "@radix-ui/react-popover";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
-import Image from "next/image";
 import { Loader } from "lucide-react";
 import { useCoreBlocks } from "@/sdk/package/hooks/useCoreBlocks";
 
@@ -39,13 +38,13 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
           <span className="pl-2 text-sm text-white">Adding...</span>
         </div>
       )}
-      <Image
-        src={block.preview || "https://placehold.it/400/150"}
-        className="w-full rounded-md border border-border"
-        alt={block.name}
-        width={100}
-        height={100}
-      />
+      {block.preview ? (
+        <img src={block.preview} className="w-full rounded-md border border-border" alt={block.name} />
+      ) : (
+        <div className="flex h-20 items-center justify-center rounded-md border border-border border-gray-300 bg-gray-200">
+          <p className={"max-w-xs text-center text-sm text-gray-700"}>{block.name}</p>
+        </div>
+      )}
     </div>
   );
 };
