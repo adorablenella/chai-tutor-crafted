@@ -1,5 +1,5 @@
 import { TProjectData } from "@/sdk/next/types";
-import { get, isEmpty, last, merge, replace, startsWith } from "lodash";
+import { get, includes, isEmpty, last, merge, replace, startsWith } from "lodash";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { getBrandingClasses, getTailwindCSS } from "@/sdk/next/functions";
 import supabase from "@/app/helpers/supabase";
@@ -27,7 +27,7 @@ const addPrefixToClasses = (classes: string, prefix: string = "c-") => {
     const classes = item.split(" ");
     const newClasses = classes.map((item) => {
       if (item === "") return "";
-      if (startsWith(item, "hs-")) return item;
+      if (includes(item, "hs-") || includes(item, "[--")) return item;
       // if the class had a state of media query, then prefix the classes
       // eg: dark:hover:bg-red-500 => dark:hover:c-bg-red-500
       // eg: hover:bg-red-500 => hover:c-bg-red-500
