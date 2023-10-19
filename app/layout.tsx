@@ -3,7 +3,8 @@ import Script from "next/script";
 
 const title = "Chai Builder - Multipurpose Tailwind CSS Builder";
 const description = "Chai Builder - Multipurpose Tailwind CSS Builder";
-const image = "https://vercel.pub/thumbnail.png";
+const image =
+  "https://ik.imagekit.io/n0uvizrukm2/chaibuilder_com/Xnapper-2023-10-19-08.56.08_q20cxDCRQ.jpg?updatedAt=1697686023798";
 export const metadata: Metadata = {
   title,
   description,
