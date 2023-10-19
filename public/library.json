@@ -1,45 +1,45 @@
 [
   {
-    "uuid": "a-button-on-gradient-bg",
-    "name": "Ab a button on gradient bg",
+    "uuid": "ab-a-button-on-gradient-bg",
+    "name": "A button on gradient background",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "center-aligned-in-container-size-with-bg-elements",
-    "name": "Ab center aligned in container size with bg elements",
+    "uuid": "ab-center-aligned-in-container-size-with-bg-elements",
+    "name": "Center aligned in container size with bg elements",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "full-width-center-aligned-link-on-gray-bg",
-    "name": "Ab full width center aligned link on gray bg",
+    "uuid": "ab-full-width-center-aligned-link-on-gray-bg",
+    "name": "Announcement banner full width center aligned link on gray bg",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "full-width-with-dismiss-button-on-blue-bg",
-    "name": "Ab full width with dismiss button on blue bg",
+    "uuid": "ab-full-width-with-dismiss-button-on-blue-bg",
+    "name": "Announcement banner full width with dismiss button on blue bg",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "light-pilled-style-link",
-    "name": "Ab light pilled style link",
+    "uuid": "ab-light-pilled-style-link",
+    "name": "Announcement banner light pilled style link",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "links-in-gradient-bg",
-    "name": "Ab links in gradient bg",
+    "uuid": "ab-links-in-gradient-bg",
+    "name": "Announcement banner links in gradient bg",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
-    "uuid": "media-object-style-with-blurred-bg",
-    "name": "Ab media object style with blurred bg",
+    "uuid": "ab-media-object-style-with-blurred-bg",
+    "name": "Announcement banner media object style with blurred bg",
     "format": "html",
-    "group": "alert"
+    "group": "announcement"
   },
   {
     "uuid": "af-account",
