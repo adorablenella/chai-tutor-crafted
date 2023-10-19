@@ -1,297 +1,325 @@
 [
   {
-    "uuid": "ab-a-button-on-gradient-bg",
+    "uuid": "a-button-on-gradient-bg",
     "name": "Ab a button on gradient bg",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-a-button-on-gradient-bg",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=a-button-on-gradient-bg",
+    "group": "alert"
   },
   {
-    "uuid": "ab-center-aligned-in-container-size-with-bg-elements",
+    "uuid": "center-aligned-in-container-size-with-bg-elements",
     "name": "Ab center aligned in container size with bg elements",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-center-aligned-in-container-size-with-bg-elements",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=center-aligned-in-container-size-with-bg-elements",
+    "group": "alert"
   },
   {
-    "uuid": "ab-full-width-center-aligned-link-on-gray-bg",
+    "uuid": "full-width-center-aligned-link-on-gray-bg",
     "name": "Ab full width center aligned link on gray bg",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-full-width-center-aligned-link-on-gray-bg",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=full-width-center-aligned-link-on-gray-bg",
+    "group": "alert"
   },
   {
-    "uuid": "ab-full-width-with-dismiss-button-on-blue-bg",
+    "uuid": "full-width-with-dismiss-button-on-blue-bg",
     "name": "Ab full width with dismiss button on blue bg",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-full-width-with-dismiss-button-on-blue-bg",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=full-width-with-dismiss-button-on-blue-bg",
+    "group": "alert"
   },
   {
-    "uuid": "ab-light-pilled-style-link",
+    "uuid": "light-pilled-style-link",
     "name": "Ab light pilled style link",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-light-pilled-style-link",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=light-pilled-style-link",
+    "group": "alert"
   },
   {
-    "uuid": "ab-links-in-gradient-bg",
+    "uuid": "links-in-gradient-bg",
     "name": "Ab links in gradient bg",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-links-in-gradient-bg",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=links-in-gradient-bg",
+    "group": "alert"
   },
   {
-    "uuid": "ab-media-object-style-with-blurred-bg",
+    "uuid": "media-object-style-with-blurred-bg",
     "name": "Ab media object style with blurred bg",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=ab-media-object-style-with-blurred-bg",
-    "group": "ab"
+    "preview": "https://placehold.it/300x100?text=media-object-style-with-blurred-bg",
+    "group": "alert"
   },
   {
     "uuid": "af-account",
     "name": "Af account",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=af-account",
-    "group": "af"
+    "group": "af",
+    "hidden": true
   },
   {
     "uuid": "af-payment",
     "name": "Af payment",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=af-payment",
-    "group": "af"
+    "group": "af",
+    "hidden": true
   },
   {
     "uuid": "af-submit-app",
     "name": "Af submit app",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=af-submit-app",
-    "group": "af"
+    "group": "af",
+    "hidden": true
   },
   {
     "uuid": "af-submit-application",
     "name": "Af submit application",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=af-submit-application",
-    "group": "af"
+    "group": "af",
+    "hidden": true
   },
   {
     "uuid": "ai-chat",
     "name": "Ai chat",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-chat",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-classic",
     "name": "Ai classic",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-classic",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-modal",
     "name": "Ai modal",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-modal",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-offcanvas",
     "name": "Ai offcanvas",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-offcanvas",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-simple-and-compact",
     "name": "Ai simple and compact",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-simple-and-compact",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-welcome-page",
     "name": "Ai welcome page",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-welcome-page",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "ai-with-sidebar",
     "name": "Ai with sidebar",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=ai-with-sidebar",
-    "group": "ai"
+    "group": "ai",
+    "hidden": true
   },
   {
     "uuid": "application-layout-dark-header",
     "name": "Application layout dark header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-dark-header",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-header",
     "name": "Application layout header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-header",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-sidebar-and-header-with-modal",
     "name": "Application layout sidebar and header with modal",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-sidebar-and-header-with-modal",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-sidebar-and-header",
     "name": "Application layout sidebar and header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-sidebar-and-header",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-sidebar-brand",
     "name": "Application layout sidebar brand",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-sidebar-brand",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-sidebar-dark",
     "name": "Application layout sidebar dark",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-sidebar-dark",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "application-layout-sidebar",
     "name": "Application layout sidebar",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=application-layout-sidebar",
-    "group": "application"
+    "group": "application",
+    "hidden": true
   },
   {
     "uuid": "as-card-with-icon-and-link",
     "name": "As card with icon and link",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-card-with-icon-and-link",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-center-aligned-in-card",
     "name": "As center aligned in card",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-center-aligned-in-card",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-grouped-card",
     "name": "As grouped card",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-grouped-card",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-simple-in-card",
     "name": "As simple in card",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-simple-in-card",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-simple-with-add-more-button",
     "name": "As simple with add more button",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-simple-with-add-more-button",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-simple-with-dividers",
     "name": "As simple with dividers",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-simple-with-dividers",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "as-with-soft-icon-and-badge-in-card",
     "name": "As with soft icon and badge in card",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=as-with-soft-icon-and-badge-in-card",
-    "group": "as"
+    "group": "Stat cards"
   },
   {
     "uuid": "at-api-keys",
     "name": "At api keys",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-api-keys",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-empty-state",
     "name": "At empty state",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-empty-state",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-invoices",
     "name": "At invoices",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-invoices",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-product-review",
     "name": "At product review",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-product-review",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-sales",
     "name": "At sales",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-sales",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-teams",
     "name": "At teams",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-teams",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-traffic-analytics",
     "name": "At traffic analytics",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-traffic-analytics",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-transactions",
     "name": "At transactions",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-transactions",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "at-users",
     "name": "At users",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=at-users",
-    "group": "at"
+    "group": "at",
+    "hidden": true
   },
   {
     "uuid": "base-header",
     "name": "Base header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=base-header",
-    "group": "base"
+    "group": "base",
+    "hidden": true
   },
   {
     "uuid": "blog-2-grids-list",
@@ -375,7 +403,8 @@
     "name": "Boxed layout",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=boxed-layout",
-    "group": "boxed"
+    "group": "boxed",
+    "hidden": true
   },
   {
     "uuid": "cards-image-and-content-with-stretched-buttons",
@@ -452,70 +481,80 @@
     "name": "Cookies blurred bg with stacked buttons",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-blurred-bg-with-stacked-buttons",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-full-width-with-switchers",
     "name": "Cookies full width with switchers",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-full-width-with-switchers",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-fullwidth-centered-content",
     "name": "Cookies fullwidth centered content",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-fullwidth-centered-content",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-inline-with-buttons",
     "name": "Cookies inline with buttons",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-inline-with-buttons",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-inline-with-icon-and-buttons",
     "name": "Cookies inline with icon and buttons",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-inline-with-icon-and-buttons",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-modal-style-with-select-language",
     "name": "Cookies modal style with select language",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-modal-style-with-select-language",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-on-gradient-bg",
     "name": "Cookies on gradient bg",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-on-gradient-bg",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-scrollable-content-with-collapse",
     "name": "Cookies scrollable content with collapse",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-scrollable-content-with-collapse",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-simple-with-dismiss-button",
     "name": "Cookies simple with dismiss button",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-simple-with-dismiss-button",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cookies-simple-with-icon-and-dismiss-button",
     "name": "Cookies simple with icon and dismiss button",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=cookies-simple-with-icon-and-dismiss-button",
-    "group": "cookies"
+    "group": "cookies",
+    "hidden": true
   },
   {
     "uuid": "cover-page-with-form",
@@ -536,7 +575,8 @@
     "name": "Double header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=double-header",
-    "group": "double"
+    "group": "double",
+    "hidden": true
   },
   {
     "uuid": "error-404",
@@ -595,53 +635,53 @@
     "group": "feedback"
   },
   {
-    "uuid": "fg-cards-on-a-background-image",
+    "uuid": "cards-on-a-background-image",
     "name": "Fg cards on a background image",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=fg-cards-on-a-background-image",
-    "group": "fg"
+    "preview": "https://placehold.it/300x100?text=cards-on-a-background-image",
+    "group": "features: general"
   },
   {
-    "uuid": "fg-container-size-image-with-icon-blocks",
+    "uuid": "container-size-image-with-icon-blocks",
     "name": "Fg container size image with icon blocks",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=fg-container-size-image-with-icon-blocks",
-    "group": "fg"
+    "preview": "https://placehold.it/300x100?text=container-size-image-with-icon-blocks",
+    "group": "features: general"
   },
   {
-    "uuid": "fg-simple-with-a-single-image",
+    "uuid": "simple-with-a-single-image",
     "name": "Fg simple with a single image",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=fg-simple-with-a-single-image",
-    "group": "fg"
+    "preview": "https://placehold.it/300x100?text=simple-with-a-single-image",
+    "group": "features: general"
   },
   {
-    "uuid": "fg-three-center-aligned-images-with-a-content",
+    "uuid": "three-center-aligned-images-with-a-content",
     "name": "Fg three center aligned images with a content",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=fg-three-center-aligned-images-with-a-content",
-    "group": "fg"
+    "preview": "https://placehold.it/300x100?text=three-center-aligned-images-with-a-content",
+    "group": "features: general"
   },
   {
-    "uuid": "fg-with-4-center-aligned-images-and-icon-blocks",
+    "uuid": "with-4-center-aligned-images-and-icon-blocks",
     "name": "Fg with 4 center aligned images and icon blocks",
     "format": "html",
-    "preview": "https://placehold.it/300x100?text=fg-with-4-center-aligned-images-and-icon-blocks",
-    "group": "fg"
+    "preview": "https://placehold.it/300x100?text=with-4-center-aligned-images-and-icon-blocks",
+    "group": "features: general"
   },
   {
     "uuid": "fn-horizontal-tabs-with-icon-and-description",
     "name": "Fn horizontal tabs with icon and description",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=fn-horizontal-tabs-with-icon-and-description",
-    "group": "fn"
+    "group": "features: nav"
   },
   {
     "uuid": "fn-vertical-tabs-with-overlapping-background",
     "name": "Fn vertical tabs with overlapping background",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=fn-vertical-tabs-with-overlapping-background",
-    "group": "fn"
+    "group": "features: nav"
   },
   {
     "uuid": "footer-5-cols-with-language-dropdown",
@@ -676,42 +716,46 @@
     "name": "Fs one main with three follow ups",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=fs-one-main-with-three-follow-ups",
-    "group": "fs"
+    "group": "features: stat"
   },
   {
     "uuid": "fs-simple-3-cols-with-primary-color",
     "name": "Fs simple 3 cols with primary color",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=fs-simple-3-cols-with-primary-color",
-    "group": "fs"
+    "group": "features: stat"
   },
   {
     "uuid": "header-floating",
     "name": "Header floating",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=header-floating",
-    "group": "header"
+    "group": "header",
+    "hidden": true
   },
   {
     "uuid": "header-offcanvas",
     "name": "Header offcanvas",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=header-offcanvas",
-    "group": "header"
+    "group": "header",
+    "hidden": true
   },
   {
     "uuid": "header-primary-bg",
     "name": "Header primary bg",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=header-primary-bg",
-    "group": "header"
+    "group": "header",
+    "hidden": true
   },
   {
     "uuid": "header-with-topbar",
     "name": "Header with topbar",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=header-with-topbar",
-    "group": "header"
+    "group": "header",
+    "hidden": true
   },
   {
     "uuid": "hero-center-aligned-in-dark-bg",
@@ -858,14 +902,16 @@
     "name": "Invoice",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=invoice",
-    "group": "invoice"
+    "group": "invoice",
+    "hidden": true
   },
   {
     "uuid": "left-aligned-header",
     "name": "Left aligned header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=left-aligned-header",
-    "group": "left"
+    "group": "header",
+    "hidden": true
   },
   {
     "uuid": "masonry-cards-on-images",
@@ -879,112 +925,128 @@
     "name": "Mega menu custom size with icon text link and bg gray card",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=mega-menu-custom-size-with-icon-text-link-and-bg-gray-card",
-    "group": "mega"
+    "group": "mega",
+    "hidden": true
   },
   {
     "uuid": "mega-menu-dropdown-style-with-icon-and-description",
     "name": "Mega menu dropdown style with icon and description",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=mega-menu-dropdown-style-with-icon-and-description",
-    "group": "mega"
+    "group": "mega",
+    "hidden": true
   },
   {
     "uuid": "mega-menu-header",
     "name": "Mega menu header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=mega-menu-header",
-    "group": "mega"
+    "group": "mega",
+    "hidden": true
   },
   {
     "uuid": "modal-bg-gray-on-hover-cards",
     "name": "Modal bg gray on hover cards",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-bg-gray-on-hover-cards",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-card-style-switch-notifications",
     "name": "Modal card style switch notifications",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-card-style-switch-notifications",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-cookies",
     "name": "Modal cookies",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-cookies",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-danger-alert",
     "name": "Modal danger alert",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-danger-alert",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-recover-account",
     "name": "Modal recover account",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-recover-account",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-sign-out-alert-small-window",
     "name": "Modal sign out alert small window",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-sign-out-alert-small-window",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-sign-out-alert",
     "name": "Modal sign out alert",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-sign-out-alert",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-signin",
     "name": "Modal signin",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-signin",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-signup",
     "name": "Modal signup",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-signup",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-subscription-with-image",
     "name": "Modal subscription with image",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-subscription-with-image",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-task-created-alert",
     "name": "Modal task created alert",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-task-created-alert",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "modal-upgrade-to-pro",
     "name": "Modal upgrade to pro",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=modal-upgrade-to-pro",
-    "group": "modal"
+    "group": "modal",
+    "hidden": true
   },
   {
     "uuid": "page-demos-pricing",
     "name": "Page demos pricing",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=page-demos-pricing",
-    "group": "page"
+    "group": "page",
+    "hidden": true
   },
   {
     "uuid": "pricing-blocks-with-bordered-gradients",
@@ -1019,63 +1081,72 @@
     "name": "Recover account",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=recover-account",
-    "group": "recover"
+    "group": "recover",
+    "hidden": true
   },
   {
     "uuid": "scrollspy-onepage-menu",
     "name": "Scrollspy onepage menu",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=scrollspy-onepage-menu",
-    "group": "scrollspy"
+    "group": "scrollspy",
+    "hidden": true
   },
   {
     "uuid": "scrollspy-sticky-sidebar",
     "name": "Scrollspy sticky sidebar",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=scrollspy-sticky-sidebar",
-    "group": "scrollspy"
+    "group": "scrollspy",
+    "hidden":true
   },
   {
     "uuid": "signin",
     "name": "Signin",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=signin",
-    "group": "signin"
+    "group": "signin",
+    "hidden": true
   },
   {
     "uuid": "signup",
     "name": "Signup",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=signup",
-    "group": "signup"
+    "group": "signup",
+    "hidden": true
   },
   {
     "uuid": "sticky-floating-header",
     "name": "Sticky floating header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=sticky-floating-header",
-    "group": "sticky"
+    "group": "sticky",
+    "hidden": true
   },
   {
     "uuid": "sticky-footer-header",
     "name": "Sticky footer header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=sticky-footer-header",
-    "group": "sticky"
+    "group": "sticky",
+    "hidden": true
   },
   {
     "uuid": "sticky-footer",
     "name": "Sticky footer",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=sticky-footer",
-    "group": "sticky"
+    "group": "sticky",
+    "hidden": true
   },
   {
     "uuid": "sticky-header",
     "name": "Sticky header",
     "format": "html",
     "preview": "https://placehold.it/300x100?text=sticky-header",
-    "group": "sticky"
+    "group": "sticky",
+    "hidden": true
   },
   {
     "uuid": "subscribe-simple-center-aligned",

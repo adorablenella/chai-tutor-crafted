@@ -110,7 +110,7 @@ export const CustomNode = (props: Props) => {
           <div className="-mt-1 h-3 w-3">
             <TypeIcon type={data?._type} />
           </div>
-          <div className="ml-2 text-[11px]">{props.node.data?._name || props.node.text}</div>
+          <div className="ml-2 truncate text-[11px]">{props.node.data?._name || props.node.text}</div>
           {showOnMessage ? (
             <span
               className={
