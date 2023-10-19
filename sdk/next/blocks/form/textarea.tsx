@@ -4,7 +4,6 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, Numeric, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const InputBlock = (
   block: TBlock & {
@@ -16,9 +15,8 @@ const InputBlock = (
     _rows: number;
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _rows, _showLabel, ...rest } = block;
+  const { blockProps, _label, _placeholder, _styles, _inputStyles, _rows, _showLabel, _attrs = {} } = block;
   const fieldId = generateUUID();
-  const restProps = getRestProps(rest);
 
   if (!_showLabel) {
     return (
@@ -28,7 +26,7 @@ const InputBlock = (
         {..._styles}
         id={fieldId}
         placeholder={_placeholder}
-        {...restProps}
+        {..._attrs}
         rows={_rows}
       />
     );
@@ -37,7 +35,7 @@ const InputBlock = (
   return (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
-      <textarea {..._inputStyles} id={fieldId} placeholder={_placeholder} rows={_rows} {...restProps} />
+      <textarea {..._inputStyles} id={fieldId} placeholder={_placeholder} rows={_rows} {..._attrs} />
     </div>
   );
 };

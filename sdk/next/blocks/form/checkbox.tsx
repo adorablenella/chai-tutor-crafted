@@ -4,7 +4,6 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const CheckboxBlock = (
   block: TBlock & {
@@ -15,10 +14,8 @@ const CheckboxBlock = (
     _checked: boolean;
   },
 ) => {
-  const { blockProps, _label, _styles, _inputStyles, _required, _checked, _showLabel = true, ...rest } = block;
+  const { blockProps, _label, _styles, _inputStyles, _required, _checked, _showLabel = true, _attrs = {} } = block;
   const fieldId = generateUUID();
-
-  const restProps = getRestProps(rest);
 
   if (!_showLabel)
     return (
@@ -30,12 +27,13 @@ const CheckboxBlock = (
         type="checkbox"
         required={_required}
         checked={_checked}
-        {...restProps}
+        {..._attrs}
       />
     );
+
   return (
     <div {..._styles} {...blockProps}>
-      <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} {...restProps} />
+      <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} {..._attrs} />
       {_label && <label htmlFor={fieldId}>{_label}</label>}
     </div>
   );

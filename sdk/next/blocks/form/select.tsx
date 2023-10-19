@@ -5,7 +5,6 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, List, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const SelectBlock = (
   block: TBlock & {
@@ -25,10 +24,9 @@ const SelectBlock = (
     _required,
     _showLabel,
     _multiple = false,
-    ...rest
+    _attrs = {},
   } = block;
   const fieldId = generateUUID();
-  const restProps = getRestProps(rest);
 
   if (!_showLabel) {
     return (
@@ -39,7 +37,7 @@ const SelectBlock = (
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
-        {...restProps}>
+        {..._attrs}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>
@@ -56,7 +54,7 @@ const SelectBlock = (
   }
 
   return (
-    <div {..._styles} {...blockProps}>
+    <div {..._styles} {..._attrs}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <select
         {..._inputStyles}
@@ -64,7 +62,7 @@ const SelectBlock = (
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
-        {...restProps}>
+        {..._attrs}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>

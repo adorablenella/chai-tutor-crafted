@@ -7,12 +7,12 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls";
 
 const ListBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, children, _listType, _styles, _tag, ...rest } = props;
+  const { blockProps, children, _listType, _styles, _tag, _attrs = {} } = props;
   const className = twMerge(get(_styles, "className", ""), _listType);
 
   return React.createElement(
     _tag ? _tag : _listType === "list-decimal" ? "ol" : "ul",
-    { ...blockProps, ..._styles, className },
+    { ...blockProps, ..._styles, className, ..._attrs },
     children,
   );
 };
@@ -46,15 +46,16 @@ registerChaiBlock(ListBlock, {
 const ListItemBlock = (
   props: TBlock & { _content: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, _content, _styles, children, _tag } = props;
+  const { blockProps, _content, _styles, children, _tag, _attrs = {} } = props;
   if (!children) {
     return React.createElement(_tag || "li", {
       ..._styles,
       ...blockProps,
+      ..._attrs,
       dangerouslySetInnerHTML: { __html: _content },
     });
   }
-  return React.createElement(_tag || "li", { ..._styles, ...blockProps }, children);
+  return React.createElement(_tag || "li", { ..._styles, ...blockProps, ..._attrs }, children);
 };
 
 registerChaiBlock(ListItemBlock, {

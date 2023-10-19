@@ -4,7 +4,6 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const FormButtonBlock = (
   block: TBlock & {
@@ -13,7 +12,7 @@ const FormButtonBlock = (
     _inputStyles: Record<string, string>;
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos, ...rest } = block;
+  const { blockProps, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos, _attrs = {} } = block;
   const fieldId = generateUUID();
 
   return (
@@ -24,7 +23,7 @@ const FormButtonBlock = (
       id={fieldId}
       type="submit"
       placeholder={_placeholder}
-      {...getRestProps(rest)}>
+      {..._attrs}>
       {_label}
       {_icon && <span className={_iconPos} dangerouslySetInnerHTML={{ __html: _icon }} />}
     </button>

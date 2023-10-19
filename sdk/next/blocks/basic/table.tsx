@@ -2,7 +2,6 @@ import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 import {
   BorderAllIcon,
   BorderTopIcon,
@@ -65,8 +64,8 @@ const getDefaultBlocks = (type: string): TBlock[] => {
 const TableBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles, ...rest } = props;
-  return React.createElement("table", { ...blockProps, ..._styles, ...getRestProps(rest) }, children);
+  const { blockProps, children, _styles, _attrs = {} } = props;
+  return React.createElement("table", { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(TableBlock, {
@@ -84,8 +83,8 @@ registerChaiBlock(TableBlock, {
 const TableHeadBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles, ...rest } = props;
-  return React.createElement("thead", { ...blockProps, ..._styles, ...getRestProps(rest) }, children);
+  const { blockProps, children, _styles, _attrs = {} } = props;
+  return React.createElement("thead", { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(TableHeadBlock, {
@@ -103,8 +102,8 @@ registerChaiBlock(TableHeadBlock, {
 const TableBodyBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles, ...rest } = props;
-  return React.createElement("tbody", { ...blockProps, ..._styles, ...getRestProps(rest) }, children);
+  const { blockProps, children, _styles, _attrs = {} } = props;
+  return React.createElement("tbody", { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(TableBodyBlock, {
@@ -122,8 +121,8 @@ registerChaiBlock(TableBodyBlock, {
 const TableRowBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles, ...rest } = props;
-  return React.createElement("tr", { ...blockProps, ..._styles, ...getRestProps(rest) }, children);
+  const { blockProps, children, _styles, _attrs = {} } = props;
+  return React.createElement("tr", { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(TableRowBlock, {
@@ -141,17 +140,17 @@ registerChaiBlock(TableRowBlock, {
 const TableCellBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _content, _styles, ...rest } = props;
+  const { blockProps, children, _content, _styles, _attrs = {} } = props;
 
   if (!children) {
     return React.createElement("td", {
       ...blockProps,
       ..._styles,
-      ...getRestProps(rest),
+      ..._attrs,
       dangerouslySetInnerHTML: { __html: _content },
     });
   }
-  return React.createElement("td", { ...blockProps, ..._styles, ...getRestProps(rest) }, children);
+  return React.createElement("td", { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(TableCellBlock, {

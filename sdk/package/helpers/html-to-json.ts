@@ -1,7 +1,7 @@
 // @ts-ignore
 import { parse, stringify } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import { capitalize, find, first, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
+import { capitalize, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
 
@@ -91,7 +91,7 @@ const getAttrs = (node: Node) => {
 
   forEach(attributes, ({ key, value }) => {
     if (replacers[key]) set(attrs, replacers[key], getSanitizedValue(value));
-    else set(attrs, key, getSanitizedValue(value));
+    else set(attrs, `_attrs.${key}`, getSanitizedValue(value));
   });
 
   delete attrs.class;
@@ -220,7 +220,7 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
      * If parent has only one children and current node type is text
      * checking does parent block type support _content
      * setting parent _content to current node text content
-     * destroying current node
+     * returning empty node
      */
     if (node.type === "text") {
       if (isEmpty(get(node, "content", ""))) return [] as any;

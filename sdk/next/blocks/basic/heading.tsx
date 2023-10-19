@@ -3,7 +3,6 @@ import { HeadingIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 /**
  * Heading component
@@ -13,15 +12,14 @@ import { getRestProps } from "../helper";
 const HeadingBlock = (
   props: TBlock & { _level: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, _styles, _content, _level = "h1", children = null, ...rest } = props;
-  const restProps = getRestProps(rest);
+  const { blockProps, _styles, _content, _level = "h1", children = null, _attrs = {} } = props;
 
-  if (children) return React.createElement(_level, { ..._styles, ...blockProps, ...restProps }, children);
+  if (children) return React.createElement(_level, { ..._styles, ...blockProps, ..._attrs }, children);
 
   return React.createElement(_level, {
     ..._styles,
     ...blockProps,
-    ...restProps,
+    ..._attrs,
     dangerouslySetInnerHTML: { __html: _content },
   });
 };

@@ -5,7 +5,6 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 import { generateUUID } from "@/sdk/package/functions/functions";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const InputBlock = (
   block: TBlock & {
@@ -26,10 +25,9 @@ const InputBlock = (
     _required,
     _inputType = "text",
     inBuilder,
-    ...rest
+    _attrs = {},
   } = block;
   const fieldId = generateUUID();
-  const restProps = getRestProps(rest);
 
   if (!_showLabel || _inputType === "submit") {
     if (_inputType === "submit") blockProps.value = _label;
@@ -44,7 +42,7 @@ const InputBlock = (
         type={_inputType}
         placeholder={_placeholder}
         required={_required}
-        {...restProps}
+        {..._attrs}
       />
     );
   }
@@ -58,7 +56,7 @@ const InputBlock = (
         type={_inputType}
         placeholder={_placeholder}
         required={_required}
-        {...restProps}
+        {..._attrs}
       />
     </div>
   );

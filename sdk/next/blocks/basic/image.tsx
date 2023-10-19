@@ -3,7 +3,6 @@ import { ImageIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Image, SingleLineText, Styles } from "@/sdk/package/controls/controls";
-import { getRestProps } from "../helper";
 
 const ImageBlock = (
   block: TBlock & {
@@ -14,8 +13,7 @@ const ImageBlock = (
     _styles: Record<string, string>;
   },
 ) => {
-  const { blockProps, _image, _styles, _alt, _height = 200, _width = 200, ...rest } = block;
-  const restProps = getRestProps(rest);
+  const { blockProps, _image, _styles, _alt, _height = 200, _width = 200, _attrs = {} } = block;
 
   return React.createElement("img", {
     ...blockProps,
@@ -24,7 +22,7 @@ const ImageBlock = (
     alt: _alt,
     height: _height,
     width: _width,
-    ...restProps,
+    ..._attrs,
   });
 };
 
