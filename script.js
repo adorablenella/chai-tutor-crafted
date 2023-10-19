@@ -31,7 +31,7 @@ fs.readdir(publicDir, (err, files) => {
       const uuid = file.replace(".html", "");
       const name = capitalizeFirstLetter(uuid);
       const format = "html";
-      const preview = `https://placehold.it/300x300?text=${name}`;
+      const preview = `https://placehold.it/300x100?text=${uuid}`;
       const group = uuid.split("-")[0];
 
       library.push({ uuid, name, format, preview, group });
