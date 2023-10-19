@@ -12,14 +12,19 @@ import {
   AlertDialogTrigger,
   Button,
 } from "../../../radix-ui";
-import { useCanvasHistory } from "../../../hooks";
+import { useCanvasHistory, useSelectedBlockIds } from "../../../hooks";
 import { useSetAllBlocks } from "@/sdk/package/hooks/useTreeData";
+import { useSelectedStylingBlocks } from "@/sdk/package/hooks/useSelectedStylingBlocks";
 
 export const ClearCanvas = () => {
   const [setAllBlocks] = useSetAllBlocks();
   const { createSnapshot } = useCanvasHistory();
+  const [, setIds] = useSelectedBlockIds();
+  const [, setStyleIds] = useSelectedStylingBlocks();
   const clearCanvas = useCallback(() => {
     setAllBlocks([]);
+    setIds([]);
+    setStyleIds([]);
     createSnapshot();
   }, [setAllBlocks, createSnapshot]);
 
