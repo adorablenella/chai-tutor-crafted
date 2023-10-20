@@ -90,8 +90,11 @@ const getAttrs = (node: Node) => {
   const attributes: Array<{ key: string; value: string }> = node.attributes as any;
 
   forEach(attributes, ({ key, value }) => {
-    if (replacers[key]) set(attrs, replacers[key], getSanitizedValue(value));
-    else if (!includes(["style"], key)) set(attrs, `_attrs.${key}`, getSanitizedValue(value));
+    if (replacers[key]) {
+      set(attrs, replacers[key], getSanitizedValue(value));
+    } else if (!includes(["style", "class"], key)) {
+      set(attrs, `_attrs.${key}`, getSanitizedValue(value));
+    }
   });
 
   delete attrs.class;
@@ -280,13 +283,11 @@ const getSanitizedHTML = (html: string) => {
       : html;
 
   // * Replacing script and unwanted whitespaces and nextline
-  const sanitizedHTML = htmlContent
+  return htmlContent
     .replace(/\s+/g, " ")
     .replaceAll("> <", "><")
     .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, "")
     .trim();
-
-  return sanitizedHTML;
 };
 
 /**
@@ -297,6 +298,5 @@ const getSanitizedHTML = (html: string) => {
 export const getBlocksFromHTML = (html: string): TBlock[] => {
   const nodes: Node[] = parse(getSanitizedHTML(html));
   if (isEmpty(html)) return [];
-  const blocks = flatten(traverseNodes(nodes)) as TBlock[];
-  return blocks;
+  return flatten(traverseNodes(nodes)) as TBlock[];
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, useTransition } from "react";
-import { useEditor, EditorContent } from "@tiptap/react";
+import { EditorContent, useEditor } from "@tiptap/react";
 import { TiptapEditorProps } from "./props";
 import { TiptapExtensions } from "./extensions";
 import { useDebounce } from "use-debounce";
@@ -190,7 +190,6 @@ export default function Editor({ post }: { post: any }) {
         <button
           onClick={async () => {
             const formData = new FormData();
-            console.log(data.published, typeof data.published);
             formData.append("published", String(!data.published));
             setIsPendingPublishing(true);
             await updatePostMetadata(formData, post.id, "published")
