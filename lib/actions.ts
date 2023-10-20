@@ -26,13 +26,27 @@ export const createSite = async (formData: FormData) => {
   if (currentData && currentData.length > 0) return { error: "This subdomain is already taken" };
 
   const homePageUuid = randomUUID();
-  const payload: any = { project_name: name, user: userId, description };
+  const payload: any = {
+    project_name: name,
+    user: userId,
+    description,
+    branding_options: {
+      _bodyFont: "Inter",
+      _headingFont: "Inter",
+      _primaryColor: "#0568cc",
+      _roundedCorners: 5,
+      _secondaryColor: "#c506cb",
+      _bodyBgDarkColor: "#031022",
+      _bodyBgLightColor: "#fcfcfc",
+      _bodyTextDarkColor: "#ffffff",
+      _bodyTextLightColor: "#000000",
+    },
+  };
   if (formData.get("apiKey")) payload.api_key = formData.get("apiKey") as string;
   if (formData.get("type")) payload.type = formData.get("type") as string;
   if (formData.get("subdomain")) payload.subdomain = formData.get("subdomain") as string;
 
   const { data, error } = await supabase.from("projects").insert(payload).select();
-  console.log(payload, error);
   if (error || data.length === 0) return { error: error ? error.message : "Something went wrong" };
 
   await supabase.from("pages").insert({

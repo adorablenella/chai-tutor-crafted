@@ -31,7 +31,7 @@ export const syncBlocksWithDefaults = (blocks: TBlock[]): TBlock[] => {
       const defaults = getDefaultBlockProps(block._type);
       return {
         ...defaults,
-        ...pick(block, [...keys(defaults), ...["_type", "_id", "_name", "_parent", "_bindings"]]),
+        ...pick(block, [...keys(defaults), ...["_type", "_id", "_name", "_parent", "_bindings", "_attrs"]]),
       } as TBlock;
     }
     return block;
