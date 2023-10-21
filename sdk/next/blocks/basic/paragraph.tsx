@@ -19,7 +19,7 @@ const ParagraphBlock = (
     return React.createElement("p", { ..._styles, ...blockProps, ..._attrs }, props.children);
 
   // eslint-disable-next-line react/no-danger
-  return React.createElement("p", {
+  return React.createElement("div", {
     ..._styles,
     ...blockProps,
     ..._attrs,

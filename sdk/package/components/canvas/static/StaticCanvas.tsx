@@ -1,10 +1,9 @@
 import React, { useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import Frame, { FrameContext, useFrame } from "react-frame-component";
 import { Transition } from "@headlessui/react";
-import { first, get, isEmpty } from "lodash";
-import { useThrottledCallback } from "@react-hookz/web";
+import { first, isEmpty } from "lodash";
 import { useAtom } from "jotai";
-import { DndContext, useDrop } from "react-dnd";
+import { DndContext } from "react-dnd";
 import {
   useAddBlock,
   useCanvasWidth,
@@ -52,15 +51,6 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const [{ isOver }, drop] = useDrop(() => ({
-    accept: ["CORE_BLOCK", "PREDEFINED_BLOCK", "PAGE_BLOCK"],
-    collect: (monitor) => ({ canDrop: monitor.canDrop(), isOver: monitor.isOver() }),
-    drop: (item: any) => {
-      // @ts-ignore
-      addCoreBlock(item, null);
-    },
-  }));
-
   useEffect(() => {
     setTimeout(() => {
       if (!isEmpty(styleIds)) {
@@ -78,24 +68,10 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
     }, 100);
   }, [document, ids, styleIds]);
 
-  const onMouseMove = useThrottledCallback(
-    (e) => {
-      if (preview) return;
-      const id = get(e, "target.id", undefined);
-      if (id && id !== "canvas") {
-        setHighlight(id);
-        e.stopPropagation();
-      }
-    },
-    [preview, isOver],
-    100,
-  );
-
   useEffect(() => {
     if (!document) return;
     const onClickAnywhere = (event: any) => {
       let currentElement = event.target;
-
       while (currentElement) {
         if (currentElement.getAttribute("id") === "canvas") {
           setSelectedStylingBlocks([]);
@@ -119,7 +95,6 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Transition
-      ref={drop}
       enter="transition ease-out duration-300"
       enterFrom="transform opacity-0"
       enterTo="transform opacity-100 scale-100"
@@ -127,10 +102,9 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
       leaveFrom="transform opacity-100 scale-100"
       leaveTo="transform opacity-0 scale-95"
       show
-      onMouseMove={onMouseMove}
       appear
       id="canvas"
-      className={`relative h-screen max-w-full outline-2 ${isOver ? "outline-blue-500" : ""}`}>
+      className={`relative h-screen max-w-full outline-2`}>
       {children}
     </Transition>
   );
@@ -288,7 +262,7 @@ const StaticCanvas = (): React.JSX.Element => {
           ) : (
             <StaticBlocksRenderer />
           )}
-          <div className="h-60"></div>
+          <div className="h-60 bg-gray-100 shadow-md"></div>
         </Canvas>
       </Frame>
     </div>

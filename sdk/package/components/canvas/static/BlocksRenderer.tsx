@@ -1,7 +1,6 @@
 import React, { useCallback } from "react";
 import { filter, find, isEmpty, isString, memoize, omit } from "lodash";
 import { twMerge } from "tailwind-merge";
-import { useThrottledCallback } from "@react-hookz/web";
 import { TBlock } from "../../../types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
 import { TStyleAttrs } from "../../../types/index";
@@ -47,18 +46,13 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
   const allBlocks = useAllBlocks();
   const [, setHighlightedId] = useHighlightBlockId();
 
-  const onMouseMove = useThrottledCallback(
+  const onMouseEnter = useCallback(
     (e: any) => {
       const styleId: string | null = e.currentTarget?.getAttribute("data-style-id");
-      if (styleId) {
-        setHighlightedId(styleId);
-      } else {
-        setHighlightedId("");
-      }
+      setHighlightedId(styleId || "");
       e.stopPropagation();
     },
     [setHighlightedId],
-    100,
   );
 
   const onMouseLeave = useCallback(
@@ -70,8 +64,8 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
   );
 
   const getStyles = useCallback(
-    (block: TBlock) => getStyleAttrs(block, onMouseMove, onMouseLeave),
-    [onMouseMove, onMouseLeave],
+    (block: TBlock) => getStyleAttrs(block, onMouseEnter, onMouseLeave),
+    [onMouseEnter, onMouseLeave],
   );
 
   return (
