@@ -6,7 +6,7 @@ import { TBlock } from "@/sdk/package/types/TBlock";
 
 const IconBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
   const { blockProps, _icon, _styles } = block;
-  return React.createElement("div", { ...blockProps, ..._styles, dangerouslySetInnerHTML: { __html: _icon } });
+  return React.createElement("span", { ...blockProps, ..._styles, dangerouslySetInnerHTML: { __html: _icon } });
 };
 
 registerChaiBlock(IconBlock as React.FC<any>, {

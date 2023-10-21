@@ -34,9 +34,9 @@ registerChaiBlock(ImageBlock as React.FC<any>, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _image: Image({ title: "Image", default: "https://fakeimg.pl/100x100?text=Choose&font=bebas" }),
+    _image: Image({ title: "Image", default: "https://fakeimg.pl/400x200?text=Choose&font=bebas" }),
     _alt: SingleLineText({ title: "Alt", default: "" }),
-    _width: SingleLineText({ title: "Width", default: "200" }),
-    _height: SingleLineText({ title: "Height", default: "200" }),
+    _width: SingleLineText({ title: "Width", default: "" }),
+    _height: SingleLineText({ title: "Height", default: "" }),
   },
 });

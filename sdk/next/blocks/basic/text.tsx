@@ -7,7 +7,7 @@ const RawTextBlock = (props: TBlock & { _content: string; inBuilder: boolean; bl
   if (props.inBuilder) {
     return <span {...props.blockProps}>&nbsp;{props._content}&nbsp;</span>;
   }
-  return props._content;
+  return ` ${props._content} `;
 };
 
 registerChaiBlock(RawTextBlock, {

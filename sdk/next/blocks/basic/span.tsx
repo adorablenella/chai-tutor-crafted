@@ -19,10 +19,11 @@ const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; bl
 registerChaiBlock(SpanBlock, {
   type: "Span",
   label: "Span",
+  hidden: true,
   category: "core",
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _content: MultilineText({ title: "Content", default: "Your text" }),
+    _content: MultilineText({ title: "Content", default: "" }),
   },
 });

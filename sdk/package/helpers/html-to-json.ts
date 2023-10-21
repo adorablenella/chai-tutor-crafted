@@ -80,9 +80,8 @@ const getSanitizedValue = (value: any) => (value === null ? true : value);
 
 /**
  *
- * @param attributes
- * @param replacers
  * @returns Mapping Attributes as per blocks need from @ATTRIBUTE_MAP and rest passing as it is
+ * @param node
  */
 const getAttrs = (node: Node) => {
   let attrs: Record<string, string> = {};
@@ -91,6 +90,16 @@ const getAttrs = (node: Node) => {
 
   forEach(attributes, ({ key, value }) => {
     if (replacers[key]) {
+      // for img tag if the src is not absolute then replace with placeholder image
+      if (node.tagName === "img" && key === "src" && !value.startsWith("http")) {
+        const width = find(node.attributes, { key: "width" }) as { value: string } | undefined;
+        const height = find(node.attributes, { key: "height" }) as { value: string } | undefined;
+        if (width && height) {
+          value = `https://via.placeholder.com/${width?.value}x${height?.value}`;
+        } else {
+          value = `https://via.placeholder.com/150x150`;
+        }
+      }
       set(attrs, replacers[key], getSanitizedValue(value));
     } else if (!includes(["style", "class"], key)) {
       set(attrs, `_attrs.${key}`, getSanitizedValue(value));
@@ -252,7 +261,7 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
        * handling svg tag
        * if svg tag just pass html stringify content as _icon
        */
-      node.attributes = filter(node.attributes, (attr) => !includes(["style", "width", "height"], attr.key));
+      node.attributes = filter(node.attributes, (attr) => !includes(["style", "width", "height", "class"], attr.key));
       block._icon = stringify([node]);
       return [block] as TBlock[];
     } else if (node.tagName == "option" && parent && parent.block?._type === "Select") {
