@@ -3,10 +3,12 @@ import { SketchLogoIcon } from "@radix-ui/react-icons";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
+import { cn } from "@/lib/utils";
 
 const IconBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
   const { blockProps, _icon, _styles } = block;
-  return React.createElement("span", { ...blockProps, ..._styles, dangerouslySetInnerHTML: { __html: _icon } });
+  const styles = { ..._styles, className: cn(_styles.className, "inline-block c-inline-block") };
+  return React.createElement("span", { ...blockProps, ...styles, dangerouslySetInnerHTML: { __html: _icon } });
 };
 
 registerChaiBlock(IconBlock as React.FC<any>, {

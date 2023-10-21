@@ -61,7 +61,7 @@ export const getRouteSnapshot = async (domain: string, _slug: string) => {
   const styles = await getTailwindCSS(
     projectData.branding_options,
     [replace(JSON.stringify(blocks), /#styles:/g, "")],
-    brandingClasses.split(" "),
+    brandingClasses.split(" ").concat("c-inline-block", "c-w-full", "c-h-full"),
   );
 
   return {

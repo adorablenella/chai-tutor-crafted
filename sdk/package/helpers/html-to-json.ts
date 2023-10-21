@@ -101,7 +101,7 @@ const getAttrs = (node: Node) => {
         }
       }
       set(attrs, replacers[key], getSanitizedValue(value));
-    } else if (!includes(["style", "class"], key)) {
+    } else if (!includes(["style", "class", "srcset"], key)) {
       set(attrs, `_attrs.${key}`, getSanitizedValue(value));
     }
   });
@@ -262,6 +262,7 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
        * if svg tag just pass html stringify content as _icon
        */
       node.attributes = filter(node.attributes, (attr) => !includes(["style", "width", "height", "class"], attr.key));
+      node.attributes.push({ key: "class", value: "w-full h-full" });
       block._icon = stringify([node]);
       return [block] as TBlock[];
     } else if (node.tagName == "option" && parent && parent.block?._type === "Select") {
