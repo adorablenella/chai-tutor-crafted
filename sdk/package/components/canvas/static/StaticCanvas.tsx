@@ -262,7 +262,7 @@ const StaticCanvas = (): React.JSX.Element => {
           ) : (
             <StaticBlocksRenderer />
           )}
-          <div className="h-60 bg-gray-100 shadow-md"></div>
+          <div className="h-60"></div>
         </Canvas>
       </Frame>
     </div>
