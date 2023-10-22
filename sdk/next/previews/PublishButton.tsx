@@ -26,7 +26,7 @@ const PublishButton = () => {
         </TooltipTrigger>
         {syncStatus !== "SAVED" && (
           <TooltipContent className="mr-4">
-            <div>Save changes to publish</div>
+            <div>Please save your changes to publish</div>
           </TooltipContent>
         )}
       </Tooltip>

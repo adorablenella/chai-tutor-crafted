@@ -1,5 +1,5 @@
 import React, { Suspense, useEffect, useState } from "react";
-import { filter, find, first, groupBy, includes, isEmpty, keys, map, reject, uniq, values } from "lodash";
+import { filter, find, first, groupBy, includes, isEmpty, map, reject, uniq, values } from "lodash";
 import { useAtom } from "jotai";
 import {
   Accordion,
@@ -87,22 +87,24 @@ const AddBlocksPanel = () => {
         <ScrollArea className="-mx-1.5 h-full">
           <Accordion type="single" value={active} className="w-full px-3">
             {React.Children.toArray(
-              map(uniqueTypeGroup, (group) => (
-                <AccordionItem value={group} className="border-border">
-                  <AccordionTrigger onClick={() => onToggle(group)} className="py-2 capitalize">
-                    {group}
-                  </AccordionTrigger>
-                  <AccordionContent>
-                    <div className="grid grid-cols-3 gap-2">
-                      {React.Children.toArray(
-                        reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
-                          <CoreBlock block={block} />
-                        )),
-                      )}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              )),
+              map(uniqueTypeGroup, (group) =>
+                reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).length ? (
+                  <AccordionItem value={group} className="border-border">
+                    <AccordionTrigger onClick={() => onToggle(group)} className="py-2 capitalize">
+                      {group}
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="grid grid-cols-3 gap-2">
+                        {React.Children.toArray(
+                          reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
+                            <CoreBlock block={block} />
+                          )),
+                        )}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ) : null,
+              ),
             )}
           </Accordion>
         </ScrollArea>

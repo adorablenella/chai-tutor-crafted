@@ -4,8 +4,9 @@ import { twMerge } from "tailwind-merge";
 import { TBlock } from "../../../types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
 import { TStyleAttrs } from "../../../types/index";
-import { useAllBlocks, useHighlightBlockId } from "../../../hooks";
+import { useAllBlocks, useHighlightBlockId, useSelectedBlockIds } from "../../../hooks";
 import { getBlockComponent } from "../../../blocks/builder-blocks";
+import { useSelectedStylingBlocks } from "@/sdk/package/hooks/useSelectedStylingBlocks";
 
 // FIXME:  Duplicate code in CanvasRenderer.tsx
 const getSlots = (block: TBlock) => {
@@ -24,7 +25,7 @@ const generateClassNames = memoize((styles: string) => {
   return twMerge(stylesArray[0], stylesArray[1]);
 });
 
-function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any) {
+function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any, onClick: any) {
   const styles: { [key: string]: TStyleAttrs } = {};
   Object.keys(block).forEach((key) => {
     if (isString(block[key]) && block[key].startsWith(STYLES_KEY)) {
@@ -36,6 +37,7 @@ function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any) {
         "data-style-id": `${key}-${block._id}`,
         onMouseEnter,
         onMouseLeave,
+        onClick,
       };
     }
   });
@@ -45,6 +47,8 @@ function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any) {
 export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
   const allBlocks = useAllBlocks();
   const [, setHighlightedId] = useHighlightBlockId();
+  const [, setStyleBlockIds] = useSelectedStylingBlocks();
+  const [, setIds] = useSelectedBlockIds();
 
   const onMouseEnter = useCallback(
     (e: any) => {
@@ -62,9 +66,32 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
     },
     [setHighlightedId],
   );
+  const onClick = useCallback(
+    (e: any) => {
+      e.stopPropagation();
+      const currentTarget = e.currentTarget;
+      if (currentTarget.getAttribute("data-block-parent")) {
+        // check if target element has data-styles-prop attribute
+        const styleProp = currentTarget.getAttribute("data-style-prop") as string;
+        const styleId = currentTarget.getAttribute("data-style-id") as string;
+        const blockId = currentTarget.getAttribute("data-block-parent") as string;
+        setStyleBlockIds([{ id: styleId, prop: styleProp, blockId }]);
+        setIds([blockId]);
+      } else if (currentTarget.getAttribute("data-block-id")) {
+        setIds([currentTarget.getAttribute("data-block-id")]);
+        if (currentTarget.getAttribute("data-block-parent")) {
+          const styleProp = currentTarget.getAttribute("data-style-prop") as string;
+          const styleId = currentTarget.getAttribute("data-style-id") as string;
+          const blockId = currentTarget.getAttribute("data-block-parent") as string;
+          setStyleBlockIds([{ id: styleId, prop: styleProp, blockId }]);
+        }
+      }
+    },
+    [setStyleBlockIds, setIds],
+  );
 
   const getStyles = useCallback(
-    (block: TBlock) => getStyleAttrs(block, onMouseEnter, onMouseLeave),
+    (block: TBlock) => getStyleAttrs(block, onMouseEnter, onMouseLeave, onClick),
     [onMouseEnter, onMouseLeave],
   );
 

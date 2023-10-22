@@ -36,6 +36,7 @@ registerChaiBlock(DropDown, {
   label: "Drop Down",
   category: "core",
   group: "overlays",
+  hidden: true,
   props: {
     _show: Checkbox({ title: "Show/hide menu", default: false, builderProp: true }),
     _hover: Checkbox({ title: "Trigger on hover?", default: false, builderProp: true }),

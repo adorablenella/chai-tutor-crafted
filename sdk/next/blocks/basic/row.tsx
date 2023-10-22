@@ -19,6 +19,7 @@ registerChaiBlock(RowBlock, {
   icon: RowsIcon,
   category: "core",
   group: "layout",
+  hidden: true,
   props: {
     _styles: Styles({ default: "grid grid-cols-12" }),
   },
@@ -69,6 +70,7 @@ registerChaiBlock(ColumnBlock, {
   icon: ColumnsIcon,
   category: "core",
   group: "layout",
+  hidden: true,
   props: {
     _styles: Styles({ default: "" }),
     _colSpan: Numeric({ title: "Columns", default: 6, minimum: 1, maximum: 12 }),

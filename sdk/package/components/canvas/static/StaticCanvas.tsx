@@ -5,7 +5,6 @@ import { first, isEmpty } from "lodash";
 import { useAtom } from "jotai";
 import { DndContext } from "react-dnd";
 import {
-  useAddBlock,
   useCanvasWidth,
   useCanvasZoom,
   useHighlightBlockId,
@@ -26,30 +25,8 @@ import { TBlock } from "../../../types/TBlock";
 
 const Canvas = ({ children }: { children: React.ReactNode }) => {
   const { document } = useFrame();
-  const [preview] = usePreviewMode();
   const [ids, setSelected] = useSelectedBlockIds();
-  const [, setHighlight] = useHighlightBlockId();
   const [styleIds, setSelectedStylingBlocks] = useSelectedStylingBlocks();
-  const { addCoreBlock } = useAddBlock();
-
-  const setIfFound = (currentTarget: HTMLElement) => {
-    if (currentTarget.getAttribute("data-block-parent")) {
-      // check if target element has data-styles-prop attribute
-      const styleProp = currentTarget.getAttribute("data-style-prop") as string;
-      const styleId = currentTarget.getAttribute("data-style-id") as string;
-      const blockId = currentTarget.getAttribute("data-block-parent") as string;
-      setSelectedStylingBlocks([{ id: styleId, prop: styleProp, blockId }]);
-      setSelected([blockId]);
-    } else if (currentTarget.getAttribute("data-block-id")) {
-      setSelected([currentTarget.getAttribute("data-block-id")]);
-      if (currentTarget.getAttribute("data-block-parent")) {
-        const styleProp = currentTarget.getAttribute("data-style-prop") as string;
-        const styleId = currentTarget.getAttribute("data-style-id") as string;
-        const blockId = currentTarget.getAttribute("data-block-parent") as string;
-        setSelectedStylingBlocks([{ id: styleId, prop: styleProp, blockId }]);
-      }
-    }
-  };
 
   useEffect(() => {
     setTimeout(() => {
@@ -67,31 +44,6 @@ const Canvas = ({ children }: { children: React.ReactNode }) => {
       }
     }, 100);
   }, [document, ids, styleIds]);
-
-  useEffect(() => {
-    if (!document) return;
-    const onClickAnywhere = (event: any) => {
-      let currentElement = event.target;
-      while (currentElement) {
-        if (currentElement.getAttribute("id") === "canvas") {
-          setSelectedStylingBlocks([]);
-          setSelected([]);
-          break;
-        }
-
-        if (currentElement.hasAttribute("data-block-id") || currentElement.hasAttribute("data-block-parent")) {
-          setSelectedStylingBlocks([]);
-          setIfFound(currentElement as HTMLElement);
-          break;
-        }
-        // Move to the parent element
-        currentElement = currentElement.parentElement;
-      }
-    };
-    document.addEventListener("click", onClickAnywhere);
-    // eslint-disable-next-line consistent-return
-    return () => document.removeEventListener("click", onClickAnywhere);
-  }, [document, setIfFound]);
 
   return (
     <Transition
