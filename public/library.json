@@ -556,31 +556,31 @@
     "group": "feedback"
   },
   {
-    "uuid": "cards-on-a-background-image",
+    "uuid": "fg-cards-on-a-background-image",
     "name": "Fg cards on a background image",
     "format": "html",
     "group": "features: general"
   },
   {
-    "uuid": "container-size-image-with-icon-blocks",
+    "uuid": "fg-container-size-image-with-icon-blocks",
     "name": "Fg container size image with icon blocks",
     "format": "html",
     "group": "features: general"
   },
   {
-    "uuid": "simple-with-a-single-image",
+    "uuid": "fg-simple-with-a-single-image",
     "name": "Fg simple with a single image",
     "format": "html",
     "group": "features: general"
   },
   {
-    "uuid": "three-center-aligned-images-with-a-content",
+    "uuid": "fg-three-center-aligned-images-with-a-content",
     "name": "Fg three center aligned images with a content",
     "format": "html",
     "group": "features: general"
   },
   {
-    "uuid": "with-4-center-aligned-images-and-icon-blocks",
+    "uuid": "fg-with-4-center-aligned-images-and-icon-blocks",
     "name": "Fg with 4 center aligned images and icon blocks",
     "format": "html",
     "group": "features: general"
