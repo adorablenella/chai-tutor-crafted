@@ -9,5 +9,5 @@ type Props = {
 
 export const Placeholder: React.FC<Props> = (props) => {
   const left = props.depth * 10;
-  return <div className="h-0.5 bg-green-500 absolute top-0 right-0 transform -translate-y-1/2" style={{ left }} />;
+  return <div className="absolute right-0 top-0 h-1 -translate-y-1/2 transform bg-green-500" style={{ left }} />;
 };

@@ -165,7 +165,7 @@ const Layers = (): React.JSX.Element => {
           dragPreviewRender={(monitorProps) => <CustomDragPreview monitorProps={monitorProps} />}
           onDrop={handleDrop}
           classes={{
-            root: "h-full",
+            root: "h-full pt-2",
             draggingSource: "opacity-30",
             placeholder: "relative",
           }}
