@@ -7,4 +7,6 @@
  * A map of feature toggle flags.
  * @type {FeatureToggles}
  */
-export const FEATURE_TOGGLES = {};
+export const FEATURE_TOGGLES: { [key: string]: boolean } = {
+  dndBlocks: false,
+};

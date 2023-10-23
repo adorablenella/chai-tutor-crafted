@@ -23,4 +23,5 @@ import "./form/select";
 import "./form/checkbox";
 import "./form/radio";
 import "./form/form-button";
+import "./basic/loading";
 // import "./basic/data-provider";

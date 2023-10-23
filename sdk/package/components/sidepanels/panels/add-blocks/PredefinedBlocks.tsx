@@ -9,12 +9,23 @@ import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
 import { Loader } from "lucide-react";
 import { useCoreBlocks } from "@/sdk/package/hooks/useCoreBlocks";
+import { useDrag } from "react-dnd";
+import { useAtom } from "jotai/index";
+import { activePanelAtom } from "@/sdk/package/store/ui";
+import { useFeature } from "flagged";
 
 const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => void }) => {
   const [isAdding, setIsAdding] = useState(false);
   const getExternalPredefinedBlock = useBuilderProp("getExternalPredefinedBlock");
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
+  const [, setActivePanel] = useAtom(activePanelAtom);
+  const allowDnd = useFeature("dndBlocks");
+  const [, drag, dragPreview] = useDrag(() => ({
+    type: "CHAI_BLOCK",
+    item: block,
+    canDrag: () => allowDnd === true,
+  }));
 
   const addBlock = useCallback(async () => {
     if (has(block, "component")) {
@@ -30,6 +41,13 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
 
   return (
     <div
+      onDragStart={() => {
+        closePopover();
+        setTimeout(() => {
+          setActivePanel("layers");
+        }, 100);
+      }}
+      ref={drag}
       onClick={isAdding ? () => {} : addBlock}
       className="relative cursor-pointer overflow-hidden rounded-md border border-transparent duration-200 hover:border-foreground/90 hover:shadow-2xl">
       {isAdding && (

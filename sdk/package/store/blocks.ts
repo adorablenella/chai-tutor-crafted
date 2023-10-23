@@ -9,7 +9,7 @@ export const pageBlocksAtom: any = atomWithReducer(
     present: [],
     future: [],
   },
-  pageBlocksReducer
+  pageBlocksReducer,
 );
 pageBlocksAtom.debugLabel = "pageBlocksAtom";
 
@@ -25,3 +25,6 @@ pageBlocksTreeAtom.debugLabel = "pageBlocksTreeAtom";
 
 export const builderActivePageAtom = atom<string>("");
 builderActivePageAtom.debugLabel = "builderActivePageAtom";
+
+export const destinationDropIndexAtom = atom<number>(-1);
+destinationDropIndexAtom.debugLabel = "destinationDropIndexAtom";

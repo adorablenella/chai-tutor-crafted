@@ -1,11 +1,10 @@
-import { find, includes, isEmpty, isUndefined, map, pick } from "lodash";
+import { find, includes, isEmpty, isUndefined, map } from "lodash";
 import * as React from "react";
 import { StackIcon } from "@radix-ui/react-icons";
-import { useDrop } from "react-dnd";
+import { useDragLayer, useDrop } from "react-dnd";
 import { NodeModel, Tree } from "@minoru/react-dnd-treeview";
 import { useTranslation } from "react-i18next";
 import {
-  useAddBlock,
   useAllBlocks,
   useCanvasHistory,
   useCopyBlockIds,
@@ -19,16 +18,15 @@ import { CustomNode } from "./CustomNode";
 import { CustomDragPreview } from "./CustomDragPreview";
 import { Placeholder } from "./Placeholder";
 import { useSetAllBlocks } from "../../../../hooks/useTreeData";
-import { generateUUID } from "../../../../functions/functions";
 import { canDropBlock } from "../../../../functions/Layers";
 import { useExpandedIds, useExpandTree } from "../../../../hooks/useExpandTree";
 import { TBlock } from "../../../../types/TBlock";
-import { insertBlockAtIndex } from "../../../../helpers/general";
-import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { BlockContextMenu } from "./BlockContextMenu";
 import { ScrollArea } from "../../../../radix-ui";
 import { useSelectedStylingBlocks } from "../../../../hooks/useSelectedStylingBlocks";
 import { useHotkeys } from "react-hotkeys-hook";
+import { cn } from "@/lib/utils";
+import { useAddBlockByDrop } from "@/sdk/package/hooks/useAddBlockByDrop";
 
 const useKeyEventWatcher = () => {
   const [ids, setIds, toggleIds] = useSelectedBlockIds();
@@ -58,6 +56,13 @@ const useKeyEventWatcher = () => {
   );
 };
 
+function convertToTBlocks(newTree: NodeModel[]) {
+  return map(newTree, (block) => {
+    const { data } = block;
+    return { ...(data as Object), _parent: block.parent === 0 ? null : block.parent } as TBlock;
+  });
+}
+
 const Layers = (): React.JSX.Element => {
   const allBlocks = useAllBlocks();
   const [setAllBlocks] = useSetAllBlocks();
@@ -68,36 +73,21 @@ const Layers = (): React.JSX.Element => {
   useExpandTree();
   useKeyEventWatcher();
   const expandedIds = useExpandedIds();
-  const { addCoreBlock, addPredefinedBlock } = useAddBlock();
-  const getExternalBlock = useBuilderProp(
-    "getExternalPredefinedBlock",
-    async (predefinedBlock: any) => predefinedBlock,
-  );
+  const addBlockOnDrop = useAddBlockByDrop();
   const handleDrop = async (newTree: NodeModel[], options: any) => {
-    const { monitor, dropTargetId, dragSource, relativeIndex } = options;
-    let blocks: TBlock[] = map(newTree, (block) => {
-      const { data } = block;
-      return { ...(data as Object), _parent: block.parent === 0 ? null : block.parent } as TBlock;
-    });
-
-    if (!dragSource) {
-      const droppedBlock = monitor.getItem();
-      if (droppedBlock.c_id) {
-        const externalBlock = await getExternalBlock(droppedBlock);
-        addPredefinedBlock(externalBlock.blocks, null);
-        return;
-      }
-      const newBlock: any = {
-        ...pick(droppedBlock, ["type"]),
-        ...droppedBlock.props,
-        _parent: dropTargetId === 0 ? null : dropTargetId,
-        _id: generateUUID(),
-      };
-      blocks = insertBlockAtIndex(blocks, newBlock._parent, relativeIndex, newBlock);
-      setTimeout(() => setIds([newBlock._id]), 200);
-    }
+    const { dragSource, destinationIndex, relativeIndex, dropTargetId, monitor } = options;
+    let blocks: TBlock[] = convertToTBlocks(newTree);
     setAllBlocks(blocks);
-    createSnapshot();
+    if (dragSource) {
+      createSnapshot();
+    } else {
+      addBlockOnDrop({
+        block: monitor.getItem(),
+        dropTargetId,
+        destinationIndex,
+        relativeIndex,
+      });
+    }
   };
 
   const treeBlocks: any = map(allBlocks, (block: TBlock) => ({
@@ -114,69 +104,74 @@ const Layers = (): React.JSX.Element => {
   };
 
   const [{ isOver }, drop] = useDrop(() => ({
-    accept: ["CORE_BLOCK", "PREDEFINED_BLOCK"],
+    accept: ["CHAI_BLOCK"],
     collect: (monitor) => ({
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
-    drop: async (item: any) => {
-      if (item.c_id) {
-        const externalBlock = await getExternalBlock(item);
-        addPredefinedBlock(externalBlock.blocks, null);
-      } else addCoreBlock(item, null);
-    },
+  }));
+
+  const { isDragging } = useDragLayer((monitor) => ({
+    isDragging: monitor.isDragging(),
   }));
 
   return (
-    <div onClick={() => clearSelection()} className="-mx-1 flex h-full select-none flex-col space-y-1">
-      <div className="mx-1 rounded-md bg-background/30 p-1">
-        <h1 className="px-1 font-semibold">Tree view</h1>
-      </div>
-      {isEmpty(allBlocks) ? (
-        <div
-          ref={drop}
-          className={`mx-1 mt-4 h-full p-6 text-center text-sm text-gray-400 ${isOver ? "bg-blue-200" : ""}`}>
-          <StackIcon className="mx-auto h-10 w-10" />
-          <p className="mt-2">{t("tree_view_no_blocks")}</p>
+    <>
+      <div
+        onClick={() => clearSelection()}
+        className={cn(
+          "-mx-1 -mt-1 flex h-full select-none flex-col space-y-1",
+          isDragging ? "bg-green-50/80" : "bg-background",
+        )}>
+        <div className="mx-1 rounded-md bg-background/30 p-1">
+          <h1 className="px-1 font-semibold">Tree view</h1>
         </div>
-      ) : null}
-      <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">
-        <Tree
-          initialOpen={expandedIds}
-          extraAcceptTypes={["CORE_BLOCK", "PREDEFINED_BLOCK"]}
-          tree={treeBlocks}
-          rootId={0}
-          render={(node, { depth, isOpen, onToggle }) => (
-            <BlockContextMenu id={node.id}>
-              <CustomNode
-                onSelect={(id: string) => {
-                  setStyleBlocks([]);
-                  setIds([id]);
-                }}
-                isSelected={includes(ids, node.id)}
-                node={node}
-                depth={depth}
-                isOpen={isOpen}
-                onToggle={onToggle}
-                toggleIds={toggleIds}
-              />
-            </BlockContextMenu>
-          )}
-          dragPreviewRender={(monitorProps) => <CustomDragPreview monitorProps={monitorProps} />}
-          onDrop={handleDrop}
-          classes={{
-            root: "h-full pt-2",
-            draggingSource: "opacity-30",
-            placeholder: "relative",
-          }}
-          sort={false}
-          insertDroppableFirst={false}
-          canDrop={canDropBlock}
-          dropTargetOffset={2}
-          placeholderRender={(node, { depth }) => <Placeholder node={node} depth={depth} />}
-        />
-      </ScrollArea>
-    </div>
+        {isEmpty(allBlocks) ? (
+          <div
+            ref={drop}
+            className={`mx-1 mt-4 h-full p-6 text-center text-sm text-gray-400 ${isOver ? "bg-blue-200" : ""}`}>
+            <StackIcon className="mx-auto h-10 w-10" />
+            <p className="mt-2">{t("tree_view_no_blocks")}</p>
+          </div>
+        ) : null}
+        <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">
+          <Tree
+            initialOpen={expandedIds}
+            extraAcceptTypes={["CHAI_BLOCK"]}
+            tree={treeBlocks}
+            rootId={0}
+            render={(node, { depth, isOpen, onToggle }) => (
+              <BlockContextMenu id={node.id}>
+                <CustomNode
+                  onSelect={(id: string) => {
+                    setStyleBlocks([]);
+                    setIds([id]);
+                  }}
+                  isSelected={includes(ids, node.id)}
+                  node={node}
+                  depth={depth}
+                  isOpen={isOpen}
+                  onToggle={onToggle}
+                  toggleIds={toggleIds}
+                />
+              </BlockContextMenu>
+            )}
+            dragPreviewRender={(monitorProps) => <CustomDragPreview monitorProps={monitorProps} />}
+            onDrop={handleDrop}
+            classes={{
+              root: "h-full pt-2",
+              draggingSource: "opacity-30",
+              placeholder: "relative",
+            }}
+            sort={false}
+            insertDroppableFirst={false}
+            canDrop={canDropBlock}
+            dropTargetOffset={2}
+            placeholderRender={(node, { depth }) => <Placeholder node={node} depth={depth} />}
+          />
+        </ScrollArea>
+      </div>
+    </>
   );
 };
 

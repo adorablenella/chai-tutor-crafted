@@ -7,6 +7,7 @@ import { activePanelAtom } from "../../store/ui";
 import { useBuilderProp } from "../../hooks/useBuilderProp";
 import { Skeleton } from "../../radix/components/ui/skeleton";
 import { cn } from "../../radix/lib/utils";
+import { useDragLayer } from "react-dnd";
 
 const AddBlocksPanel = lazy(() => import("./panels/add-blocks/AddBlocks"));
 const LayersPanel = lazy(() => import("./panels/layers/Layers"));
@@ -45,6 +46,10 @@ const SidePanels = () => {
     }
     setActivePanel(newPanel);
   };
+
+  const { isDragging } = useDragLayer((monitor) => ({
+    isDragging: monitor.isDragging(),
+  }));
 
   return (
     <div className="relative flex">

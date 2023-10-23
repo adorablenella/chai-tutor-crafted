@@ -7,17 +7,13 @@ import { activePanelAtom, addBlockOffCanvasAtom } from "../../../../store/ui";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../radix/components/ui/tooltip";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
+import { useFeature } from "flagged";
 
 export const CoreBlock = ({ block }: { block: any }) => {
   const { type, icon, label } = block;
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
   const [, setActivePanel] = useAtom(activePanelAtom);
-  const [, drag] = useDrag(() => ({
-    type: "CORE_BLOCK",
-    item: block,
-  }));
-  const [, setOpen] = useAtom(addBlockOffCanvasAtom);
 
   const addBlockToPage = () => {
     if (has(block, "blocks")) {
@@ -29,6 +25,14 @@ export const CoreBlock = ({ block }: { block: any }) => {
     setActivePanel("layers");
   };
 
+  const allowDnd = useFeature("dndBlocks");
+  const [, drag] = useDrag(() => ({
+    type: "CHAI_BLOCK",
+    item: block,
+    canDrag: () => allowDnd === true,
+  }));
+  const [, setOpen] = useAtom(addBlockOffCanvasAtom);
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
@@ -36,7 +40,10 @@ export const CoreBlock = ({ block }: { block: any }) => {
           onClick={addBlockToPage}
           type="button"
           onDragStart={() => {
-            setTimeout(() => setOpen(false), 100);
+            setTimeout(() => {
+              setOpen(false);
+              setActivePanel("layers");
+            }, 100);
           }}
           ref={drag}
           className="cursor-pointer space-y-2 rounded-lg border border-border p-3 text-center hover:bg-slate-300/50">

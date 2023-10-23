@@ -1,6 +1,6 @@
 import { FlagsProvider } from "flagged";
 import React, { useEffect } from "react";
-import { DndProvider } from "react-dnd";
+import { DndProvider, useDragLayer } from "react-dnd";
 import { omit } from "lodash";
 import { getBackendOptions, MultiBackend } from "@minoru/react-dnd-treeview";
 import { FEATURE_TOGGLES } from "../FEATURE_TOGGLES";
@@ -17,6 +17,14 @@ import { Toaster } from "../radix/components/ui/toaster";
 import { useBuilderReset } from "../hooks/useBuilderReset";
 import { syncBlocksWithDefaults } from "@/sdk/package/blocks/builder-blocks";
 import { useBrandingOptions } from "../hooks";
+
+const DragLayerComponent = (props: any) => {
+  const { isDragging } = useDragLayer((monitor) => ({
+    isDragging: monitor.isDragging(),
+  }));
+
+  return <>{props.children}</>;
+};
 
 const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
   const { dndOptions = { backend: MultiBackend } } = props;
@@ -42,7 +50,9 @@ const ChaiBuilder = (props: ChaiBuilderProviderProps) => {
 
   return (
     <DndProvider {...dndOptions} options={getBackendOptions()}>
-      <RootLayout />
+      <DragLayerComponent>
+        <RootLayout />
+      </DragLayerComponent>
     </DndProvider>
   );
 };
