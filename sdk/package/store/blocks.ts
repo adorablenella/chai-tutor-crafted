@@ -28,3 +28,6 @@ builderActivePageAtom.debugLabel = "builderActivePageAtom";
 
 export const destinationDropIndexAtom = atom<number>(-1);
 destinationDropIndexAtom.debugLabel = "destinationDropIndexAtom";
+
+export const addBlocksModalAtom = atom(false);
+addBlocksModalAtom.debugLabel = "addBlocksModalAtom";

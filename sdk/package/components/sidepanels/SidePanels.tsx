@@ -7,7 +7,7 @@ import { activePanelAtom } from "../../store/ui";
 import { useBuilderProp } from "../../hooks/useBuilderProp";
 import { Skeleton } from "../../radix/components/ui/skeleton";
 import { cn } from "../../radix/lib/utils";
-import { useDragLayer } from "react-dnd";
+import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 const AddBlocksPanel = lazy(() => import("./panels/add-blocks/AddBlocks"));
 const LayersPanel = lazy(() => import("./panels/layers/Layers"));
@@ -46,17 +46,14 @@ const SidePanels = () => {
     }
     setActivePanel(newPanel);
   };
-
-  const { isDragging } = useDragLayer((monitor) => ({
-    isDragging: monitor.isDragging(),
-  }));
+  const [, setAddBlocks] = useAtom(addBlocksModalAtom);
 
   return (
     <div className="relative flex">
       <div className="z-[100] flex h-full w-fit flex-col items-center justify-between border-b border-r border-border bg-background pt-2">
         <div className="relative z-[100] flex w-14  flex-col items-center space-y-2">
           <Button
-            onClick={() => handleChangePanel("add-blocks")}
+            onClick={() => setAddBlocks(true)}
             size="sm"
             variant={activePanel === "add-blocks" ? "default" : "outline"}>
             <PlusIcon className="text-xl" />
@@ -73,12 +70,6 @@ const SidePanels = () => {
             variant={activePanel === "branding-options" ? "default" : "outline"}>
             <Half2Icon className="w-4 max-w-[40px] text-xs" />
           </Button>
-          {/*<Button*/}
-          {/*  onClick={() => handleChangePanel("images")}*/}
-          {/*  size="sm"*/}
-          {/*  variant={activePanel === "images" ? "default" : "outline"}>*/}
-          {/*  <ImageIcon className="w-4 max-w-[40px] text-xs" />*/}
-          {/*</Button>*/}
           {React.Children.toArray(
             topComponents.map(({ name, icon: PanelIcon }) => (
               <Suspense fallback={<Skeleton className="h-10" />}>

@@ -19,6 +19,7 @@ import { Skeleton } from "../../../../radix/components/ui/skeleton";
 import ImportHTML from "@/sdk/package/components/sidepanels/panels/add-blocks/ImportHTML";
 import { useAllBlocks, useSelectedBlockIds } from "@/sdk/package/hooks";
 import { TBlock } from "@/sdk/package/types";
+import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 /**
  *
@@ -43,6 +44,7 @@ const AddBlocksPanel = () => {
   const [active, setActive] = useState<string>("basic");
   const coreBlocks = useCoreBlocks();
   const [, setCategory] = useAtom(showPredefinedBlockCategoryAtom);
+  const [, setAddBlocks] = useAtom(addBlocksModalAtom);
 
   const [ids] = useSelectedBlockIds();
   const blocks = useAllBlocks();
@@ -66,8 +68,14 @@ const AddBlocksPanel = () => {
 
   return (
     <div className="flex h-full flex-col">
-      <div className="rounded-md bg-background/30 p-1">
-        <h1 className="px-1 font-semibold">Add block</h1>
+      <div className="mb-2 flex justify-between rounded-md bg-background/30 p-1">
+        <h1 className="px-1 text-2xl font-semibold">
+          Add block &nbsp;
+          <span className="text-xs font-normal">(Drag & drop into tree view or click to add)</span>
+        </h1>
+        <button onClick={() => setAddBlocks(false)} className="rounded-full border p-px px-2 text-xs text-gray-800 ">
+          &times; close
+        </button>
       </div>
 
       <Tabs
@@ -94,7 +102,7 @@ const AddBlocksPanel = () => {
                       {group}
                     </AccordionTrigger>
                     <AccordionContent>
-                      <div className="grid grid-cols-3 gap-2">
+                      <div className="grid grid-cols-4 gap-2">
                         {React.Children.toArray(
                           reject(filter(values(groupedBlocks.core), { group }), { hidden: true }).map((block) => (
                             <CoreBlock block={block} />

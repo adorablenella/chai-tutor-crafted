@@ -27,6 +27,8 @@ import { useSelectedStylingBlocks } from "../../../../hooks/useSelectedStylingBl
 import { useHotkeys } from "react-hotkeys-hook";
 import { cn } from "@/lib/utils";
 import { useAddBlockByDrop } from "@/sdk/package/hooks/useAddBlockByDrop";
+import { useAtom } from "jotai/index";
+import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 const useKeyEventWatcher = () => {
   const [ids, setIds, toggleIds] = useSelectedBlockIds();
@@ -74,6 +76,7 @@ const Layers = (): React.JSX.Element => {
   useKeyEventWatcher();
   const expandedIds = useExpandedIds();
   const addBlockOnDrop = useAddBlockByDrop();
+  const [, setAddBlocks] = useAtom(addBlocksModalAtom);
   const handleDrop = async (newTree: NodeModel[], options: any) => {
     const { dragSource, destinationIndex, relativeIndex, dropTargetId, monitor } = options;
     let blocks: TBlock[] = convertToTBlocks(newTree);
@@ -81,12 +84,13 @@ const Layers = (): React.JSX.Element => {
     if (dragSource) {
       createSnapshot();
     } else {
-      addBlockOnDrop({
+      await addBlockOnDrop({
         block: monitor.getItem(),
         dropTargetId,
         destinationIndex,
         relativeIndex,
       });
+      setAddBlocks(false);
     }
   };
 
@@ -109,6 +113,17 @@ const Layers = (): React.JSX.Element => {
       canDrop: monitor.canDrop(),
       isOver: monitor.isOver(),
     }),
+    drop: (item: any, monitor) => {
+      (async () => {
+        await addBlockOnDrop({
+          block: item,
+          dropTargetId: "",
+          destinationIndex: 0,
+          relativeIndex: 0,
+        });
+        setAddBlocks(false);
+      })();
+    },
   }));
 
   const { isDragging } = useDragLayer((monitor) => ({
@@ -123,7 +138,7 @@ const Layers = (): React.JSX.Element => {
           "-mx-1 -mt-1 flex h-full select-none flex-col space-y-1",
           isDragging ? "bg-green-50/80" : "bg-background",
         )}>
-        <div className="mx-1 rounded-md bg-background/30 p-1">
+        <div className="mx-1 h-10 rounded-md bg-background/30 p-1">
           <h1 className="px-1 font-semibold">Tree view</h1>
         </div>
         {isEmpty(allBlocks) ? (
@@ -133,43 +148,44 @@ const Layers = (): React.JSX.Element => {
             <StackIcon className="mx-auto h-10 w-10" />
             <p className="mt-2">{t("tree_view_no_blocks")}</p>
           </div>
-        ) : null}
-        <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">
-          <Tree
-            initialOpen={expandedIds}
-            extraAcceptTypes={["CHAI_BLOCK"]}
-            tree={treeBlocks}
-            rootId={0}
-            render={(node, { depth, isOpen, onToggle }) => (
-              <BlockContextMenu id={node.id}>
-                <CustomNode
-                  onSelect={(id: string) => {
-                    setStyleBlocks([]);
-                    setIds([id]);
-                  }}
-                  isSelected={includes(ids, node.id)}
-                  node={node}
-                  depth={depth}
-                  isOpen={isOpen}
-                  onToggle={onToggle}
-                  toggleIds={toggleIds}
-                />
-              </BlockContextMenu>
-            )}
-            dragPreviewRender={(monitorProps) => <CustomDragPreview monitorProps={monitorProps} />}
-            onDrop={handleDrop}
-            classes={{
-              root: "h-full pt-2",
-              draggingSource: "opacity-30",
-              placeholder: "relative",
-            }}
-            sort={false}
-            insertDroppableFirst={false}
-            canDrop={canDropBlock}
-            dropTargetOffset={2}
-            placeholderRender={(node, { depth }) => <Placeholder node={node} depth={depth} />}
-          />
-        </ScrollArea>
+        ) : (
+          <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">
+            <Tree
+              initialOpen={expandedIds}
+              extraAcceptTypes={["CHAI_BLOCK"]}
+              tree={treeBlocks}
+              rootId={0}
+              render={(node, { depth, isOpen, onToggle }) => (
+                <BlockContextMenu id={node.id}>
+                  <CustomNode
+                    onSelect={(id: string) => {
+                      setStyleBlocks([]);
+                      setIds([id]);
+                    }}
+                    isSelected={includes(ids, node.id)}
+                    node={node}
+                    depth={depth}
+                    isOpen={isOpen}
+                    onToggle={onToggle}
+                    toggleIds={toggleIds}
+                  />
+                </BlockContextMenu>
+              )}
+              dragPreviewRender={(monitorProps) => <CustomDragPreview monitorProps={monitorProps} />}
+              onDrop={handleDrop}
+              classes={{
+                root: "h-full pt-2",
+                draggingSource: "opacity-30",
+                placeholder: "relative",
+              }}
+              sort={false}
+              insertDroppableFirst={false}
+              canDrop={canDropBlock}
+              dropTargetOffset={2}
+              placeholderRender={(node, { depth }) => <Placeholder node={node} depth={depth} />}
+            />
+          </ScrollArea>
+        )}
       </div>
     </>
   );
