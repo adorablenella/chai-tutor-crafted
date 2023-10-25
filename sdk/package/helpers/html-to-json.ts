@@ -1,9 +1,10 @@
 // @ts-ignore
 import { parse, stringify } from "himalaya";
 import { generateUUID } from "../functions/functions";
-import { capitalize, filter, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, set } from "lodash";
+import { capitalize, filter, find, flatMapDeep, flatten, forEach, get, includes, isEmpty, omit, set } from "lodash";
 import { TBlock } from "../types";
 import { STYLES_KEY } from "@/sdk/package/constants/CONTROLS";
+import { cn } from "../radix/lib/utils";
 
 type Node = {
   type: "element" | "text" | "comment";
@@ -261,9 +262,17 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
        * handling svg tag
        * if svg tag just pass html stringify content as _icon
        */
+
+      const svgHeight = find(node.attributes, { key: "height" });
+      const svgWidth = find(node.attributes, { key: "width" });
+      const height = get(svgHeight, "value") ? `[${get(svgHeight, "value")}px]` : "full";
+      const width = get(svgWidth, "value") ? `[${get(svgWidth, "value")}px]` : "full";
+      const svgClass = get(find(node.attributes, { key: "class" }), "value");
+      block._styles = `${STYLES_KEY}, ${cn(`w-${width} h-${height}`, svgClass)}`.trim();
+
       node.attributes = filter(node.attributes, (attr) => !includes(["style", "width", "height", "class"], attr.key));
-      node.attributes.push({ key: "class", value: "w-full h-full" });
       block._icon = stringify([node]);
+      block._attrs = omit(block._attrs, ["height", "width", "style", "class"]);
       return [block] as TBlock[];
     } else if (node.tagName == "option" && parent && parent.block?._type === "Select") {
       /**
