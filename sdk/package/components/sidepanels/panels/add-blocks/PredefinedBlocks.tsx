@@ -45,7 +45,7 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
     <>
       <DragPreviewImage
         connect={dragPreview}
-        src={"https://placehold.it/100x30?text=" + block.name?.replace(" ", "+")}
+        src={"https://placehold.co/100x30/000000/FFF?text=" + (block.name || block.label)?.replace(" ", "+")}
       />
       <div
         ref={drag}

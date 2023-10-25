@@ -35,7 +35,10 @@ export const CoreBlock = ({ block }: { block: any }) => {
 
   return (
     <>
-      <DragPreviewImage connect={dragPreview} src={"https://placehold.it/100x30?text=" + label || type} />
+      <DragPreviewImage
+        connect={dragPreview}
+        src={"https://placehold.co/100x30/000000/FFF?text=" + (label || type).replace(/ /g, "+")}
+      />
       <Tooltip>
         <TooltipTrigger asChild>
           <button
