@@ -1,6 +1,6 @@
 import { find, includes, isEmpty, isUndefined, map } from "lodash";
 import * as React from "react";
-import { StackIcon } from "@radix-ui/react-icons";
+import { DoubleArrowDownIcon, StackIcon } from "@radix-ui/react-icons";
 import { useDragLayer, useDrop } from "react-dnd";
 import { NodeModel, Tree } from "@minoru/react-dnd-treeview";
 import { useTranslation } from "react-i18next";
@@ -27,7 +27,7 @@ import { useSelectedStylingBlocks } from "../../../../hooks/useSelectedStylingBl
 import { useHotkeys } from "react-hotkeys-hook";
 import { cn } from "@/lib/utils";
 import { useAddBlockByDrop } from "@/sdk/package/hooks/useAddBlockByDrop";
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 const useKeyEventWatcher = () => {
@@ -145,8 +145,12 @@ const Layers = (): React.JSX.Element => {
           <div
             ref={drop}
             className={`mx-1 mt-4 h-full p-6 text-center text-sm text-gray-400 ${isOver ? "bg-blue-200" : ""}`}>
-            <StackIcon className="mx-auto h-10 w-10" />
-            <p className="mt-2">{t("tree_view_no_blocks")}</p>
+            {isOver ? (
+              <DoubleArrowDownIcon className="mx-auto h-12 w-12 animate-bounce" />
+            ) : (
+              <StackIcon className="mx-auto h-10 w-10" />
+            )}
+            <p className="mt-2">{t(isOver ? "drop_here_message" : "tree_view_no_blocks")}</p>
           </div>
         ) : (
           <ScrollArea id="layers-view" className="no-scrollbar h-full overflow-y-auto p-1">

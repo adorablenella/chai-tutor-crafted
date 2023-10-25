@@ -19,14 +19,14 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
   const [ids] = useSelectedBlockIds();
   const allowDnd = useFeature("dndBlocks");
 
-  const [collected, drag, dragPreview] = useDrag(() => ({
-    type: "CHAI_BLOCK",
-    item: block,
-    canDrag: () => allowDnd === true,
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
+  const [, drag, dragPreview] = useDrag(
+    () => ({
+      type: "CHAI_BLOCK",
+      item: block,
+      canDrag: () => allowDnd === true,
     }),
-  }));
+    [block],
+  );
 
   const addBlock = useCallback(async (e: any) => {
     e.stopPropagation();
@@ -116,7 +116,7 @@ export const PredefinedBlocks = () => {
                 }}
                 onClick={() => setGroup(group)}
                 className={cn(
-                  "-mx-2 cursor-default rounded-md px-2 text-sm font-medium capitalize text-gray-700 hover:bg-foreground/20",
+                  "-mx-2 cursor-default rounded-md px-2 py-1 text-sm font-medium capitalize text-gray-700 hover:bg-foreground/20",
                   selectedGroup === group ? "bg-foreground/20" : "",
                 )}>
                 {group}
