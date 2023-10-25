@@ -45,7 +45,7 @@ export const CoreBlock = ({ block }: { block: any }) => {
             onClick={addBlockToPage}
             type="button"
             ref={drag}
-            className="cursor-pointer space-y-2 rounded-lg border border-border p-3 text-center hover:bg-slate-300/50">
+            className="cursor-grab space-y-2 rounded-lg border border-border p-3 text-center hover:bg-slate-300/50">
             {createElement(icon || BoxIcon, { className: "w-4 h-4 mx-auto" })}
             <p className="truncate text-xs">{label || type}</p>
           </button>
