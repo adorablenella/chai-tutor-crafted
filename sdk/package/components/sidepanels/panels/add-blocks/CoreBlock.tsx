@@ -7,7 +7,6 @@ import { activePanelAtom } from "../../../../store/ui";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../radix/components/ui/tooltip";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
-import { useFeature } from "flagged";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 export const CoreBlock = ({ block }: { block: any }) => {
@@ -26,11 +25,9 @@ export const CoreBlock = ({ block }: { block: any }) => {
     setActivePanel("layers");
   };
 
-  const allowDnd = useFeature("dndBlocks");
   const [, drag, dragPreview] = useDrag(() => ({
     type: "CHAI_BLOCK",
     item: block,
-    canDrag: () => allowDnd === true,
   }));
 
   return (

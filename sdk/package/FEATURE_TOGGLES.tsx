@@ -8,5 +8,5 @@
  * @type {FeatureToggles}
  */
 export const FEATURE_TOGGLES: { [key: string]: boolean } = {
-  dndBlocks: true,
+  inlineEditing: true,
 };

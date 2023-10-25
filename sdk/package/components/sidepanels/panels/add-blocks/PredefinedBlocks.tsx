@@ -8,7 +8,6 @@ import { Loader } from "lucide-react";
 import { useCoreBlocks } from "@/sdk/package/hooks/useCoreBlocks";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { useAtom } from "jotai";
-import { useFeature } from "flagged";
 import { cn } from "@/lib/utils";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
@@ -17,13 +16,11 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
   const getExternalPredefinedBlock = useBuilderProp("getExternalPredefinedBlock");
   const { addCoreBlock, addPredefinedBlock } = useAddBlock();
   const [ids] = useSelectedBlockIds();
-  const allowDnd = useFeature("dndBlocks");
 
   const [, drag, dragPreview] = useDrag(
     () => ({
       type: "CHAI_BLOCK",
       item: block,
-      canDrag: () => allowDnd === true,
     }),
     [block],
   );
