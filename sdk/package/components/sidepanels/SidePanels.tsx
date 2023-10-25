@@ -9,7 +9,6 @@ import { Skeleton } from "../../radix/components/ui/skeleton";
 import { cn } from "../../radix/lib/utils";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
-const AddBlocksPanel = lazy(() => import("./panels/add-blocks/AddBlocks"));
 const LayersPanel = lazy(() => import("./panels/layers/Layers"));
 const BrandingOptions = lazy(() => import("./panels/branding/BrandingOptions"));
 const ImagesPanel = lazy(() => import("./panels/images/ImagesPanel"));
@@ -27,7 +26,6 @@ const SidePanels = () => {
   const [hideTimeout, setHideTimeout] = useState<any>(null);
 
   const panels: { [key: string]: LazyExoticComponent<any> } = {
-    "add-blocks": AddBlocksPanel,
     layers: LayersPanel,
     "branding-options": BrandingOptions,
     images: ImagesPanel,

@@ -118,11 +118,9 @@ const AddBlocksPanel = () => {
         </ScrollArea>
       )}
       {tab === "ui-blocks" && (
-        <ScrollArea className="relative h-full py-2">
-          <Suspense fallback={<Skeleton className="h-32 w-full" />}>
-            <PredefinedBlocks />
-          </Suspense>
-        </ScrollArea>
+        <Suspense fallback={<Skeleton className="h-32 w-full" />}>
+          <PredefinedBlocks />
+        </Suspense>
       )}
       {tab === "html" && <ImportHTML />}
     </div>

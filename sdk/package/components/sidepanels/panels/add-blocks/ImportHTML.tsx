@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useAtom } from "jotai/index";
+import { useAtom } from "jotai";
 import {
   Card,
   CardContent,
@@ -15,6 +15,8 @@ import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { activePanelAtom, addBlockOffCanvasAtom } from "../../../../store/ui";
 import { getBlocksFromHTML } from "@/sdk/package/helpers/html-to-json";
 import { first } from "lodash";
+import { Alert, AlertTitle } from "@/sdk/package/radix/components/ui/alert";
+import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
 
 const ImportHTML = () => {
   const [code, setCode] = useState("");
@@ -37,8 +39,7 @@ const ImportHTML = () => {
         <CardTitle>Import HTML</CardTitle>
         <CardDescription>
           Use HTML snippets from component libraries like Tailwind UI, Flowbite, Preline, Kitwind, Tailblocks etc. or
-          just copy paste your own HTML code.
-          <p>Only Tailwind CSS markup is supported.</p>
+          just copy paste your own HTML code. Only Tailwind CSS markup is supported.
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-2 p-3">
@@ -58,10 +59,17 @@ const ImportHTML = () => {
           />
         </div>
       </CardContent>
-      <CardFooter className="flex justify-end p-3">
+      <CardFooter className="flex flex-col justify-end p-3">
         <Button disabled={code.trim() === ""} onClick={() => importComponents()} size="sm" className="w-full">
           Import
         </Button>
+        <Alert variant="default" className="mt-2 text-blue-400">
+          <ExclamationTriangleIcon className="h-4 w-4" />
+          <AlertTitle>
+            Imported html will be added to the currently selected block. If no block is selected, the html will be added
+            to the page.
+          </AlertTitle>
+        </Alert>
       </CardFooter>
     </Card>
   );

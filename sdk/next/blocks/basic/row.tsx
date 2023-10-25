@@ -19,7 +19,7 @@ registerChaiBlock(RowBlock, {
   icon: RowsIcon,
   category: "core",
   group: "layout",
-  hidden: false,
+  hidden: true,
   props: {
     _styles: Styles({ default: "grid grid-cols-12" }),
   },

@@ -1,7 +1,6 @@
 import { filter, first, get, groupBy, has, isArray, isEmpty, map, mergeWith, values } from "lodash";
 import React, { useCallback, useMemo, useState } from "react";
 import { useUILibraryBlocks } from "../../../../hooks/useUiLibraries";
-import { ScrollArea } from "../../../../radix-ui";
 import { useBuilderProp } from "../../../../hooks/useBuilderProp";
 import { useAddBlock, useSelectedBlockIds } from "../../../../hooks";
 import { syncBlocksWithDefaults } from "../../../../blocks/builder-blocks";
@@ -90,51 +89,47 @@ export const PredefinedBlocks = () => {
   const blocks = get(mergedGroups, selectedGroup, []);
 
   return (
-    <div className="flex h-full overflow-hidden border-t py-2">
-      <ScrollArea className="h-full">
-        <ul className="h-full w-48 space-y-1 overflow-x-auto border-r px-2">
-          {isLoading ? (
-            <>
-              <li className="h-8 w-full animate-pulse bg-gray-200"></li>
-              <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
-              <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
-              <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
-              <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
-              <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
-            </>
-          ) : (
-            React.Children.toArray(
-              map(mergedGroups, (groupedBlocks, group) => (
-                <li
-                  onMouseOut={() => {
-                    clearTimeout(timeoutId);
-                    setTimeoutId(null);
-                  }}
-                  onMouseEnter={() => {
-                    const timeout = setTimeout(() => {
-                      setGroup(group);
-                    }, 300);
-                    setTimeoutId(timeout);
-                  }}
-                  onClick={() => setGroup(group)}
-                  className={cn(
-                    "-mx-2 cursor-default rounded-md px-2 text-sm font-medium capitalize text-gray-700 hover:bg-foreground/20",
-                    selectedGroup === group ? "bg-foreground/20" : "",
-                  )}>
-                  {group}
-                </li>
-              )),
-            )
-          )}
-        </ul>
-      </ScrollArea>
-      <ScrollArea className="h-full w-full">
-        <div className="w-full space-y-2 px-4">
-          {React.Children.toArray(
-            blocks.map((block) => <BlockCard block={block} closePopover={() => setAddBlocks(false)} />),
-          )}
-        </div>
-      </ScrollArea>
+    <div className="relative flex h-full max-h-full overflow-hidden border-t py-2">
+      <ul className="sticky top-0 h-full w-48 space-y-1 overflow-y-auto border-r px-2">
+        {isLoading ? (
+          <>
+            <li className="h-8 w-full animate-pulse bg-gray-200"></li>
+            <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+            <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+            <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+            <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+            <li className="mt-2 h-8 w-full animate-pulse bg-gray-200"></li>
+          </>
+        ) : (
+          React.Children.toArray(
+            map(mergedGroups, (groupedBlocks, group) => (
+              <li
+                onMouseOut={() => {
+                  clearTimeout(timeoutId);
+                  setTimeoutId(null);
+                }}
+                onMouseEnter={() => {
+                  const timeout = setTimeout(() => {
+                    setGroup(group);
+                  }, 300);
+                  setTimeoutId(timeout);
+                }}
+                onClick={() => setGroup(group)}
+                className={cn(
+                  "-mx-2 cursor-default rounded-md px-2 text-sm font-medium capitalize text-gray-700 hover:bg-foreground/20",
+                  selectedGroup === group ? "bg-foreground/20" : "",
+                )}>
+                {group}
+              </li>
+            )),
+          )
+        )}
+      </ul>
+      <div className="h-full w-full space-y-2 overflow-y-auto px-4">
+        {React.Children.toArray(
+          blocks.map((block) => <BlockCard block={block} closePopover={() => setAddBlocks(false)} />),
+        )}
+      </div>
     </div>
   );
 };
