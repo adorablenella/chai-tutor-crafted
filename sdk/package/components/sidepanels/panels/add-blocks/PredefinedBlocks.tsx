@@ -116,8 +116,8 @@ export const PredefinedBlocks = () => {
                 }}
                 onClick={() => setGroup(group)}
                 className={cn(
-                  "-mx-2 cursor-default rounded-md px-2 py-1 text-sm font-medium capitalize text-gray-700 hover:bg-foreground/20",
-                  selectedGroup === group ? "bg-foreground/20" : "",
+                  "-mx-2 cursor-default rounded-md rounded-r-none px-2 py-1 text-sm font-medium capitalize",
+                  selectedGroup === group ? "bg-blue-500 text-white" : " text-gray-700 hover:bg-foreground/10",
                 )}>
                 {group}
               </li>
