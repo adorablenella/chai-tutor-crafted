@@ -938,12 +938,14 @@
     "uuid": "pricing-cards",
     "name": "Pricing cards",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%207.05.25%20PM_LEfD1WIok.png?updatedAt=1698327331452",
     "group": "pricing"
   },
   {
     "uuid": "pricing-with-2-cards",
     "name": "Pricing with 2 cards",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-500/Screenshot%202023-10-26%20at%207.04.31%20PM_-8a02T4q_.png?updatedAt=1698327279313",
     "group": "pricing"
   },
   {
@@ -1013,78 +1015,91 @@
     "uuid": "subscribe-simple-center-aligned",
     "name": "Subscribe simple center aligned",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%207.03.04%20PM_ebOIcvF5t.png?updatedAt=1698327191755",
     "group": "subscribe"
   },
   {
     "uuid": "subscribe-simple-right-aligned",
     "name": "Subscribe simple right aligned",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%207.02.02%20PM_7knxOBn2e.png?updatedAt=1698327128895",
     "group": "subscribe"
   },
   {
     "uuid": "team-card-style-with-description-and-socials",
     "name": "Team card style with description and socials",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.56.03%20PM_o4icp6_Wxv.png?updatedAt=1698326769789",
     "group": "team"
   },
   {
     "uuid": "team-inline-small-squared-image-with-socials",
     "name": "Team inline small squared image with socials",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.56.58%20PM_1GCfdrfoF.png?updatedAt=1698326825244",
     "group": "team"
   },
   {
     "uuid": "team-small-circular-image-size",
     "name": "Team small circular image size",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.57.49%20PM_arN4Mc5Bq.png?updatedAt=1698326875947",
     "group": "team"
   },
   {
     "uuid": "team-squared-medium-image-size",
     "name": "Team squared medium image size",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.59.39%20PM_ElKZO2MIs.png?updatedAt=1698326986263",
     "group": "team"
   },
   {
     "uuid": "testimonials-cards-with-stats-in-a-dark-bg",
     "name": "Testimonials cards with stats in a dark bg",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%206.39.54%20PM_Cdp9R_WKZ_.png?updatedAt=1698325955941",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-cards",
     "name": "Testimonials cards",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.54.02%20PM_OnAlO84AB.png?updatedAt=1698326653662",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-short-review-with-logo-and-stars",
     "name": "Testimonials short review with logo and stars",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.52.32%20PM_QnOjEb1P2.png?updatedAt=1698326558819",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-simple-center-aligned-with-logo",
     "name": "Testimonials simple center aligned with logo",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.48.45%20PM_3x1f23IvZ.png?updatedAt=1698326332361",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-with-big-image",
     "name": "Testimonials with big image",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.47.04%20PM_p2IcRafNX.png?updatedAt=1698326231537",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-with-small-image",
     "name": "Testimonials with small image",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/tr:w-600/Screenshot%202023-10-26%20at%206.45.19%20PM_aKcfLXML3.png?updatedAt=1698326165564",
     "group": "testimonials"
   },
   {
     "uuid": "testimonials-with-stats",
     "name": "Testimonials with stats",
     "format": "html",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%206.44.03%20PM_Kju6Q5qkYL.png?updatedAt=1698326067212",
     "group": "testimonials"
   }
 ]

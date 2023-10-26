@@ -50,7 +50,7 @@ const BlockCard = ({ block, closePopover }: { block: any; closePopover: () => vo
       <div
         ref={drag}
         onClick={isAdding ? () => {} : addBlock}
-        className="relative cursor-grab overflow-hidden rounded-md border border-transparent duration-200 hover:border-foreground/20 hover:shadow-2xl">
+        className="relative cursor-grab overflow-hidden rounded-md border border-transparent duration-200 hover:scale-x-105 hover:border-foreground/20 hover:shadow-2xl">
         {isAdding && (
           <div className="absolute flex h-full w-full items-center justify-center bg-black bg-opacity-70">
             <Loader className="animate-spin" size={15} color="white" />{" "}
@@ -125,7 +125,7 @@ export const PredefinedBlocks = () => {
           )
         )}
       </ul>
-      <div className="h-full w-full space-y-2 overflow-y-auto px-4">
+      <div className="h-full w-full space-y-2 overflow-y-auto px-8">
         {React.Children.toArray(
           blocks.map((block) => <BlockCard block={block} closePopover={() => setAddBlocks(false)} />),
         )}
