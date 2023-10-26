@@ -3,7 +3,7 @@
     "uuid": "ab-a-button-on-gradient-bg",
     "name": "A button on gradient background",
     "format": "html",
-    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-21%20at%208.46.54%20PM_RijwduiDm.png?updatedAt=1697901423855"  ,
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-21%20at%208.46.54%20PM_RijwduiDm.png?updatedAt=1697901423855",
     "group": "announcement"
   },
   {
@@ -31,19 +31,22 @@
     "uuid": "ab-light-pilled-style-link",
     "name": "Announcement banner light pilled style link",
     "format": "html",
-    "group": "announcement"
+    "group": "announcement",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%205.22.54%E2%80%AFPM_daV5rj8zE.png?updatedAt=1698321230019"
   },
   {
     "uuid": "ab-links-in-gradient-bg",
     "name": "Announcement banner links in gradient bg",
     "format": "html",
-    "group": "announcement"
+    "group": "announcement",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%205.25.36%E2%80%AFPM_uYf9Q0jHx_ahdrMmP_z.png?updatedAt=1698321631577"
   },
   {
     "uuid": "ab-media-object-style-with-blurred-bg",
     "name": "Announcement banner media object style with blurred bg",
     "format": "html",
-    "group": "announcement"
+    "group": "announcement",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698321997314_GyNVy7ZkM.jpg?updatedAt=1698322032232"
   },
   {
     "uuid": "af-account",
@@ -182,37 +185,43 @@
     "uuid": "as-center-aligned-in-card",
     "name": "As center aligned in card",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698322353849_trGaDgmN4.jpg?updatedAt=1698322408661"
   },
   {
     "uuid": "as-grouped-card",
     "name": "As grouped card",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698322839042_3sNA4QKzg.jpg?updatedAt=1698322933566"
   },
   {
     "uuid": "as-simple-in-card",
     "name": "As simple in card",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698322999417_59YPwIbdVH.jpg?updatedAt=1698323066829"
   },
   {
     "uuid": "as-simple-with-add-more-button",
     "name": "As simple with add more button",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698323013401_WsUOS_3CLN.jpg?updatedAt=1698323067365"
   },
   {
     "uuid": "as-simple-with-dividers",
     "name": "As simple with dividers",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698323021166_uabXW3Fghd.jpg?updatedAt=1698323066792"
   },
   {
     "uuid": "as-with-soft-icon-and-badge-in-card",
     "name": "As with soft icon and badge in card",
     "format": "html",
-    "group": "Stat cards"
+    "group": "Stat cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698323756663_bu07XwDes.jpg?updatedAt=1698323899907"
   },
   {
     "uuid": "at-api-keys",
@@ -956,7 +965,7 @@
     "name": "Scrollspy sticky sidebar",
     "format": "html",
     "group": "scrollspy",
-    "hidden":true
+    "hidden": true
   },
   {
     "uuid": "signin",

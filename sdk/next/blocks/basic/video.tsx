@@ -55,6 +55,7 @@ const VideoBlock = (
   const loop = _controls.loop;
 
   let embedURL = getEmbedURL(_url);
+  let videoElement = null;
   if (embedURL) {
     if (!isEmpty(embedURL)) {
       const iframeControls = [];
@@ -64,7 +65,7 @@ const VideoBlock = (
       iframeControls.push(`loop=${loop ? 1 : 0}`);
       embedURL = `${embedURL}?${iframeControls.join("&")}`;
     }
-    return React.createElement("iframe", {
+    videoElement = React.createElement("iframe", {
       ...blockProps,
       ..._styles,
       src: embedURL,
@@ -73,18 +74,25 @@ const VideoBlock = (
       frameBorder: 0,
       ..._attrs,
     });
+  } else {
+    videoElement = React.createElement("video", {
+      ...blockProps,
+      ..._styles,
+      src: _url,
+      ..._attrs,
+      controls,
+      muted,
+      autoPlay: autoplay,
+      loop,
+    });
   }
 
-  return React.createElement("video", {
-    ...blockProps,
-    ..._styles,
-    src: _url,
-    ..._attrs,
-    controls,
-    muted,
-    autoPlay: autoplay,
-    loop,
-  });
+  return (
+    <div className="relative overflow-hidden" style={{ paddingBottom: "56.25%" }}>
+      <div className="absolute h-full w-full" />
+      {videoElement}
+    </div>
+  );
 };
 
 registerChaiBlock(VideoBlock as React.FC<any>, {
@@ -94,7 +102,7 @@ registerChaiBlock(VideoBlock as React.FC<any>, {
   icon: VideoIcon,
   group: "basic",
   props: {
-    _styles: Styles({ default: "" }),
+    _styles: Styles({ default: "absolute top-0 left-0 w-full h-full" }),
     _url: SingleLineText({
       title: "Video URL",
       default: "https://www.youtube.com/watch?v=9xwazD5SyVg&ab_channel=MaximilianMustermann",
