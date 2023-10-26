@@ -521,13 +521,15 @@
     "uuid": "cover-page-with-form",
     "name": "Cover page with form",
     "format": "html",
-    "group": "cover"
+    "group": "cover",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.29.38%E2%80%AFPM_ttau7pOKw.png?updatedAt=1698339629224"
   },
   {
     "uuid": "cover-page",
     "name": "Cover page",
     "format": "html",
-    "group": "cover"
+    "group": "cover",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.30.07%E2%80%AFPM_7Ux8lm3JZ.png?updatedAt=1698339629225"
   },
   {
     "uuid": "double-header",
@@ -540,91 +542,106 @@
     "uuid": "error-404",
     "name": "Error 404",
     "format": "html",
-    "group": "error"
+    "group": "error",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.33.53%E2%80%AFPM_1F8S7zXJX.png?updatedAt=1698339850629"
   },
   {
     "uuid": "faq-center-aligned-with-active-bg-gray",
     "name": "Faq center aligned with active bg gray",
     "format": "html",
-    "group": "faq"
+    "group": "faq",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.35.47%E2%80%AFPM_fM2nv-ILD.png?updatedAt=1698340055477"
   },
   {
     "uuid": "faq-right-aligned-with-border-bottom",
     "name": "Faq right aligned with border bottom",
     "format": "html",
-    "group": "faq"
+    "group": "faq",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.36.28%E2%80%AFPM_L7NQ5J3uC.png?updatedAt=1698340088207"
   },
   {
     "uuid": "faq-simple-2-cols-grid",
     "name": "Faq simple 2 cols grid",
     "format": "html",
-    "group": "faq"
+    "group": "faq",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.36.45%E2%80%AFPM_EQ9rbU1ir.png?updatedAt=1698340105993"
   },
   {
     "uuid": "faq-simple-with-divider-and-icon",
     "name": "Faq simple with divider and icon",
     "format": "html",
-    "group": "faq"
+    "group": "faq",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.37.16%E2%80%AFPM_pRxir9uAv.png?updatedAt=1698340126304"
   },
   {
     "uuid": "feedback-hero-format-hire-us",
     "name": "Feedback hero format hire us",
     "format": "html",
-    "group": "feedback"
+    "group": "feedback",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.40.23%E2%80%AFPM_VuQ3C_RUi.png?updatedAt=1698340297494"
   },
   {
     "uuid": "feedback-post-comment-in-card",
     "name": "Feedback post comment in card",
     "format": "html",
-    "group": "feedback"
+    "group": "feedback",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.40.51%E2%80%AFPM_reZd1r9ClB.png?updatedAt=1698340297546"
   },
   {
     "uuid": "feedback-simple-center-aligned",
     "name": "Feedback simple center aligned",
     "format": "html",
-    "group": "feedback"
+    "group": "feedback",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.41.12%E2%80%AFPM_8PlfGlAof.png?updatedAt=1698340297693"
   },
   {
     "uuid": "fg-cards-on-a-background-image",
     "name": "Fg cards on a background image",
     "format": "html",
-    "group": "features: general"
+    "group": "features: general",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.44.30%E2%80%AFPM_R_VEBMonK.png?updatedAt=1698340645210"
   },
   {
     "uuid": "fg-container-size-image-with-icon-blocks",
     "name": "Fg container size image with icon blocks",
     "format": "html",
-    "group": "features: general"
+    "group": "features: general",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.45.25%E2%80%AFPM_h3RN1HAgk.png?updatedAt=1698340683508"
   },
   {
     "uuid": "fg-simple-with-a-single-image",
     "name": "Fg simple with a single image",
     "format": "html",
-    "group": "features: general"
+    "group": "features: general",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.45.50%E2%80%AFPM_atVDWoQon.png?updatedAt=1698340707472"
   },
   {
     "uuid": "fg-three-center-aligned-images-with-a-content",
     "name": "Fg three center aligned images with a content",
     "format": "html",
-    "group": "features: general"
+    "group": "features: general",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.46.27%E2%80%AFPM_9BWnYJcg-L.png?updatedAt=1698340727183"
   },
   {
     "uuid": "fg-with-4-center-aligned-images-and-icon-blocks",
     "name": "Fg with 4 center aligned images and icon blocks",
     "format": "html",
-    "group": "features: general"
+    "group": "features: general",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.47.02%E2%80%AFPM_l3aoLPR7r.png?updatedAt=1698340745514"
   },
   {
     "uuid": "fn-horizontal-tabs-with-icon-and-description",
     "name": "Fn horizontal tabs with icon and description",
     "format": "html",
-    "group": "features: nav"
+    "group": "features: nav",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.51.36%E2%80%AFPM_z1N8vt1tR.png?updatedAt=1698340935543"
   },
   {
     "uuid": "fn-vertical-tabs-with-overlapping-background",
     "name": "Fn vertical tabs with overlapping background",
     "format": "html",
-    "group": "features: nav"
+    "group": "features: nav",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.51.54%E2%80%AFPM_zRtvPrGOT.png?updatedAt=1698340935470"
   },
   {
     "uuid": "footer-5-cols-with-language-dropdown",
