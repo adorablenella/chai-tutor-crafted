@@ -304,61 +304,71 @@
     "uuid": "blog-3-grids-with-an-overlay-card",
     "name": "Blog 3 grids with an overlay card",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/imresizer-1698337739654_mgyAIv8h4.jpg?updatedAt=1698337763981"
   },
   {
     "uuid": "blog-articles-center-aligned-in-small-size",
     "name": "Blog articles center aligned in small size",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.02.08%E2%80%AFPM_j-zVKPseFE.png?updatedAt=1698337954490"
   },
   {
     "uuid": "blog-articles-with-sidebar",
     "name": "Blog articles with sidebar",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.04.39%E2%80%AFPM_W5BpVWjx1.png?updatedAt=1698338111799"
   },
   {
     "uuid": "blog-bordered-cards-with-authors",
     "name": "Blog bordered cards with authors",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.07.00%E2%80%AFPM_oc7wAeHq4O.png?updatedAt=1698338239679"
   },
   {
     "uuid": "blog-brand-color-on-hover",
     "name": "Blog brand color on hover",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.08.08%E2%80%AFPM_uZvWieHjY.png?updatedAt=1698338306041"
   },
   {
     "uuid": "blog-card-image-with-subtitle-and-title",
     "name": "Blog card image with subtitle and title",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.09.11%E2%80%AFPM_0mQC9kYW9.png?updatedAt=1698338368092"
   },
   {
     "uuid": "blog-card-with-bg-gray-on-hover",
     "name": "Blog card with bg gray on hover",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.10.14%E2%80%AFPM_Bhwtqlts8.png?updatedAt=1698338431507"
   },
   {
     "uuid": "blog-hero-style",
     "name": "Blog hero style",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.11.13%E2%80%AFPM_sd2LcAj3CN.png?updatedAt=1698338490199"
   },
   {
     "uuid": "blog-horizontal-style",
     "name": "Blog horizontal style",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.12.34%E2%80%AFPM_SNKEC2u_z.png?updatedAt=1698338571957"
   },
   {
     "uuid": "blog-image-overlay",
     "name": "Blog image overlay",
     "format": "html",
-    "group": "blog"
+    "group": "blog",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.13.41%E2%80%AFPM_VgIIbKx8F.png?updatedAt=1698338638675"
   },
   {
     "uuid": "boxed-layout",
@@ -371,61 +381,71 @@
     "uuid": "cards-image-and-content-with-stretched-buttons",
     "name": "Cards image and content with stretched buttons",
     "format": "html",
-    "group": "cards"
+    "group": "cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.16.19%E2%80%AFPM_csuiqZoKR.png?updatedAt=1698338896335"
   },
   {
     "uuid": "cards-simple-card-link-with-icon-title-and-description",
     "name": "Cards simple card link with icon title and description",
     "format": "html",
-    "group": "cards"
+    "group": "cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.16.49%E2%80%AFPM_YI9_aREcop.png?updatedAt=1698338943593"
   },
   {
     "uuid": "cards-simple-link-with-avatar-and-title",
     "name": "Cards simple link with avatar and title",
     "format": "html",
-    "group": "cards"
+    "group": "cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.17.22%E2%80%AFPM_wMvfnT4sB.png?updatedAt=1698338964154"
   },
   {
     "uuid": "cards-simple-link-with-title-and-description",
     "name": "Cards simple link with title and description",
     "format": "html",
-    "group": "cards"
+    "group": "cards",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.17.51%E2%80%AFPM_krM1OfZnE.png?updatedAt=1698338982841"
   },
   {
     "uuid": "clients-in-card",
     "name": "Clients in card",
     "format": "html",
-    "group": "clients"
+    "group": "clients",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.22.11%E2%80%AFPM_QgEQ7PQzb.png?updatedAt=1698339216568"
   },
   {
     "uuid": "clients-simple-with-heading-and-link",
     "name": "Clients simple with heading and link",
     "format": "html",
-    "group": "clients"
+    "group": "clients",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.22.28%E2%80%AFPM_5NNBU7MMr.png?updatedAt=1698339263026"
   },
   {
     "uuid": "clients-simple-with-heading",
     "name": "Clients simple with heading",
     "format": "html",
-    "group": "clients"
+    "group": "clients",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.22.51%E2%80%AFPM_tFB7BYIfA.png?updatedAt=1698339286030"
   },
   {
     "uuid": "clients-with-stats",
     "name": "Clients with stats",
     "format": "html",
-    "group": "clients"
+    "group": "clients",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.23.10%E2%80%AFPM_AHLYjfpBS.png?updatedAt=1698339305312"
   },
   {
     "uuid": "contacts-center-aligned-with-info-card-blocks",
     "name": "Contacts center aligned with info card blocks",
     "format": "html",
-    "group": "contacts"
+    "group": "contacts",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.26.33%E2%80%AFPM_XvBbfz3SV.png?updatedAt=1698339437176"
   },
   {
     "uuid": "contacts-form-in-left-and-description-in-right",
     "name": "Contacts form in left and description in right",
     "format": "html",
-    "group": "contacts"
+    "group": "contacts",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.26.51%E2%80%AFPM_2vHKAN9ZC.png?updatedAt=1698339436815"
   },
   {
     "uuid": "cookies-blurred-bg-with-stacked-buttons",
