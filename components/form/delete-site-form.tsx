@@ -23,6 +23,7 @@ export default function DeleteSiteForm({ siteName }: { siteName: string }) {
                 toast.error(res?.message);
                 return;
               }
+              router.refresh();
               router.push("/");
               toast.success(`Successfully deleted project!`);
             })
