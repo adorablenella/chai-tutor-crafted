@@ -99,7 +99,7 @@ export const MultilineText = (props: TTextAreaProps) =>
     },
     uiSchema: {
       "ui:widget": "textarea",
-      "ui:placeholder": "Enter here",
+      "ui:placeholder": props.placeholder || "Enter here",
       "ui:options": {
         rows: props.rows || 4,
       },

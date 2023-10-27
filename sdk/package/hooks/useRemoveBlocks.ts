@@ -1,24 +1,23 @@
 import { useAtomValue } from "jotai";
-import { filter, find, includes } from "lodash";
+import { filter, find, includes, isEmpty } from "lodash";
 import { useCallback } from "react";
 import { presentBlocksAtom } from "../store/blocks";
 import { useDispatch } from "./useTreeData";
 import { useSelectedBlockIds } from "./useSelectedBlockIds";
 import { TBlock } from "../types/TBlock";
 
-const removeBlocks = (blocks: TBlock[], blockIds: Array<string>) => {
-  const removableBlockIds: Array<string> = [];
-  return filter(blocks, (block: TBlock) => {
-    if (includes(blockIds, block._id)) {
-      removableBlockIds.push(block._id);
+const removeBlocks = (blocks: TBlock[], blockIds: Array<string>): TBlock[] => {
+  const _blockIds: Array<string> = [];
+  const _blocks = filter(blocks, (block: TBlock) => {
+    if (includes(blockIds, block._id) || includes(blockIds, block._parent)) {
+      _blockIds.push(block._id);
       return false;
-    } else if (includes(removableBlockIds, block._parent)) {
-      removableBlockIds.push(block._id);
-      return false;
-    } else {
-      return true;
     }
+    return true;
   });
+
+  if (!isEmpty(_blockIds)) return removeBlocks(_blocks, _blockIds);
+  return _blocks;
 };
 
 export const useRemoveBlocks = (): Function => {

@@ -142,7 +142,7 @@ const getBlockProps = (node: Node): Record<string, any> => {
     case "canvas":
       return { _type: "Canvas" };
     case "video":
-      return { _type: "Video" };
+      return { _type: "CustomHTML" };
     case "svg":
       return { _type: "Icon" };
 
@@ -257,6 +257,12 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
       const inputType = block._inputType || "text";
       if (inputType === "checkbox") set(block, "_type", "Checkbox");
       else if (inputType === "radio") set(block, "_type", "Radio");
+    } else if (node.tagName === "video") {
+      /**
+       * video element to custom html block
+       */
+      block._content = stringify([node]);
+      return [block] as TBlock[];
     } else if (node.tagName === "svg") {
       /**
        * handling svg tag

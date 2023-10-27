@@ -9,6 +9,12 @@ const ProjectGeneralSetting = React.lazy(() => import("../components/project/Pro
 const ProjectSeoSettings = React.lazy(() => import("../components/project/ProjectSeoSettings"));
 const ProjectCustomCode = React.lazy(() => import("../components/project/ProjectCustomCode"));
 
+const SuspenseLoader = (
+  <div className="px-3">
+    <div className="h-52 w-full animate-pulse rounded-md bg-gray-100" />
+  </div>
+);
+
 const withEmptySeoData = (projectData: TProjectData): TProjectData => {
   if (projectData && isEmpty(projectData.seo_data)) {
     return {
@@ -55,7 +61,7 @@ export default function ProjectSettings() {
               General Settings
             </AccordionTrigger>
             <AccordionContent className="px-2 pt-4 text-sm">
-              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
+              <Suspense fallback={SuspenseLoader}>
                 <ProjectGeneralSetting _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>
@@ -65,7 +71,7 @@ export default function ProjectSettings() {
               SEO Settings
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">
-              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
+              <Suspense fallback={SuspenseLoader}>
                 <ProjectSeoSettings _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>
@@ -75,7 +81,7 @@ export default function ProjectSettings() {
               Custom Code
             </AccordionTrigger>
             <AccordionContent className="px-1 pt-4 text-sm">
-              <Suspense fallback={<div className="-my-2 h-52 w-full animate-pulse bg-gray-100" />}>
+              <Suspense fallback={SuspenseLoader}>
                 <ProjectCustomCode _projectData={_projectData} setProjectData={setProjectData} />
               </Suspense>
             </AccordionContent>

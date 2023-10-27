@@ -17,6 +17,6 @@ registerChaiBlock(CustomHTMLBlock as React.FC<any>, {
   group: "basic",
   props: {
     _styles: Styles({ default: "" }),
-    _content: MultilineText({ title: "HTML Content", default: "" }),
+    _content: MultilineText({ title: "HTML Content", default: "", placeholder: "Enter custom HTML code here" }),
   },
 });
