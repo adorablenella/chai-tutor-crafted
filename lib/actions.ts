@@ -398,7 +398,7 @@ export const editUser = async (formData: FormData, _id: unknown, key: string) =>
       const { error } = await supabase.auth.updateUser({ password: value });
       if (error) throw error;
 
-      return { customMessage: `Confirmation email sent to ${session.user.email}` };
+      return { customMessage: "Password update successful!" };
     }
     return {};
   } catch (error: any) {
