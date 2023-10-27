@@ -1,8 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { generateUUID } from "@/sdk/package/functions/functions";
 
 const DarkModeSwitch = () => {
+  const [idAttr] = useState(generateUUID());
   useEffect(() => {
     const HSThemeAppearance = {
       init() {
@@ -140,8 +142,8 @@ const DarkModeSwitch = () => {
       </a>
 
       <div
-        id="selectThemeDropdown"
-        className="hs-dropdown-menu hs-dropdown-open:opacity-100 z-10 mb-2 mt-2 hidden origin-bottom-left space-y-1 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[margin,opacity] duration-300 dark:divide-gray-700 dark:border dark:border-gray-700 dark:bg-gray-800">
+        id={"dropdown-" + idAttr}
+        className="hs-dropdown-menu hs-dropdown-open:opacity-100 z-[999] mb-2 mt-2 hidden origin-bottom-left space-y-1 rounded-lg bg-white p-2 opacity-0 shadow-md transition-[margin,opacity] duration-300 dark:divide-gray-700 dark:border dark:border-gray-700 dark:bg-gray-800">
         <a
           className="hs-auto-mode-active:bg-gray-100 flex items-center gap-x-3.5 rounded-md px-3 py-2 text-sm text-gray-800 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300"
           href="javascript:;"
