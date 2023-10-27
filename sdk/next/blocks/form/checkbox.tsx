@@ -34,7 +34,7 @@ const CheckboxBlock = (
   return (
     <div {..._styles} {...blockProps}>
       <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} {..._attrs} />
-      {_label && <label htmlFor={fieldId}>{_label}</label>}
+      {_label && _label !== "Label" && <label htmlFor={fieldId}>{_label}</label>}
     </div>
   );
 };
