@@ -1,7 +1,7 @@
 import "@/styles/site.css";
 import "@/custom-blocks";
 import { ReactNode } from "react";
-import { redirect } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { getSiteByDomain } from "../helpers/project";
 
 export default async function SiteLayout({ params, children }: { params: { domain: string }; children: ReactNode }) {
@@ -9,7 +9,7 @@ export default async function SiteLayout({ params, children }: { params: { domai
   const data = await getSiteByDomain(domain);
 
   if (!data) {
-    return <div className="text-white">Data not found</div>;
+    return notFound();
   }
 
   // Optional: Redirect to custom domain if it exists
