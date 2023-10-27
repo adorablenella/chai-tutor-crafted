@@ -21,7 +21,7 @@ const CanvasArea: React.FC = () => {
   return (
     <div className="flex h-full w-full flex-col">
       <CanvasTopBar />
-      <div className="relative flex-1 overflow-hidden bg-slate-800/20">
+      <div className="relative flex-1 overflow-hidden bg-slate-800/20 bg-[linear-gradient(to_right,#EEE_0.5px,transparent_0.5px),linear-gradient(to_bottom,#EEE_0.5px,transparent_0.5px)] bg-[size:12px_12px]">
         <Suspense fallback={<Skeleton className="h-full" />}>{canvas}</Suspense>
         {addBlocks ? (
           <div
