@@ -647,37 +647,43 @@
     "uuid": "footer-5-cols-with-language-dropdown",
     "name": "Footer 5 cols with language dropdown",
     "format": "html",
-    "group": "footer"
+    "group": "footer",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.57.02%E2%80%AFPM_cbAz29Fo2.png?updatedAt=1698341328380"
   },
   {
     "uuid": "footer-center-aligned-3-links-with-socials",
     "name": "Footer center aligned 3 links with socials",
     "format": "html",
-    "group": "footer"
+    "group": "footer",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.57.43%E2%80%AFPM_j2tuA5gtW.png?updatedAt=1698341328618"
   },
   {
     "uuid": "footer-dark-bg-with-subscribe-form",
     "name": "Footer dark bg with subscribe form",
     "format": "html",
-    "group": "footer"
+    "group": "footer",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.58.00%E2%80%AFPM_i6bNUV0wOh.png?updatedAt=1698341328624"
   },
   {
     "uuid": "footer-simple-center-aligned",
     "name": "Footer simple center aligned",
     "format": "html",
-    "group": "footer"
+    "group": "footer",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.58.24%E2%80%AFPM_5sot1iQNnb.png?updatedAt=1698341328509"
   },
   {
     "uuid": "fs-one-main-with-three-follow-ups",
     "name": "Fs one main with three follow ups",
     "format": "html",
-    "group": "features: stat"
+    "group": "features: stat",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.53.51%E2%80%AFPM_qa4d73cj9.png?updatedAt=1698341064092"
   },
   {
     "uuid": "fs-simple-3-cols-with-primary-color",
     "name": "Fs simple 3 cols with primary color",
     "format": "html",
-    "group": "features: stat"
+    "group": "features: stat",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2010.54.08%E2%80%AFPM_qoOKLCylv.png?updatedAt=1698341064184"
   },
   {
     "uuid": "header-floating",
@@ -711,121 +717,141 @@
     "uuid": "hero-center-aligned-in-dark-bg",
     "name": "Hero center aligned in dark bg",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.01.51%E2%80%AFPM_ZXNWmuIdd.png?updatedAt=1698341663833"
   },
   {
     "uuid": "hero-center-aligned-search-with-tags",
     "name": "Hero center aligned search with tags",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.02.38%E2%80%AFPM_p733S4nJ6-.png?updatedAt=1698341663826"
   },
   {
     "uuid": "hero-center-aligned-with-a-form",
     "name": "Hero center aligned with a form",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.03.06%E2%80%AFPM_1OcBnfVD7.png?updatedAt=1698341663733"
   },
   {
     "uuid": "hero-center-aligned-with-video-play-button-on-image",
     "name": "Hero center aligned with video play button on image",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.03.27%E2%80%AFPM_F-gUuLKvYg.png?updatedAt=1698341664146"
   },
   {
     "uuid": "hero-gradient-bg",
     "name": "Hero gradient bg",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.04.05%E2%80%AFPM_96bSquq65l.png?updatedAt=1698341664133"
   },
   {
     "uuid": "hero-split-section-with-an-image-and-a-form",
     "name": "Hero split section with an image and a form",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.06.33%E2%80%AFPM_Fj2ScKU8L5.png?updatedAt=1698342006630"
   },
   {
     "uuid": "hero-with-email-input",
     "name": "Hero with email input",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.07.25%E2%80%AFPM_no2aDo4crh.png?updatedAt=1698342006557"
   },
   {
     "uuid": "hero-with-image-and-reviews",
     "name": "Hero with image and reviews",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.07.59%E2%80%AFPM_o5X9uQ_Bbi.png?updatedAt=1698342006627"
   },
   {
     "uuid": "hero-with-polygon-bg-element",
     "name": "Hero with polygon bg element",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.08.43%E2%80%AFPM_MJ2v4_85g.png?updatedAt=1698342006259"
   },
   {
     "uuid": "hero-with-squared-bg-element",
     "name": "Hero with squared bg element",
     "format": "html",
-    "group": "hero"
+    "group": "hero",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.09.34%E2%80%AFPM_b-AVceD0J.png?updatedAt=1698342006232"
   },
   {
     "uuid": "icon-2-cols-grid",
     "name": "Icon 2 cols grid",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.13.45%E2%80%AFPM_GlEXGsYqp.png?updatedAt=1698342320441"
   },
   {
     "uuid": "icon-blue-bg-with-gray-bg-on-hover",
     "name": "Icon blue bg with gray bg on hover",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.14.02%E2%80%AFPM_gzKdkGRBM.png?updatedAt=1698342320435"
   },
   {
     "uuid": "icon-border-gradient",
     "name": "Icon border gradient",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.14.18%E2%80%AFPM_PsRjGdNKu6.png?updatedAt=1698342320438"
   },
   {
     "uuid": "icon-center-aligned",
     "name": "Icon center aligned",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.14.35%E2%80%AFPM_O-khjcDJms.png?updatedAt=1698342320438"
   },
   {
     "uuid": "icon-description-on-left-icon-blocks-on-right",
     "name": "Icon description on left icon blocks on right",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.15.00%E2%80%AFPM_dD5bAfyQL.png?updatedAt=1698342320487"
   },
   {
     "uuid": "icon-gray-bg-on-hover",
     "name": "Icon gray bg on hover",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.18.09%E2%80%AFPM_T-84j7KF2.png?updatedAt=1698342620752"
   },
   {
     "uuid": "icon-medium-size-description-with-icon-blocks",
     "name": "Icon medium size description with icon blocks",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.18.49%E2%80%AFPM_d0nYVMGmag.png?updatedAt=1698342621566"
   },
   {
     "uuid": "icon-simple-left-aligned",
     "name": "Icon simple left aligned",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.19.21%E2%80%AFPM_xdGnkrSiXR.png?updatedAt=1698342621569"
   },
   {
     "uuid": "icon-square-shape-bordered",
     "name": "Icon square shape bordered",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.19.42%E2%80%AFPM_jRUHGSjKT.png?updatedAt=1698342621260"
   },
   {
     "uuid": "icon-stacked-cards",
     "name": "Icon stacked cards",
     "format": "html",
-    "group": "icon"
+    "group": "icon",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.20.00%E2%80%AFPM_0n5bKDMfc0.png?updatedAt=1698342621041"
   },
   {
     "uuid": "invoice",
@@ -845,7 +871,8 @@
     "uuid": "masonry-cards-on-images",
     "name": "Masonry cards on images",
     "format": "html",
-    "group": "masonry"
+    "group": "masonry",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.23.14%E2%80%AFPM_X1jKw4JUo.png?updatedAt=1698342808547"
   },
   {
     "uuid": "mega-menu-custom-size-with-icon-text-link-and-bg-gray-card",
@@ -963,13 +990,15 @@
     "uuid": "pricing-blocks-with-bordered-gradients",
     "name": "Pricing blocks with bordered gradients",
     "format": "html",
-    "group": "pricing"
+    "group": "pricing",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.24.23%E2%80%AFPM_U18ggr6dc.png?updatedAt=1698342929994"
   },
   {
     "uuid": "pricing-card-header-style",
     "name": "Pricing card header style",
     "format": "html",
-    "group": "pricing"
+    "group": "pricing",
+    "preview": "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-26%20at%2011.25.13%E2%80%AFPM_YF_lwzmqk.png?updatedAt=1698342930024"
   },
   {
     "uuid": "pricing-cards",
