@@ -6,14 +6,27 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
 
 const FormBlock = (
-  props: TBlock & { children: React.ReactNode; _styles: any; _tag: string; blockProps: Record<string, string> },
+  props: TBlock & {
+    children: React.ReactNode;
+    _styles: any;
+    _tag: string;
+    inBuilder: boolean;
+    blockProps: Record<string, string>;
+  },
 ) => {
-  const { blockProps, _success, _error, _fields, _styles, children, _attrs = {} } = props;
+  const { blockProps, inBuilder, _success, _error, _fields, _styles, children, _attrs = {} } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!_fields && isEmpty(_styles?.className)) {
     emptySlot = (
       <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add Form Fields here
+      </div>
+    );
+  }
+  if (inBuilder) {
+    return (
+      <div data-as={"form"} {...blockProps} {..._styles} {..._attrs}>
+        {children || _fields || emptySlot}
       </div>
     );
   }
