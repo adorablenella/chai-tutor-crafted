@@ -225,7 +225,7 @@ export const BlockStyle = (props: EditOptionProps) => {
                       <InfoCircledIcon />
                     </button>
                   </TooltipTrigger>
-                  <TooltipContent className="bg-background text-foreground">
+                  <TooltipContent>
                     <div className="text-right">
                       <div>
                         Current style is set at &nbsp;

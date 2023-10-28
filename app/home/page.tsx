@@ -1,17 +1,26 @@
-import "@/styles/site.css";
-import Image from "next/image";
+import { fetchRouteSnapshot, RenderBlocks } from "@/sdk/next";
+import { get } from "lodash";
 
-export default function HomePage() {
-  return (
-    <div className="flex h-screen flex-col items-center justify-center space-y-10 bg-black">
-      <Image
-        width={512}
-        height={512}
-        src="https://ik.imagekit.io/n0uvizrukm2/chai-builder-logo-b-w_s_VR37ggn.png?updatedAt=1692613727383"
-        alt="Platforms on Vercel"
-        className="w-48"
-      />
-      <h1 className="text-white">Home Page is working fine</h1>
-    </div>
-  );
+export async function generateMetadata() {
+  const snapshot = await fetchRouteSnapshot("new." + process.env.NEXT_PUBLIC_ROOT_DOMAIN);
+  return {
+    title: get(snapshot, "pageData.seo_data.title", ""),
+    description: get(snapshot, "pageData.seo_data.description", ""),
+    openGraph: {
+      title: get(snapshot, "pageData.seo_data.title", ""),
+      description: get(snapshot, "pageData.seo_data.description", ""),
+      type: "website",
+    },
+    themeColor: get(snapshot, "projectData.branding_options._primaryColor", ""),
+    twitter: {
+      card: "summary_large_image",
+      title: get(snapshot, "pageData.seo_data.title", ""),
+      description: get(snapshot, "pageData.seo_data.description", ""),
+      images: [get(snapshot, "pageData.seo_data.image", "")],
+    },
+  };
+}
+
+export default async function SiteHomePage() {
+  return <RenderBlocks domain={"new." + process.env.NEXT_PUBLIC_ROOT_DOMAIN} />;
 }
