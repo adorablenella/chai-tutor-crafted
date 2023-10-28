@@ -136,7 +136,7 @@ export default function Nav({ children }: { children: ReactNode }) {
         <div>
           <div className="flex flex-col items-center justify-between">
             <Link
-              href="https://discord.gg/VbbUTchA"
+              href="https://discord.gg/AbNfQT7e3s"
               target="_blank"
               className={`flex w-full items-center space-x-2 rounded-lg px-2 py-1.5 transition-all duration-150 ease-in-out hover:bg-stone-200 active:bg-stone-300 dark:text-white dark:hover:bg-stone-700 dark:active:bg-stone-800`}>
               <DiscordLogoIcon width={18} />
