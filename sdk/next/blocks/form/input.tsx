@@ -13,6 +13,8 @@ const InputBlock = (
     _styles: Record<string, string>;
     _inputStyles: Record<string, string>;
     _required: boolean;
+    _value: string;
+    _name: string;
   },
 ) => {
   const {
@@ -25,6 +27,8 @@ const InputBlock = (
     _required,
     _inputType = "text",
     inBuilder,
+    _name,
+    _value,
     _attrs = {},
   } = block;
   const fieldId = generateUUID();
@@ -34,6 +38,8 @@ const InputBlock = (
 
     return (
       <input
+        name={_name}
+        value={_value}
         readOnly={inBuilder}
         {...blockProps}
         {..._inputStyles}
@@ -50,6 +56,8 @@ const InputBlock = (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <input
+        name={_name}
+        value={_value}
         readOnly={inBuilder}
         {..._inputStyles}
         id={fieldId}
@@ -70,10 +78,11 @@ registerChaiBlock(InputBlock as React.FC<any>, {
   group: "form",
   props: {
     _styles: Styles({ default: "" }),
+    _name: SingleLineText({ title: "Field Name", default: "input" }),
     _inputType: SelectOption({
       title: "Type",
       options: map(
-        ["text", "email", "password", "number", "tel", "file", "range", "submit", "color", "date", "time"],
+        ["text", "email", "password", "number", "tel", "file", "hidden", "range", "submit", "color", "date", "time"],
         (type) => ({
           value: type,
           title: type,
@@ -81,6 +90,7 @@ registerChaiBlock(InputBlock as React.FC<any>, {
       ),
       default: "text",
     }),
+    _value: SingleLineText({ title: "Value", default: "" }),
     _showLabel: Checkbox({ title: "Show label", default: true }),
     _inputStyles: Styles({ default: "w-full p-1" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),

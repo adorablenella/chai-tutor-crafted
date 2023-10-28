@@ -48,6 +48,7 @@ export interface IListControlDefinition {
 type TControlProps = {
   [key: string]: any;
   default?: any;
+  description?: string;
   i18n?: boolean;
   required?: boolean;
   title: string;
@@ -57,6 +58,22 @@ type TControlProps = {
 type TInputProps = TControlProps & {
   format?: "email" | "uri" | "data-url";
 };
+
+/**
+ * Info control
+ * @param props
+ * @constructor
+ */
+export const InfoField = (props: TControlProps) =>
+  ({
+    type: "singular",
+    default: "",
+    schema: {
+      type: "null",
+      default: "null",
+      ...omit(props, ["i18n", "required"]),
+    },
+  } as IControlDefinition);
 
 /**
  * Input control

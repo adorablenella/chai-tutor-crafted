@@ -304,3 +304,7 @@ export const chaiBuilderPUTHandler = async (request: Request, { params }: { para
 export const chaiBuilderDELETEHandler = (request: Request, { params }: { params: { path: string[] } }) => {
   return {};
 };
+
+export const captureFormSubmission = async (req: NextApiRequest, res: NextApiResponse) => {
+  return { response: "Form submitted successfully", status: 200 };
+};

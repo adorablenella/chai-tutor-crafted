@@ -12,7 +12,7 @@ const FormButtonBlock = (
     _inputStyles: Record<string, string>;
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos, _attrs = {} } = block;
+  const { blockProps, inBuilder, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos, _attrs = {} } = block;
   const fieldId = generateUUID();
 
   return (
@@ -21,7 +21,7 @@ const FormButtonBlock = (
       {..._styles}
       {...(blockProps || {})}
       id={fieldId}
-      type="submit"
+      type={inBuilder ? "button" : "submit"}
       placeholder={_placeholder}
       {..._attrs}>
       {_label}
@@ -32,7 +32,7 @@ const FormButtonBlock = (
 
 registerChaiBlock(FormButtonBlock as React.FC<any>, {
   type: "FormButton",
-  label: "FormButton",
+  label: "Submit Button",
   category: "core",
   icon: ButtonIcon,
   group: "form",

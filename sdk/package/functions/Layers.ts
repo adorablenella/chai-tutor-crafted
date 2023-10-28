@@ -66,7 +66,9 @@ export type BlockNode = {
  * @param type
  */
 export const canAddChildBlock = (type: string) =>
-  ["Box", "Slot", "DataContext", "Link", "List", "ListItem", "Row", "Column", "Table", "TableCell"].includes(type);
+  ["Box", "Slot", "Form", "DataContext", "Link", "List", "ListItem", "Row", "Column", "Table", "TableCell"].includes(
+    type,
+  );
 
 /**
  *

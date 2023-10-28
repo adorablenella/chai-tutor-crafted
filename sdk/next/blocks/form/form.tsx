@@ -3,7 +3,7 @@ import { isEmpty, omit } from "lodash";
 import { GroupIcon, LetterCaseToggleIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
-import { SingleLineText, Slot, Styles } from "@/sdk/package/controls/controls";
+import { RichText, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const FormBlock = (
   props: TBlock & {
@@ -14,25 +14,25 @@ const FormBlock = (
     blockProps: Record<string, string>;
   },
 ) => {
-  const { blockProps, inBuilder, _success, _error, _fields, _styles, children, _attrs = {} } = props;
+  const { blockProps, _errorMessage, _successMessage, _action, _styles, children, _attrs = {} } = props;
   let emptySlot: React.ReactNode | null = null;
-  if (!_fields && isEmpty(_styles?.className)) {
+  if (!children && isEmpty(_styles?.className)) {
     emptySlot = (
       <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
         + Add Form Fields here
       </div>
     );
   }
-  if (inBuilder) {
-    return (
-      <div data-as={"form"} {...blockProps} {..._styles} {..._attrs}>
-        {children || _fields || emptySlot}
-      </div>
-    );
-  }
   return (
-    <form {...blockProps} {..._styles} {..._attrs}>
-      {children || _fields || emptySlot}
+    <form
+      data-error={_errorMessage}
+      data-success={_successMessage}
+      method={"post"}
+      action={_action}
+      {...blockProps}
+      {..._styles}
+      {..._attrs}>
+      {children || emptySlot}
     </form>
   );
 };
@@ -45,10 +45,15 @@ registerChaiBlock(FormBlock, {
   group: "form",
   props: {
     _styles: Styles({ default: "" }),
-    _success: Slot({ name: "Success Message" }),
-    _error: Slot({ name: "Error Message" }),
-    _fields: Slot({ name: "Form Fields" }),
-    _action: SingleLineText({ title: "Action", default: "https://api.chaibuilder.com/form/submit" }),
+    _action: SingleLineText({ title: "Submit URL", default: "/api/form/submit" }),
+    _errorMessage: RichText({
+      title: "Error Message",
+      default: "Something went wrong. Please try again",
+    }),
+    _successMessage: RichText({
+      title: "Success Message",
+      default: "Thank you for your submission.",
+    }),
   },
 });
 
