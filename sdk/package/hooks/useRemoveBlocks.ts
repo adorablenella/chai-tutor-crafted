@@ -20,7 +20,7 @@ const removeBlocks = (blocks: TBlock[], blockIds: Array<string>): TBlock[] => {
   return _blocks;
 };
 
-export const useRemoveBlocks = (): Function => {
+export const useRemoveBlocks = () => {
   const dispatch = useDispatch();
   const presentBlocks = useAtomValue(presentBlocksAtom);
   const [ids, setSelectedIds] = useSelectedBlockIds();

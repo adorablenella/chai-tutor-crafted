@@ -4,59 +4,21 @@ import { DoubleArrowDownIcon, StackIcon } from "@radix-ui/react-icons";
 import { useDragLayer, useDrop } from "react-dnd";
 import { NodeModel, Tree } from "@minoru/react-dnd-treeview";
 import { useTranslation } from "react-i18next";
-import {
-  useAllBlocks,
-  useCanvasHistory,
-  useCopyBlockIds,
-  useCutBlockIds,
-  useDuplicateBlocks,
-  usePasteBlocks,
-  useRemoveBlocks,
-  useSelectedBlockIds,
-} from "../../../../hooks";
+import { useAllBlocks, useCanvasHistory, useSelectedBlockIds } from "../../../../hooks";
 import { CustomNode } from "./CustomNode";
 import { CustomDragPreview } from "./CustomDragPreview";
 import { Placeholder } from "./Placeholder";
 import { useSetAllBlocks } from "../../../../hooks/useTreeData";
 import { canDropBlock } from "../../../../functions/Layers";
-import { useExpandedIds, useExpandTree } from "../../../../hooks/useExpandTree";
+import { useExpandedIds } from "../../../../hooks/useExpandTree";
 import { TBlock } from "../../../../types/TBlock";
 import { BlockContextMenu } from "./BlockContextMenu";
 import { ScrollArea } from "../../../../radix-ui";
 import { useSelectedStylingBlocks } from "../../../../hooks/useSelectedStylingBlocks";
-import { useHotkeys } from "react-hotkeys-hook";
 import { cn } from "@/lib/utils";
 import { useAddBlockByDrop } from "@/sdk/package/hooks/useAddBlockByDrop";
 import { useAtom } from "jotai";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
-
-const useKeyEventWatcher = () => {
-  const [ids, setIds, toggleIds] = useSelectedBlockIds();
-  const [, setStyleBlocks] = useSelectedStylingBlocks();
-  const [, setCopyIds] = useCopyBlockIds();
-  const removeBlocks = useRemoveBlocks();
-  const duplicateBlocks = useDuplicateBlocks();
-  const [, setCutIds] = useCutBlockIds();
-  const { pasteBlocks, canPaste } = usePasteBlocks();
-  const { undo, redo } = useCanvasHistory();
-  useHotkeys("esc", () => setIds([]), {}, [setIds]);
-  useHotkeys("ctrl+c,command+c", () => setCopyIds(ids), {}, [ids, setCopyIds]);
-  useHotkeys("ctrl+d,command+d", () => duplicateBlocks(ids), {}, [ids, duplicateBlocks]);
-  useHotkeys("ctrl+x,command+x", () => setCutIds(ids), {}, [ids, setCutIds]);
-  useHotkeys("ctrl+v,command+v", () => (ids.length === 1 ? pasteBlocks(ids[0]) : null), {}, [ids, pasteBlocks]);
-  useHotkeys("ctrl+z,command+z", () => undo(), {}, [undo]);
-  useHotkeys("ctrl+y,command+y", () => redo(), {}, [redo]);
-
-  useHotkeys(
-    "del, backspace",
-    (event: any) => {
-      event.preventDefault();
-      removeBlocks(ids);
-    },
-    {},
-    [ids, removeBlocks],
-  );
-};
 
 function convertToTBlocks(newTree: NodeModel[]) {
   return map(newTree, (block) => {
@@ -72,8 +34,6 @@ const Layers = (): React.JSX.Element => {
   const [, setStyleBlocks] = useSelectedStylingBlocks();
   const { t } = useTranslation();
   const { createSnapshot } = useCanvasHistory();
-  useExpandTree();
-  useKeyEventWatcher();
   const expandedIds = useExpandedIds();
   const addBlockOnDrop = useAddBlockByDrop();
   const [, setAddBlocks] = useAtom(addBlocksModalAtom);

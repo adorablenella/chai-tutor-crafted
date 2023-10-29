@@ -2,6 +2,8 @@ import React, { lazy, MouseEvent, Suspense } from "react";
 import { isDevelopment } from "../helpers/general";
 import { TooltipProvider } from "../radix-ui";
 import { PreviewScreen } from "./PreviewScreen";
+import { useKeyEventWatcher } from "@/sdk/package/hooks/useKeyEventWatcher";
+import { useExpandTree } from "@/sdk/package/hooks/useExpandTree";
 
 const SidePanels = lazy(() => import("./sidepanels/SidePanels"));
 const TopBar = lazy(() => import("./topbar/Topbar"));
@@ -19,6 +21,9 @@ const RootLayout: React.FC = () => {
   const preventContextMenu = (e: MouseEvent<HTMLDivElement>) => {
     if (!isDevelopment()) e.preventDefault();
   };
+
+  useKeyEventWatcher();
+  useExpandTree();
 
   return (
     <div className="h-screen w-screen bg-background text-foreground">
