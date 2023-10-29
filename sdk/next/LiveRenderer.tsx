@@ -78,7 +78,7 @@ export function BlocksRendererLive({ blocks, snapshot }: { blocks: TBlock[]; sna
                   ...attrs,
                   inBuilder: false,
                 },
-                ["_parent", "_name"],
+                ["_parent"],
               ),
             );
           }

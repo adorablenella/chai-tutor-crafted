@@ -1,5 +1,5 @@
 import * as React from "react";
-import { isEmpty, omit } from "lodash";
+import { isEmpty } from "lodash";
 import { GroupIcon, LetterCaseToggleIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
@@ -15,7 +15,7 @@ const FormBlock = (
     blockProps: Record<string, string>;
   },
 ) => {
-  const { blockProps, _errorMessage, _successMessage, _action, _styles, children, _attrs = {} } = props;
+  const { blockProps, _id, _errorMessage, _name, _successMessage, _action, _styles, children, _attrs = {} } = props;
 
   if (!children && isEmpty(_styles?.className)) {
     return <EmptySlot blockProps={blockProps} text="FORM FIELDS" />;
@@ -30,6 +30,8 @@ const FormBlock = (
       {...blockProps}
       {..._styles}
       {..._attrs}>
+      <div className={"form-response"}></div>
+      <input name={"form_name"} type={"hidden"} value={_name} />
       {children}
     </form>
   );

@@ -27,8 +27,7 @@ const InputBlock = (
     _required,
     _inputType = "text",
     inBuilder,
-    _name,
-    _value,
+    _fieldName,
     _attrs = {},
   } = block;
   const fieldId = generateUUID();
@@ -38,8 +37,7 @@ const InputBlock = (
 
     return (
       <input
-        name={_name}
-        value={_value}
+        name={_fieldName}
         readOnly={inBuilder}
         {...blockProps}
         {..._inputStyles}
@@ -56,8 +54,7 @@ const InputBlock = (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <input
-        name={_name}
-        value={_value}
+        name={_fieldName}
         readOnly={inBuilder}
         {..._inputStyles}
         id={fieldId}
@@ -78,7 +75,7 @@ registerChaiBlock(InputBlock as React.FC<any>, {
   group: "form",
   props: {
     _styles: Styles({ default: "" }),
-    _name: SingleLineText({ title: "Field Name", default: "input" }),
+    _fieldName: SingleLineText({ title: "Field Name", default: "input" }),
     _inputType: SelectOption({
       title: "Type",
       options: map(

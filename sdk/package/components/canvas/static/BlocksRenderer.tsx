@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { filter, find, isEmpty, isString, memoize, omit } from "lodash";
+import { filter, find, isEmpty, isString, memoize } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../../../types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
@@ -113,17 +113,14 @@ export function BlocksRendererStatic({ blocks }: { blocks: TBlock[] }) {
           const childBlocks = filter(allBlocks, { _parent: block._id });
           attrs.children = childBlocks.length ? <BlocksRendererStatic blocks={childBlocks} /> : null;
 
-          return React.createElement(
-            getBlockComponent(block._type),
-            omit({
-              blockProps: { onClick, "data-block-id": block._id, "data-block-type": block._type },
-              ...block,
-              index,
-              ...getStyles(block),
-              ...attrs,
-              inBuilder: true,
-            }),
-          );
+          return React.createElement(getBlockComponent(block._type), {
+            blockProps: { onClick, "data-block-id": block._id, "data-block-type": block._type },
+            ...block,
+            index,
+            ...getStyles(block),
+            ...attrs,
+            inBuilder: true,
+          });
         }),
       )}
     </>
