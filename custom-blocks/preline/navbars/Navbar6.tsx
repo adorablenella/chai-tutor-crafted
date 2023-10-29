@@ -1,30 +1,21 @@
-import { registerChaiBlock } from "@/sdk/next/server";
-import React from "react";
-import {
-  Checkbox,
-  Icon,
-  Image,
-  Link as LinkControl,
-  List,
-  Model,
-  SingleLineText,
-  Styles,
-} from "@/sdk/package/controls/controls";
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
+import React from "react";
 import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
+import {
+  Styles,
+  Link as LinkControl,
+  SingleLineText,
+  List,
+  Icon,
+  Model,
+  Checkbox,
+  Image,
+} from "@/sdk/package/controls";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
 
-const Navbar1 = ({
-  blockProps,
-  logo,
-  name,
-  menuItems,
-  rightButton1,
-  rightButton2,
-  darkModeSwitch,
-  rightButton2Styles,
-}: any) => {
+const Navbar4 = ({ blockProps, logo, name, menuItems, rightButton1, rightButton2, darkModeSwitch }: any) => {
   return (
     <header
       {...blockProps}
@@ -69,30 +60,34 @@ const Navbar1 = ({
         <div
           id="navbar-collapse-with-animation"
           className="hs-collapse hidden grow basis-full transition-all duration-300 sm:block">
-          <div className="mt-5 flex flex-col gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
-            {menuItems?.map((menuItem: any, index: number) => (
-              <Link
-                key={menuItem.label + index}
-                className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
-                href={menuItem.link.href}>
-                {menuItem.label}
-              </Link>
-            ))}
+          <div className="mt-5 flex flex-col justify-between gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
+            <div />
 
-            <div className="flex flex-col items-start gap-x-8 gap-y-4 sm:ml-auto sm:flex-row">
-              <Link
-                className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500"
-                href={rightButton1.link.href}>
-                {!isEmpty(rightButton1.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton1.icon }}></span>}
-                {rightButton1.label}
-              </Link>
-              {rightButton2.label ? (
-                <Link {...rightButton2Styles} href={rightButton2.link.href}>
-                  {!isEmpty(rightButton2.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton2.icon }}></span>}
-                  {rightButton2.label}
+            <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row sm:gap-y-0">
+              {menuItems?.map((menuItem: any, index: number) => (
+                <Link
+                  key={menuItem.label + index}
+                  className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                  href={menuItem.link.href}>
+                  {menuItem.label}
                 </Link>
-              ) : null}
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-x-4 gap-y-4 sm:flex-row sm:gap-y-0">
               {darkModeSwitch ? <DarkModeSwitch /> : null}
+              <Link
+                className="flex cursor-pointer items-center gap-x-2 rounded bg-gray-100 px-4 py-1 font-medium text-gray-600 dark:bg-gray-700 dark:text-gray-300"
+                href={rightButton1.link.href}>
+                {rightButton1.label}
+                {!isEmpty(rightButton1.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton1.icon }}></span>}
+              </Link>
+              <Link
+                className="flex cursor-pointer items-center gap-x-2 rounded bg-blue-600 px-4 py-1 font-medium text-white"
+                href={rightButton2.link.href}>
+                {rightButton2.label}
+                {!isEmpty(rightButton2.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton2.icon }}></span>}
+              </Link>
             </div>
           </div>
         </div>
@@ -101,12 +96,12 @@ const Navbar1 = ({
   );
 };
 
-registerChaiBlock(Navbar1, {
-  type: "Navbar1",
-  label: "Navbar Simple",
+registerChaiBlock(Navbar4, {
+  type: "Navbar6",
+  label: "Navbar Styled Center Menu Item",
   group: "Navbar",
   preview:
-    "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-28%20at%209.37.15%E2%80%AFPM_nN1JTd_A_.png?updatedAt=1698509281827",
+    "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-28%20at%209.57.22%E2%80%AFPM_W9OQ-O7w-.png?updatedAt=1698510462555",
   props: {
     logo: Image({
       default:
@@ -114,17 +109,17 @@ registerChaiBlock(Navbar1, {
       title: "Logo",
     }),
     name: SingleLineText({ title: "Name", default: "Chai Builder" }),
-    darkModeSwitch: Checkbox({ title: "Show Dark Mode Switch?", default: true }),
+    darkModeSwitch: Checkbox({ title: "Show Dark Mode Switch?", default: false }),
     rightButton1: Model({
       title: "Right Button 1",
       default: {
         icon: "",
-        label: "Button 1",
+        label: "Log in",
         link: { href: "/", type: "page", target: "_self" },
       },
       properties: {
         icon: Icon({ title: "Icon", default: "" }),
-        label: SingleLineText({ title: "Label", default: "Label" }),
+        label: SingleLineText({ title: "Label", default: "Log in" }),
         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
       },
     }),
@@ -132,12 +127,12 @@ registerChaiBlock(Navbar1, {
       title: "Right Button 2",
       default: {
         icon: "",
-        label: "Button 2",
+        label: "Sign up",
         link: { href: "/", type: "page", target: "_self" },
       },
       properties: {
         icon: Icon({ title: "Icon", default: "" }),
-        label: SingleLineText({ title: "Label", default: "Label" }),
+        label: SingleLineText({ title: "Label", default: "Sign up" }),
         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
       },
     }),
@@ -155,7 +150,7 @@ registerChaiBlock(Navbar1, {
       },
     }),
     // styles
-    rightButton2Styles: Styles({
+    rightButton12Styles: Styles({
       default:
         "flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500",
     }),

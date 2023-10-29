@@ -1,5 +1,9 @@
 import "@/custom-blocks/preline/navbars/Navbar1";
 import "@/custom-blocks/preline/navbars/Navbar2";
+import "@/custom-blocks/preline/navbars/Navbar3";
+import "@/custom-blocks/preline/navbars/Navbar4";
+import "@/custom-blocks/preline/navbars/Navbar5";
+import "@/custom-blocks/preline/navbars/Navbar6";
 import "@/custom-blocks/preline/hero/Hero1";
 import "@/custom-blocks/preline/overlays/DropDown";
 import "@/custom-blocks/preline/layouts/two-columns";

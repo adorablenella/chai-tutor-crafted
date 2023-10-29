@@ -1,30 +1,21 @@
-import { registerChaiBlock } from "@/sdk/next/server";
-import React from "react";
-import {
-  Checkbox,
-  Icon,
-  Image,
-  Link as LinkControl,
-  List,
-  Model,
-  SingleLineText,
-  Styles,
-} from "@/sdk/package/controls/controls";
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
+import React from "react";
 import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
+import {
+  Styles,
+  Link as LinkControl,
+  SingleLineText,
+  List,
+  Icon,
+  Model,
+  Checkbox,
+  Image,
+} from "@/sdk/package/controls";
+import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
 
-const Navbar1 = ({
-  blockProps,
-  logo,
-  name,
-  menuItems,
-  rightButton1,
-  rightButton2,
-  darkModeSwitch,
-  rightButton2Styles,
-}: any) => {
+const Navbar4 = ({ blockProps, logo, name, menuItems, rightButton, darkModeSwitch }: any) => {
   return (
     <header
       {...blockProps}
@@ -69,30 +60,28 @@ const Navbar1 = ({
         <div
           id="navbar-collapse-with-animation"
           className="hs-collapse hidden grow basis-full transition-all duration-300 sm:block">
-          <div className="mt-5 flex flex-col gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
-            {menuItems?.map((menuItem: any, index: number) => (
-              <Link
-                key={menuItem.label + index}
-                className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
-                href={menuItem.link.href}>
-                {menuItem.label}
-              </Link>
-            ))}
+          <div className="mt-5 flex flex-col justify-between gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
+            <div />
 
-            <div className="flex flex-col items-start gap-x-8 gap-y-4 sm:ml-auto sm:flex-row">
+            <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row sm:gap-y-0">
+              {menuItems?.map((menuItem: any, index: number) => (
+                <Link
+                  key={menuItem.label + index}
+                  className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                  href={menuItem.link.href}>
+                  {menuItem.label}
+                </Link>
+              ))}
+            </div>
+
+            <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row sm:gap-y-0">
+              {darkModeSwitch ? <DarkModeSwitch /> : null}
               <Link
                 className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500"
-                href={rightButton1.link.href}>
-                {!isEmpty(rightButton1.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton1.icon }}></span>}
-                {rightButton1.label}
+                href={rightButton.link.href}>
+                {rightButton.label}
+                {!isEmpty(rightButton.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton.icon }}></span>}
               </Link>
-              {rightButton2.label ? (
-                <Link {...rightButton2Styles} href={rightButton2.link.href}>
-                  {!isEmpty(rightButton2.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton2.icon }}></span>}
-                  {rightButton2.label}
-                </Link>
-              ) : null}
-              {darkModeSwitch ? <DarkModeSwitch /> : null}
             </div>
           </div>
         </div>
@@ -101,12 +90,12 @@ const Navbar1 = ({
   );
 };
 
-registerChaiBlock(Navbar1, {
-  type: "Navbar1",
-  label: "Navbar Simple",
+registerChaiBlock(Navbar4, {
+  type: "Navbar4",
+  label: "Navbar Center Menu Item",
   group: "Navbar",
   preview:
-    "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-28%20at%209.37.15%E2%80%AFPM_nN1JTd_A_.png?updatedAt=1698509281827",
+    "https://ik.imagekit.io/n0uvizrukm2/BLOCKS/Screenshot%202023-10-28%20at%209.34.19%E2%80%AFPM_Awp4COXjA.png?updatedAt=1698509128911",
   props: {
     logo: Image({
       default:
@@ -115,29 +104,19 @@ registerChaiBlock(Navbar1, {
     }),
     name: SingleLineText({ title: "Name", default: "Chai Builder" }),
     darkModeSwitch: Checkbox({ title: "Show Dark Mode Switch?", default: true }),
-    rightButton1: Model({
-      title: "Right Button 1",
+    rightButton: Model({
+      title: "Right Button",
       default: {
-        icon: "",
-        label: "Button 1",
+        icon: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>`,
+        label: "Log in",
         link: { href: "/", type: "page", target: "_self" },
       },
       properties: {
-        icon: Icon({ title: "Icon", default: "" }),
-        label: SingleLineText({ title: "Label", default: "Label" }),
-        link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
-      },
-    }),
-    rightButton2: Model({
-      title: "Right Button 2",
-      default: {
-        icon: "",
-        label: "Button 2",
-        link: { href: "/", type: "page", target: "_self" },
-      },
-      properties: {
-        icon: Icon({ title: "Icon", default: "" }),
-        label: SingleLineText({ title: "Label", default: "Label" }),
+        icon: Icon({
+          title: "Icon",
+          default: `<svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 20 20" aria-hidden="true" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M12.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>`,
+        }),
+        label: SingleLineText({ title: "Label", default: "Log in" }),
         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
       },
     }),
