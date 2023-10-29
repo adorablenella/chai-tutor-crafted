@@ -1,11 +1,24 @@
 import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import React from "react";
-import { Link as LinkControl, SingleLineText, List, Image } from "@/sdk/package/controls";
+import { Link as LinkControl, SingleLineText, List, Image, Styles } from "@/sdk/package/controls";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
+import ChaiBuilderLink from "@/sdk/next/blocks/helper-components/chaibuilder-link";
 
-const Navbar5 = ({ blockProps, logo, name, menuItemsLeft = [], menuItemsRight = [] }: any) => {
+const Navbar5 = ({
+  blockProps,
+  logo,
+  name,
+  menuItemsLeft,
+  menuItemsRight,
+
+  logoStyle,
+  nameStyles,
+  rightMenuItemsStyles,
+  leftMenuItemsStyles,
+  inBuilder = false,
+}: any) => {
   return (
     <header
       {...blockProps}
@@ -16,21 +29,28 @@ const Navbar5 = ({ blockProps, logo, name, menuItemsLeft = [], menuItemsRight = 
         {!isEmpty(menuItemsLeft) && (
           <div className="hidden flex-col items-center gap-x-8 gap-y-4 sm:flex sm:flex-row sm:gap-y-0">
             {menuItemsLeft?.map((menuItem: any, index: number) => (
-              <Link
+              <ChaiBuilderLink
                 key={menuItem.label + index}
-                className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                inBuilder={inBuilder}
+                _style={leftMenuItemsStyles}
                 href={menuItem.link.href}>
                 {menuItem.label}
-              </Link>
+              </ChaiBuilderLink>
             ))}
           </div>
         )}
         <div className="flex w-full flex-col items-center justify-between sm:w-max">
           <div className="flex w-full items-center justify-between">
-            <Link href="/" aria-label={"brand"} className="flex w-fit items-center font-bold">
-              <BlurImage width="100" height="40" className="h-6 w-auto rounded-md" src={logo} alt="Float UI logo" />
-              <span className="block w-40 text-lg">&nbsp;{name}</span>
-            </Link>
+            <ChaiBuilderLink
+              inBuilder={inBuilder}
+              href="/"
+              aria-label={"brand"}
+              _style={{ className: "flex w-fit items-center" }}>
+              <BlurImage width="100" height="40" {...logoStyle} src={logo} alt="Float UI logo" />
+              <ChaiBuilderLink inBuilder={inBuilder} _style={nameStyles} href="/">
+                &nbsp;{name}
+              </ChaiBuilderLink>
+            </ChaiBuilderLink>
             <div className="sm:hidden">
               <button
                 type="button"
@@ -65,20 +85,22 @@ const Navbar5 = ({ blockProps, logo, name, menuItemsLeft = [], menuItemsRight = 
             className="hs-collapse hidden grow basis-full transition-all duration-300">
             <div className="mt-5 flex flex-col justify-between gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
               {menuItemsLeft?.map((menuItem: any, index: number) => (
-                <Link
+                <ChaiBuilderLink
                   key={menuItem.label + index}
-                  className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                  inBuilder={inBuilder}
+                  _style={leftMenuItemsStyles}
                   href={menuItem.link.href}>
                   {menuItem.label}
-                </Link>
+                </ChaiBuilderLink>
               ))}
               {menuItemsRight?.map((menuItem: any, index: number) => (
-                <Link
+                <ChaiBuilderLink
                   key={menuItem.label + index}
-                  className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                  inBuilder={inBuilder}
+                  _style={rightMenuItemsStyles}
                   href={menuItem.link.href}>
                   {menuItem.label}
-                </Link>
+                </ChaiBuilderLink>
               ))}
             </div>
           </div>
@@ -87,12 +109,13 @@ const Navbar5 = ({ blockProps, logo, name, menuItemsLeft = [], menuItemsRight = 
         {!isEmpty(menuItemsRight) && (
           <div className="hidden flex-col items-center gap-x-8 gap-y-4 sm:flex sm:flex-row sm:gap-y-0">
             {menuItemsRight?.map((menuItem: any, index: number) => (
-              <Link
+              <ChaiBuilderLink
                 key={menuItem.label + index}
-                className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                inBuilder={inBuilder}
+                _style={rightMenuItemsStyles}
                 href={menuItem.link.href}>
                 {menuItem.label}
-              </Link>
+              </ChaiBuilderLink>
             ))}
           </div>
         )}
@@ -139,6 +162,20 @@ registerChaiBlock(Navbar5, {
         label: SingleLineText({ title: "Label", default: "Label" }),
         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
       },
+    }),
+
+    // styles
+    logoStyle: Styles({
+      default: "h-7 w-auto rounded-md",
+    }),
+    nameStyles: Styles({
+      default: "block w-40 text-lg font-bold",
+    }),
+    leftMenuItemsStyles: Styles({
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
+    }),
+    rightMenuItemsStyles: Styles({
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
     }),
   },
 });

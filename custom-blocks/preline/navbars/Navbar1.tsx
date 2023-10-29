@@ -14,6 +14,7 @@ import BlurImage from "@/components/blur-image";
 import Link from "next/link";
 import { DarkModeSwitch } from "@/custom-blocks/preline/client-components/DarkModeSwitch";
 import { isEmpty } from "lodash";
+import ChaiBuilderLink from "@/sdk/next/blocks/helper-components/chaibuilder-link";
 
 const Navbar1 = ({
   blockProps,
@@ -23,7 +24,13 @@ const Navbar1 = ({
   rightButton1,
   rightButton2,
   darkModeSwitch,
+
+  logoStyle,
+  nameStyles,
+  menuItemsStyles,
+  rightButton1Styles,
   rightButton2Styles,
+  inBuilder = false,
 }: any) => {
   return (
     <header
@@ -33,10 +40,16 @@ const Navbar1 = ({
         className="relative mx-auto w-full max-w-7xl px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
         aria-label="Global">
         <div className="flex items-center justify-between">
-          <Link href="/" aria-label={"brand"} className="flex w-fit items-center font-bold">
-            <BlurImage width="100" height="40" className="h-6 w-auto rounded-md" src={logo} alt="Float UI logo" />
-            <span className="block w-40 text-lg">&nbsp;{name}</span>
-          </Link>
+          <ChaiBuilderLink
+            inBuilder={inBuilder}
+            href="/"
+            aria-label={"brand"}
+            _style={{ className: "flex w-fit items-center" }}>
+            <BlurImage width="100" height="40" {...logoStyle} src={logo} alt="Float UI logo" />
+            <ChaiBuilderLink inBuilder={inBuilder} _style={nameStyles} href="/">
+              &nbsp;{name}
+            </ChaiBuilderLink>
+          </ChaiBuilderLink>
           <div className="sm:hidden">
             <button
               type="button"
@@ -71,26 +84,27 @@ const Navbar1 = ({
           className="hs-collapse hidden grow basis-full transition-all duration-300 sm:block">
           <div className="mt-5 flex flex-col gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
             {menuItems?.map((menuItem: any, index: number) => (
-              <Link
+              <ChaiBuilderLink
                 key={menuItem.label + index}
-                className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                inBuilder={inBuilder}
+                _style={menuItemsStyles}
                 href={menuItem.link.href}>
                 {menuItem.label}
-              </Link>
+              </ChaiBuilderLink>
             ))}
 
-            <div className="flex flex-col items-start gap-x-8 gap-y-4 sm:ml-auto sm:flex-row">
-              <Link
-                className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500"
-                href={rightButton1.link.href}>
-                {!isEmpty(rightButton1.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton1.icon }}></span>}
-                {rightButton1.label}
-              </Link>
-              {rightButton2.label ? (
-                <Link {...rightButton2Styles} href={rightButton2.link.href}>
+            <div className="flex flex-col items-start gap-x-8 gap-y-4 sm:ml-auto sm:flex-row sm:items-center">
+              {rightButton1.label || rightButton1.icon ? (
+                <ChaiBuilderLink inBuilder={inBuilder} _style={rightButton1Styles} href={rightButton1.link.href}>
+                  {!isEmpty(rightButton1.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton1.icon }}></span>}
+                  {rightButton1.label}
+                </ChaiBuilderLink>
+              ) : null}
+              {rightButton2.label || rightButton2.icon ? (
+                <ChaiBuilderLink inBuilder={inBuilder} _style={rightButton2Styles} href={rightButton2.link.href}>
                   {!isEmpty(rightButton2.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton2.icon }}></span>}
                   {rightButton2.label}
-                </Link>
+                </ChaiBuilderLink>
               ) : null}
               {darkModeSwitch ? <DarkModeSwitch /> : null}
             </div>
@@ -155,9 +169,20 @@ registerChaiBlock(Navbar1, {
       },
     }),
     // styles
+    logoStyle: Styles({
+      default: "h-7 w-auto rounded-md",
+    }),
+    nameStyles: Styles({
+      default: "block w-40 text-lg font-bold",
+    }),
+    menuItemsStyles: Styles({
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
+    }),
+    rightButton1Styles: Styles({
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
+    }),
     rightButton2Styles: Styles({
-      default:
-        "flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500",
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
     }),
   },
 });

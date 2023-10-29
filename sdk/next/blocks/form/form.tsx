@@ -4,6 +4,7 @@ import { GroupIcon, LetterCaseToggleIcon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import EmptySlot from "../helper-components/empty-slot";
 
 const FormBlock = (
   props: TBlock & {
@@ -15,14 +16,11 @@ const FormBlock = (
   },
 ) => {
   const { blockProps, _errorMessage, _successMessage, _action, _styles, children, _attrs = {} } = props;
-  let emptySlot: React.ReactNode | null = null;
+
   if (!children && isEmpty(_styles?.className)) {
-    emptySlot = (
-      <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
-        + Add Form Fields here
-      </div>
-    );
+    return <EmptySlot blockProps={blockProps} text="FORM FIELDS" />;
   }
+
   return (
     <form
       data-error={_errorMessage}
@@ -32,7 +30,7 @@ const FormBlock = (
       {...blockProps}
       {..._styles}
       {..._attrs}>
-      {children || emptySlot}
+      {children}
     </form>
   );
 };

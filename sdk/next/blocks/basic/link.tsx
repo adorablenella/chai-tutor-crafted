@@ -4,6 +4,7 @@ import { Link1Icon } from "@radix-ui/react-icons";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Link, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import EmptySlot from "../helper-components/empty-slot";
 
 const LinkBlock = (
   props: TBlock & {
@@ -16,20 +17,15 @@ const LinkBlock = (
 ) => {
   const { blockProps, _link, children, _styles, inBuilder, _content, _attrs = {} } = props;
 
-  let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(_styles?.className) && isEmpty(_content)) {
-    emptySlot = (
-      <div {...omit(_styles, ["className"])} className="border-1 flex h-20 items-center justify-center border-dashed">
-        + Add blocks here
-      </div>
-    );
+    return <EmptySlot blockProps={blockProps} />;
   }
 
   if (inBuilder) {
-    if (children || emptySlot) {
+    if (children) {
       return (
         <span data-simulate={"a"} {...blockProps} {..._styles} {..._attrs}>
-          {children || emptySlot}
+          {children}
         </span>
       );
     } else {
@@ -45,10 +41,10 @@ const LinkBlock = (
     }
   }
 
-  if (children || emptySlot) {
+  if (children) {
     return (
       <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles} {..._attrs}>
-        {children || emptySlot}
+        {children}
       </a>
     );
   }

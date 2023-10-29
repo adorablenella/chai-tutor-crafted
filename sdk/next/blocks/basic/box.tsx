@@ -4,22 +4,19 @@ import { cn } from "@/sdk/package/radix/lib/utils";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { isEmpty } from "lodash";
+import { PlusCircle } from "lucide-react";
+import EmptySlot from "../helper-components/empty-slot";
 
 const BoxBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
   const { blockProps, children, _tag = "div", _styles, _attrs = {} } = props;
 
-  let emptySlot: React.ReactNode | null = null;
   if (!children && isEmpty(_styles?.className)) {
-    emptySlot = (
-      <div className={cn("flex h-20 flex-col items-center justify-center", props.className)}>
-        <div className="h-full w-full rounded-md border-4 border-dashed" />
-      </div>
-    );
+    return <EmptySlot blockProps={blockProps} />;
   }
 
-  return React.createElement(_tag, { ...blockProps, ..._styles, ..._attrs }, children || emptySlot);
+  return React.createElement(_tag, { ...blockProps, ..._styles, ..._attrs }, children);
 };
 
 registerChaiBlock(BoxBlock, {

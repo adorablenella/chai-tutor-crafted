@@ -1,14 +1,19 @@
 import * as React from "react";
 import { ColumnsIcon, RowsIcon } from "@radix-ui/react-icons";
-import { get } from "lodash";
+import { get, isEmpty } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls";
+import EmptySlot from "../helper-components/empty-slot";
 
 const ListBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
   const { blockProps, children, _listType, _styles, _tag, _attrs = {} } = props;
   const className = twMerge(get(_styles, "className", ""), _listType);
+
+  if (!children && isEmpty(_styles?.className)) {
+    return <EmptySlot blockProps={blockProps} text="LIST ITEM" />;
+  }
 
   return React.createElement(
     _tag ? _tag : _listType === "list-decimal" ? "ol" : "ul",

@@ -14,8 +14,22 @@ import {
 } from "@/sdk/package/controls";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
+import ChaiBuilderLink from "@/sdk/next/blocks/helper-components/chaibuilder-link";
 
-const Navbar4 = ({ blockProps, logo, name, menuItems, rightButton, darkModeSwitch }: any) => {
+const Navbar4 = ({
+  blockProps,
+  logo,
+  name,
+  menuItems,
+  rightButton,
+  darkModeSwitch,
+
+  logoStyle,
+  nameStyles,
+  menuItemsStyles,
+  rightButtonStyles,
+  inBuilder = false,
+}: any) => {
   return (
     <header
       {...blockProps}
@@ -24,10 +38,16 @@ const Navbar4 = ({ blockProps, logo, name, menuItems, rightButton, darkModeSwitc
         className="relative mx-auto w-full max-w-7xl px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8"
         aria-label="Global">
         <div className="flex items-center justify-between">
-          <Link href="/" aria-label={"brand"} className="flex w-fit items-center font-bold">
-            <BlurImage width="100" height="40" className="h-6 w-auto rounded-md" src={logo} alt="Float UI logo" />
-            <span className="block w-40 text-lg">&nbsp;{name}</span>
-          </Link>
+          <ChaiBuilderLink
+            inBuilder={inBuilder}
+            href="/"
+            aria-label={"brand"}
+            _style={{ className: "flex w-fit items-center" }}>
+            <BlurImage width="100" height="40" {...logoStyle} src={logo} alt="Float UI logo" />
+            <ChaiBuilderLink inBuilder={inBuilder} _style={nameStyles} href="/">
+              &nbsp;{name}
+            </ChaiBuilderLink>
+          </ChaiBuilderLink>
           <div className="sm:hidden">
             <button
               type="button"
@@ -65,23 +85,25 @@ const Navbar4 = ({ blockProps, logo, name, menuItems, rightButton, darkModeSwitc
 
             <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row sm:gap-y-0">
               {menuItems?.map((menuItem: any, index: number) => (
-                <Link
+                <ChaiBuilderLink
                   key={menuItem.label + index}
-                  className="font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6"
+                  inBuilder={inBuilder}
+                  _style={menuItemsStyles}
                   href={menuItem.link.href}>
                   {menuItem.label}
-                </Link>
+                </ChaiBuilderLink>
               ))}
             </div>
 
             <div className="flex flex-col items-center gap-x-8 gap-y-4 sm:flex-row sm:gap-y-0">
               {darkModeSwitch ? <DarkModeSwitch /> : null}
-              <Link
-                className="flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500"
-                href={rightButton.link.href}>
-                {rightButton.label}
-                {!isEmpty(rightButton.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton.icon }}></span>}
-              </Link>
+
+              {rightButton.label || rightButton.icon ? (
+                <ChaiBuilderLink inBuilder={inBuilder} _style={rightButtonStyles} href={rightButton.link.href}>
+                  {rightButton.label}
+                  {!isEmpty(rightButton.icon) && <span dangerouslySetInnerHTML={{ __html: rightButton.icon }}></span>}
+                </ChaiBuilderLink>
+              ) : null}
             </div>
           </div>
         </div>
@@ -133,8 +155,18 @@ registerChaiBlock(Navbar4, {
         link: LinkControl({ title: "Link", default: { href: "/", type: "page", target: "_self" } }),
       },
     }),
+
     // styles
-    rightButton2Styles: Styles({
+    logoStyle: Styles({
+      default: "h-7 w-auto rounded-md",
+    }),
+    nameStyles: Styles({
+      default: "block w-40 text-lg font-bold",
+    }),
+    menuItemsStyles: Styles({
+      default: "font-medium text-gray-500 hover:text-gray-400 dark:text-gray-400 dark:hover:text-gray-500 sm:py-6",
+    }),
+    rightButtonStyles: Styles({
       default:
         "flex items-center gap-x-2 font-medium text-gray-500 hover:text-blue-600 dark:text-gray-400 dark:hover:text-blue-500",
     }),
