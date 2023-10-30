@@ -15,7 +15,7 @@ const FormBlock = (
     blockProps: Record<string, string>;
   },
 ) => {
-  const { blockProps, _id, _errorMessage, _name, _successMessage, _action, _styles, children, _attrs = {} } = props;
+  const { blockProps, _errorMessage, _name, _successMessage, _action, _styles, children, _attrs = {} } = props;
 
   if (!children && isEmpty(_styles?.className)) {
     return <EmptySlot blockProps={blockProps} text="FORM FIELDS" />;

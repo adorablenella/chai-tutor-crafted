@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 import { NextApiRequest, NextApiResponse } from "next";
-import { filter, first, map } from "lodash";
+import { filter, first, map, split } from "lodash";
 import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
 import supabase from "@/app/helpers/supabase";
 
@@ -305,6 +305,42 @@ export const chaiBuilderDELETEHandler = (request: Request, { params }: { params:
   return {};
 };
 
-export const captureFormSubmission = async (req: NextApiRequest, res: NextApiResponse) => {
-  return { response: "Form submitted successfully", status: 200 };
+export const captureFormSubmission = async (request: Request) => {
+  try {
+    const formEntries = await request.formData();
+    const formJson: any = {};
+
+    for (const [key, value] of formEntries.entries()) {
+      formJson[key] = value;
+    }
+
+    const domain = first(split(request.headers.get("host"), "."));
+    const { data, error } = await supabase
+      .from("projects")
+      .select("uuid")
+      .or(`subdomain.eq.${domain},customDomain.eq.${domain}`)
+      .single();
+
+    if (!data || error || !formJson.form_name) {
+      return { response: "Something went wrong. Please Try again.", status: 404 };
+    }
+
+    const payload: any = {};
+    payload["page_url"] = request.headers.get("referer");
+    payload["form_name"] = formJson.form_name;
+    delete formJson.form_name;
+    payload["form_data"] = formJson;
+    payload["project"] = data?.uuid;
+
+    const { error: submitError } = await supabase.from("form_submission").insert(payload);
+
+    if (submitError) throw error;
+
+    return {
+      response: "Form submitted successfully",
+      status: 200,
+    };
+  } catch (error) {
+    return { response: "Failed to submit response. Please Try again.", status: 500 };
+  }
 };

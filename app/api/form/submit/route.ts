@@ -1,9 +1,8 @@
 import { captureFormSubmission } from "@/sdk/next/api-handlers";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
-export async function POST(request: NextRequest) {
+export async function POST(...args: any[]) {
   // @ts-ignore
-  const { response, status = 200 } = await captureFormSubmission(request);
-  // @ts-ignore
+  const { response, status = 200 } = await captureFormSubmission(...args);
   return NextResponse.json(response, { status });
 }
