@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { AppWindow, ArrowLeft, Edit3, ExternalLink, Globe, Settings } from "lucide-react";
+import { AppWindow, ArrowLeft, FileText, Edit3, ExternalLink, Globe, Library, Settings } from "lucide-react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
@@ -42,6 +42,12 @@ export default function Nav({ children }: { children: ReactNode }) {
         //   isActive: segments.includes("site") && segments.length === 2,
         //   icon: <Newspaper width={18} />,
         // },
+        {
+          name: "Form Submissions",
+          href: `/site/${id}/form-submission`,
+          isActive: segments.includes("form-submission"),
+          icon: <FileText width={18} />,
+        },
         {
           name: "Domains",
           href: `/site/${id}/settings/domains`,

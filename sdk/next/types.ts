@@ -57,3 +57,12 @@ export type TUser = {
   phone: string;
   user_metadata: any;
 } | null;
+
+export type TFormSubmission = {
+  uuid: string;
+  created_at: string;
+  form_name: string;
+  form_data: Record<string, string>;
+  project: string;
+  page_url: string;
+};

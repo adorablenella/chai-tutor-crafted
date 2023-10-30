@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 import { NextApiRequest, NextApiResponse } from "next";
-import { filter, first, map, split } from "lodash";
+import { filter, first, map, replace, split } from "lodash";
 import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
 import supabase from "@/app/helpers/supabase";
 
@@ -326,7 +326,7 @@ export const captureFormSubmission = async (request: Request) => {
     }
 
     const payload: any = {};
-    payload["page_url"] = request.headers.get("referer");
+    payload["page_url"] = replace(request.headers.get("referer") || "", request.headers.get("origin") || "", "");
     payload["form_name"] = formJson.form_name;
     delete formJson.form_name;
     payload["form_data"] = formJson;
