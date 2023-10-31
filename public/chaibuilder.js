@@ -23,7 +23,7 @@ document.addEventListener("alpine:init", () => {
       this.formStatus = '';
       this.formLoading = true;
       let url = this.$el.action;
-      // url = url && url.indexOf('https://') === -1 ? 'https://app.chaibuilder.xyz/api/form/submit' : url;
+      url = url && url.indexOf('https://') === -1 ? 'https://app.chaibuilder.xyz/api/form/submit' : url;
       const response = await fetch(url, {
         method: "POST",
         headers: {

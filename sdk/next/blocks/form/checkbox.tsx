@@ -26,7 +26,6 @@ const CheckboxBlock = (
         id={fieldId}
         type="checkbox"
         required={_required}
-        checked={_checked}
         {..._attrs}
       />
     );
