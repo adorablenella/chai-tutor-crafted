@@ -15,8 +15,14 @@ const FormButtonBlock = (
   const { blockProps, inBuilder, _label, _placeholder, _styles, _inputStyles, _icon, _iconPos, _attrs = {} } = block;
   const fieldId = generateUUID();
 
+  // alpine js attrs
+  const attrs = {
+    'x-bind:disabled': "formLoading"
+  }
+
   return (
     <button
+      {...attrs}
       {..._inputStyles}
       {..._styles}
       {...(blockProps || {})}
@@ -38,7 +44,7 @@ registerChaiBlock(FormButtonBlock as React.FC<any>, {
   group: "form",
   props: {
     _label: SingleLineText({ title: "Label", default: "Submit" }),
-    _styles: Styles({ default: "text-white bg-primary px-4 py-2 rounded-global flex items-center gap-x-2" }),
+    _styles: Styles({ default: "text-white bg-primary disabled:bg-gray-400 px-4 py-2 rounded-global flex items-center gap-x-2" }),
     _icon: Icon({ title: "Icon", default: "" }),
     _iconPos: SelectOption({
       title: "Icon Position",

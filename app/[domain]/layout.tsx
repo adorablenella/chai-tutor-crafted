@@ -25,7 +25,9 @@ export default async function SiteLayout({ params, children }: { params: { domai
   return (
     <>
       {children}
-      <Script src={"/chaibuilder.js"} />
+      <Script src={"/chaibuilder.js"} defer />
+      <Script src="//unpkg.com/alpinejs" defer />
+      <Script src={"https://preline.co/assets/vendor/preline/preline.js"} defer/>
     </>
   );
 }

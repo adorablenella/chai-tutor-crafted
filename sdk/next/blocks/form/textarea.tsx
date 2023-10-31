@@ -15,12 +15,13 @@ const InputBlock = (
     _rows: number;
   },
 ) => {
-  const { blockProps, _label, _placeholder, _styles, _inputStyles, _rows, _showLabel, _attrs = {} } = block;
+  const { blockProps, _fieldName, _label, _placeholder, _styles, _inputStyles, _rows, _showLabel, _attrs = {} } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel) {
     return (
       <textarea
+        name={_fieldName}
         {...blockProps}
         {..._inputStyles}
         {..._styles}
@@ -35,7 +36,7 @@ const InputBlock = (
   return (
     <div {..._styles} {...blockProps}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
-      <textarea {..._inputStyles} id={fieldId} placeholder={_placeholder} rows={_rows} {..._attrs} />
+      <textarea name={_fieldName} {..._inputStyles} id={fieldId} placeholder={_placeholder} rows={_rows} {..._attrs} />
     </div>
   );
 };
@@ -47,6 +48,7 @@ registerChaiBlock(InputBlock as React.FC<any>, {
   icon: InputIcon,
   group: "form",
   props: {
+    _fieldName: SingleLineText({ title: "Field Name", default: "textarea" }),
     _showLabel: Checkbox({ title: "Show label", default: true }),
     _styles: Styles({ default: "" }),
     _inputStyles: Styles({ default: "w-full p-1" }),

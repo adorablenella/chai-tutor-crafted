@@ -15,14 +15,23 @@ const FormBlock = (
     blockProps: Record<string, string>;
   },
 ) => {
-  const { blockProps, _errorMessage, _name, _successMessage, _action, _styles, children, _attrs = {} } = props;
+  const { blockProps, _errorMessage, _name, _type, _successMessage, _action, _styles, children, _attrs = {} } = props;
 
   if (!children && isEmpty(_styles?.className)) {
     return <EmptySlot blockProps={blockProps} text="FORM FIELDS" />;
   }
 
+  const alpineAttrs = {
+    'x-data':"useForm",
+    'x-on:submit.prevent':"post"
+  }
+  const formResponseAttr = {
+    'x-html': "formResponse", 
+    ':class': "{'text-red-500': formStatus === 'ERROR', 'text-green-500': formStatus === 'SUCCESS'}"
+  }
   return (
     <form
+      {...alpineAttrs}
       data-error={_errorMessage}
       data-success={_successMessage}
       method={"post"}
@@ -30,8 +39,8 @@ const FormBlock = (
       {...blockProps}
       {..._styles}
       {..._attrs}>
-      <div className={"form-response"}></div>
-      <input name={"form_name"} type={"hidden"} value={_name} />
+      <div {...formResponseAttr}></div>
+      <input name={"form_name"} type={"hidden"} value={_name || _type} />
       {children}
     </form>
   );

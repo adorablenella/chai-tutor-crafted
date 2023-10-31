@@ -29,7 +29,9 @@ colors.textDarkMode = TEXT_DARK_MODE;
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: "class",
-  content: ["./custom-blocks/**/*.{js,ts,jsx,tsx,mdx}", "node_modules/preline/dist/*.js"],
+  content: ["./custom-blocks/**/*.{js,ts,jsx,tsx,mdx}", 
+            "./sdk/next/blocks/**/*.{js,ts,jsx,tsx,mdx}", 
+            "node_modules/preline/dist/*.js"],
   safelist: ["min-h-screen", "h-full", "w-full"],
   theme: {
     extend: {

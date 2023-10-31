@@ -307,14 +307,9 @@ export const chaiBuilderDELETEHandler = (request: Request, { params }: { params:
 
 export const captureFormSubmission = async (request: Request) => {
   try {
-    const formEntries = await request.formData();
-    const formJson: any = {};
+    const formJson = await request.json();
 
-    for (const [key, value] of formEntries.entries()) {
-      formJson[key] = value;
-    }
-
-    const domain = first(split(request.headers.get("host"), "."));
+    const domain = formJson['domain'];
     const { data, error } = await supabase
       .from("projects")
       .select("uuid")
@@ -326,7 +321,8 @@ export const captureFormSubmission = async (request: Request) => {
     }
 
     const payload: any = {};
-    payload["page_url"] = replace(request.headers.get("referer") || "", request.headers.get("origin") || "", "");
+    payload["domain"] = formJson['domain'].indexOf('.') === -1 ? `${domain}.chaibuilder.xyz` : domain;
+    payload["page_url"] = formJson['page_url'];
     payload["form_name"] = formJson.form_name;
     delete formJson.form_name;
     payload["form_data"] = formJson;

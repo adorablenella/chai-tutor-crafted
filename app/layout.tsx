@@ -46,7 +46,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             }}
           />
         ) : null}
-        <Script src={"https://preline.co/assets/vendor/preline/preline.js"} />
       </body>
     </html>
   );

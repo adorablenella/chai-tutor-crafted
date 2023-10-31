@@ -1,37 +1,45 @@
-const formHandler = (e) => {
-  e.preventDefault();
-  e.stopPropagation();
-  const form = e.target;
-  const data = new FormData(form);
-  const formResponse = form.querySelector(".form-response");
-  if (formResponse) formResponse.remove();
+document.addEventListener("alpine:init", () => {
+  Alpine.data("useForm", () => ({
+    formResponse: '',
+    formStatus: "",
+    formLoading: false,
+    data() {
+      const formData =  new FormData(this.$el);
+      var data = {};
+      formData.forEach(function(value, key){
+        data[key] = value;
+      });
+      // add domain
+      let currentDomain = window.location.hostname;
+      data['domain'] = currentDomain.replace(".chaibuilder.xyz", "").replace(".localhost", "");
 
-  fetch(form.action, {
-    method: form.method,
-    body: data,
-  })
-    .then((response) => {
-      if (response.status === 200) {
-        formResponse.innerHTML = form.getAttribute("data-success");
+      // add page url:
+      data['page_url'] = window.location.pathname;
+      return data;
+    },
+
+    async post() {
+      this.formResponse = '';
+      this.formStatus = '';
+      this.formLoading = true;
+      let url = this.$el.action;
+      // url = url && url.indexOf('https://') === -1 ? 'https://app.chaibuilder.xyz/api/form/submit' : url;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(this.data()),
+      })
+      if(response.status >=  200 && response.status <= 299) {
+        this.formResponse = this.$el.getAttribute("data-success");
+        this.formStatus = "SUCCESS"
       } else {
-        formResponse.innerHTML = form.getAttribute("data-error");
+        this.formResponse = this.$el.getAttribute("data-error");
+        this.formStatus = "ERROR"
       }
-    })
-    .catch((error) => {
-      formResponse.innerHTML = form.getAttribute("data-error");
-    });
-  return false;
-};
-const addFormEvents = () => {
-  // get all forms and add submit listener to them
-  const forms = document.getElementsByTagName("form");
-  for (let i = 0; i < forms.length; i++) {
-    forms[i].addEventListener("submit", formHandler);
-  }
-};
+      this.formLoading = false;
 
-if (document.readyState === "complete") {
-  addFormEvents();
-} else {
-  document.addEventListener("load", addFormEvents);
-}
+    },
+  }));
+});
