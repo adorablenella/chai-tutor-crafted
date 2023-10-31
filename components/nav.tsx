@@ -1,12 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { AppWindow, ArrowLeft, FileText, Edit3, ExternalLink, Globe, Library, Settings } from "lucide-react";
+import { AppWindow, ArrowLeft, Edit3, ExternalLink, FileText, Globe, Settings } from "lucide-react";
 import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { getSiteFromPostId } from "@/lib/actions";
-import { DiscordLogoIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { DiscordLogoIcon, StarFilledIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { Button } from "@/sdk/package/radix/components/ui/button";
 
 export default function Nav({ children }: { children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
@@ -137,6 +138,13 @@ export default function Nav({ children }: { children: ReactNode }) {
                 <span className="text-sm font-medium">{name}</span>
               </Link>
             ))}
+            <br />
+            <Link href={"/upgrade"}>
+              <Button className="flex hidden w-full items-center">
+                <StarFilledIcon className="mr-2" />
+                Upgrade
+              </Button>
+            </Link>
           </div>
         </div>
         <div>
