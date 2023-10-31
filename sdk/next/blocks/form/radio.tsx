@@ -14,7 +14,17 @@ const RadioBlock = (
     _checked: boolean;
   },
 ) => {
-  const { blockProps, _label, _styles, _inputStyles, _checked, _required, _showLabel = true, _attrs = {} } = block;
+  const {
+    blockProps,
+    _fieldName,
+    _label,
+    _styles,
+    _inputStyles,
+    _checked,
+    _required,
+    _showLabel = true,
+    _attrs = {},
+  } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel)
@@ -27,12 +37,21 @@ const RadioBlock = (
         type="radio"
         required={_required}
         checked={_checked}
+        name={_fieldName}
         {..._attrs}
       />
     );
   return (
     <div {..._styles} {...blockProps}>
-      <input {..._inputStyles} id={fieldId} type="radio" required={_required} checked={_checked} {..._attrs} />
+      <input
+        {..._inputStyles}
+        name={_fieldName}
+        id={fieldId}
+        type="radio"
+        required={_required}
+        defaultChecked={_checked}
+        {..._attrs}
+      />
       {_label && <label htmlFor={fieldId}>{_label}</label>}
     </div>
   );
@@ -46,6 +65,7 @@ registerChaiBlock(RadioBlock as React.FC<any>, {
   group: "form",
   props: {
     _styles: Styles({ default: "flex items-center w-max gap-x-2" }),
+    _fieldName: SingleLineText({ title: "Field Name", default: "radio" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _checked: Checkbox({ title: "Checked", default: false }),
     _required: Checkbox({ title: "Required", default: false }),

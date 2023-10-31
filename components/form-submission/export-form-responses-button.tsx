@@ -25,7 +25,7 @@ export default function ExportFormSubmission({ project }: { project: string }) {
 
         const link = document.createElement("a");
         link.href = window.URL.createObjectURL(blob);
-        link.download = `${project}`;
+        link.download = `${project}_${new Date().toISOString()}`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);

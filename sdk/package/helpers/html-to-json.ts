@@ -31,16 +31,19 @@ const ATTRIBUTE_MAP: Record<string, Record<string, string>> = {
     placeholder: "_placeholder",
     required: "_required",
     type: "_inputType",
+    name: "_fieldName",
   },
   textarea: {
     placeholder: "_placeholder",
     required: "_required",
     type: "_inputType",
+    name: "_fieldName",
   },
   select: {
     placeholder: "_placeholder",
     required: "_required",
     multiple: "_multiple",
+    name: "_fieldName",
   },
 };
 

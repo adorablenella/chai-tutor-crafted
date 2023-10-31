@@ -22,13 +22,13 @@ const FormBlock = (
   }
 
   const alpineAttrs = {
-    'x-data':"useForm",
-    'x-on:submit.prevent':"post"
-  }
+    "x-data": "useForm",
+    "x-on:submit.prevent": "post",
+  };
   const formResponseAttr = {
-    'x-html': "formResponse", 
-    ':class': "{'text-red-500': formStatus === 'ERROR', 'text-green-500': formStatus === 'SUCCESS'}"
-  }
+    "x-html": "formResponse",
+    ":class": "{'text-red-500': formStatus === 'ERROR', 'text-green-500': formStatus === 'SUCCESS'}",
+  };
   return (
     <form
       {...alpineAttrs}

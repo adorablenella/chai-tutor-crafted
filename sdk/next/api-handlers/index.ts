@@ -309,7 +309,7 @@ export const captureFormSubmission = async (request: Request) => {
   try {
     const formJson = await request.json();
 
-    const domain = formJson['domain'];
+    const domain = formJson["domain"];
     const { data, error } = await supabase
       .from("projects")
       .select("uuid")
@@ -321,10 +321,11 @@ export const captureFormSubmission = async (request: Request) => {
     }
 
     const payload: any = {};
-    payload["domain"] = formJson['domain'].indexOf('.') === -1 ? `${domain}.chaibuilder.xyz` : domain;
-    payload["page_url"] = formJson['page_url'];
+    payload["domain"] = formJson["domain"].indexOf(".") === -1 ? `${domain}.chaibuilder.xyz` : domain;
+    payload["page_url"] = formJson["page_url"];
     payload["form_name"] = formJson.form_name;
-    delete formJson.form_name;
+    if (formJson.form_name) delete formJson.form_name;
+    if (formJson.domain) delete formJson.domain;
     payload["form_data"] = formJson;
     payload["project"] = data?.uuid;
 

@@ -1,11 +1,15 @@
-"use client";
-
 import ExportFormSubmission from "@/components/form-submission/export-form-responses-button";
 import { TProjectData } from "@/sdk/next/types";
-import { useParams, useSelectedLayoutSegment } from "next/navigation";
 
-export default function FormSubmissionHead({ data, project }: { data: TProjectData; project: string }) {
-  const segment = useSelectedLayoutSegment();
+export default function FormSubmissionHead({
+  data,
+  canDownload,
+  project,
+}: {
+  data: TProjectData;
+  canDownload: boolean;
+  project: string;
+}) {
   const url = `${data?.subdomain}.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`;
 
   return (
@@ -13,7 +17,7 @@ export default function FormSubmissionHead({ data, project }: { data: TProjectDa
       <div className="flex w-full items-center justify-between">
         <div className="flex flex-col items-center space-x-4 space-y-2 sm:flex-row sm:space-y-0">
           <h1 className="font-cal text-xl font-bold dark:text-white xl:text-3xl">
-            <span className="capitalize">{segment}</span> Form submission for {data.project_name}
+            Form submissions for {data.project_name}
           </h1>
           <a
             href={process.env.NEXT_PUBLIC_VERCEL_ENV ? `https://${url}` : `http://${data.subdomain}.localhost:3000`}
@@ -23,7 +27,7 @@ export default function FormSubmissionHead({ data, project }: { data: TProjectDa
             {url} ↗
           </a>
         </div>
-        <ExportFormSubmission project={project} />
+        {canDownload && <ExportFormSubmission project={project} />}
       </div>
     </>
   );

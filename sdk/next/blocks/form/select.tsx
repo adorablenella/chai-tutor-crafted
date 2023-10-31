@@ -17,6 +17,7 @@ const SelectBlock = (
 ) => {
   const {
     blockProps,
+    _fieldName,
     _label,
     _placeholder,
     _styles,
@@ -37,6 +38,7 @@ const SelectBlock = (
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
+        name={_fieldName}
         {..._attrs}>
         <option value="" disabled selected hidden>
           {_placeholder}
@@ -62,6 +64,7 @@ const SelectBlock = (
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
+        name={_fieldName}
         {..._attrs}>
         <option value="" disabled selected hidden>
           {_placeholder}
@@ -86,8 +89,9 @@ registerChaiBlock(SelectBlock as React.FC<any>, {
   icon: DropdownMenuIcon,
   group: "form",
   props: {
-    _showLabel: Checkbox({ title: "Show label", default: true }),
     _styles: Styles({ default: "" }),
+    _fieldName: SingleLineText({ title: "Field Name", default: "select" }),
+    _showLabel: Checkbox({ title: "Show label", default: true }),
     _inputStyles: Styles({ default: "w-full p-1" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _placeholder: SingleLineText({ title: "Placeholder", default: "Placeholder" }),

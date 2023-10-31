@@ -14,7 +14,17 @@ const CheckboxBlock = (
     _checked: boolean;
   },
 ) => {
-  const { blockProps, _label, _styles, _inputStyles, _required, _checked, _showLabel = true, _attrs = {} } = block;
+  const {
+    blockProps,
+    _fieldName,
+    _label,
+    _styles,
+    _inputStyles,
+    _required,
+    _checked,
+    _showLabel = true,
+    _attrs = {},
+  } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel)
@@ -26,13 +36,22 @@ const CheckboxBlock = (
         id={fieldId}
         type="checkbox"
         required={_required}
+        name={_fieldName}
         {..._attrs}
       />
     );
 
   return (
     <div {..._styles} {...blockProps}>
-      <input {..._inputStyles} id={fieldId} type="checkbox" required={_required} checked={_checked} {..._attrs} />
+      <input
+        {..._inputStyles}
+        name={_fieldName}
+        id={fieldId}
+        type="checkbox"
+        required={_required}
+        defaultChecked={_checked}
+        {..._attrs}
+      />
       {_label && _label !== "Label" && <label htmlFor={fieldId}>{_label}</label>}
     </div>
   );
@@ -45,6 +64,7 @@ registerChaiBlock(CheckboxBlock as React.FC<any>, {
   icon: CheckboxIcon,
   group: "form",
   props: {
+    _fieldName: SingleLineText({ title: "Field Name", default: "checkbox" }),
     _styles: Styles({ default: "flex items-center gap-x-2" }),
     _label: SingleLineText({ title: "Label", default: "Label" }),
     _checked: Checkbox({ title: "Checked", default: false }),
