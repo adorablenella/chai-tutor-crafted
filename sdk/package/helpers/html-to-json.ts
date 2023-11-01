@@ -106,7 +106,7 @@ const getAttrs = (node: Node) => {
       }
       set(attrs, replacers[key], getSanitizedValue(value));
     } else if (!includes(["style", "class", "srcset"], key)) {
-      set(attrs, `_attrs.${key}`, getSanitizedValue(value));
+      set(attrs, `_styles_attrs.${key}`, getSanitizedValue(value));
     }
   });
 
@@ -281,7 +281,7 @@ const traverseNodes = (nodes: Node[], parent: any = null): TBlock[] => {
 
       node.attributes = filter(node.attributes, (attr) => !includes(["style", "width", "height", "class"], attr.key));
       block._icon = stringify([node]);
-      block._attrs = omit(block._attrs, ["height", "width", "style", "class"]);
+      set(block, "_styles_attrs", omit(get(block, "_styles_attrs") || {}, ["height", "width", "style", "class"]));
       return [block] as TBlock[];
     } else if (node.tagName == "option" && parent && parent.block?._type === "Select") {
       /**

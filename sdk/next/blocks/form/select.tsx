@@ -25,21 +25,19 @@ const SelectBlock = (
     _required,
     _showLabel,
     _multiple = false,
-    _attrs = {},
   } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel) {
     return (
       <select
+        id={fieldId}
         {..._styles}
         {...blockProps}
-        id={fieldId}
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
-        name={_fieldName}
-        {..._attrs}>
+        name={_fieldName}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>
@@ -56,7 +54,7 @@ const SelectBlock = (
   }
 
   return (
-    <div {..._styles} {..._attrs}>
+    <div {..._styles}>
       {_showLabel && <label htmlFor={fieldId}>{_label}</label>}
       <select
         {..._inputStyles}
@@ -64,8 +62,7 @@ const SelectBlock = (
         placeholder={_placeholder}
         required={_required}
         multiple={_multiple as boolean}
-        name={_fieldName}
-        {..._attrs}>
+        name={_fieldName}>
         <option value="" disabled selected hidden>
           {_placeholder}
         </option>

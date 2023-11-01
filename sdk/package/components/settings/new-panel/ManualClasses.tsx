@@ -85,7 +85,7 @@ export function ManualClasses() {
   };
 
   return (
-    <div className="no-scrollbar -m-4 flex min-h-[300px] flex-col gap-y-5 overflow-y-auto bg-gray-100 p-4 ">
+    <div className="no-scrollbar flex min-h-[300px] flex-col gap-y-5 overflow-y-auto bg-gray-100">
       <Label className="mt-2">Add Tailwind classes</Label>
       <div className="relative -mt-4 flex items-center gap-x-3">
         <div className="relative flex w-full items-center gap-x-3">

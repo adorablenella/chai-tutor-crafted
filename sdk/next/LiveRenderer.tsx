@@ -25,6 +25,10 @@ const generateClassNames = memoize((styles: string) => {
   return twMerge(stylesArray[0], stylesArray[1]);
 });
 
+function getElementAttrs(block: TBlock, key: string) {
+  return get(block, `${key}_attrs`, {}) as Record<string, string>;
+}
+
 function getStyleAttrs(block: TBlock) {
   const styles: { [key: string]: { className: string } } = {};
   Object.keys(block).forEach((key) => {
@@ -32,6 +36,7 @@ function getStyleAttrs(block: TBlock) {
       const styleName = generateClassNames(block[key]);
       styles[key] = {
         className: styleName,
+        ...getElementAttrs(block, key),
       };
     }
   });

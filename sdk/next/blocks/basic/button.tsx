@@ -5,7 +5,7 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Link, SelectOption, SingleLineText, Styles } from "@/sdk/package/controls/controls";
 
 const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _icon, _content, _iconPos, _styles, children, _attrs = {} } = block;
+  const { blockProps, _icon, _content, _iconPos, _styles, children } = block;
 
   const child = children || (
     <>
@@ -13,7 +13,7 @@ const ButtonBlock = (block: TBlock & { blockProps: Record<string, string>; _styl
       {_icon && <span className={_iconPos || ""} dangerouslySetInnerHTML={{ __html: _icon }} />}
     </>
   );
-  return React.createElement("button", { ...blockProps, ..._styles, type: "button", ..._attrs }, child);
+  return React.createElement("button", { ...blockProps, ..._styles, type: "button" }, child);
 };
 
 registerChaiBlock(ButtonBlock as React.FC<any>, {

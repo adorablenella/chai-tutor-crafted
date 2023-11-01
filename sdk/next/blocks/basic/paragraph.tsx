@@ -13,16 +13,14 @@ import { isNull } from "lodash";
 const ParagraphBlock = (
   props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string>; children: React.ReactNode },
 ) => {
-  const { blockProps, _styles, _content, _attrs = {} } = props;
+  const { blockProps, _styles, _content } = props;
 
-  if (!isNull(props.children))
-    return React.createElement("p", { ..._styles, ...blockProps, ..._attrs }, props.children);
+  if (!isNull(props.children)) return React.createElement("p", { ..._styles, ...blockProps }, props.children);
 
   // eslint-disable-next-line react/no-danger
   return React.createElement("div", {
     ..._styles,
     ...blockProps,
-    ..._attrs,
     dangerouslySetInnerHTML: { __html: _content },
   });
 };

@@ -10,8 +10,8 @@ import { TBlock } from "@/sdk/package/types/TBlock";
  * @constructor
  */
 const DividerBlock = (props: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
-  const { blockProps, _styles, _attrs = {} } = props;
-  return React.createElement("hr", { ..._styles, ...blockProps, ..._attrs });
+  const { blockProps, _styles } = props;
+  return React.createElement("hr", { ..._styles, ...blockProps });
 };
 
 registerChaiBlock(DividerBlock as React.FC<any>, {

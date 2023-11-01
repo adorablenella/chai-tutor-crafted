@@ -15,7 +15,7 @@ const FormBlock = (
     blockProps: Record<string, string>;
   },
 ) => {
-  const { blockProps, _errorMessage, _name, _type, _successMessage, _action, _styles, children, _attrs = {} } = props;
+  const { blockProps, _errorMessage, _name, _type, _successMessage, _action, _styles, children } = props;
 
   if (!children && isEmpty(_styles?.className)) {
     return <EmptySlot blockProps={blockProps} text="FORM FIELDS" />;
@@ -37,8 +37,7 @@ const FormBlock = (
       method={"post"}
       action={_action}
       {...blockProps}
-      {..._styles}
-      {..._attrs}>
+      {..._styles}>
       <div {...formResponseAttr}></div>
       <input name={"form_name"} type={"hidden"} value={_name || _type} />
       {children}
@@ -69,8 +68,8 @@ registerChaiBlock(FormBlock, {
 const LabelBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; _content: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, _content, _styles, children, ..._attrs } = props;
-  const labelProps = { ..._styles, ...blockProps, ..._attrs };
+  const { blockProps, _content, _styles, children } = props;
+  const labelProps = { ..._styles, ...blockProps };
 
   if (children) return React.createElement("label", labelProps, children);
   return React.createElement("label", { ...labelProps, dangerouslySetInnerHTML: { __html: _content } });

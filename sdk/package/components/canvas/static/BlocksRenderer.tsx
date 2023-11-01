@@ -1,5 +1,5 @@
 import React, { useCallback } from "react";
-import { filter, find, isEmpty, isString, memoize } from "lodash";
+import { filter, find, get, isEmpty, isString, memoize } from "lodash";
 import { twMerge } from "tailwind-merge";
 import { TBlock } from "../../../types/TBlock";
 import { SLOT_KEY, STYLES_KEY } from "../../../constants/CONTROLS";
@@ -25,6 +25,10 @@ const generateClassNames = memoize((styles: string) => {
   return twMerge(stylesArray[0], stylesArray[1]);
 });
 
+function getElementAttrs(block: TBlock, key: string) {
+  return get(block, `${key}_attrs`, {}) as Record<string, string>;
+}
+
 function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any, onClick: any) {
   const styles: { [key: string]: TStyleAttrs } = {};
   Object.keys(block).forEach((key) => {
@@ -38,6 +42,7 @@ function getStyleAttrs(block: TBlock, onMouseEnter: any, onMouseLeave: any, onCl
         onMouseEnter,
         onMouseLeave,
         onClick,
+        ...getElementAttrs(block, key),
       };
     }
   });

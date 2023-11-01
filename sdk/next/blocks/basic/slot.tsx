@@ -11,7 +11,7 @@ const SlotBlock = (
     emptyStyles?: string;
   },
 ) => {
-  const { blockProps, _styles, children, _attrs = {} } = props;
+  const { blockProps, _styles, children } = props;
   let emptySlot: React.ReactNode | null = null;
   if (!children) {
     emptySlot = (
@@ -23,7 +23,7 @@ const SlotBlock = (
       </div>
     );
   }
-  return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes", ..._attrs }, children || emptySlot);
+  return React.createElement("div", { ..._styles, ...blockProps, droppable: "yes" }, children || emptySlot);
 };
 
 registerChaiBlock(SlotBlock, {

@@ -12,14 +12,13 @@ import { RichText, SelectOption, Styles } from "@/sdk/package/controls/controls"
 const HeadingBlock = (
   props: TBlock & { _level: string; blockProps: Record<string, string>; _styles: Record<string, string> },
 ) => {
-  const { blockProps, _styles, _content, _level = "h1", children = null, _attrs = {} } = props;
+  const { blockProps, _styles, _content, _level = "h1", children = null } = props;
 
-  if (children) return React.createElement(_level, { ..._styles, ...blockProps, ..._attrs }, children);
+  if (children) return React.createElement(_level, { ..._styles, ...blockProps }, children);
 
   return React.createElement(_level, {
     ..._styles,
     ...blockProps,
-    ..._attrs,
     dangerouslySetInnerHTML: { __html: _content },
   });
 };

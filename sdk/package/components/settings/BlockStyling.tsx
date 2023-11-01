@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from "../../radix-ui";
 import { useSelectedStylingBlocks } from "../../hooks/useSelectedStylingBlocks";
+import { CustomAttributes } from "./new-panel/CustomAttribute";
 
 export default function BlockStyling() {
   const [state, setState] = useStylingState();
@@ -78,6 +79,7 @@ export default function BlockStyling() {
           {SETTINGS_SECTIONS.map((section) => (
             <SettingsSection key={section.heading} section={section} />
           ))}
+          <CustomAttributes section={{ heading: "Attributes" }} />
         </Accordion>
         <div className="h-60"></div>
       </ScrollArea>

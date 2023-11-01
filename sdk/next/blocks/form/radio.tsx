@@ -14,31 +14,20 @@ const RadioBlock = (
     _checked: boolean;
   },
 ) => {
-  const {
-    blockProps,
-    _fieldName,
-    _label,
-    _styles,
-    _inputStyles,
-    _checked,
-    _required,
-    _showLabel = true,
-    _attrs = {},
-  } = block;
+  const { blockProps, _fieldName, _label, _styles, _inputStyles, _checked, _required, _showLabel = true } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel)
     return (
       <input
+        id={fieldId}
         {...blockProps}
         {..._inputStyles}
         {..._styles}
-        id={fieldId}
         type="radio"
         required={_required}
         checked={_checked}
         name={_fieldName}
-        {..._attrs}
       />
     );
   return (
@@ -50,7 +39,6 @@ const RadioBlock = (
         type="radio"
         required={_required}
         defaultChecked={_checked}
-        {..._attrs}
       />
       {_label && <label htmlFor={fieldId}>{_label}</label>}
     </div>

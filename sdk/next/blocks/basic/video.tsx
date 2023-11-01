@@ -4,6 +4,7 @@ import { isEmpty } from "lodash";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { Checkbox, Model, SingleLineText, Styles } from "@/sdk/package/controls/controls";
+import EmptySlot from "../helper-components/empty-slot";
 
 const YOUTUBE_REGEX = /^(https?:\/\/)?(www\.)?youtube\.com\/(watch\?v=|embed\/)([a-zA-Z0-9_-]{11})/;
 const VIMEO_REGEX = /^(https?:\/\/)?(www\.)?vimeo\.com\/(\d+)/;
@@ -47,12 +48,14 @@ const VideoBlock = (
     _styles: Record<string, string>;
   },
 ) => {
-  const { blockProps, _styles, _url, _controls, _attrs = {} } = block;
+  const { blockProps, _styles, _url, _controls } = block;
 
   const autoplay = _controls.autoPlay;
   const controls = _controls.controls;
   const muted = autoplay || _controls.muted;
   const loop = _controls.loop;
+
+  if (isEmpty(_url)) return <EmptySlot blockProps={blockProps} text="VIDEO URL" className="h-36" />;
 
   let embedURL = getEmbedURL(_url);
   let videoElement = null;
@@ -72,14 +75,12 @@ const VideoBlock = (
       allow: "autoplay *; fullscreen *",
       allowFullScreen: true,
       frameBorder: 0,
-      ..._attrs,
     });
   } else {
     videoElement = React.createElement("video", {
       ...blockProps,
       ..._styles,
       src: _url,
-      ..._attrs,
       controls,
       muted,
       autoPlay: autoplay,

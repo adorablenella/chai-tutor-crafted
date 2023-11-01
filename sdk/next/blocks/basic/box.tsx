@@ -1,22 +1,20 @@
 import * as React from "react";
 import { TBlock } from "@/sdk/package/types/TBlock";
-import { cn } from "@/sdk/package/radix/lib/utils";
 import { registerChaiBlock } from "@/sdk/next/server";
 import { SelectOption, Styles } from "@/sdk/package/controls/controls";
 import { isEmpty } from "lodash";
-import { PlusCircle } from "lucide-react";
 import EmptySlot from "../helper-components/empty-slot";
 
 const BoxBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _tag = "div", _styles, _attrs = {} } = props;
+  const { blockProps, children, _tag = "div", _styles } = props;
 
   if (!children && isEmpty(_styles?.className)) {
-    return <EmptySlot blockProps={blockProps} />;
+    return <EmptySlot blockProps={blockProps} styles={_styles} />;
   }
 
-  return React.createElement(_tag, { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement(_tag, { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(BoxBlock, {

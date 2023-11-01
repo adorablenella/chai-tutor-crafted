@@ -427,7 +427,6 @@ export const SETTINGS_SECTIONS = [
       },
     ],
   },
-
   {
     heading: "Classes",
     items: [{ component: ManualClasses }],

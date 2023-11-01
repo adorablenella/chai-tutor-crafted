@@ -1,4 +1,4 @@
-import { get, keys, mapValues, pick } from "lodash";
+import { endsWith, get, keys, mapValues, pick, pickBy } from "lodash";
 import React from "react";
 import { TBlock } from "../types/TBlock";
 import { isDevelopment } from "../helpers/general";
@@ -31,7 +31,8 @@ export const syncBlocksWithDefaults = (blocks: TBlock[]): TBlock[] => {
       const defaults = getDefaultBlockProps(block._type);
       return {
         ...defaults,
-        ...pick(block, [...keys(defaults), ...["_type", "_id", "_name", "_parent", "_bindings", "_attrs"]]),
+        ...pick(block, [...keys(defaults), ...["_type", "_id", "_name", "_parent", "_bindings"]]),
+        ...pickBy(block, (_, c) => endsWith(c, "_attrs")),
       } as TBlock;
     }
     return block;

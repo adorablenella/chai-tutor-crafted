@@ -4,10 +4,17 @@ import { registerChaiBlock } from "@/sdk/next/server";
 import { Icon, Styles } from "@/sdk/package/controls/controls";
 import { TBlock } from "@/sdk/package/types/TBlock";
 import { cn } from "@/lib/utils";
+import { isEmpty } from "lodash";
+import EmptySlot from "../helper-components/empty-slot";
 
 const IconBlock = (block: TBlock & { blockProps: Record<string, string>; _styles: Record<string, string> }) => {
   const { blockProps, _icon, _styles } = block;
   const styles = { ..._styles, className: cn(_styles.className, "inline-block c-inline-block") };
+
+  if (isEmpty(_icon)) {
+    return <EmptySlot blockProps={blockProps} text="" className="h-8 w-14" />;
+  }
+
   return React.createElement("span", { ...blockProps, ...styles, dangerouslySetInnerHTML: { __html: _icon } });
 };
 

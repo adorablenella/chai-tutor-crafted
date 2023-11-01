@@ -10,11 +10,7 @@ const ImagePickerField = ({ value, onChange, id, onBlur }: WidgetProps) => (
     ) : (
       <ImagePickerModal onSelect={onChange}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="https://fakeimg.pl/100x100?text=Choose&font=bebas"
-          className="h-20 w-20 cursor-pointer overflow-hidden rounded-md border object-cover hover:border-blue-200"
-          alt=""
-        />
+        <div className="h-20 w-20 cursor-pointer rounded-md border bg-[radial-gradient(#AAA,transparent_1px)] duration-300 [background-size:10px_10px] hover:border-gray-400"></div>
       </ImagePickerModal>
     )}
     <div className="flex w-3/5 flex-col">

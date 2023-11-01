@@ -14,30 +14,19 @@ const CheckboxBlock = (
     _checked: boolean;
   },
 ) => {
-  const {
-    blockProps,
-    _fieldName,
-    _label,
-    _styles,
-    _inputStyles,
-    _required,
-    _checked,
-    _showLabel = true,
-    _attrs = {},
-  } = block;
+  const { blockProps, _fieldName, _label, _styles, _inputStyles, _required, _checked, _showLabel = true } = block;
   const fieldId = generateUUID();
 
   if (!_showLabel)
     return (
       <input
+        id={fieldId}
         {...blockProps}
         {..._inputStyles}
         {..._styles}
-        id={fieldId}
         type="checkbox"
         required={_required}
         name={_fieldName}
-        {..._attrs}
       />
     );
 
@@ -50,7 +39,6 @@ const CheckboxBlock = (
         type="checkbox"
         required={_required}
         defaultChecked={_checked}
-        {..._attrs}
       />
       {_label && _label !== "Label" && <label htmlFor={fieldId}>{_label}</label>}
     </div>

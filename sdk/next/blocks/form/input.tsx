@@ -28,7 +28,6 @@ const InputBlock = (
     _inputType = "text",
     inBuilder,
     _fieldName,
-    _attrs = {},
   } = block;
   const fieldId = generateUUID();
 
@@ -37,16 +36,15 @@ const InputBlock = (
 
     return (
       <input
+        id={fieldId}
         name={_fieldName}
         readOnly={inBuilder}
         {...blockProps}
         {..._inputStyles}
         {..._styles}
-        id={fieldId}
         type={_inputType}
         placeholder={_placeholder}
         required={_required}
-        {..._attrs}
       />
     );
   }
@@ -61,7 +59,6 @@ const InputBlock = (
         type={_inputType}
         placeholder={_placeholder}
         required={_required}
-        {..._attrs}
       />
     </div>
   );

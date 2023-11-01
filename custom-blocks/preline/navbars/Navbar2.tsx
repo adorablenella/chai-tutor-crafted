@@ -15,6 +15,7 @@ import {
 import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
 import ChaiBuilderLink from "@/sdk/next/blocks/helper-components/chaibuilder-link";
+import { generateUUID } from "@/sdk/package/functions/functions";
 
 const Navbar2 = ({
   blockProps,
@@ -30,6 +31,7 @@ const Navbar2 = ({
   rightButtonStyles,
   inBuilder = false,
 }: any) => {
+  const navId = generateUUID();
   return (
     <header {...blockProps} className="z-50 flex w-full flex-wrap text-sm md:flex-nowrap md:justify-start">
       <nav
@@ -50,8 +52,8 @@ const Navbar2 = ({
             <button
               type="button"
               className="hs-collapse-toggle inline-flex items-center justify-center gap-2 rounded-full border bg-white p-2 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-gray-800"
-              data-hs-collapse="#navbar-collapse-with-animation"
-              aria-controls="navbar-collapse-with-animation"
+              data-hs-collapse={`#${navId}`}
+              aria-controls={navId}
               aria-label="Toggle navigation">
               <svg
                 className="hs-collapse-open:hidden h-4 w-4"
@@ -75,9 +77,7 @@ const Navbar2 = ({
             </button>
           </div>
         </div>
-        <div
-          id="navbar-collapse-with-animation"
-          className="hs-collapse hidden grow basis-full transition-all duration-300 md:block">
+        <div id={navId} className="hs-collapse hidden grow basis-full transition-all duration-300 md:block">
           <div className="mt-5 flex flex-col gap-x-0 gap-y-4 md:mt-0 md:flex-row md:items-center md:justify-end md:gap-x-7 md:gap-y-0 md:pl-7">
             {menuItems?.map((menuItem: any, index: number) => (
               <ChaiBuilderLink

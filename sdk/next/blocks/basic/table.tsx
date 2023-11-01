@@ -66,11 +66,11 @@ const getDefaultBlocks = (type: string): TBlock[] => {
 const TableBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _styles, _attrs = {} } = props;
+  const { blockProps, children, _styles } = props;
   if (!children) {
     return <EmptySlot blockProps={blockProps} text="TABLE HEAD / BODY" />;
   }
-  return React.createElement("table", { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement("table", { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(TableBlock, {
@@ -88,11 +88,11 @@ registerChaiBlock(TableBlock, {
 const TableHeadBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _styles, _attrs = {} } = props;
+  const { blockProps, children, _styles } = props;
   if (!children) {
     return <EmptySlot blockProps={blockProps} text="TABLE ROW" />;
   }
-  return React.createElement("thead", { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement("thead", { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(TableHeadBlock, {
@@ -110,11 +110,11 @@ registerChaiBlock(TableHeadBlock, {
 const TableBodyBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _styles, _attrs = {} } = props;
+  const { blockProps, children, _styles } = props;
   if (!children) {
     return <EmptySlot blockProps={blockProps} text="TABLE ROW" />;
   }
-  return React.createElement("tbody", { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement("tbody", { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(TableBodyBlock, {
@@ -132,12 +132,12 @@ registerChaiBlock(TableBodyBlock, {
 const TableRowBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _styles, _attrs = {} } = props;
+  const { blockProps, children, _styles } = props;
   if (!children) {
     return <EmptySlot blockProps={blockProps} text="TABLE CELL" />;
   }
 
-  return React.createElement("tr", { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement("tr", { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(TableRowBlock, {
@@ -155,7 +155,7 @@ registerChaiBlock(TableRowBlock, {
 const TableCellBlock = (
   props: TBlock & { children: React.ReactNode; _styles: any; tag: string; blockProps: Record<string, string> },
 ) => {
-  const { blockProps, children, _content, _styles, _attrs = {} } = props;
+  const { blockProps, children, _content, _styles } = props;
 
   if (!children && isEmpty(_content)) {
     return <EmptySlot blockProps={blockProps} />;
@@ -165,11 +165,10 @@ const TableCellBlock = (
     return React.createElement("td", {
       ...blockProps,
       ..._styles,
-      ..._attrs,
       dangerouslySetInnerHTML: { __html: _content },
     });
   }
-  return React.createElement("td", { ...blockProps, ..._styles, ..._attrs }, children);
+  return React.createElement("td", { ...blockProps, ..._styles }, children);
 };
 
 registerChaiBlock(TableCellBlock, {

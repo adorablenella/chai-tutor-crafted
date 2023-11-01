@@ -15,7 +15,7 @@ const LinkBlock = (
     children: React.ReactNode;
   },
 ) => {
-  const { blockProps, _link, children, _styles, inBuilder, _content, _attrs = {} } = props;
+  const { blockProps, _link, children, _styles, inBuilder, _content } = props;
 
   if (!children && isEmpty(_styles?.className) && isEmpty(_content)) {
     return <EmptySlot blockProps={blockProps} />;
@@ -24,7 +24,7 @@ const LinkBlock = (
   if (inBuilder) {
     if (children) {
       return (
-        <span data-simulate={"a"} {...blockProps} {..._styles} {..._attrs}>
+        <span data-simulate={"a"} {...blockProps} {..._styles}>
           {children}
         </span>
       );
@@ -36,14 +36,13 @@ const LinkBlock = (
         target: _link.target || "_self",
         dangerouslySetInnerHTML: { __html: _content },
         "data-simulate": "a",
-        ..._attrs,
       });
     }
   }
 
   if (children) {
     return (
-      <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles} {..._attrs}>
+      <a href={_link.href || "#/"} target={_link.target} {...blockProps} {..._styles}>
         {children}
       </a>
     );
@@ -54,7 +53,6 @@ const LinkBlock = (
     ..._styles,
     href: _link.href || "#",
     target: _link.target || "_self",
-    ..._attrs,
     dangerouslySetInnerHTML: { __html: _content },
   });
 };

@@ -5,6 +5,7 @@ import { Link as LinkControl, SingleLineText, List, Image, Styles } from "@/sdk/
 import { registerChaiBlock } from "@/sdk/next/server";
 import { isEmpty } from "lodash";
 import ChaiBuilderLink from "@/sdk/next/blocks/helper-components/chaibuilder-link";
+import { generateUUID } from "@/sdk/package/functions/functions";
 
 const Navbar5 = ({
   blockProps,
@@ -19,6 +20,7 @@ const Navbar5 = ({
   leftMenuItemsStyles,
   inBuilder = false,
 }: any) => {
+  const navId = generateUUID();
   return (
     <header
       {...blockProps}
@@ -55,8 +57,8 @@ const Navbar5 = ({
               <button
                 type="button"
                 className="hs-collapse-toggle inline-flex items-center justify-center gap-2 rounded-md border bg-white p-2 align-middle text-sm font-medium text-gray-700 shadow-sm transition-all hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:ring-offset-2 focus:ring-offset-white dark:border-gray-700 dark:bg-slate-900 dark:text-gray-400 dark:hover:bg-slate-800 dark:hover:text-white dark:focus:ring-offset-gray-800"
-                data-hs-collapse="#navbar-collapse-with-animation"
-                aria-controls="navbar-collapse-with-animation"
+                data-hs-collapse={`#${navId}`}
+                aria-controls={navId}
                 aria-label="Toggle navigation">
                 <svg
                   className="hs-collapse-open:hidden h-4 w-4"
@@ -80,9 +82,7 @@ const Navbar5 = ({
               </button>
             </div>
           </div>
-          <div
-            id="navbar-collapse-with-animation"
-            className="hs-collapse hidden grow basis-full transition-all duration-300">
+          <div id={navId} className="hs-collapse hidden grow basis-full transition-all duration-300">
             <div className="mt-5 flex flex-col justify-between gap-x-0 gap-y-4 sm:mt-0 sm:flex-row sm:items-center sm:gap-x-7 sm:gap-y-0 sm:pl-7">
               {menuItemsLeft?.map((menuItem: any, index: number) => (
                 <ChaiBuilderLink
