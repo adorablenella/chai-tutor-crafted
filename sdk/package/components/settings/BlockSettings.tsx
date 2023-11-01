@@ -39,6 +39,7 @@ export default function BlockSettings() {
     const control = properties[key];
     if (includes(["slot", "styles"], control.type)) return;
     const propKey = get(control, "i18n", false) ? `${key}-${activeLang}` : key;
+    // @ts-ignore
     propsSchema.properties[propKey] = getBlockJSONFromSchemas(control, activeLang);
     uiSchema[propKey] = getBlockJSONFromUISchemas(control, activeLang);
   });
