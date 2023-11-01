@@ -12,6 +12,25 @@ import { isEmpty } from "lodash";
 
 const nanoid = customAlphabet("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz", 7); // 7-character random string
 
+export const getUserLastTransaction = async () => {
+  const session = await getSession();
+  if (!session?.user.id) throw "Not authenticated";
+
+  const supabase = createServerActionClient({ cookies });
+  const userId = session?.user.id;
+
+  const { data: transaction, error } = await supabase
+    .from("transactions")
+    .select("*")
+    .eq("user", userId)
+    .order("created_at", { ascending: false })
+    .single();
+
+  if (error) return null;
+  if (transaction) return transaction;
+  return null;
+};
+
 export const createSite = async (formData: FormData) => {
   const session = await getSession();
   if (!session?.user.id) throw "Not authenticated";

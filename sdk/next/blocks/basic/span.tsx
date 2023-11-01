@@ -19,7 +19,6 @@ const SpanBlock = (props: TBlock & { children: React.ReactNode; _styles: any; bl
 registerChaiBlock(SpanBlock, {
   type: "Span",
   label: "Span",
-  hidden: true,
   category: "core",
   group: "basic",
   props: {

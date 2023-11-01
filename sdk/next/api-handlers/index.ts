@@ -1,6 +1,6 @@
 /* eslint-disable object-shorthand */
 import { NextApiRequest, NextApiResponse } from "next";
-import { filter, first, map, replace, split } from "lodash";
+import { filter, first, map } from "lodash";
 import { getRouteSnapshot, publishPath } from "@/sdk/next/api-handlers/functions";
 import supabase from "@/app/helpers/supabase";
 

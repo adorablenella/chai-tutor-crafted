@@ -6,10 +6,10 @@ import { useParams, useSelectedLayoutSegments } from "next/navigation";
 import { ReactNode, useEffect, useMemo, useState } from "react";
 import Image from "next/image";
 import { getSiteFromPostId } from "@/lib/actions";
-import { DiscordLogoIcon, StarFilledIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
+import { DiscordLogoIcon, LaptopIcon, StarFilledIcon, TwitterLogoIcon } from "@radix-ui/react-icons";
 import { Button } from "@/sdk/package/radix/components/ui/button";
 
-export default function Nav({ children }: { children: ReactNode }) {
+export default function Nav({ children, canUpgrade }: { canUpgrade: boolean; children: ReactNode }) {
   const segments = useSelectedLayoutSegments();
   const { id } = useParams() as { id?: string };
   const [siteId, setSiteId] = useState<string | null>();
@@ -139,12 +139,19 @@ export default function Nav({ children }: { children: ReactNode }) {
               </Link>
             ))}
             <br />
-            <Link href={"/upgrade"}>
-              <Button className="flex hidden w-full items-center">
-                <StarFilledIcon className="mr-2" />
-                Upgrade
+            {canUpgrade ? (
+              <Link href={"/upgrade"}>
+                <Button className="flex w-full items-center">
+                  <StarFilledIcon className="mr-2" />
+                  Upgrade
+                </Button>
+              </Link>
+            ) : (
+              <Button variant={"outline"} className="flex w-full items-center">
+                <LaptopIcon className="mr-2" />
+                Indie Hacker
               </Button>
-            </Link>
+            )}
           </div>
         </div>
         <div>
