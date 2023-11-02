@@ -7,7 +7,7 @@ export async function POST(request: any) {
     user: body.user,
     transaction_data: body.transactionData,
   };
-  const {} = await supabase.from("transactions").insert(transaction);
+  await supabase.from("transactions").insert(transaction);
   // @ts-ignore
   return NextResponse.json({ success: true, body }, { status: 200 });
 }
