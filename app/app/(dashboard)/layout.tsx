@@ -8,6 +8,9 @@ import { getUserLastTransaction } from "@/lib/actions";
 
 export const dynamic = "force-dynamic";
 
+function isProductionEnv() {
+  return process.env.NODE_ENV === "production";
+}
 export default async function DashboardLayout({ children }: { children: ReactNode }) {
   const lastTransaction = await getUserLastTransaction();
   const canUpgrade = lastTransaction === null;
