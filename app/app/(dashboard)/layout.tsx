@@ -5,6 +5,7 @@ import Nav from "@/components/nav";
 import { Providers } from "@/app/app/(dashboard)/providers";
 import { ChaiScripts } from "./scripts";
 import { getUserLastTransaction } from "@/lib/actions";
+import Script from "next/script";
 
 export const dynamic = "force-dynamic";
 
@@ -26,6 +27,7 @@ export default async function DashboardLayout({ children }: { children: ReactNod
           <div className="h-screen min-h-full flex-1 overflow-auto dark:bg-black ">{children}</div>
         </div>
       </Providers>
+      <Script src="//unpkg.com/alpinejs" defer />
       <ChaiScripts />
     </>
   );
