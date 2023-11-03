@@ -1,6 +1,5 @@
 import { FileTextIcon, GearIcon } from "@radix-ui/react-icons";
 import { lazy, useCallback, useEffect } from "react";
-import { useToast } from "@/sdk/package/radix-ui";
 import { useProject } from "./hooks/useProject";
 import { BRANDING_OPTIONS_DEFAULTS } from "@/sdk/package/constants/MODIFIERS";
 import { useGlobalBLocks } from "./hooks/useGlobalBlocks";
@@ -13,6 +12,7 @@ import { isEmpty, isEqual } from "lodash";
 import { ChaiBuilderStudio } from "@/sdk/package";
 import { useUploadMedia } from "./mutations/useStorageActions";
 import { useExternalPredefinedBlock, useUiLibraryBlocks } from "./hooks/useUiLibrary";
+import { toast } from "sonner";
 
 const Logo = lazy(() => import("./previews/Logo"));
 const PublishButton = lazy(() => import("./previews/PublishButton"));
@@ -21,7 +21,6 @@ const ProjectSettings = lazy(() => import("./panels/ProjectSettings"));
 const CurrentPage = lazy(() => import("./previews/CurrentPage"));
 
 export default function RootChaiStudio() {
-  const { toast } = useToast();
   const { data: project } = useProject();
   const { data: globalBlocks } = useGlobalBLocks();
   const { data: pageData, isLoading } = usePageData();
@@ -29,7 +28,7 @@ export default function RootChaiStudio() {
   const [syncStatus, setSyncStatus] = useSyncState();
 
   const updatePage = useUpdatePage();
-  const updateProject = useUpdateProject();
+  const updateProject = useUpdateProject("Branding options updated successfully.");
   const uploadMedia = useUploadMedia();
   const uiLibrary = useUiLibraryBlocks();
   const predefinedBlock = useExternalPredefinedBlock();
@@ -50,22 +49,24 @@ export default function RootChaiStudio() {
     async (snapshot: any) => {
       updatePage.mutate(
         { uuid: currentPageUuid as string, blocks: snapshot.blocks },
-        { onSuccess: () => toast({ variant: "default", title: "Page updated successfully." }) },
+        {
+          onSuccess: () => {
+            toast.success("Page saved successfully.", { position: "top-center", duration: 2500 });
+          },
+        },
       );
     },
-    [currentPageUuid, updatePage, toast],
+    [currentPageUuid, updatePage],
   );
 
   const saveBrandingOptions = useCallback(
     async (brandingOptions: any) => {
       if (!isEqual(project?.branding_options, brandingOptions)) {
         const updatedProjectData = { ...project, branding_options: brandingOptions };
-        updateProject.mutate(updatedProjectData as TProjectData, {
-          onSuccess: () => toast({ variant: "default", title: "Branding options updated successfully." }),
-        });
+        updateProject.mutate(updatedProjectData as TProjectData);
       }
     },
-    [project, toast, updateProject],
+    [project, updateProject],
   );
 
   const uploadMediaCallback = useCallback(

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { Toggle, Tooltip, TooltipContent, TooltipTrigger } from "../../radix-ui";
 import { useSavePage } from "../../hooks";
+import { Check } from "lucide-react";
 
 export const SaveButton = () => {
   const { savePage, syncState } = useSavePage();
@@ -10,9 +11,9 @@ export const SaveButton = () => {
       case "SAVING":
         return "animate-pulse bg-gray-500 text-gray-900";
       case "SAVED":
-        return "bg-green-500 text-white hover:bg-green-800";
+        return "bg-green-500 text-white hover:bg-green-600 hover:text-white";
       default:
-        return "bg-gray-200 text-gray-500";
+        return "bg-gray-200 text-gray-500 hover:bg-gray-100";
     }
   }, [syncState]);
 
@@ -22,20 +23,16 @@ export const SaveButton = () => {
         <TooltipTrigger asChild>
           <Toggle
             onClick={() => savePage()}
-            className={`h-auto rounded-full p-1.5 px-2 ${classes}`}
+            className={`flex h-auto w-20 items-center gap-x-1 rounded-full p-1 px-2 ${classes}`}
             size="sm"
             variant="outline">
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              strokeWidth="0"
-              viewBox="0 0 512 512"
-              height="1em"
-              width="1em"
-              xmlns="http://www.w3.org/2000/svg">
-              <path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z" />
+            <svg fill="currentColor" width="16" height="16" viewBox="0 0 0.32 0.32" xmlns="http://www.w3.org/2000/svg">
+              <path
+                fill-rule="evenodd"
+                d="M.274.086a.02.02 0 0 1 0 .028l-.12.12a.02.02 0 0 1-.028 0l-.06-.06A.02.02 0 0 1 .094.146L.14.192.246.086a.02.02 0 0 1 .028 0Z"
+              />
             </svg>
-            &nbsp; {syncState === "SAVING" ? "Saving..." : syncState === "SAVED" ? "Saved" : "Save"}
+            {syncState === "SAVING" ? "Saving..." : syncState === "SAVED" ? "Saved" : "Save"}
           </Toggle>
         </TooltipTrigger>
         <TooltipContent>

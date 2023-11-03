@@ -1,13 +1,8 @@
-/* eslint-disable no-return-await */
-// need 3 mutations
-// update project seo settings
-// update project custom code
-
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { TProjectData } from "../types";
-import { toast } from "@/sdk/package/radix-ui";
+import { toast } from "sonner";
 
-export const useUpdateProject = () => {
+export const useUpdateProject = (message = "Project updated successfully.") => {
   const queryClient = useQueryClient();
   return useMutation(
     async (payload: TProjectData) =>
@@ -15,7 +10,7 @@ export const useUpdateProject = () => {
     {
       onSuccess: () => {
         queryClient.invalidateQueries(["project"]);
-        toast({ variant: "default", title: "Project updated successfully." });
+        toast.success(message);
       },
     },
   );

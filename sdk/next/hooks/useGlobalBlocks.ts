@@ -8,4 +8,5 @@ export const useGlobalBLocks = () =>
       const globalBlocks: TPageData[] = await fetch(`/api/chaibuilder/global-blocks`).then((res) => res.json());
       return globalBlocks || [];
     },
+    enabled: false,
   });

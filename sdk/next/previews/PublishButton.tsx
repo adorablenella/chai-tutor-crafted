@@ -4,6 +4,7 @@ import { usePages } from "../hooks/usePages";
 import { usePublishPage } from "../mutations/usePageActions";
 import { useCurrentPage, useSyncState } from "../store";
 import { useProject } from "../hooks/useProject";
+import LoadingDots from "@/components/icons/loading-dots";
 
 const PublishButton = () => {
   const { data: pages } = usePages();
@@ -17,16 +18,20 @@ const PublishButton = () => {
     const slug = currentPageUid === project?.homepage ? "_home" : page.slug;
     mutate(slug);
   };
-
-  if (syncStatus !== "SAVED") {
+  if (syncStatus !== "SAVED" || isLoading) {
     return (
-      <Tooltip delayDuration={500}>
+      <Tooltip delayDuration={isLoading ? 0 : 500}>
         <TooltipTrigger asChild>
-          <Button className="cursor-not-allowed opacity-50">{isLoading ? "Publishing..." : "Publish"}</Button>
+          <Button
+            className={`w-20 cursor-not-allowed  ${
+              isLoading ? "bg-gray-300 hover:bg-gray-300" : "bg-gray-400 hover:bg-gray-400"
+            }`}>
+            {isLoading ? <LoadingDots color="#000" /> : "Publish"}
+          </Button>
         </TooltipTrigger>
-        {syncStatus !== "SAVED" && (
+        {(syncStatus !== "SAVED" || isLoading) && (
           <TooltipContent className="mr-4">
-            <div>Please save your changes to publish</div>
+            <div>{isLoading ? "Publishing..." : "Please save your changes to publish"}</div>
           </TooltipContent>
         )}
       </Tooltip>
@@ -35,8 +40,8 @@ const PublishButton = () => {
 
   return (
     <div>
-      <Button disabled={isLoading || syncStatus !== "SAVED"} onClick={publishPage}>
-        {isLoading ? "Publishing..." : "Publish"}
+      <Button disabled={isLoading || syncStatus !== "SAVED"} onClick={publishPage} className="w-20">
+        Publish
       </Button>
     </div>
   );

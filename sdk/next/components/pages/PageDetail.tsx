@@ -9,6 +9,7 @@ import Form from "../common/Form";
 import { useProject } from "../../hooks/useProject";
 import { useUpdateProject } from "../../mutations/useProjectActions";
 import { Checkbox, Image, Model, MultilineText, SingleLineText } from "@/sdk/package/controls";
+import { toast } from "sonner";
 
 const DeletePage = React.lazy(() => import("./DeletePage"));
 const ConfirmAlert = React.lazy(() => import("../common/ConfirmAlert"));
@@ -64,7 +65,7 @@ const PageDetail = ({
   const queryClient = useQueryClient();
   const { data: projectData } = useProject();
   const updatePage = useUpdatePage();
-  const updateProject = useUpdateProject();
+  const updateProject = useUpdateProject("Homepage updated successfully.");
   const [_pageData, _setPageData] = useState<TPageData>(withEmptySeoData(pageData));
   const [_projectData, setProjectData] = useState({ isHomePage: projectData?.homepage === pageData.uuid });
   const isAnyChangeInPage = isSomethingChanged(_pageData, pageData);
@@ -85,6 +86,7 @@ const PageDetail = ({
         onSuccess: () => {
           queryClient.invalidateQueries(["pages", projectData?.uuid]);
           setOpen("CLOSE");
+          toast.success("Page updated successfully.");
         },
       });
     }
