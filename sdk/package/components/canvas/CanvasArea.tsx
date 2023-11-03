@@ -29,7 +29,9 @@ const CanvasArea: React.FC = () => {
             className={"absolute inset-0 z-50 flex items-center bg-black/30 backdrop-blur-sm"}>
             <div
               onClick={(e) => e.stopPropagation()}
-              className={"mx-auto h-[90%] w-[60%] max-w-2xl rounded-md bg-white p-4 shadow-lg shadow-white/50"}>
+              className={
+                "mx-auto h-[90%] w-[90%] max-w-3xl rounded-md bg-white p-4 shadow-lg shadow-black/10 xl:w-[65%]"
+              }>
               <AddBlocksPanel />
             </div>
           </div>

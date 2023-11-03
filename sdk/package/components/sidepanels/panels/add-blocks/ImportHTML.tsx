@@ -17,6 +17,7 @@ import { getBlocksFromHTML } from "@/sdk/package/helpers/html-to-json";
 import { first } from "lodash";
 import { Alert, AlertTitle } from "@/sdk/package/radix/components/ui/alert";
 import { ExclamationTriangleIcon } from "@radix-ui/react-icons";
+import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
 
 const ImportHTML = () => {
   const [code, setCode] = useState("");
@@ -24,6 +25,7 @@ const ImportHTML = () => {
   const [ids]: any = useSelectedBlockIds();
   const [, setOpen] = useAtom(addBlockOffCanvasAtom);
   const [, setActivePanel] = useAtom(activePanelAtom);
+  const [, setAddBlocks] = useAtom(addBlocksModalAtom);
 
   const importComponents = () => {
     const blocks = getBlocksFromHTML(code);
@@ -31,10 +33,11 @@ const ImportHTML = () => {
     setCode("");
     setOpen(false);
     setActivePanel("layers");
+    setAddBlocks(false);
   };
 
   return (
-    <Card className="border-border/0">
+    <Card className="border-border/0 p-0 shadow-none">
       <CardHeader className="p-3">
         <CardTitle>Import HTML</CardTitle>
         <CardDescription>
@@ -42,9 +45,11 @@ const ImportHTML = () => {
           just copy paste your own HTML code. Only Tailwind CSS markup is supported.
         </CardDescription>
       </CardHeader>
-      <CardContent className="space-y-2 p-3">
+      <CardContent className="space-y-2 px-3 py-0">
         <div className="space-y-1">
-          <Label htmlFor="current">Enter HTML Code:</Label>
+          <Label htmlFor="current" className="text-sm">
+            Enter HTML Code:
+          </Label>
           <Textarea
             autoFocus
             tabIndex={1}
@@ -63,9 +68,9 @@ const ImportHTML = () => {
         <Button disabled={code.trim() === ""} onClick={() => importComponents()} size="sm" className="w-full">
           Import
         </Button>
-        <Alert variant="default" className="mt-2 text-blue-400">
+        <Alert variant="default" className="mt-2 p-1 text-blue-400">
           <ExclamationTriangleIcon className="h-4 w-4" />
-          <AlertTitle>
+          <AlertTitle className="text-sm leading-4">
             Imported html will be added to the currently selected block. If no block is selected, the html will be added
             to the page.
           </AlertTitle>

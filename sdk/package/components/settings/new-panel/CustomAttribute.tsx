@@ -121,7 +121,7 @@ export const CustomAttributes = ({ section }: any) => {
       <AccordionTrigger className="px-3 py-2 text-xs hover:no-underline">
         <div className="flex items-center gap-x-2">
           <div
-            className={`h-[8px] w-[8px] rounded-full ${!isEmpty(get(block, "_attrs")) ? "bg-blue-500" : "bg-gray-300"}`}
+            className={`h-[8px] w-[8px] rounded-full ${!isEmpty(get(block, attrKey)) ? "bg-blue-500" : "bg-gray-300"}`}
           />
           Attributes
         </div>

@@ -89,7 +89,7 @@ export const PredefinedBlocks = () => {
   const blocks = get(mergedGroups, selectedGroup, []);
 
   return (
-    <div className="relative flex h-full max-h-full overflow-hidden border-t py-2">
+    <div className="relative flex h-full max-h-full overflow-hidden py-2">
       <ul className="sticky top-0 h-full w-48 space-y-1 overflow-y-auto border-r px-2">
         {isLoading ? (
           <>

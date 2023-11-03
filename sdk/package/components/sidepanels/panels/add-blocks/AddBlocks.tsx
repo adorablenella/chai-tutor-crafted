@@ -20,6 +20,7 @@ import ImportHTML from "@/sdk/package/components/sidepanels/panels/add-blocks/Im
 import { useAllBlocks, useSelectedBlockIds } from "@/sdk/package/hooks";
 import { TBlock } from "@/sdk/package/types";
 import { addBlocksModalAtom } from "@/sdk/package/store/blocks";
+import { Cross1Icon } from "@radix-ui/react-icons";
 
 /**
  *
@@ -67,14 +68,18 @@ const AddBlocksPanel = () => {
   const onToggle = (value: string) => setActive((oldValue) => (oldValue === value ? "" : value));
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full flex-col overflow-hidden">
       <div className="mb-2 flex justify-between rounded-md bg-background/30 p-1">
-        <h1 className="px-1 text-2xl font-semibold">
-          Add block &nbsp;
-          <span className="text-xs font-normal">(Drag & drop into tree view or click to add)</span>
+        <h1 className="flex flex-col items-baseline px-1 text-2xl font-semibold xl:flex-row">
+          Add block
+          <span className="p-0 text-xs font-light leading-3 opacity-80 xl:pl-1">
+            {tab === "html" ? "(Enter or paste your own HTML code)" : "(Drag & drop into tree view or click to add)"}
+          </span>
         </h1>
-        <button onClick={() => setAddBlocks(false)} className="rounded-full border p-px px-2 text-xs text-gray-800 ">
-          &times; close
+        <button
+          onClick={() => setAddBlocks(false)}
+          className="flex h-max items-center gap-x-1 rounded-full border p-px text-xs text-gray-800 hover:bg-gray-100 md:p-2">
+          <Cross1Icon width={12} /> Close
         </button>
       </div>
 

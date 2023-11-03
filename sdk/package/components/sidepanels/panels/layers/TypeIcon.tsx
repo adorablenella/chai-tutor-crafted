@@ -24,6 +24,7 @@ import {
   BorderAllIcon,
   ViewHorizontalIcon,
   DragHandleHorizontalIcon,
+  BoxModelIcon,
 } from "@radix-ui/react-icons";
 
 type Props = {
@@ -85,7 +86,9 @@ export const TypeIcon: React.FC<Props> = (props) => {
       return <ViewHorizontalIcon />;
     case "TableCell":
       return <DragHandleHorizontalIcon />;
-    default:
+    case "Box":
       return <BoxIcon />;
+    default:
+      return <BoxModelIcon />;
   }
 };

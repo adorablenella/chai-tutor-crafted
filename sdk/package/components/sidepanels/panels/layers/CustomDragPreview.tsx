@@ -10,11 +10,11 @@ export const CustomDragPreview: React.FC<Props> = (props) => {
   const { item } = props.monitorProps;
 
   return (
-    <div className="">
+    <div className="flex w-max items-center bg-blue-200 bg-opacity-30 p-1 font-semibold text-blue-700">
       <div className="">
-        <TypeIcon type={item?.data?.type} />
+        <TypeIcon type={item?.data?._type} />
       </div>
-      <div className="">{item.text}</div>
+      <div className="ml-2 truncate text-[11px]">{item.text}</div>
     </div>
   );
 };

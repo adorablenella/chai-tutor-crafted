@@ -105,7 +105,7 @@ export const canDropBlock = (_currentTree: any, { dragSource, dropTarget }: any)
   const dragSourceType = get(dragSource, "data._type", "");
   const dropTargetType = get(dropTarget, "data._type", "");
 
-  if (dragSourceType === "Slot") return false;
+  if (dragSourceType === "Slot" || get(dragSource, "id") === get(dropTarget, "id")) return false;
   if (isEmpty(dropTargetType)) return true;
   return canAddAsChild(dragSourceType, dropTargetType);
 };

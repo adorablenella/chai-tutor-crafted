@@ -140,12 +140,14 @@ const Layers = (): React.JSX.Element => {
               classes={{
                 root: "h-full pt-2",
                 draggingSource: "opacity-30",
+                dropTarget: "bg-green-100",
                 placeholder: "relative",
               }}
               sort={false}
               insertDroppableFirst={false}
               canDrop={canDropBlock}
               dropTargetOffset={2}
+              enableAnimateExpand={true}
               placeholderRender={(node, { depth }) => <Placeholder node={node} depth={depth} />}
             />
           </ScrollArea>
