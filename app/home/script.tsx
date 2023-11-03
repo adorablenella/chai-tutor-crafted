@@ -31,10 +31,10 @@ export const ChaiScripts = () => {
           // @ts-ignore
           gtag("js", new Date());
           // @ts-ignore
-          gtag("config", process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID);
+          gtag("config", "G-HSBN16R1XQ");
         }}
         async
-        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}`}
+        src={`https://www.googletagmanager.com/gtag/js?id=G-HSBN16R1XQ`}
       />
       {process.env.NODE_ENV === "production" ? (
         <script
