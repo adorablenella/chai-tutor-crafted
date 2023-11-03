@@ -14,6 +14,6 @@ export async function GET(request: NextRequest) {
     await supabase.auth.exchangeCodeForSession(code);
   }
 
-  const redirectURL = process.env.NEXTAUTH_URL || "https://app.chaibuilder.xyz/";
+  const redirectURL = process.env.NEXTAUTH_URL || "https://app.chaibuilder.com/";
   return NextResponse.redirect(redirectURL);
 }

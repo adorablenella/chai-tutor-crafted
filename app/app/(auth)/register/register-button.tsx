@@ -9,7 +9,7 @@ export default function RegisterButton() {
   const router = useRouter();
   const [register, setRegister] = useState("");
   const [form, setForm] = useState({ fullName: "", email: "" });
-  const [domain, setDomain] = useState("https://app.chaibuilder.xyz");
+  const [domain, setDomain] = useState("https://app.chaibuilder.com");
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
