@@ -24,7 +24,7 @@ export default async function middleware(req: NextRequest) {
   const path = url.pathname;
 
   // rewrites for app pages
-  if (hostname == `app.${process.env.NEXT_PUBLIC_ROOT_DOMAIN}`) {
+  if (hostname == `app.chaibuilder.com`) {
     const res = NextResponse.next();
     const supabase = createMiddlewareClient({ req, res });
     const {
@@ -38,7 +38,7 @@ export default async function middleware(req: NextRequest) {
     return NextResponse.rewrite(new URL(`/app${path === "/" ? "" : path}`, req.url));
   }
   // rewrite root application to `/home` folder
-  if (hostname === "localhost:3000" || hostname === process.env.NEXT_PUBLIC_ROOT_DOMAIN) {
+  if (hostname === "localhost:3000" || hostname === "chaibuilder.com") {
     return NextResponse.rewrite(new URL(`/home${path}`, req.url));
   }
 
