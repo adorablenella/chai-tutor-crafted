@@ -141,7 +141,7 @@ export default function Nav({ children, canUpgrade }: { canUpgrade: boolean; chi
             <br />
             {canUpgrade ? (
               <Link href={"/upgrade"}>
-                <Button className="hidden w-full items-center">
+                <Button className="flex w-full items-center">
                   <StarFilledIcon className="mr-2" />
                   Upgrade
                 </Button>
