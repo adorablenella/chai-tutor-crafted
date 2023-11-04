@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { filter, forEach, get, isEmpty, map, set } from "lodash";
+import { filter, forEach, get, isEmpty, last, map, set } from "lodash";
 import { PlusIcon, TrashIcon } from "@radix-ui/react-icons";
 import { useSelectedBlock } from "../../../hooks/useSelectedBlockIds";
 import { Label } from "../../../radix/components/ui/label";
@@ -16,7 +16,6 @@ const NewAttributePair = ({
   canDelete,
   onChange,
   onRemove,
-  onAdd,
 }: {
   item: { key: string; value: string };
   index: number;
@@ -24,7 +23,6 @@ const NewAttributePair = ({
   isDisabledAdd: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, i: number) => void;
   onRemove: () => void;
-  onAdd: () => void;
 }) => {
   return (
     <div className={`flex flex-col gap-1 border-gray-400 py-2 ${canDelete ? "border-b" : ""}`}>
@@ -48,26 +46,10 @@ const NewAttributePair = ({
           autoComplete="off"
           autoCapitalize="off"
         />
-        {canDelete && (
-          <TrashIcon
-            onClick={onRemove}
-            className="h-6 w-6 cursor-pointer rounded border border-red-400 p-1 text-red-400 hover:opacity-80"
-          />
-        )}
-        {!canDelete && (
-          <PlusIcon
-            strokeWidth={7}
-            onClick={() => {
-              if (isDisabledAdd) return;
-              onAdd();
-            }}
-            className={`h-6 w-6 rounded border p-1 hover:opacity-80 ${
-              isDisabledAdd
-                ? "cursor-not-allowed border-gray-400 text-gray-400"
-                : "cursor-pointer border-blue-400 text-blue-400"
-            }`}
-          />
-        )}
+        <TrashIcon
+          onClick={onRemove}
+          className="h-6 w-6 cursor-pointer rounded border border-red-400 p-1 text-red-400 hover:opacity-80"
+        />
       </div>
     </div>
   );
@@ -76,7 +58,7 @@ const NewAttributePair = ({
 export const CustomAttributes = ({ section }: any) => {
   const { setSyncState } = useSavePage();
   const block = useSelectedBlock();
-  const [attributes, setAttributes] = useState([{ key: "", value: "" }]);
+  const [attributes, setAttributes] = useState([] as Array<{ key: string; value: string }>);
   const [selectedStylingBlock] = useSelectedStylingBlocks();
   const updateBlockPropsRealtime = useUpdateBlocksPropsRealtime();
 
@@ -85,7 +67,7 @@ export const CustomAttributes = ({ section }: any) => {
   React.useEffect(() => {
     const _attributes = map(get(block, attrKey), (value, key) => ({ key, value }));
     if (!isEmpty(_attributes)) setAttributes(_attributes as any);
-    else setAttributes([{ key: "", value: "" }]);
+    else setAttributes([]);
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [get(block, attrKey)]);
@@ -128,8 +110,27 @@ export const CustomAttributes = ({ section }: any) => {
       </AccordionTrigger>
       <AccordionContent className="bg-gray-100 px-3.5 py-2">
         <div className="no-scrollbar flex min-h-[300px] flex-col gap-y-2 overflow-y-auto bg-gray-100 p-px">
-          <Label className="mt-2">Add Custom attributes</Label>
+          <Label className="mt-2 flex w-full items-center justify-between">
+            Add Custom attributes
+            <div
+              className={`flex h-6 w-max items-center justify-center gap-x-0.5 rounded-full border p-1 px-2 text-xs ${
+                !isEmpty(attributes) && isEmpty(last(attributes)?.key)
+                  ? "cursor-not-allowed border-gray-400 text-gray-400"
+                  : "cursor-pointer border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white"
+              }`}
+              onClick={() => {
+                if (!isEmpty(attributes) && isEmpty(last(attributes)?.key)) return;
+                addAttribute();
+              }}>
+              <PlusIcon width={12} height={12} /> Add
+            </div>
+          </Label>
           <div className="flex flex-col">
+            {isEmpty(attributes) && (
+              <div className="flex h-52 items-center justify-center text-sm text-gray-400">
+                Click + Add to add attributes
+              </div>
+            )}
             {React.Children.toArray(
               map(attributes, (item: { key: string; value: string }, index) => {
                 const isDisabledAdd = isEmpty(item.key) || isEmpty(item.value);
@@ -141,7 +142,6 @@ export const CustomAttributes = ({ section }: any) => {
                     isDisabledAdd={isDisabledAdd}
                     canDelete={canDelete}
                     onChange={onChange}
-                    onAdd={addAttribute}
                     onRemove={() => removeAttribute(index)}
                   />
                 );
