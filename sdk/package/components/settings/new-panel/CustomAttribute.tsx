@@ -12,7 +12,6 @@ import { useSelectedStylingBlocks } from "../../../hooks/useSelectedStylingBlock
 const NewAttributePair = ({
   item,
   index,
-  isDisabledAdd,
   canDelete,
   onChange,
   onRemove,
@@ -20,8 +19,7 @@ const NewAttributePair = ({
   item: { key: string; value: string };
   index: number;
   canDelete: boolean;
-  isDisabledAdd: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, i: number) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>, i: number) => void;
   onRemove: () => void;
 }) => {
   return (
@@ -36,8 +34,7 @@ const NewAttributePair = ({
         autoCapitalize="off"
       />
       <div className="flex items-center gap-x-1.5">
-        <textarea
-          rows={1}
+        <input
           name="value"
           onChange={(e) => (isEmpty(item.key) ? {} : onChange(e, index))}
           value={item.value}
@@ -78,7 +75,7 @@ export const CustomAttributes = ({ section }: any) => {
     updateAttributes(_attributes);
   };
 
-  const onChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, index: number) => {
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
     const _attrs: any = [...attributes];
     _attrs[index][e.target.name] = e.target.value;
     updateAttributes(_attrs);
@@ -109,7 +106,7 @@ export const CustomAttributes = ({ section }: any) => {
         </div>
       </AccordionTrigger>
       <AccordionContent className="bg-gray-100 px-3.5 py-2">
-        <div className="no-scrollbar flex min-h-[300px] flex-col gap-y-2 overflow-y-auto bg-gray-100 p-px">
+        <div className="no-scrollbar flex min-h-max flex-col gap-y-2 overflow-y-auto bg-gray-100 p-px">
           <Label className="mt-2 flex w-full items-center justify-between">
             Add Custom attributes
             <div
@@ -127,7 +124,7 @@ export const CustomAttributes = ({ section }: any) => {
           </Label>
           <div className="flex flex-col">
             {isEmpty(attributes) && (
-              <div className="flex h-52 items-center justify-center text-sm text-gray-400">
+              <div className="flex h-12 items-center justify-center text-sm text-gray-400">
                 Click + Add to add attributes
               </div>
             )}
@@ -139,7 +136,6 @@ export const CustomAttributes = ({ section }: any) => {
                   <NewAttributePair
                     item={item}
                     index={index}
-                    isDisabledAdd={isDisabledAdd}
                     canDelete={canDelete}
                     onChange={onChange}
                     onRemove={() => removeAttribute(index)}

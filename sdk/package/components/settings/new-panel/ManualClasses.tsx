@@ -85,7 +85,10 @@ export function ManualClasses() {
   };
 
   return (
-    <div className="no-scrollbar flex min-h-[300px] flex-col gap-y-5 overflow-y-auto bg-gray-100">
+    <div
+      className={`no-scrollbar flex ${
+        suggestions.length > 0 ? "min-h-[300px]" : "min-h-max"
+      } w-full flex-col gap-y-5 overflow-y-auto bg-gray-100 px-px`}>
       <Label className="mt-2">Add Tailwind classes</Label>
       <div className="relative -mt-4 flex items-center gap-x-3">
         <div className="relative flex w-full items-center gap-x-3">
@@ -116,7 +119,12 @@ export function ManualClasses() {
           <PlusIcon />
         </Button>
       </div>
-      <div className="flex flex-wrap gap-2">
+      <div className="flex w-full flex-wrap gap-2">
+        {isEmpty(classes) && (
+          <div className="flex h-10 w-full items-center justify-center text-center text-sm text-gray-400">
+            No class added
+          </div>
+        )}
         {React.Children.toArray(
           classes.map((cls: string) => (
             <div
