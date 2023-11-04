@@ -24,7 +24,6 @@ export const IframeInitialContent: string = `<!doctype html>
     .aspect-video{aspect-ratio: 16/9;}
     a{ pointer-events: none !important; }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <style id="hidden-blocks"></style>
     <style id="selected-block"></style>
     <style id="selected-styling-block"></style>
@@ -32,7 +31,5 @@ export const IframeInitialContent: string = `<!doctype html>
   </head>
   <body class="font-body antialiased h-full">
     <div class="frame-root"></div>
-    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-
   </body>
 </html>`;
