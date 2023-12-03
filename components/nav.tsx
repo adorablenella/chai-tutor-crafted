@@ -92,9 +92,9 @@ export default function Nav({ children, canUpgrade }: { canUpgrade: boolean; chi
       },
       {
         name: "Apps",
-        href: "/apps",
-        isActive: segments[0] === "apps",
+        href: "https://apps.chaibuilder.com",
         icon: <AppWindow width={18} />,
+        target: "_blank",
       },
       {
         name: "Settings",
